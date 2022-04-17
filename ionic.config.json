@@ -1,0 +1,7 @@
+{
+  "name": "telephonekhone_ssr",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
