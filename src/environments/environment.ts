@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  siteUrl : "http://localhost/",
+  defaultToken:'9x8869x31134x7906x6x54474x21x18xxx90857x'
 };
 
 /*

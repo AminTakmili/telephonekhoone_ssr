@@ -1,0 +1,17 @@
+.my-custom-menu {
+    --width: 300px;
+}
+
+.split-pane-md.split-pane-visible>.split-pane-side[side=start] {
+    min-width: 0;
+    max-width: 0;
+}
+
+.mobile-menu {
+    ion-item {
+        font-size: 14px;
+        ion-icon {
+            margin-left: 10px;
+        }
+    }
+}
