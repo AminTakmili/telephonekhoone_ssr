@@ -1,0 +1,63 @@
+.blog-side {
+    .search {
+        display: flex;
+        box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2);
+        border-radius: 11px;
+        overflow: hidden;
+        height: 47px;
+        ion-searchbar {
+            padding: 0;
+            --box-shadow: none;
+        }
+        ion-button {
+            margin: 0;
+            height: 100%;
+            --border-radius: 0 !important;
+        }
+    }
+    .news {
+        .border-box {
+            border-radius: 15px;
+            display: flex;
+            .image {
+                width: 95px;
+                height: 95px;
+                border-radius: 15px;
+                overflow: hidden;
+                flex: 0 0 95px;
+                margin-left: 10px;
+            }
+            .info {
+                flex: 1 1 auto;
+                display: flex;
+                flex-direction: column;
+                font-size: 12px;
+                justify-content: space-between;
+                .desc {
+                    height: 79px;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+}
+
+.categoriesList {
+    ion-item {
+        &.active {
+            --background: #008ba3;
+            color: #fff;
+            &:hover {
+                ion-label {
+                    color: #fff;
+                }
+            }
+        }
+        cursor: pointer;
+        &:hover {
+            &:not(.active) {
+                --background: #ececec;
+            }
+        }
+    }
+}

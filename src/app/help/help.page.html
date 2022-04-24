@@ -1,0 +1,23 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title> راهنما </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div class="myPage">
+        <div>
+            <app-header type="relative"></app-header>
+            <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+            <div class="container">
+                <h3 class="ion-margin-horizontal"> راهنمای استفاده از تلفن خونه </h3>
+                <ion-card mode="ios" class="ion-padding" [innerHtml]="content"></ion-card>
+            </div>
+        </div>
+
+        <app-footer></app-footer>
+    </div>
+
+</ion-content>

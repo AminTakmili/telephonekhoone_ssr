@@ -1,0 +1,25 @@
+.surveyModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.rateStatus {
+    margin-bottom: 15px;
+    font-weight: bold;
+    &.status-1,
+    &.status-2 {
+        color: #a00;
+    }
+    &.status-3 {
+        color: #d89f21;
+    }
+    &.status-4 {
+        color: #0b660e;
+    }
+    &.status-5 {
+        color: #1aaa00;
+    }
+}

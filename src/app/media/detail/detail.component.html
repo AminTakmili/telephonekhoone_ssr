@@ -1,0 +1,101 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/media']">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> جزئیات رسانه </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div class="content">
+        <section class="media-show pb-50 pt-15">
+            <app-header type="relative"></app-header>
+            <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+            <div class="container" *ngIf="!loading">
+                <ion-grid class="box-shadow no-scroll w-100 p-10 pb-20">
+                    <ion-row class="w-100">
+                        <ion-col size-lg="4" size="12">
+                            <div class="border-box w-100 mediaSide">
+                                <div class="disc w-100">
+                                    <p class="text-bold">{{ mediaDetail?.title }}</p>
+                                </div>
+                                <ion-item class="w-100 user-details" lines="none">
+                                    <ion-thumbnail slot="start">
+                                        <img class="img-cover" [src]="mediaDetail?.consultant.image.options.subSizes.thumbnail ? mediaDetail?.consultant.image.options.subSizes.thumbnail : mediaDetail?.consultant.image.path" alt="" />
+                                    </ion-thumbnail>
+                                    <ion-label class="w-100 ion-justify-content-between">
+                                        <div class="flex-column">
+                                            <span class="name font-size-14">{{
+												mediaDetail?.consultant.fullName
+												}}</span>
+                                        </div>
+                                    </ion-label>
+                                </ion-item>
+                                <ion-button [attr.disabled]="payLoading" *ngIf="!mediaDetail?.paid" (click)="getMediaFile()" class="shadow-clear buyBtn" expand="block" [color]="'primary'">
+                                    <ng-template [ngIf]="!payLoading">
+                                        <ion-label> دریافت رسانه </ion-label>
+                                        <span class="pr-15 mr-15" *ngIf="mediaDetail?.price > 0 ">
+											{{ mediaDetail?.price | number }} تومان
+										</span>
+                                        <span class="pr-15 mr-15" *ngIf="mediaDetail?.price == 0 ">رایگان</span>
+                                    </ng-template>
+                                    <ng-template [ngIf]="payLoading">
+                                        <ion-spinner name="dots"></ion-spinner>
+                                    </ng-template>
+                                </ion-button>
+                                <ion-button [attr.disabled]="true" *ngIf="mediaDetail?.paid" class="shadow-clear buyBtn" expand="block" color="success">
+                                    پرداخت شده
+                                </ion-button>
+                            </div>
+                        </ion-col>
+                        <ion-col size-lg="8" class="pr-20">
+                            <div class="media-desc w-100 p-0">
+                                <h3 class="title title-type-one">
+                                    <span> پیش نمایش </span>
+                                </h3>
+                                <ng-template ngFor let-i="index" let-mediaItem [ngForOf]="mediaDetail?.media">
+                                    <div class="image" *ngIf="mediaItem.name === 'preview' && mediaDetail?.type === 'video'">
+                                        <video controls>
+											<source [src]="mediaItem.path">
+										</video>
+                                    </div>
+                                    <div class="podcast" *ngIf="mediaItem.name === 'preview' && mediaDetail?.type === 'voice'">
+                                        <audio controls>
+											<source [src]="mediaItem.path">
+										</audio>
+                                    </div>
+                                </ng-template>
+
+                                <ng-template [ngIf]="mediaDetail?.paid">
+                                    <h3 class="title title-type-one">
+                                        <span> رسانه اصلی </span>
+                                    </h3>
+                                    <ng-template ngFor let-i="index" let-mediaItem [ngForOf]="mediaDetail?.media">
+                                        <div class="image" *ngIf="mediaItem.name === 'video'">
+                                            <video controls>
+												<source [src]="mediaItem.path">
+											</video>
+                                        </div>
+                                        <div class="podcast" *ngIf="mediaItem.name === 'voice'">
+                                            <audio controls>
+												<source [src]="mediaItem.path">
+											</audio>
+                                        </div>
+                                    </ng-template>
+                                </ng-template>
+
+                                <h3 class="title title-type-one">
+                                    <span>درباره {{ mediaDetail?.title }} </span>
+                                </h3>
+                                <p class="desc">{{ mediaDetail?.description }}</p>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </section>
+        <app-footer></app-footer>
+    </div>
+</ion-content>

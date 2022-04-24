@@ -1,0 +1,64 @@
+@import "src/theme/mixins";
+.conversation-side {
+    @include breakpoint(md-up) {
+        height: 500px;
+    }
+    @include breakpoint(md-down) {
+        height: 100%;
+        padding-bottom: 80px;
+    }
+    overflow-y: auto;
+    border-left: 1px solid #d3d3d3;
+    direction: ltr;
+    &>* {
+        direction: rtl;
+    }
+    ion-chip {
+        border-radius: 5px;
+        font-size: 11px;
+        padding: 0px 10px;
+        height: 22px;
+    }
+    ion-list {
+        padding: 10px 15px;
+    }
+    ion-item {
+        --background: transparent;
+    }
+    .active {
+        background: #f2f2f2;
+    }
+    /* width */
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: var(--color-white);
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: var(--ion-color-secondary);
+    }
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: var(--ion-color-primary);
+    }
+    .date {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .chat-avatar {
+        margin-left: 10px;
+        --border-radius: 10px;
+    }
+}
+
+.loadMoreBtn {
+    width: 100%;
+    min-height: 45px;
+}

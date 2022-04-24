@@ -1,0 +1,443 @@
+// @import "~src/theme/extends";
+@import "/src/theme/extends";
+// @import "fonts";
+body {
+    margin: 0;
+    font-size: 14px;
+    color: var(--color-font);
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    line-height: 25px;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.dir-ltr {
+    direction: ltr;
+}
+
+ion-item.item:hover label {
+    background-color: transparent;
+}
+
+.container {
+    width: 1300px;
+    margin: 0 auto;
+    @include breakpoint(xl-down) {
+        width: 100%;
+        padding: 0 15px;
+    }
+    margin: 0 auto;
+}
+
+.gray-600 {
+    color: var(--color-gray-600) !important;
+}
+
+hr {
+    width: 100%;
+    background: var(--color-gray-600) !important;
+}
+
+.gray-850 {
+    color: var(--color-gray-850) !important;
+}
+
+.gray-title {
+    color: var(--color-gray-title) !important;
+}
+
+.gray-light {
+    color: var(--color-gray-light);
+}
+
+.color-white {
+    color: var(--color-white);
+}
+
+li,
+div {
+    outline: 0 !important;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.overflow-visible {
+    overflow: visible;
+}
+
+.overflow-hidden {
+    overflow: hidden !important;
+}
+
+ion-icon {
+    outline: none;
+}
+
+.d-block {
+    display: block;
+}
+
+.item-clear {
+    background-color: transparent !important;
+    box-shadow: none;
+}
+
+.shadow-clear {
+    box-shadow: none;
+    --box-shadow: none;
+    outline: none;
+}
+
+.online-badge {
+    display: block;
+    width: 22px;
+    height: 23px;
+    position: absolute;
+    bottom: 5px;
+    background-color: var(--ion-color-success);
+    border-radius: 50%;
+}
+
+.modal-style1 {
+    .modal-wrapper {
+        @include breakpoint(md-down) {
+            width: 90%;
+        }
+        width: 494px;
+        height: 296px;
+        border-radius: 10px;
+        box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.1);
+    }
+}
+
+.sep-border {
+    border-right: 2px solid var(--color-gray-850);
+    padding-right: 7px;
+    margin-right: 7px;
+}
+
+.img-contain {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center;
+    display: block;
+}
+
+.img-abs {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+}
+
+.img-cover {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center;
+    display: block;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.text-overflow {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ngx-pagination {
+    padding-left: 0px !important;
+    li {
+        a {
+            padding: 0.1875rem 0.625rem;
+            background: #efefef;
+            color: var(--color-gray-600);
+            border-radius: 5px;
+            margin: 0 5px;
+            outline: 0;
+            box-shadow: none;
+        }
+    }
+}
+
+.ngx-pagination .current,
+.btn-info {
+    background: var(--ion-color-secondary) !important;
+    border: transparent !important;
+    border-radius: 5px !important;
+}
+
+.ngx-pagination .current:hover {
+    background: var(--ion-color-secondary) !important;
+    border-radius: 5px !important;
+    border: transparent !important;
+}
+
+// .form-search-box {
+//     width: 600px;
+//     display: flex;
+//     flex-direction: row;
+//     margin: 0 auto;
+//     margin-top: 50px;
+//     box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2);
+//     border-radius: 5px;
+//     label {
+//         flex: 0 0 450px;
+//         input {
+//             height: 60px;
+//             display: block;
+//             width: 100%;
+//             border-radius: 0 5px 5px 0;
+//             border: none;
+//             text-indent: 10px;
+//             outline: none;
+//         }
+//     }
+//     button {
+//         height: 60px;
+//         flex: 1 1 auto;
+//         border-radius: 5px 0 0 5px;
+//         background-color: var(--ion-color-primary);
+//         color: var(--color-white);
+//         outline: none;
+//     }
+// }
+.user-details {
+    --padding-bottom: 0;
+    --padding-end: 0;
+    --padding-start: 0;
+    --padding-top: 0;
+    ion-label {
+        display: flex !important;
+        flex-direction: column;
+    }
+    ion-thumbnail {
+        border-radius: 50%;
+        overflow: hidden;
+        width: 50px;
+        height: 50px;
+        @include breakpoint(lg-down) {
+            margin-left: 10px;
+        }
+    }
+}
+
+.galleryThumbs {
+    .swiper-slide {
+        width: auto !important;
+        padding: 14px 12px;
+        color: var(--ion-white-1);
+        font-size: 14px;
+        border-bottom: 2px solid transparent;
+        &.activeIndex {
+            color: var(--ion-theme-2);
+            border-color: var(--ion-theme-2);
+        }
+    }
+}
+
+.more-title {
+    @include breakpoint(lg-down) {
+        font-size: 16px;
+    }
+}
+
+.title {
+    &.title-type-one {
+        @include breakpoint(lg-down) {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        position: relative;
+        margin-right: 20px;
+        span {
+            position: relative;
+            z-index: 1;
+        }
+        &:before {
+            position: absolute;
+            content: "";
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--ion-color-primary);
+            z-index: 0;
+            opacity: 0.15;
+            top: -10px;
+            right: -13px;
+        }
+        @include breakpoint(lg-down) {
+            margin-right: 15px;
+            margin-top: 15px;
+            font-size: 16px;
+            &:before {
+                width: 35px;
+                height: 35px;
+                transform: translateY(-5px) translateX(9px);
+            }
+        }
+    }
+    &.title-type-two {
+        position: relative;
+        margin-right: 26px;
+        span {
+            font-size: 16px;
+            margin: 0;
+        }
+        &:before {
+            position: absolute;
+            content: "";
+            width: 35px;
+            height: 2px;
+            background-color: var(--ion-color-primary);
+            z-index: 0;
+            opacity: 0.4;
+            transform: translateY(16px) translateX(46px);
+        }
+    }
+}
+
+.box-shadow {
+    @extend %scroll-style;
+    &:not(.no-scroll) {
+        direction: ltr;
+        &>* {
+            direction: rtl;
+        }
+        @include breakpoint(lg-up) {
+            max-height: 420px;
+            overflow-y: auto;
+        }
+    }
+    &:not(.no-flex) {
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    background-color: var(--color-white);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.09);
+}
+
+.border-box {
+    border: 1px solid var(--color-gray-850);
+    border-radius: 9px;
+    @include breakpoint(lg-down) {
+        font-size: 14px;
+        padding-right: 9px;
+    }
+}
+
+.border-header {
+    border: 1px solid var(--color-gray-600);
+    border-radius: 8px;
+    position: relative;
+    overflow: visible;
+    h6 {
+        position: absolute;
+        background-color: var(--color-white);
+        color: var(--color-gray-600);
+        top: -24px;
+        padding: 0 10px;
+        right: 9px;
+        font-size: 12px;
+    }
+}
+
+.galleryModal {
+    .modal-wrapper {
+        width: 100%;
+        height: 100%;
+        box-shadow: 0 0 black;
+        background: transparent;
+        border-radius: 0 !important;
+    }
+}
+
+.profile-empty {
+    padding: 45px 0;
+    .bigIcon {
+        font-size: 100px;
+        opacity: 0.5;
+        color: var(--ion-color-primary);
+    }
+    .btn {
+        --padding-start: 25px;
+        --padding-end: 25px;
+        --border-radius: 8px;
+    }
+}
+
+.btn-style-1 {
+    height: 44px;
+    --border-radius: 10px;
+    --box-shadow: 0;
+}
+
+.profile-items {
+    overflow: hidden;
+    @include breakpoint(md-up) {
+        padding: 0 12px;
+    }
+    ion-list {
+        padding: 0 !important;
+    }
+    ion-thumbnail {
+        // width: 85px;
+        // height: 85px;
+        overflow: hidden;
+        border-radius: 15px;
+        margin: 12px 0px 12px 12px;
+    }
+    ion-item:last-child {
+        --border-style: unset;
+    }
+}
+
+.leaflet-control-attribution.leaflet-control {
+
+    a,span{
+        display: none;
+    }
+
+}

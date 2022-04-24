@@ -1,0 +1,24 @@
+@import "~src/theme/extends";
+#about {
+    // background-image: url(/assets/img/Path2.svg);
+    // background-position: 1014px 9px;
+    // background-repeat: no-repeat;
+    // background-size: 64% 100%;
+    .image {
+        width: 465px;
+        margin: auto;
+        @include breakpoint(lg-down) {
+            width: 100%;
+        }
+    }
+}
+
+.aboutText {
+    line-height: 30px;
+}
+
+.flex-sm-column-reverse {
+	@include breakpoint(lg-down) {
+		flex-direction: column-reverse;
+	}
+}

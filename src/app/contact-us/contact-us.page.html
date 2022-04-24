@@ -1,0 +1,74 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title> تماس با ما </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content data-tap-disabled="true">
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <section id="contact-us" class="pb-40">
+        <div class="container">
+            <ion-grid>
+                <ion-row class="ion-align-items-center flex-sm-column-reverse">
+                    <ion-col size-lg="6" size="12">
+                        <ion-text color="primary" class="ion-hide-lg-down">
+                            <h2 class="mb-30">تماس با ما</h2>
+                        </ion-text>
+                        <p class="gray-600 ion-text-justify">
+                            {{ description }}
+                        </p>
+                        <ul class="contact-info">
+                            <li *ngFor="let item of tels">
+                                <div class="icon">
+                                    <ion-icon name="call"></ion-icon>
+                                </div>
+                                <p class="label">{{ item.title }} : {{ item.value }}</p>
+                            </li>
+                            <li *ngFor="let item of addresses">
+                                <div class="icon">
+                                    <ion-icon name="location"></ion-icon>
+                                </div>
+                                <p class="label">{{ item.title }} : {{ item.value }}</p>
+                            </li>
+                            <li *ngFor="let item of mails">
+                                <div class="icon">
+                                    <ion-icon name="mail"></ion-icon>
+                                </div>
+                                <p class="label">{{ item.title }} : {{ item.value }}</p>
+                            </li>
+                        </ul>
+                        <ng-template [ngIf]="socials.length !== 0">
+                            <p class="gray-600 ion-text-justify my-30 font-size-18">
+                                ما را در شبکه های اجتماعی دنبال کنید
+                            </p>
+                            <ul class="social-icons">
+                                <li *ngFor="let item of socials">
+                                    <a [href]="item.value">
+                                        <i class="fab" [class.fa-facebook-f]="item.type == 'facebook'" [class.fa-twitter]="item.type == 'twitter'" [class.fa-instagram]="item.type == 'instagram'" [class.fa-youtube]="item.type == 'youtube'" [class.fa-telegram]="item.type == 'telegram'" [class.fa-whatsapp]="item.type == 'whatsapp'"></i>
+                                        <span>
+											{{ item.title }}
+										</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </ng-template>
+
+                    </ion-col>
+                    <ion-col size-lg="6" size="12" class="pr-md-40 pr-0">
+                           <div class="map-contact shadow-clear radius-8">
+                             <!-- (leafletMapReady)="onMapReady($event)"  -->
+                             <!-- [leafletOptions]="options"  -->
+                            <!-- <div id="map" class=""></div> -->
+                            <div id="map" class="h-100 mt-5 mt-lg-0 radius-8" #map leaflet></div>
+     
+                           </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

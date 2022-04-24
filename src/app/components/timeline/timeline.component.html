@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            رزرو نوبت
+        </ion-title>
+        <ion-buttons slot="start">
+            <ion-button (click)="dismiss()">
+                <ion-icon name="close" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list *ngIf="timeLine.length !== 0">
+        <ion-item lines="full" (click)="reserveItem(item)" *ngFor="let item of timeLine">
+            <ion-label slot="start">
+                {{ item.reserve_day }} از {{ item.from }} تا {{ item.to }}
+            </ion-label>
+            <ion-chip slot="end" color="primary">
+                رزرو نوبت
+            </ion-chip>
+        </ion-item>
+    </ion-list>
+
+    <div class="notFound" *ngIf="timeLine.length === 0">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <p>
+            متاسفانه موردی یافت نشد
+        </p>
+    </div>
+</ion-content>

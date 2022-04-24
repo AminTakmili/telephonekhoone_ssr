@@ -1,0 +1,56 @@
+<footer class="ion-hide-lg-down">
+    <div id="footer">
+        <div class="container">
+            <ion-grid>
+                <ion-row>
+                    <ion-col size-lg="3" size="12" class="flex-column-center-start">
+                        <a class="logo">
+                            <ion-img src="./assets/img/header-logo.png" alt="لگو تلفن خونه"></ion-img>
+                        </a>
+                        <ul class="footer-icons flex-row-center-center">
+                            <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href=""><i class="fab fa-twitter"></i></a></li>
+                            <li><a href=""><i class="fab fa-instagram"></i></a></li>
+                        </ul>
+                    </ion-col>
+                    <ion-col size-lg="3" size="12">
+                        <h6>خدمات تلفن خونه</h6>
+                        <ul class="footer-list">
+                            <li routerLink="/categories">مشاوره تلفنی و متنی</li>
+                            <li routerLink="/webinar">وبینار ها</li>
+                            <li routerLink="/media">رسانه</li>
+                        </ul>
+                    </ion-col>
+                    <ion-col size-lg="3" size="12">
+                        <h6>صفحات تلفن خونه</h6>
+                        <ul class="footer-list">
+                            <li [routerLink]="['/sign-up']" *ngIf="!global.getLogin().value && global.getUrl().sections[1] != 'login'">ثبت نام مشاور</li>
+                            <li [routerLink]="['/about']">درباره ما</li>
+                            <li [routerLink]="['/contact-us']">تماس با ما</li>
+                            <li routerLink="/blog">وبلاگ</li>
+                            <li routerLink="/rules">قوانین و مقررات</li>
+                        </ul>
+                    </ion-col>
+                    <ion-col size-lg="3" size="12">
+                        <h6>نماد ها و نشان ها</h6>
+                        <!-- <div class="footer-rights flex-row-center-center" [innerHtml]="enamad">
+                           
+                        </div> -->
+                        <div class="footer-rights d-flex">
+                            <a class="image" href="https://trustseal.enamad.ir/?id=123667&Code=md3CqUdpgBtsbAymqxPa" target="_blank">
+                                <ion-img src="./assets/img/enamad.png" alt=""></ion-img>
+                            </a>
+                        </div>
+
+                    </ion-col>
+                    <ion-col size="12">
+                        <div class="powerBy w-100 flex-row-center-center">
+                            <p class="gray-600">تمامی حقوق مادی و معنوی وبسایت متعلق به <span class="atriatech"> تلفن
+									خونه</span> میباشد </p>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </div>
+</footer>

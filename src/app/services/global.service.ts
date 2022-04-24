@@ -35,6 +35,8 @@ export class GlobalService {
 	enamad = new BehaviorSubject<string>('');
 	pltfrm: string;
 	isBrowser: boolean;
+	public loading: any;
+	// private loading: Promise<HTMLIonLoadingElement>;
 	backUrl = 'https://telephonkhoneh.com/payment';
 	// https://telephonkhoneh.com/payment
 	siteUrl = environment.siteUrl;
@@ -44,7 +46,6 @@ export class GlobalService {
 	userType = new BehaviorSubject<string>( null /*localStorage.getItem('userType')*/ );
 	login = false ; /* JSON.parse(localStorage.getItem('isLogin')) */ 
 	private _login = new BehaviorSubject<boolean>(this.login);
-	private loading: Promise<HTMLIonLoadingElement>;
 	private baseUrl = 'https://app.telephonkhoneh.com/api/';
 	private imgUrl = 'https://app.telephonkhoneh.com/';
 	pageLocation = '';
@@ -65,13 +66,15 @@ export class GlobalService {
 		private navCtrl: NavController,
 		private deviceService: DeviceDetectorService,
 		private storageService: StorageService,
+		// private loadingController: LoadingController,
+
 		@Inject(PLATFORM_ID) private platformId,
 
 		
 	) {
 		this.isBrowser = isPlatformBrowser(this.platformId);
 		this.storageService.set('myname','amin')
-		// console.log("emad is browser",this.isBrowser);
+		// console.log("emad is browser",this.isBrowser,this.platformId);
 		this.pltfrm = this.platform.platforms()[0];
 		this.router.events.subscribe((ev) => {
 			if (ev instanceof NavigationEnd) {
@@ -105,6 +108,31 @@ export class GlobalService {
 			this.token = val ;
 		});
 	}
+
+
+	SSRsetTimeout(callback: (...args: any[]) => void, ms: number,...args: any[]){
+		if (this.isBrowser) {	
+			setTimeout(callback, ms,...args);
+		}
+	};
+	SSRclearTimeout(timeoutId: any): void{
+		if (this.isBrowser) {	
+		clearTimeout(timeoutId)
+		}
+	};
+
+	SSRsetInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]){
+		if (this.isBrowser) {	
+			setInterval(callback, ms,...args);
+		}
+	};
+	SSRclearInterval(intervalId: any): void{
+		if (this.isBrowser) {	
+		clearInterval(intervalId)
+		}
+	};
+
+
 	getPrices() {
 		this.storageService.get('prices').then((val) => {
 			// const price = JSON.parse(val);
@@ -112,8 +140,6 @@ export class GlobalService {
 			return price;
 		});
 	}
-
-
 	setEnamad(data) {
 		this.storageService.set('enamad', data);
 		this.enamad.next(data);
@@ -236,28 +262,52 @@ export class GlobalService {
 		}
 	}
 
-	showLoading(text: string = 'درحال بارگذاری ...') {
-		this.loading = this.loadingController.create({
-			message: text,
-		});
-		return this.loading;
+	// showLoading(text: string = 'درحال بارگذاری ...') {
+	// 	if (this.isBrowser) {
+	// 		this.loading = this.loadingController.create({
+	// 			message: text,
+	// 		});
+	// 		return this.loading;
+			
+	// 	}
+	// 	return null
+	// }
+	
+	async showLoading(text: string = 'لطفا منتظر بمانید...') {
+		if (this.isBrowser) {
+			this.loading = await this.loadingController.create({
+				message: text
+			});
+			await this.loading.present();
+
+		}
+
+	}
+
+	async dismisLoading() {
+		if (this.isBrowser) {
+			await this.loading.dismiss();
+		}
 	}
 
 	justNumber(event: any) {
 		const pattern = /[0-9]/;
 		let inputChar = String.fromCharCode(event.charCode);
-
 		if (!pattern.test(inputChar)) {
 			// invalid character, prevent input
 			event.preventDefault();
 		}
 	}
 
-	dismisLoading() {
-		this.loading.then((loading) => {
-			loading.dismiss();
-		});
-	}
+	// dismisLoading() {
+	// 	if (this.isBrowser) {
+
+	// 		this.loading.then((loading) => {
+	// 			loading.dismiss();
+	// 		});
+	// 	}
+	// 	return null
+	// }
 
 	showAlert(
 		header: string,
@@ -266,13 +316,16 @@ export class GlobalService {
 		inputs?: AlertInput[],
 		cssClass?: string
 	): Promise<any> {
-		return this.alertController.create({
-			header,
-			message,
-			buttons,
-			inputs,
-			cssClass,
-		});
+		if (this.isBrowser) {
+			return this.alertController.create({
+				header,
+				message,
+				buttons,
+				inputs,
+				cssClass,
+			});
+
+		}
 	}
 
 	async showToast(
@@ -281,16 +334,18 @@ export class GlobalService {
 		position: 'top' | 'bottom' | 'middle',
 		color?: string
 	) {
-		try {
-			this.globalToast.dismiss();
-		} catch (e) { }
-		this.globalToast = await this.toastController.create({
-			message,
-			duration,
-			position,
-			color,
-		});
-		this.globalToast.present();
+		if (this.isBrowser) {
+			try {
+				this.globalToast.dismiss();
+			} catch (e) { }
+			this.globalToast = await this.toastController.create({
+				message,
+				duration,
+				position,
+				color,
+			});
+			this.globalToast.present();
+		}
 	}
 
 	getUserDevice() {

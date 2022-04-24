@@ -1,0 +1,128 @@
+ion-content {
+    --background: rgb(0 0 0 / 70%);
+}
+
+ion-grid,
+ion-row {
+    height: 100%;
+}
+
+.mainSlider {
+    width: 100%;
+    height: 100%;
+    ion-slides {
+        height: 100%;
+        width: 100%;
+    }
+    .slideItem {
+        height: 100%;
+        // ion-img {
+        //     cursor: move;
+        //     height: 100%;
+        //     width: 100%;
+        //     object-fit: contain;
+        //     position: relative;
+        //     z-index: 99;
+        // }
+        ion-img {
+            position: relative;
+            z-index: 99;
+            min-height: 256px;
+            min-width: 256px;
+            &::after {
+                content: "در حال بارگیری تصویر";
+                position: absolute;
+                right: 0;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                visibility: hidden;
+                background-color: rgba(255, 255, 255, 0.8);
+            }
+            &.loading {
+                &::after {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+    .swiper-slide-zoomed {
+        .slideItem {
+            position: relative !important;
+            z-index: 999 !important;
+        }
+    }
+}
+
+ion-backdrop {
+    cursor: auto;
+    background-color: transparent;
+}
+
+.thumbnailSlider {
+    display: flex;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    overflow-x: auto;
+    &:after {
+        content: "";
+        display: block;
+        flex: 0 0 1px;
+        width: 1px;
+        height: 1px;
+    }
+    .thumItem {
+        &:after {
+            content: "";
+            display: block;
+            flex: 0 0 1px;
+            width: 1px;
+            height: 1px;
+        }
+        flex: 0 0 100px;
+        &.active {
+            border: 2px solid #16cf6a;
+        }
+        margin: 0 10px;
+        border-radius: 10px;
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        ion-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .thumbnailSlider {
+        margin: 0 10%;
+    }
+    // .mainSlider {
+    //     height: 75%;
+    //     padding: 20px;
+    // }
+}
+
+.slides {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+ion-buttons {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 999;
+}

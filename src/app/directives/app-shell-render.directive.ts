@@ -15,22 +15,25 @@ export class AppShellRenderDirective implements OnInit{
 
         ){
 
+             
     }
 
      ngOnInit(){
+        
         if(isPlatformServer(this.platformId)){
             this.viewContainer.createEmbeddedView(this.templateRef);
         }
         else{
-            this.viewContainer.clear();
-            this.loadingService.containerLoading.subscribe((x)=>{
+            this.viewContainer.createEmbeddedView(this.templateRef);
+            // this.viewContainer.clear();
+            // this.loadingService.containerLoading.subscribe((x)=>{
               
-                if(x){
-                    this.viewContainer.createEmbeddedView(this.templateRef);
-                }else{
-                    this.viewContainer.clear();
-                }
-            });
+            //     if(x){
+            //         this.viewContainer.createEmbeddedView(this.templateRef);
+            //     }else{
+            //         this.viewContainer.clear();
+            //     }
+            // });
         }
 
        

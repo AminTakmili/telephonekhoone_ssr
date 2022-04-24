@@ -43,9 +43,18 @@ export class AppComponent {
 		private appRef: ApplicationRef,
 		private responsiveService: ResponsiveService
 	) {
+		if (this.global.isBrowser) {
+			this.updateClient();
+
+		}
+		// console.log(this.update);
+		// console.log(this.update.isEnabled);
+		// this.update.available.subscribe((event) => {
+		// 	console.log(event);
+		// });
+
 		
 		this.initializeApp();
-		this.updateClient();
 		this.checkUpdate();
 		this.router.events.subscribe((ev) => {
 			if (ev instanceof NavigationEnd) {

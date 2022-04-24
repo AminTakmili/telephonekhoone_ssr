@@ -1,0 +1,35 @@
+<nav id="profile-header" class="ion-hide-lg-down">
+
+    <div class="container">
+        <ul class="d-flex ion-justify-content-center">
+            <li class="flex-column ion-align-items-center item" [routerLink]="['/profile/editinfo']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
+				<ion-icon name="person-outline" class="font-size-25 mb-10"></ion-icon>
+                <span>اطلاعات فردی</span>
+            </li>
+            <li class="flex-column ion-align-items-center item" [routerLink]="['/profile/reservation']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
+				<ion-icon name="calendar-outline" class="font-size-25 mb-10"></ion-icon>
+                <span>وقت های رزرو شده</span>
+            </li>
+            <li class="flex-column ion-align-items-center item" [routerLink]="['/profile/wallet']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
+				<ion-icon name="wallet-outline" class="font-size-25 mb-10"></ion-icon>
+                <span>افزایش موجودی</span>
+            </li>
+            <li class="flex-column ion-align-items-center item" [routerLink]="['/profile/mycalls']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
+				<ion-icon name="call-outline" class="font-size-25 mb-10"></ion-icon>
+                <span>مکالمات من</span>
+            </li>
+			<li class="flex-column ion-align-items-center item" [routerLink]="['/profile/transactions']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
+				<ion-icon name="card-outline" class="font-size-25 mb-10"></ion-icon>
+                <span>تراکنش ها</span>
+            </li>
+            <li class="flex-column ion-align-items-center item" [routerLink]="['/profile/favourites']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
+				<ion-icon name="heart-outline" class="font-size-25 mb-10"></ion-icon>
+                <span>علاقمندی ها</span>
+            </li>
+            <li class="flex-column ion-align-items-center item" [routerLink]="['/profile/tickets']" routerLinkActive="active">
+				<ion-icon name="chatbubbles-outline" class="font-size-25 mb-10"></ion-icon>
+                <span> پشتیبانی</span>
+            </li>
+        </ul>
+    </div>
+</nav>

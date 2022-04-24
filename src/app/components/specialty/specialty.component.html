@@ -1,0 +1,36 @@
+<div class="specialty w-100 px-30">
+    <ion-text color="primary" class="text-center">
+        <p class="ion-text-center font-size-20 my-30">ثبت تخصص</p>
+    </ion-text>
+    <ion-text *ngIf="showError && this.childCategory.value?.length == 0" color="danger" class="errorText">
+        انتخاب <span *ngIf="!selectedCategory">تخصص و</span> دسته بندی فعالیت ضروری است
+    </ion-text>
+    <form action="">
+        <ion-grid>
+            <ion-row class="ion-justify-content-between">
+                <ion-col size="12">
+                    <ion-select [value]="selectedCategory?.id" #parentCategory interface="popover" placeholder="لطفا تخصص را انتخاب کنید" class="w-100 border-box px-15 py-10 mb-20" (ionChange)="changeCat(parentCategory)">
+                        <ion-select-option *ngFor="let item of categories" [value]="item.id">{{ item.name }}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-select [interfaceOptions]="alertInterFace" multiple="true" [disabled]="!selectedCategory" #childCategory placeholder="دسته بندی" class="w-100 px-15 py-10 mb-10 border-box" cancelText="لغو" okText="تایید" [value]="selectedChildes">
+                        <ng-template [ngIf]="selectedCategory">
+                            <ion-select-option *ngFor="let item of selectedCategory.children" [value]="item.id">{{ item.name }} ({{ item.percent }}% کمیسیون)</ion-select-option>
+                        </ng-template>
+                    </ion-select>
+                </ion-col>
+
+                <ion-col size="3">
+                    <ion-button (click)="confirm()" expand="block" color="primary" class="btn-style1 shadow-clear">تایید
+                    </ion-button>
+                </ion-col>
+                <ion-col size="3">
+                    <ion-button (click)="cancle()" expand="block" color="medium" fill="clear" class="btn-style1">لغو
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</div>

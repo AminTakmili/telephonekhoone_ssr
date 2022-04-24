@@ -1,0 +1,65 @@
+<div class="blog-side">
+    <h3 class="font-size-18 mb-20 mt-0">جست و جو</h3>
+    <div class="search">
+        <ion-searchbar #search placeholder="جست و جو..." search-icon="“undefined”" mode="md"></ion-searchbar>
+        <ion-button color="secondary">
+            <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+        </ion-button>
+    </div>
+    <!-- <ul class="search-words d-flex gray-light">
+    <li class="ml-10">#پزشکی</li>
+    <li class="ml-10">#پزشکی</li>
+    <li class="ml-10">#پزشکی</li>
+  </ul> -->
+    <h3 *ngIf="data?.latest && data.latest?.length != 0" class="font-size-18 mb-20 mt-30">
+        آخرین مطالب
+    </h3>
+    <ul class="news">
+        <ng-template [ngIf]="!_loading && data.latest?.length != 0">
+            <li [routerLink]="['/blog/' + items.id]" class="border-box cursor-pointer p-10 mb-10" *ngFor="let items of data.latest">
+                <div class="image">
+                    <img *ngIf="items.media" class="img-cover" src="{{ items.media }}" alt="{{ items.title }}" />
+                    <img *ngIf="!items.media" class="img-cover" src="assets/img/no-image.jpg" alt="no image found" />
+                </div>
+                <div class="info">
+                    <p class="desc">
+                        {{ items.title }}
+                    </p>
+                    <span class="date font-size-10 gray-light">{{
+						items.created_at
+						}}</span>
+                </div>
+            </li>
+        </ng-template>
+        <ng-template [ngIf]="_loading"  *appShellNoRender>
+            <li class="border-box cursor-pointer p-10 mb-10" *ngFor="let dummy of ' '.repeat(4).split(''); let i = index">
+                <div class="image">
+                    <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+                </div>
+                <div class="info">
+                    <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+                    <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+                    <!-- <p class="desc">
+          
+        </p> -->
+                    <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+                </div>
+            </li>
+        </ng-template>
+    </ul>
+    <ng-template [ngIf]="!_loading">
+        <h3 class="font-size-18 mb-20 mt-30">دسته بندی مطالب</h3>
+        <ion-card color="header" class="ion-no-padding ion-no-margin border-box item-clear ion-rounded-0 py-0">
+            <ion-list class="ion-no-padding font-size-12 categoriesList">
+                <ion-item [routerLink]="isBlog ?['/blog/categories' , items.id] : ['/webinar/categories' , items.id]" routerLinkActive="active" [lines]="data.categories.length - 1 == i ? 'none' : 'full'" *ngFor="let items of data.categories; let i = index;">
+                    <ion-label slot="start">
+                        <p>{{ items.name }}</p>
+                    </ion-label>
+                    <ion-label class="ion-text-end">
+                        <span>{{ items.entity_count }}</span>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        </ion-card>
+    </ng-template>
+</div>

@@ -1,0 +1,208 @@
+<header [class.type-absolute]="type === 'absolute'" [class.type-relative]="type === 'relative'" class="ion-hide-lg-down">
+    <nav>
+        <div class="container">
+            <div class="home-navigation">
+                <div class="right">
+                    <a class="logo" [routerLink]="['/']">
+                        <ion-img src="./assets/img/header-logo.png" alt="تلفن خونه"></ion-img>
+                    </a>
+                    <ul class="menu-item">
+                        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            <a [routerLink]="['/']" routerDirection="root">خانه</a>
+                        </li>
+
+                        <!-- <li><a>دانلود اپلیکیشن</a></li> -->
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['/categories']" routerDirection="root">دسته بندی مشاوره ها</a>
+                        </li>
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['/webinar']" routerDirection="root">وبینار </a>
+                        </li>
+                        <!-- <li><a>مشاوره آنلاین</a></li> -->
+                        <!-- <li><a>لیست مشاورین</a></li> -->
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['/blog']" routerDirection="root">وبلاگ</a>
+                        </li>
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['/media']" routerDirection="root">رسانه ها</a>
+                        </li>
+
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['/help']" routerDirection="root">راهنما</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="left" *ngIf="this.global.getUrl().sections[1] != 'sign-up'">
+                    <div class="nologin-btn" *ngIf="
+            			!this.global.getLogin().value &&
+            			this.global.getUrl().sections[1] != 'login'
+            		">
+                        <ion-button (click)="global.showLogin()" color="primary" size="sm" shape="round">
+                            <ion-ripple-effect></ion-ripple-effect>
+                            <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+                            <ion-label> ورود / ثبت نام</ion-label>
+                        </ion-button>
+                    </div>
+                    <div class="islogin-btn d-flex" *ngIf="this.global.getLogin().value && this.global.getUserInfo().name">
+                        <div class="only-icon">
+                            <ion-button [routerLink]="['/conversation']" slot="icon-only" expand="block" fill="clear" class="gray-600 shadow-clear font-size-14 border-box">
+                                <i class="fal fa-comment-alt"></i>
+                            </ion-button>
+                            <ion-badge *ngIf="cahtBadge" color="danger">{{ cahtBadge }}
+                            </ion-badge>
+                        </div>
+                        <div class="only-icon">
+                            <ion-button [routerLink]="callsLink" slot="icon-only" expand="block" fill="clear" class="gray-600 shadow-clear font-size-14 border-box">
+                                <i class="fal fa-phone-alt"></i>
+                            </ion-button>
+                            <ion-badge *ngIf="callBadge" color="danger">{{ callBadge }}
+                            </ion-badge>
+                        </div>
+                        <ion-button expand="block" (click)="onProfileClick()" fill="clear" class="gray-600 shadow-clear font-size-12 border-box">
+                            <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+                            {{ global.getUserInfo().name }}
+                        </ion-button>
+                        <!-- profile -->
+                        <div class="profile-header box-shadow no-scroll" *ngIf="!showProfileBox">
+                            <div class="header-profile-info w-100">
+                                <div class="flex-column w-100">
+                                    <h3 class="font-size-14 m-0 cursor-pointer" [routerLink]="
+                      userType == 'user'
+                        ? ['/profile/editinfo']
+                        : ['/profile-consultant/editinfo']
+                    ">
+                                        {{ global.getUserInfo().name }} <small *ngIf="userType != 'user'">
+											<ion-text color="medium">( مشاور )</ion-text>
+										</small> <small *ngIf="userType == 'user'">
+											<ion-text color="medium">( کاربر )</ion-text>
+										</small>
+                                    </h3>
+                                    <ion-text color="medium" class="cursor-pointer" [routerLink]="
+                      userType == 'user'
+                        ? ['/profile/editinfo']
+                        : ['/profile-consultant/editinfo']
+                    ">
+                                        <small class="phone">
+											+{{ global.getUserInfo().country.phone_code }}{{global.getUserInfo().mobile
+											}}
+										</small>
+                                    </ion-text>
+                                    <div class="d-flex ion-align-items-center ion-justify-content-between w-100">
+                                        <p class="font-size-13">
+                                            <span class="gray-600 ml-5">موجودی </span>{{ balanceService.getUserBalance().value | number }} تومان
+                                        </p>
+                                        <ion-button *ngIf="userType == 'user'" [routerLink]="['/profile/wallet']" expand="block" color="success" fill="outline">
+                                            افزایش موجودی
+                                        </ion-button>
+                                        <ion-button *ngIf="userType != 'user' && balanceService.getUserBalance().value > 0" [routerLink]="['/profile-consultant/withdraw']" expand="block" color="danger" fill="outline">
+                                            برداشت وجه
+                                        </ion-button>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="header-profile-link w-100">
+                                <li>
+                                    <a routerLinkActive="active" [routerLink]="
+                      userType == 'user'
+                        ? ['/profile/editinfo']
+                        : ['/profile-consultant/editinfo']
+                    ">
+                                        <ion-icon name="person-outline" class="font-size-25 ml-10 font-size-17">
+                                        </ion-icon>
+                                        <span>اطلاعات فردی</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a routerLinkActive="active" [routerLink]="
+                      userType == 'user'
+                        ? ['/profile/reservation']
+                        : ['/profile-consultant/reservation']
+                    ">
+                                        <ion-icon name="calendar-outline" class="font-size-25 ml-10 font-size-17">
+                                        </ion-icon>
+                                        <span> {{ userType == 'user'
+											? 'وقت های رزرو شده'
+											: 'پکیج های مشاوره' }} </span>
+                                    </a>
+                                </li>
+                                <li *ngIf="userType == 'user'">
+                                    <a routerLinkActive="active" [routerLink]="['/profile/wallet']">
+                                        <ion-icon name="wallet-outline" class="font-size-25 ml-10 font-size-17">
+                                        </ion-icon>
+                                        <span>افزایش موجودی</span>
+                                    </a>
+                                </li>
+                                <li *ngIf="userType == 'consultant'">
+                                    <a routerLinkActive="active" [routerLink]="['/profile-consultant/withdraw']">
+                                        <ion-icon name="wallet-outline" class="font-size-25 ml-10 font-size-17">
+                                        </ion-icon>
+                                        <span>برداشت از حساب</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a routerLinkActive="active" [routerLink]="
+                      userType == 'user'
+                        ? ['/profile/mycalls']
+                        : ['/profile-consultant/mycalls']
+                    ">
+                                        <ion-icon name="call-outline" class="font-size-25 ml-10 font-size-17">
+                                        </ion-icon>
+                                        <span>مکالمات من</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a routerLinkActive="active" [routerLink]="
+                      userType == 'user'
+                        ? ['/profile/transactions']
+                        : ['/profile-consultant/transactions']
+                    ">
+                                        <ion-icon name="card-outline" class="font-size-25 ml-10 font-size-17">
+                                        </ion-icon>
+                                        <span>تراکنش ها</span>
+                                    </a>
+                                </li>
+                                <li *ngIf="userType == 'user'">
+                                    <a routerLinkActive="active" [routerLink]="['/profile/favourites']">
+                                        <ion-icon name="heart-outline" class="font-size-25 ml-10 font-size-17">
+                                        </ion-icon>
+                                        <span>علاقمندی ها</span>
+                                    </a>
+                                </li>
+                                <li *ngIf="userType == 'user'">
+                                    <a routerLinkActive="active" [routerLink]="['/profile/tickets']">
+                                        <ion-icon name="chatbubbles-outline" class="font-size-25 ml-10 font-size-17">
+                                        </ion-icon>
+                                        <span> پشتیبانی</span>
+                                    </a>
+                                </li>
+                                <li *ngIf="userType != 'user'">
+                                    <a routerLinkActive="active" [routerLink]="['/profile-consultant/media']">
+                                        <ion-icon name="videocam-outline" class="font-size-25 ml-10 font-size-17">
+                                        </ion-icon>
+                                        <span> رسانه های من </span>
+                                    </a>
+                                </li>
+                                <li *ngIf="userType != 'user'">
+                                    <a routerLinkActive="active" [routerLink]="['/profile-consultant/status']">
+                                        <ion-icon name="power-outline" class="font-size-25 ml-10 font-size-17">
+                                        </ion-icon>
+                                        <span> وضعیت فعالیت</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a (click)="global.logOut()" class="cursor-pointer">
+                                        <ion-icon name="log-out-outline" class="font-size-25 ml-10 font-size-17">
+                                        </ion-icon>
+                                        <span> خروج</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- <ion-button expand="block" (click)="presentAlertConfirm()" fill="outline" color="menutab" shape="round">
+                            خروج از حساب کاربری </ion-button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

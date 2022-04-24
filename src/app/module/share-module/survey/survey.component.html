@@ -1,0 +1,45 @@
+<ion-header class="ion-hide-md-up">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="dismiss()">
+                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            نظر سنجی
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div class="surveyModal">
+        <div class="desc mb-15">
+            <p>لطفا با ثبت امتیاز ما را در بهبود خدمات تلفن خونه یاری نمایید </p>
+        </div>
+        <div class="stars">
+            <app-star-rating [rate]="rate" (onChange)="onRate($event)"></app-star-rating>
+        </div>
+        <ng-template ngFor let-i="index" let-item [ngForOf]="rateItems">
+            <span class="rateStatus status-{{ item.rate }}" *ngIf="item.rate == rate">
+				{{ item.text }}
+			</span>
+        </ng-template>
+        <ion-row class="ion-justify-content-center w-100" *ngIf="rate">
+            <ion-col size="10">
+                <div class="border-header p-5 w-100 mb-10">
+                    <h6 *ngIf="rate >= 3">نقاط قوت مشاوره </h6>
+                    <h6 *ngIf="rate < 3">نقاط ضعف مشاوره </h6>
+                    <ion-textarea (ionChange)="validateInput(rateDesc)" #rateDesc rows="6"></ion-textarea>
+                </div>
+                <p class="mb-10">
+                    <ion-text color="danger" *ngIf="validateComment"> وارد کردن توضیحات الزامی است </ion-text>
+                </p>
+                <ion-button [attr.disabled]="loading" color="primary" mode="ios" (click)="submitRate()">
+                    <ion-label *ngIf="!loading">
+                        ثبت امتیاز
+                    </ion-label>
+                    <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </div>
+</ion-content>

@@ -1,0 +1,41 @@
+<nav id="profile-header" class="ion-hide-lg-down">
+    <div class="container">
+        <ul class="d-flex ion-justify-content-center">
+            <li class="flex-column ion-align-items-center item" [routerLink]="['/profile-consultant/editinfo']" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">
+                <ion-icon name="person-outline" class="font-size-25 mb-10"></ion-icon>
+                <span>اطلاعات فردی</span>
+            </li>
+            <li class="flex-column ion-align-items-center item" [routerLink]="['/profile-consultant/mycalls']" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">
+                <ion-icon name="call-outline" class="font-size-25 mb-10"></ion-icon>
+                <span>مکالمات من</span>
+            </li>
+            <li class="flex-column ion-align-items-center item" [routerLink]="['/profile-consultant/reservation']" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">
+                <ion-icon name="calendar-outline" class="font-size-25 mb-10"></ion-icon>
+                <!-- <ion-icon name="time-outline" class="font-size-25 mb-10"></ion-icon> -->
+                <span> پکیج های مشاوره </span>
+            </li>
+            <li class="flex-column ion-align-items-center item" [routerLink]="['/profile-consultant/withdraw']" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">
+                <ion-icon name="wallet-outline" class="font-size-25 mb-10"></ion-icon>
+                <span>برداشت از حساب</span>
+            </li>
+
+            <li class="flex-column ion-align-items-center item" [routerLink]="['/profile-consultant/transactions']" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">
+                <ion-icon name="card-outline" class="font-size-25 mb-10"></ion-icon>
+                <span>تراکنش ها</span>
+            </li>
+            <!-- <li class="flex-column ion-align-items-center item" [routerLink]="['/profile-consultant/webinar']" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">
+                <ion-icon name="easel-outline" class="font-size-25 mb-10"></ion-icon>
+                <span> درخواست وبینار </span>
+            </li> -->
+            <li class="flex-column ion-align-items-center item" [routerLink]="['/profile-consultant/media']" routerLinkActive="active">
+                <ion-icon name="videocam-outline" class="font-size-25 mb-10"></ion-icon>
+                <span> رسانه </span>
+            </li>
+            <li class="flex-column ion-align-items-center item" [routerLink]="['/profile-consultant/status']" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">
+                <ion-icon name="power-outline" class="font-size-25 mb-10"></ion-icon>
+                <span>وضعیت فعالیت</span>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!--  -->

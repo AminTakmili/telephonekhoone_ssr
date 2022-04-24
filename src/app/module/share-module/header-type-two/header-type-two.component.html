@@ -1,0 +1,15 @@
+<header id="header-type-two" class="ion-hide-md-down">
+    <div class="container">
+        <ion-grid class="ion-no-padding">
+            <ion-row class="ion-align-items-center ion-justify-content-between">
+                <ion-col class="ion-no-padding">
+                    <div class="bread-crumb">
+                        <ul>
+                            <li *ngFor="let item of breadCrumb"><a [routerLink]="[item.url]">{{item.name}}</a></li>
+                        </ul>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</header>

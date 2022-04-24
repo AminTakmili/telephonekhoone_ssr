@@ -1,0 +1,100 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title> مجله آنلاین تلفن خونه </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content [scrollEvents]="true" #myContent>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <section id="blog">
+        <div class="container px-0">
+            <h2 class="title page-title-two ion-text-center gray-title font-size-20 ion-hide-md-down">
+                مجله آنلاین تلفن خونه
+            </h2>
+            <ion-grid>
+                <ion-row>
+                    <ion-col size-lg="9" size="12">
+                        <app-not-found icon="newspaper-outline" description="موردی یافت نشد" *ngIf="blogsCount === 0">
+                        </app-not-found>
+                        <ion-grid>
+                            <ion-row>
+                                <ng-template [ngIf]="!loading">
+                                    <ion-col size-lg="4" size="12" class="p-md-10 p-0 pb-10" *ngFor="let item of blogItems | paginate: { totalItems: blogsCount,  itemsPerPage: 9, currentPage: p2, id: 'second' } , let x = index ">
+                                        <div (click)="blogDetail(item)" class="blog-cards box-shadow cursor-pointer w-100">
+                                            <div class="image">
+                                                <img class="img-cover" src="{{ item.media }}" alt="" />
+                                            </div>
+                                            <div class="desc">
+                                                <p>{{ item.title }}</p>
+                                            </div>
+                                            <ion-item class="w-100 user-details" lines="none">
+                                                <ion-thumbnail slot="start">
+                                                    <img *ngIf="item.admin.media[0]" class="img-cover" src="{{ item.admin.media[0].options?.subSizes.thumbnail ? item.admin.media[0].options?.subSizes.thumbnail : item.admin.media[0].path }}" alt="{{ item.admin.fullname }}" />
+                                                    <img *ngIf="!item.admin.media[0]" class="img-cover" src="assets/img/no-image.jpg" alt="{{ item.admin.fullname }}" />
+                                                </ion-thumbnail>
+                                                <ion-label>
+                                                    <span class="name font-size-12">{{ item.admin.fullname }}</span>
+                                                    <span class="date gray-600 font-size-11 mt-10">{{ item.created_at
+														}}</span>
+                                                </ion-label>
+                                            </ion-item>
+                                        </div>
+                                    </ion-col>
+                                </ng-template>
+
+                                <ng-template [ngIf]="loading">
+                                    <ion-col size-lg="4" size="12" class="p-md-10 p-0 pb-10" *ngFor="let dummy of ' '.repeat(9).split('') ;let i = index">
+                                        <div class="blog-cards box-shadow cursor-pointer w-100">
+                                            <div class="image">
+                                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                            </div>
+                                            <div class="desc">
+                                                <p>
+                                                    <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+                                                    <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+                                                </p>
+                                            </div>
+                                            <ion-item class="w-100 user-details" lines="none">
+                                                <ion-thumbnail slot="start">
+                                                    <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                                </ion-thumbnail>
+                                                <ion-label>
+                                                    <span class="name font-size-12">
+														<ion-skeleton-text animated style="width: 90%">
+														</ion-skeleton-text>
+													</span>
+                                                    <span class="date gray-600 font-size-11 mt-10">
+														<ion-skeleton-text animated style="width: 60%">
+														</ion-skeleton-text>
+													</span>
+                                                </ion-label>
+                                            </ion-item>
+                                        </div>
+                                    </ion-col>
+                                </ng-template>
+                            </ion-row>
+                        </ion-grid>
+                        <ion-grid class="ion-no-padding">
+                            <ion-row class="ion-justify-content-center align-items-center">
+                                <ion-col size="auto">
+                                    <pagination-controls id="second" previousLabel="قبلی" nextLabel="بعدی" (pageChange)="pageChange($event)">
+                                    </pagination-controls>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+
+                    </ion-col>
+                    <ion-col size-lg="3" size="12">
+                        <app-blog-side [isBlog]="true" [data]="blogSideData" [loading]="loading" (searchEmitter)="getData($event)">
+                        </app-blog-side>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+            <!--  -->
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

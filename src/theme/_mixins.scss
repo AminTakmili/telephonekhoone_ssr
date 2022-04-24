@@ -1,0 +1,229 @@
+@mixin breakpoint($point) {
+    @if $point==sm-up {
+        @media (min-width: 576px) {
+            @content;
+        }
+    }
+    @else if $point==sm-down {
+        @media (max-width: 576px) {
+            @content;
+        }
+    }
+    @else if $point==md-up {
+        @media (min-width: 640px) {
+            @content;
+        }
+    }
+    @else if $point==md-down {
+        @media (max-width: 768px) {
+            @content;
+        }
+    }
+    @else if $point==lg-up {
+        @media (min-width: 992px) {
+            @content;
+        }
+    }
+    @else if $point==lg-down {
+        @media (max-width: 992px) {
+            @content;
+        }
+    }
+    @else if $point==xl-up {
+        @media (min-width: 1140px) {
+            @content;
+        }
+    }
+    @else if $point==xl-down {
+        @media (max-width: 1140px) {
+            @content;
+        }
+    }
+}
+
+@for $i from 5 through 10 {
+    .line-height-#{$i*5} {
+        line-height: ($i*5) + 0px !important;
+    }
+}
+
+@for $i from 0 through 20 {
+    .mt-#{$i*5},
+    .m-#{$i*5},
+    .my-#{$i*5} {
+        margin-top: ($i*5) + 0px !important;
+    }
+    .mb-#{$i*5},
+    .m-#{$i*5},
+    .my-#{$i*5} {
+        margin-bottom: ($i*5) + 0px !important;
+    }
+    .mr-#{$i*5},
+    .m-#{$i*5},
+    .mx-#{$i*5} {
+        margin-right: ($i*5) + 0px !important;
+    }
+    .ml-#{$i*5},
+    .m-#{$i*5},
+    .mx-#{$i*5} {
+        margin-left: ($i*5) + 0px !important;
+    }
+    .pt-#{$i*5},
+    .p-#{$i*5},
+    .py-#{$i*5} {
+        padding-top: ($i*5) + 0px !important;
+    }
+    .pb-#{$i*5},
+    .p-#{$i*5},
+    .py-#{$i*5} {
+        padding-bottom: ($i*5) + 0px !important;
+    }
+    .pr-#{$i*5},
+    .p-#{$i*5},
+    .px-#{$i*5} {
+        padding-right: ($i*5) + 0px !important;
+    }
+    .pl-#{$i*5},
+    .p-#{$i*5},
+    .px-#{$i*5} {
+        padding-left: ($i*5) + 0px !important;
+    }
+    .font-size-#{$i+10} {
+        font-size: ($i+10) + 0px !important;
+    }
+}
+
+@include breakpoint(lg-up) {
+    @for $i from 0 through 20 {
+        .mt-lg-#{$i*5},
+        .m-lg-#{$i*5},
+        .my-lg-#{$i*5} {
+            margin-top: ($i*5) + 0px !important;
+        }
+        .mb-lg-#{$i*5},
+        .m-lg-#{$i*5},
+        .my-lg-#{$i*5} {
+            margin-bottom: ($i*5) + 0px !important;
+        }
+        .mr-lg-#{$i*5},
+        .m-lg-#{$i*5},
+        .mx-lg-#{$i*5} {
+            margin-right: ($i*5) + 0px !important;
+        }
+        .ml-lg-#{$i*5},
+        .m-lg-#{$i*5},
+        .mx-lg-#{$i*5} {
+            margin-left: ($i*5) + 0px !important;
+        }
+        .pt-lg-#{$i*5},
+        .p-lg-#{$i*5},
+        .py-lg-#{$i*5} {
+            padding-top: ($i*5) + 0px !important;
+        }
+        .pb-lg-#{$i*5},
+        .p-lg-#{$i*5},
+        .py-lg-#{$i*5} {
+            padding-bottom: ($i*5) + 0px !important;
+        }
+        .pr-lg-#{$i*5},
+        .p-lg-#{$i*5},
+        .px-lg-#{$i*5} {
+            padding-right: ($i*5) + 0px !important;
+        }
+        .pl-lg-#{$i*5},
+        .p-lg-#{$i*5},
+        .px-lg-#{$i*5} {
+            padding-left: ($i*5) + 0px !important;
+        }
+    }
+}
+
+@include breakpoint(md-up) {
+    @for $i from 0 through 20 {
+        .mt-md-#{$i*5},
+        .m-md-#{$i*5},
+        .my-md-#{$i*5} {
+            margin-top: ($i*5) + 0px !important;
+        }
+        .mb-md-#{$i*5},
+        .m-md-#{$i*5},
+        .my-md-#{$i*5} {
+            margin-bottom: ($i*5) + 0px !important;
+        }
+        .mr-md-#{$i*5},
+        .m-md-#{$i*5},
+        .mx-md-#{$i*5} {
+            margin-right: ($i*5) + 0px !important;
+        }
+        .ml-md-#{$i*5},
+        .m-md-#{$i*5},
+        .mx-md-#{$i*5} {
+            margin-left: ($i*5) + 0px !important;
+        }
+        .pt-md-#{$i*5},
+        .p-md-#{$i*5},
+        .py-md-#{$i*5} {
+            padding-top: ($i*5) + 0px !important;
+        }
+        .pb-md-#{$i*5},
+        .p-md-#{$i*5},
+        .py-md-#{$i*5} {
+            padding-bottom: ($i*5) + 0px !important;
+        }
+        .pr-md-#{$i*5},
+        .p-md-#{$i*5},
+        .px-md-#{$i*5} {
+            padding-right: ($i*5) + 0px !important;
+        }
+        .pl-md-#{$i*5},
+        .p-md-#{$i*5},
+        .px-md-#{$i*5} {
+            padding-left: ($i*5) + 0px !important;
+        }
+    }
+}
+
+@include breakpoint(sm-up) {
+    @for $i from 0 through 20 {
+        .mt-sm-#{$i*5},
+        .m-sm-#{$i*5},
+        .my-sm-#{$i*5} {
+            margin-top: ($i*5) + 0px !important;
+        }
+        .mb-sm-#{$i*5},
+        .m-sm-#{$i*5},
+        .my-sm-#{$i*5} {
+            margin-bottom: ($i*5) + 0px !important;
+        }
+        .mr-sm-#{$i*5},
+        .m-sm-#{$i*5},
+        .mx-sm-#{$i*5} {
+            margin-right: ($i*5) + 0px !important;
+        }
+        .ml-sm-#{$i*5},
+        .m-sm-#{$i*5},
+        .mx-sm-#{$i*5} {
+            margin-left: ($i*5) + 0px !important;
+        }
+        .pt-sm-#{$i*5},
+        .p-sm-#{$i*5},
+        .py-sm-#{$i*5} {
+            padding-top: ($i*5) + 0px !important;
+        }
+        .pb-sm-#{$i*5},
+        .p-sm-#{$i*5},
+        .py-sm-#{$i*5} {
+            padding-bottom: ($i*5) + 0px !important;
+        }
+        .pr-sm-#{$i*5},
+        .p-sm-#{$i*5},
+        .px-sm-#{$i*5} {
+            padding-right: ($i*5) + 0px !important;
+        }
+        .pl-sm-#{$i*5},
+        .p-sm-#{$i*5},
+        .px-sm-#{$i*5} {
+            padding-left: ($i*5) + 0px !important;
+        }
+    }
+}

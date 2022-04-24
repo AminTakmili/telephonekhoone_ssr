@@ -1,0 +1,33 @@
+.stars {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    width: fit-content;
+    margin: 0 -5px;
+    &:hover {
+        .starItem {
+            &:not(.activeRate) {
+                ion-icon {
+                    color: rgb(255 196 9 / 72%);
+                }
+            }
+        }
+    }
+    .starItem {
+        &.activeRate {
+            color: rgb(255 196 9 / 72%);
+        }
+        cursor: pointer;
+        &:hover {
+            &~* {
+                ion-icon {
+                    color: #3f3f3f !important;
+                }
+            }
+        }
+        ion-icon {
+            font-size: 40px;
+            padding: 0 5px;
+        }
+    }
+}

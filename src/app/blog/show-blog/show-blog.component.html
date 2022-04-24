@@ -1,0 +1,148 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button (click)="onClickBack()">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> {{ blogDetail?.title }} </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <section id="showBlog">
+        <div class="container px-0">
+            <ion-grid>
+                <ion-row>
+                    <ion-col size-lg="9" size="12" class="pl-5 pl-md-30">
+                        <div class="main-card box-shadow no-scroll w-100">
+                            <div class="title flex-row-center-between w-100">
+                                <h1 *ngIf="blogDetail?.title" class="font-size-16 m-0">
+                                    {{ blogDetail?.title }}
+                                </h1>
+                                <ion-skeleton-text *ngIf="loading" animated style="width: 30%"></ion-skeleton-text>
+                                <span class="date gray-600 font-size-12">{{
+									blogDetail?.created_at
+									}}</span>
+                            </div>
+                            <div class="image">
+                                <img *ngIf="blogDetail?.media.length !== 0 && !loading" class="img-cover" [src]="blogDetail?.media[0]?.path" alt="{{ blogDetail.title }}" />
+                                <img *ngIf="blogDetail?.media.length === 0" class="img-cover" src="assets/img/no-image.jpg" alt="no image found" />
+                                <div class="loading" *ngIf="loading">
+                                    <ion-spinner name="dots"></ion-spinner>
+                                </div>
+                            </div>
+                            <ion-chip color="primary" class="estimated-time w-100" *ngIf="time">
+                                <ion-icon class="font-siz-25 m-0" name="time-outline"></ion-icon>
+
+                                <ion-label class="px-5">زمان تقریبی لازم برای خواندن این مقاله :
+                                    <strong *ngIf="time.min != 0">{{ time.min }} دقیقه و </strong>
+                                    <strong *ngIf="time.sec != 0">{{ time.sec }} ثانیه</strong>
+                                </ion-label>
+                            </ion-chip>
+                            <div class="desc" [innerHTML]="blogDetail?.description"></div>
+                            <ion-grid class="w-100 pb-0">
+                                <ion-row class="ion-justify-content-start pb-0">
+                                    <ion-col size-lg="2" size="6" class="pb-0">
+                                        <ion-button color="secondary" expand="block" class="shadow-clear font-size-10" [href]="'tg://msg_url?url='+ global.siteUrl+'blog/'+blogDetail?.id+'&text='+blogDetail?.title">
+                                            <i class="fab fa-telegram-plane ml-5 font-size-14"></i> اشتراک در تلگرام
+                                        </ion-button>
+                                    </ion-col>
+                                    <ion-col size-lg="2" size="6" class="pb-0">
+                                        <ion-button color="green-light" expand="block" class="shadow-clear font-size-10" [href]="'whatsapp://send?text='+blogDetail?.title+'%20%0A'+global.siteUrl+'blog/'+blogDetail?.id">
+                                            <i class="fab fa-whatsapp ml-5 font-size-14"></i> اشتراک در واتساپ
+                                        </ion-button>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </div>
+                        <ng-template [ngIf]="blogDetail?.comments.length != 0">
+                            <h2 *ngIf="!loading" class="title title-type-one my-20 my-md-60">
+                                <span>نظرات کاربران</span>
+                            </h2>
+                            <ul>
+                                <li *ngFor="
+                    let item of blogDetail?.comments
+                      | paginate
+                        : {
+                            totalItems: blogsCount,
+                            itemsPerPage: 9,
+                            currentPage: p2,
+                            id: 'second'
+                          };
+                    let x = index
+                  ">
+                                    <div class="border-box p-10 mb-10">
+                                        <ion-item class="w-100 user-details" lines="none">
+                                            <ion-thumbnail slot="start">
+                                                <img class="img-cover" [src]="item.user.image.options?.subSizes.medium ? item.user.image.options?.subSizes.medium : item.user.image?.path" alt="" />
+                                            </ion-thumbnail>
+                                            <ion-label>
+                                                <span class="name font-size-12">{{
+													item.user.fullname
+													}}</span>
+                                                <span class="date gray-600 font-size-11 mt-10">{{
+													item.created_at
+													}}</span>
+                                            </ion-label>
+                                        </ion-item>
+                                        <p class="gray-600 font-size-12 p-15">
+                                            {{ item.description }}
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <pagination-controls id="second" previousLabel="قبلی" nextLabel="بعدی" (pageChange)="pageChange($event)">
+                            </pagination-controls>
+                        </ng-template>
+
+                        <h2 *ngIf="!loading" class="title title-type-one my-20 my-md-60">
+                            <span>نظر خود را برای ما ارسال کنید</span>
+                        </h2>
+                        <form [formGroup]="cmForm" (ngSubmit)="submitComment()">
+                            <div class="loginCm" *ngIf="!global.getLogin().value">
+                                <h6>
+                                    برای ثبت نظر ابتدا به حساب کاربری خود
+                                    <ion-text (click)="global.showLogin()" color="primary" style="cursor: pointer">وارد شوید
+                                    </ion-text>
+                                </h6>
+                            </div>
+                            <ion-grid class="">
+                                <ion-row class="ion-justify-content-strart">
+                                    <!-- <ion-col size-lg="4" size="12" class="">
+                    <div class="border-box p-5">
+                      <ion-input placeholder="عنوان"></ion-input>
+                    </div>
+                  </ion-col> -->
+                                    <!-- موضوع -->
+                                    <!-- <ion-col size-lg="4" size="12" class="mr-0 mr-md-15">
+                    <div class="border-box p-5">
+                      <ion-input placeholder="ایمیل"></ion-input>
+                    </div>
+                  </ion-col> -->
+                                    <ion-col size-lg="12" size="12" class="mt-0 mt-lg-15">
+                                        <div class="border-box p-5">
+                                            <ion-textarea [disabled]="cmLoading" formControlName="text" placeholder="نظر شما" rows="8"></ion-textarea>
+                                        </div>
+                                        <app-validator controlName="نوشتن نظر" [control]="this.cmForm.controls['text']"></app-validator>
+                                    </ion-col>
+                                    <ion-col size-lg="2" size="12">
+                                        <ion-button [disabled]="!cmForm.valid || cmLoading" type="submit" color="primary" expand="block" class="shadow-clear font-size-14 ion-hide-lg-down mt-15">
+                                            <ion-label *ngIf="!cmLoading"> ارسال </ion-label>
+                                            <ion-spinner *ngIf="cmLoading" name="crescent"></ion-spinner>
+                                        </ion-button>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </form>
+                    </ion-col>
+                    <ion-col size-lg="3" size="12">
+                        <app-blog-side [isBlog]="true" [data]="blogSideData" [loading]="loading"></app-blog-side>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

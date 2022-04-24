@@ -1,0 +1,24 @@
+<ion-content>
+  <ion-list class="ion-no-padding ion-no-margin">
+    <ion-searchbar
+      [(ngModel)]="searchTerm"
+      (ionChange)="setSearchItems()"
+      searchIcon="none"
+      placeholder="جستجو .."
+    ></ion-searchbar>
+    <ion-item
+      lines="full"
+      *ngFor="let item of setSearchItems()"
+      (click)="selectCountry(item)"
+      class="ion-activatable ripple-parent"
+    >
+      <ion-ripple-effect></ion-ripple-effect>
+      <ion-label slot="start">
+        {{ item.name }}
+      </ion-label>
+      <ion-label *ngIf="item.phone_code" color="medium" slot="end" class="dir-ltr ion-no-margin">
+        +{{ item.phone_code }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

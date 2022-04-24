@@ -1,0 +1,82 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="dismiss()">
+                <ion-icon name="close" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            {{ item.description }}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list class="information-list">
+        <ion-item lines="full">
+            <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+            <ion-label class="info-label">این پکیج مشاوره با توجه به مبلغ پیشنهادی برای دسته بندی انتخاب شده شما جهت فعالیت در وبسایت تعریف شده است. در صورت وجود هرگونه مشکل و یا ابهام با پشتیبانی آنلاین تلفن خونه در تماس باشید
+            </ion-label>
+        </ion-item>
+        <ion-item lines="full">
+            <ion-icon color="success" name="checkmark-circle-outline" slot="start"></ion-icon>
+            <ion-label>
+                مجاز به فعالیت در دسته بندی
+                <ion-text color="primary"> <strong> {{ item.category.name }} </strong> </ion-text>.
+            </ion-label>
+        </ion-item>
+        <ion-item lines="full">
+            <ion-icon name="calculator-outline" slot="start"></ion-icon>
+            <ion-label>
+                <ion-label>
+                    <ion-text color="primary"> <strong> {{ item.category.percent }}% </strong> </ion-text>
+                    کمیسیون تلفن خونه.
+                </ion-label>
+            </ion-label>
+        </ion-item>
+        <ng-template ngFor let-price [ngForOf]="item.price">
+            <ion-item lines="full">
+                <ion-icon name="call-outline" slot="start" *ngIf="price.type == 'call'"></ion-icon>
+                <ion-icon name="chatbox-outline" slot="start" *ngIf="price.type == 'chat'"></ion-icon>
+                <ng-template [ngIf]="price.type === 'call'">
+                    <ion-label slot="start" class="overFlowVisible">
+                        هزینه هر {{ price.time }} دقیقه
+                        <strong> {{ price.name }} </strong>
+                        <ion-chip color="success"> <strong>{{ price.price | number }}</strong> </ion-chip> تومان
+                        <ng-template [ngIf]="price.price_extra !== 0">
+                            و هر یک دقیقه اضافه {{ price.price_extra | number }} تومان
+                        </ng-template>
+                    </ion-label>
+                </ng-template>
+                <ng-template [ngIf]="price.type === 'chat'">
+                    <ion-label slot="start" class="overFlowVisible">
+                        هزینه <strong> {{ price.name }} </strong>
+                        <ion-chip color="success"> <strong>{{ price.price | number }}</strong> </ion-chip> تومان با پایان توافقی
+                    </ion-label>
+
+                </ng-template>
+            </ion-item>
+        </ng-template>
+    </ion-list>
+</ion-content>
+
+<!-- <ion-footer>
+    <ion-row>
+        <ion-col size="6">
+            <ion-button mode="ios" expand="block">
+                <ion-icon name="call-outline"></ion-icon>
+                <ion-label>
+                    تماس با پشتیبانی
+                </ion-label>
+            </ion-button>
+        </ion-col>
+        <ion-col size="6">
+            <ion-button mode="ios" expand="block">
+                <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+                <ion-label>
+                    پشتیبانی آنلاین
+                </ion-label>
+            </ion-button>
+        </ion-col>
+    </ion-row>
+</ion-footer> -->

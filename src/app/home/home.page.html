@@ -1,20 +1,433 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header class="ion-hide-lg-up">
+  <ion-toolbar color="light">
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-img class="smallLogo" src="assets/img/header-logo-small.png"></ion-img>
+      <ion-button routerLink="/login" class="smallBtn" fill="outline" mode="ios" slot="end" *ngIf="!this.global.getLogin().value">
+          ورود / ثبتنام
+      </ion-button>
+      <ion-buttons slot="end">
+          <ion-button *ngIf="global.getLogin().value" routerLink="/conversation/mobile">
+              <ion-icon name="chatbubble-ellipses-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-button *ngIf="global.getLogin().value &&
+  global.getUserInfo().type == 'consultant'" [routerLink]="['/profile-consultant']">
+              <ion-icon name="person-circle-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-button *ngIf="
+  global.getLogin().value && global.getUserInfo().type == 'user'
+" [routerLink]="['/profile']">
+              <ion-icon name="person-circle-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+      <!-- <ion-title>صفحه ی نخست</ion-title> -->
   </ion-toolbar>
 </ion-header>
+<ion-content>
+  <app-header type="absolute"></app-header>
+  <!-- slider -->
+  <section id="home-slider">
+      <div class="home-search-box">
+          <ion-slides pager="false" [options]="swiperOption">
+              <ion-slide>
+                  <ion-img src="/assets/img/home-bg.jpg"></ion-img>
+              </ion-slide>
+              <ion-slide>
+                  <ion-img src="/assets/img/home-bg-3.jpg"></ion-img>
+              </ion-slide>
+          </ion-slides>
+          <div class="content">
+              <div class="container">
+                  <!-- <ion-img
+          class="ion-hide-md-up sliderLogo"
+          src="assets/img/header-logo.png"
+          alt="تلفن خونه"
+        ></ion-img> -->
+                  <h1 class="title">تلفن خونه مشاور متخصص شما</h1>
+                  <p class="dsec">
+                      گفتگوی سریع و راحت با مشاور متخصص در هر زمان و مکان
+                  </p>
+                  <!-- <form class="form-search-box">
+                      <label for="">
+                          <input type="text" name=ّ"q" placeholder="جستجوی دسته بندی یا نام پشتیبان حقوقی ">
+                      </label>
+                      <button>جستجو</button>
+                  </form> -->
+                  <div class="search">
+                      <!-- search-icon="" -->
+                      <!--                        <div  >-->
+                      <form class="searchBar" [class.active]="searchItems.blogs?.length != 0 || searchItems.consoltants.length != 0" (ngSubmit)="searchItem(search.value)">
+                          <!-- <ion-icon class="startSearch" name="search"></ion-icon> -->
+                          <ion-input #search placeholder="جستجوی دسته بندی یا نام مشاور" search-icon="undefined">
+                          </ion-input>
+                          <ion-button type="submit" [attr.disabled]="searchLoading" class="ion-hide-md-down searchBtn" *ngIf="searchItems.blogs?.length + searchItems.consoltants?.length == 0" color="primary">
+                              جستجو
+                          </ion-button>
+                          <ion-buttons>
+                              <ion-button type="button" *ngIf="searchItems.blogs?.length + searchItems.consoltants?.length != 0" (click)="clearSearch()">
+                                  <ion-icon name="close" slot="icon-only"></ion-icon>
+                              </ion-button>
+                              <ion-button type="submit" class="ion-hide-md-up" *ngIf="searchItems.blogs?.length + searchItems.consoltants?.length == 0">
+                                  <ion-icon name="search" slot="icon-only"></ion-icon>
+                              </ion-button>
+                          </ion-buttons>
+                          <ion-progress-bar *ngIf="searchLoading" type="indeterminate"></ion-progress-bar>
+                      </form>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+                      <!--                        </div>-->
+                      <div class="searchItems" *ngIf="searchItems.blogs?.length + searchItems.consoltants?.length != 0">
+                          <ul>
+                              <li *ngFor="let consoltant of searchItems.consoltants" class="searchItem">
+                                  <a [routerLink]="['/categories' , 'consultant' ,consoltant.category_item_id ,consoltant.id]">
+                  {{ consoltant.fullname }} در دسته بندی
+                  <span> {{ consoltant.category }} </span>
+                </a>
+                              </li>
+                          </ul>
+                          <h3 class="searchTitle" *ngIf="searchItems.blogs?.length != 0">
+                              نتایج وبلاگ
+                          </h3>
+                          <ul>
+                              <li *ngFor="let blog of searchItems.blogs" class="searchItem">
+                                  <a [routerLink]="['/blog' , blog.id]">{{ blog.title }}</a>
+                              </li>
+                          </ul>
+                      </div>
+                      <div class="searchNotFound" *ngIf="searchItems.blogs?.length + searchItems.consoltants?.length === 0 && !searchLoading && search.value && showNotFound">
+                          موردی یافت نشد
+                      </div>
+                  </div>
+              </div>
+              <div class="statistics">
+                  <div class="list">
+                      <!-- <div class="item">
+      <div class="count">{{ statistics.online_consultants }}</div>
+      <div class="title">مشاور آنلاین</div>
+      </div> -->
+                      <!-- <div class="item">
+      <div class="count">{{ statistics.consultants }}</div>
+      <div class="title">کل مشاوران</div>
+      </div>
+      <div class="item">
+      <div class="count">{{ statistics.users }}</div>
+      <div class="title">کل کاربران</div>
+      </div> -->
+                      <div class="item dating">
+                          <i class="dot"></i>
+                          <p class="title">
+                              <strong>{{ randomCode }}</strong> مکالمه در حال انجام
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <!-- end slider -->
+  <section id="my-services">
+      <div class="container px-5 px-md-0">
+          <h2 class="title title-type-one"><span>خدمات تلفن خونه</span></h2>
+          <ion-grid class="mt-10 mt-md-30">
+              <ion-row class="ion-hide-md-down desktopServices">
+                  <ion-col size="4" class="pr-0 pl-md-30 " *ngFor="let item of services">
+                      <ion-item [routerLink]="[item.link]" class="my-service box-shadow w-100 no-scroll" [color]="item.color" detail button="true" lines="none">
+                          <ion-img class="ml-15" slot="start" [src]="item.image" [alt]="item.name">
+                          </ion-img>
+                          <ion-label>
+                              <h3 class="title-service">{{ item.name }}</h3>
+                              <p class="desc">{{ item.desc }}</p>
+                          </ion-label>
+                      </ion-item>
+                  </ion-col>
+              </ion-row>
+
+              <!-- mobile services -->
+
+              <div class="ion-hide-md-up mobileService">
+                  <div [routerLink]="[item.link]" routerLinkActive="router-link-active" class="item {{ 'type' + item.type }}" *ngFor="let item of services ;let i = index">
+                      <ion-img slot="start" [src]="item.image" [alt]=" item.name ">
+                      </ion-img>
+                      <ion-label>
+                          <h3 class="title-service">{{ item.name }}</h3>
+                          <p class="desc">{{ item.desc }}</p>
+                      </ion-label>
+                  </div>
+              </div>
+
+              <!--  -->
+              <!-- <ion-row class="ion-hide-md-down">
+        <ion-col size="4">
+          <div class="mobileServices type1">
+            <ion-img
+              slot="start"
+              src="./assets/img/phone.png"
+              alt="مشاوره تلفنی"
+            >
+            </ion-img>
+            <ion-label>
+              <h3 class="title-service">مشاوره تلفنی</h3>
+              <p class="desc">لورم ایپسوم متن ساختگی با تولید</p>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <div class="mobileServices type2">
+            <ion-img
+              slot="start"
+              src="./assets/img/message.png"
+              alt="مشاوره تلفنی"
+            >
+            </ion-img>
+            <ion-label>
+              <h3 class="title-service">مشاوره آنلاین</h3>
+              <p class="desc">لورم ایپسوم متن ساختگی با تولید</p>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <div class="mobileServices type3">
+            <ion-img
+              slot="start"
+              src="./assets/img/lawyer.png"
+              alt="مشاوره تلفنی"
+            >
+            </ion-img>
+            <ion-label>
+              <h3 class="title-service">جستجوی مشاور</h3>
+              <p class="desc">لورم ایپسوم متن ساختگی با تولید</p>
+            </ion-label>
+          </div>
+        </ion-col>
+      </ion-row> -->
+          </ion-grid>
+      </div>
+  </section>
+  <section id="home-advisors">
+      <div class="container">
+          <!-- مشاوران -->
+          <div class="more-title flex-row-center-between width-100">
+              <h2 class="title title-type-one"><span>مشاوران آنلاین</span></h2>
+              <ion-button color="primary" expand="block" fill="clear" [routerLink]="['/categories']">
+                  مشاهده همه <i class="fas fa-chevron-left mr-10"></i></ion-button>
+          </div>
+
+          <ion-slides class="mt-md-100 mt-10 show-overslide" [options]="consultantOpts">
+              <ion-slide *ngFor="let item of consultants">
+                  <div class="advisor no-scroll box-shadow w-100">
+                      <div class="image">
+                          <img class="img-cover" [src]="item.image.path" alt="{{ item.fullname }}" />
+                          <span class="online-badge"></span>
+                      </div>
+                      <p class="name">{{ item.fullname }}</p>
+                      <div class="desc">
+                          <div class="option">
+                              <i class="fas fa-medal ml-5"></i>{{ item.title }}
+                          </div>
+                          <div class="location">
+                              <i class="fas fa-map-marker-alt ml-5"></i>{{ item.country }}
+                          </div>
+                      </div>
+                      <div class="comment flex-row-center-center">
+                          <div class="badge flex-row-center-center">
+                              <span>{{ item.rate }}</span>
+                          </div>
+                          <p><span>{{ item.consultations }}</span> مشاوره</p>
+                      </div>
+                      <ion-button [routerLink]="['/categories' , 'consultant' ,item.category_item_id ,item.id]" class="font-size-12 w-100" expand="block" shape="round" fill="outline" color="primary">
+                          <ion-label> دریافت مشاوره</ion-label>
+                      </ion-button>
+                      <!-- <div class="btns flex-row-center-between w-100"> -->
+                      <!-- <ion-button
+              class="font-size-12"
+              expand="block"
+              shape="round"
+              color="success"
+              ><i class="fal fa-phone-alt"></i>مشاوره تلفنی
+            </ion-button> -->
+
+                      <!-- </div> -->
+                  </div>
+              </ion-slide>
+          </ion-slides>
+          <!-- دسته بندی -->
+          <!--            <h2 class="title title-type-one my-10 mt-md-80 mb-md-30">-->
+          <!--                <span>دسته بندی ها</span>-->
+          <!--            </h2>-->
+          <div class="more-title flex-row-center-between width-100">
+              <h2 class="title title-type-one"><span>دسته بندی ها</span></h2>
+              <ion-button color="primary" expand="block" fill="clear" [routerLink]="['/categories']">
+                  مشاهده همه <i class="fas fa-chevron-left mr-10"></i></ion-button>
+          </div>
+          <ion-slides class="mt-10 mt-md-50 pt-0 pt-md-40 show-overslide" [options]="categoryOpts">
+              <ion-slide *ngFor="let category of categories">
+                  <div class="categories box-shadow w-100 no-scroll cursor-pointer" (click)="gotoCategory(category)">
+                      <img *ngIf="category.media" class="img-cover" [src]="category.media.large ? category.media.large : category.media.medium" alt="" />
+                      <img *ngIf="!category.media" class="img-cover" src="assets/img/no-image.jpg" alt="" />
+                      <div class="desc">
+                          <h6 class="m-0">{{ category.name }}</h6>
+                          <p class="font-size-12 mt-5">
+                              {{ category.entity_count }} مشاور متخصص
+                          </p>
+                      </div>
+                  </div>
+              </ion-slide>
+          </ion-slides>
+
+          <div class="home-about py-0 pt-md-100">
+              <div class="container">
+                  <ion-grid>
+                      <ion-row>
+                          <ion-col size-lg="6" size="12">
+                              <ion-text color="primary">
+                                  <h6 class="font-size-14">درباره تلفن خونه</h6>
+                              </ion-text>
+                              <div class="title">
+                                  <p class="font-size-20">
+                                      تجربیات خارق العاده، راهکار های بینظیر
+                                  </p>
+                              </div>
+                              <div class="desc">
+                                  <p class="font-size-12 text-justify">{{aboutText}}</p>
+                              </div>
+                          </ion-col>
+                          <ion-col size="6" class="flex-row-center-center ion-hide-lg-down">
+                              <div data-relative-input="true" #parallaxScene>
+                                  <div data-depth="0.2" class="about-images box-shadow image1">
+                                      <div class="image">
+                                          <img class="img-contain" src="./assets/img/sale.png" alt="درباره ما" />
+                                      </div>
+                                      <span class="label">هزینه مناسب</span>
+                                  </div>
+                                  <div data-depth="0.3" class="about-images box-shadow image2">
+                                      <div class="image">
+                                          <img class="img-contain" src="./assets/img/lawyer-2.png" alt="درباره ما" />
+                                      </div>
+                                      <span class="label">هزینه مناسب</span>
+                                  </div>
+                                  <div data-depth="0.6" class="about-images box-shadow image3">
+                                      <div class="image">
+                                          <img class="img-contain" src="./assets/img/private-message.png" alt="درباره ما" />
+                                      </div>
+                                      <span class="label">هزینه مناسب</span>
+                                  </div>
+                              </div>
+                          </ion-col>
+                      </ion-row>
+                  </ion-grid>
+              </div>
+          </div>
+
+          <!-- پشتیبانی  -->
+          <h2 class="title title-type-one mt-md-80 mt-10">
+              <span>پشتیبانی تلفن خونه</span>
+          </h2>
+          <ion-grid class="home-support mt-10 mt-md-0">
+              <ion-row class="ion-align-items-center">
+                  <ion-col size-lg="6" size="12">
+                      <div class="inner">
+                          <p class="desc">{{ support?.description }}</p>
+                      </div>
+                      <ion-button [href]="item.link" *ngFor="let item of support?.buttons" style="--background:#{{ item.color }} ; --box-shadow: 0 0px 19px 0 #{{ item.color }};" expend="block">{{ item.title }}</ion-button>
+                  </ion-col>
+                  <ion-col size="6" class="ion-hide-lg-down">
+                      <div class="img">
+                          <img class="img-contain" src="/assets/img/home-support.png" alt="پشتیبانی تلفن خونه" />
+                      </div>
+                  </ion-col>
+              </ion-row>
+          </ion-grid>
+      </div>
+  </section>
+  <!-- last section -->
+
+  <section id="homeLast-section" class="pb-15 pb-md-80">
+      <div class="container">
+          <div class="more-title flex-row-center-between width-100">
+              <h2 class="title title-type-one"><span>آخرین وبینارها</span></h2>
+              <ion-button color="primary" expand="block" fill="clear" [routerLink]="['/webinar']">
+                  مشاهده همه <i class="fas fa-chevron-left mr-10"></i></ion-button>
+          </div>
+          <ion-slides class="mt-0 mt-md-30 pt-0 pt-md-40 show-overslide" [options]="slideOpts">
+              <ion-slide *ngFor="let seminar of seminarItems">
+                  <div class="home-cards box-shadow w-100 flex">
+                      <div class="image">
+                          <ng-template ngFor let-img [ngForOf]="seminar.media">
+                              <a *ngIf="img.name == 'logo'" [routerLink]="['/webinar/' ,seminar.id]">
+                                  <img class="img-cover" [src]="img.options.subSizes.large? img.options.subSizes.large : img.options.subSizes.medium " alt="{{ seminar.presenter_name }}" />
+                              </a>
+                          </ng-template>
+                      </div>
+                      <div class="inner w-100">
+                          <div class="desc">
+                              <p>{{ seminar.title }}</p>
+                          </div>
+                          <div class="detail flex-row-center-between">
+                              <span class="date">{{ seminar.holding_date }}</span>
+                              <ion-text color="primary">
+                                  <span class="cursor-pointer"></span>
+                                  <a [routerLink]="['/webinar/' ,seminar.id]">مشاهده </a>
+                              </ion-text>
+                          </div>
+                      </div>
+                  </div>
+              </ion-slide>
+          </ion-slides>
+          <!-- others opinion -->
+          <ng-template [ngIf]="testimonials.length != 0">
+              <h2 class="title title-type-one mt-10 mb-0 mt-md-80 mb-md-30">
+                  <span>دیگران درباره ما چه میگویند ؟</span>
+              </h2>
+              <ion-slides class="others-opinion show-overslide" [options]="commentsOpts">
+                  <ion-slide *ngFor="let commnet of testimonials ">
+                      <div class="item-box w-100 flex">
+                          <div class="desc gray-600 ion-text-right font-size-13">
+                              <p>{{commnet.description}}</p>
+                          </div>
+                          <ion-item class="w-100 ion-no-padding" lines="none">
+                              <ion-thumbnail slot="start">
+                                  <img class="img-cover" src="{{ commnet.media }}" alt="" />
+                              </ion-thumbnail>
+                              <ion-label>
+                                  <span class="name">{{ commnet.name }}</span>
+                                  <span class="date gray-600 font-size-11 mt-10">{{ commnet.created_at }}</span>
+                              </ion-label>
+                          </ion-item>
+                      </div>
+                  </ion-slide>
+              </ion-slides>
+          </ng-template>
+          <div class="more-title mt-10 mb-0 mt-md-80 mb-md-30 flex-row-center-between width-100">
+              <h2 class="title title-type-one">
+                  <span>مجله اینترنتی تلفن خونه</span>
+              </h2>
+              <ion-button color="primary" expand="block" fill="clear" [routerLink]="['/blog']">
+                  مشاهده همه <i class="fas fa-chevron-left mr-10"></i></ion-button>
+          </div>
+          <ion-slides class="show-overslide pt-10 pt-md-40" [options]="slideOpts2">
+              <ion-slide *ngFor="let item of blogs">
+                  <div class="home-cards home-magzine box-shadow w-100 flex" [routerLink]="['/blog' , '520']">
+                      <div class="image">
+                          <img *ngIf="item.media" class="img-cover" [src]="item.media" alt="" />
+                          <img *ngIf="!item.media" class="img-cover" src="assets/img/no-image.jpg" alt="" />
+                      </div>
+                      <div class="inner w-100">
+                          <div class="desc">
+                              <p>{{item.title}}</p>
+                          </div>
+                          <div class="detail flex-row-center-between">
+                              <span class="date">{{ item.created_at }}</span>
+                              <ion-text color="primary">
+                                  <span class="label gray-600">{{ item.category.name }}</span>
+                              </ion-text>
+                          </div>
+                      </div>
+                  </div>
+              </ion-slide>
+          </ion-slides>
+      </div>
+  </section>
+
+  <app-footer></app-footer>
 </ion-content>

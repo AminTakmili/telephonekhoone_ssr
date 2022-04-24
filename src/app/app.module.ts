@@ -21,8 +21,7 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
 @NgModule({
   declarations: [
     AppComponent,
-    AppShellRenderDirective,
-    AppShellNoRenderDirective,
+
   ],
   entryComponents: [],
   imports: [

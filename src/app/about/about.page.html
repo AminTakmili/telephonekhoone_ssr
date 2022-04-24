@@ -1,0 +1,39 @@
+<ion-header class="ion-hide-lg-up">
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title> درباره تلفن خونه </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-header type="relative"></app-header>
+  <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+  <section id="about" class="pb-20">
+    <div class="container">
+      <ion-grid>
+        <ion-row class="ion-align-items-center flex-sm-column-reverse">
+          <ion-col size-lg="6" size="12">
+            <ion-text color="primary" class="ion-hide-lg-down">
+              <h2 class="mb-30">درباره تلفن خونه</h2>
+            </ion-text>
+            <p
+              class="gray-600 ion-text-justify aboutText"
+              [innerHTML]="aboutText"
+            ></p>
+          </ion-col>
+          <ion-col size-lg="6" size="12" class="pr-md-20 pr-0">
+            <div class="image">
+              <img
+                class="img-contain"
+                src="./assets/img/professional.png"
+                alt="درباره ما"
+              />
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </section>
+  <app-footer></app-footer>
+</ion-content>

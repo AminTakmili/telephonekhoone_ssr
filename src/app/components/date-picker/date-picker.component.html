@@ -1,0 +1,68 @@
+<form [formGroup]="timeInputForm" (ngSubmit)="confirmDate()">
+  <input
+    class="ion-hide"
+    formControlName="reserve_day"
+    type="text"
+    #datepickerInput
+  />
+
+  <ng-persian-datepicker
+    [uiIsVisible]="true"
+    [timeEnable]="false"
+    [uiHideAfterSelectDate]="false"
+    [uiHideOnOutsideClick]="false"
+    [input]="datepickerInput"
+    [dateFormat]="'jYYYY-jMM-jDD'"
+    [dateValue]="pickerValue"
+  ></ng-persian-datepicker>
+
+  <ion-list>
+    <ion-item lines="full">
+      <ion-label> از ساعت </ion-label>
+      <ion-datetime
+        [pickerOptions]="dateTimePicker"
+        placeholder="ساعت شروع"
+        formControlName="from"
+        doneText="تایید"
+        cancelText="لغو"
+        displayFormat="HH:mm"
+        pickerFormat="HH:mm"
+      ></ion-datetime>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label> تا ساعت </ion-label>
+      <ion-datetime
+        [pickerOptions]="dateTimePicker"
+        formControlName="to"
+        placeholder="ساعت پایان"
+        doneText="تایید"
+        cancelText="لغو"
+        displayFormat="HH:mm"
+        pickerFormat="HH:mm"
+      ></ion-datetime>
+    </ion-item>
+  </ion-list>
+  <ion-row>
+    <ion-col size="6">
+      <ion-button
+        [attr.disabled]="loading"
+        mode="ios"
+        expand="block"
+        type="submit"
+      >
+        <ion-label *ngIf="!loading"> تایید </ion-label>
+        <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button
+        color="danger"
+        mode="ios"
+        expand="block"
+        (click)="popoverController.dismiss()"
+      >
+        لغو
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</form>

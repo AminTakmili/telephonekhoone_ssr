@@ -1,0 +1,93 @@
+@import "~src/theme/extends";
+#showBlog {
+    .main-card {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 15px;
+        .image {
+            border-radius: 15px;
+            overflow: hidden;
+            width: 100%;
+            height: 400px;
+            background-color: #ececec;
+            .loading {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        .title {
+            padding: 0 10px 10px 10px;
+            padding: 7px 10px 17px 10px;
+            h1 {
+                color: var(--color-font);
+            }
+            .date {
+                flex: 0 0 auto;
+            }
+        }
+    }
+    .estimated-time {
+        border: 1px solid var(--ion-color-primary);
+        border-radius: 5px;
+        cursor: default;
+        padding: 23px 8px;
+        margin: 22px 0;
+    }
+    @include breakpoint(lg-down) {
+        .loginCm {
+            h6 {
+                margin: 0 35px;
+            }
+        }
+        .image {
+            height: 230px !important;
+        }
+        .title {
+            h1 {
+                font-size: 14px !important;
+            }
+        }
+        .main-card {
+            padding: 10px;
+            margin-bottom: 50px;
+        }
+        .estimated-time {
+            padding: 26px 8px;
+            margin: 10px 0;
+            ion-icon {
+                flex: 1 1 auto;
+                font-size: 27px;
+            }
+            ion-label {
+                line-height: 20px;
+            }
+        }
+        ion-button {
+            height: 35px;
+            font-size: 14px !important;
+        }
+    }
+}
+
+form {
+    position: relative;
+}
+
+.loginCm {
+    background-color: rgba(255, 255, 255, 0.2);
+    z-index: 9;
+    backdrop-filter: blur(2px);
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

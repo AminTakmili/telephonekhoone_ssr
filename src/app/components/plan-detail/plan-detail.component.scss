@@ -1,0 +1,27 @@
+.overFlowVisible {
+    overflow: visible;
+    white-space: pre-wrap;
+    width: 100%;
+    flex: 0 0 85%;
+    margin-left: 0;
+    &::after {
+        content: ".";
+    }
+}
+
+.information-list {
+    ion-icon {
+        margin-left: 10px;
+        font-size: 25px;
+    }
+    ion-item {
+        --border-color: #eaeaea;
+        &:last-of-type {
+            --border-width: 0px 0px 0px 0px !important;
+        }
+    }
+    .info-label {
+        white-space: pre-wrap;
+        overflow: visible;
+    }
+}

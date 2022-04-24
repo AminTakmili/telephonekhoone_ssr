@@ -1,0 +1,19 @@
+<ion-content fullscreen="true">
+    <ion-buttons>
+        <ion-button color="light" (click)="close()">
+            <ion-icon name="close" slot="icon-only"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <div class="slides" *ngIf="showSlider">
+        <div class="mainSlider ion-padding">
+            <ion-slides dir="ltr" pager="true" zoom="true" #detailSlider [options]="detailSliderOptions">
+                <ion-slide *ngFor="let item of images">
+                    <ion-backdrop></ion-backdrop>
+                    <div class="slideItem swiper-zoom-container">
+                        <ion-img [src]="item.path" [class.loading]="item.loading" (ionImgWillLoad)="item.loading = true" (ionImgDidLoad)="item.loading = false"></ion-img>
+                    </div>
+                </ion-slide>
+            </ion-slides>
+        </div>
+    </div>
+</ion-content>

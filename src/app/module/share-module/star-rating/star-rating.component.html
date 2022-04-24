@@ -1,0 +1,7 @@
+<div class="stars">
+    <ng-template ngFor let-i="index" let-dummy [ngForOf]="' '.repeat(5).split('')">
+        <div class="starItem" [class.activeRate]="rate >= (i + 1)" (click)="changeRate(i + 1)">
+            <ion-icon [name]="rate >= (i + 1) ? 'star' : 'star-outline'"></ion-icon>
+        </div>
+    </ng-template>
+</div>

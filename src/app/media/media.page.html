@@ -1,0 +1,118 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title> رسانه ها </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content [scrollEvents]="true" #myContent>
+    <div class="content">
+        <section id="media">
+            <app-header type="relative"></app-header>
+            <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+
+            <div class="container px-0">
+                <div class="filters">
+                    <p>
+                        جستجوی رسانه :
+                    </p>
+                    <div class="consultantSearch mr-15">
+                        <ion-searchbar #consultantSearchInput mode="md" class="ion-no-shadow" placeholder="جستجو بر اساس مشاور" (ionChange)="searchConsultant($event)" [debounce]="500" searchIcon="none"></ion-searchbar>
+                        <ion-list class="searchResult" *ngIf="consultantSearchInput.value && !disableMediaReq">
+                            <ng-template [ngIf]="consultantSearchLoading">
+                                <div class="consultantLoading">
+                                    <ion-spinner name="crescent"></ion-spinner>
+                                    <span> در حال جستجو </span>
+                                </div>
+                            </ng-template>
+                            <ng-template [ngIf]="consultantSearchResult.length === 0 && !consultantSearchLoading">
+                                <div class="p-10">
+                                    متاسفانه موردی یافت نشد !
+                                </div>
+                            </ng-template>
+                            <ng-template [ngIf]="consultantSearchResult.length !== 0">
+                                <ion-item lines="full" *ngFor="let item of consultantSearchResult" (click)="filterByConsultant(item)">
+                                    <ion-label>
+                                        {{ item.fullname }}
+                                    </ion-label>
+                                </ion-item>
+                            </ng-template>
+                        </ion-list>
+                    </div>
+                    <div class="mediaSearch mr-15">
+                        <ion-searchbar mode="md" class="ion-no-shadow" placeholder="جستجو بر اساس عنوان رسانه" (ionChange)="searchMedia($event)" [debounce]="500" searchIcon="none"></ion-searchbar>
+                    </div>
+                </div>
+                <div *ngIf="selectedConsultant" class="mr-15 mt-25 mb-10">
+                    رسانه های ارسال شده توسط <strong>{{ selectedConsultant.fullname }}</strong>
+                    <ion-button (click)="deleteConsultant()" shape="round" fill="outline" color="danger" size="small" class="mr-10">
+                        <ion-icon name="close-outline" slot="start"></ion-icon>
+                        <ion-label> حذف </ion-label>
+                    </ion-button>
+                </div>
+                <ion-grid>
+                    <ion-row *ngIf="!loading && mediaItems.length != 0">
+                        <ion-col size-lg="3" size="12" class="px-10 pb-15" *ngFor="let item of mediaItems | paginate: { totalItems: mediaCount,  itemsPerPage: 9, currentPage: p2, id: 'second' } , let x = index">
+                            <ion-card mode="ios" class="blog-cards w-100 ion-no-margin">
+                                <div class="p-10">
+                                    <div class="mediaItem" [routerLink]="['/media/' + item.id]">
+                                        <ion-icon *ngIf="item.type === 'voice'" name="mic-outline"></ion-icon>
+                                        <ion-icon *ngIf="item.type === 'video'" name="videocam-outline"></ion-icon>
+                                    </div>
+                                    <div class="desc cursor-pointer" [routerLink]="['/media/' + item.id]">
+                                        <p>
+                                            <ion-chip color="primary">
+                                                <ion-text> {{ item.type === 'voice' ? 'پادکست' : 'ویدئو' }} </ion-text>
+                                            </ion-chip> {{item.title}}
+                                        </p>
+                                    </div>
+                                    <div class="price w-100">
+                                        <ion-text color="red-light">
+                                            <p *ngIf="item.price > 0" class="ml-5 ion-text-left">
+                                                {{ item.price | number}} تومان
+                                            </p>
+                                            <p *ngIf="item.price === 0" class="ml-5 ion-text-left">
+                                                رایگان
+                                            </p>
+                                        </ion-text>
+                                    </div>
+                                </div>
+                                <ion-button [routerLink]="['/media/' + item.id]" class="ion-no-margin" expand="full" mode="ios" color="primary">مشاهده جزئیات
+                                </ion-button>
+                            </ion-card>
+                        </ion-col>
+                    </ion-row>
+                    <ng-template [ngIf]="loading"  *appShellNoRender>
+                        <ion-row >
+                            <ion-col size-lg="3" size="12" *ngFor="let dummy of ' '.repeat(15).split('')">
+                                <ion-card mode="ios" class="blog-cards w-100 ion-no-margin">
+                                    <div class="p-10">
+                                        <div class="image">
+                                            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                        </div>
+                                        <div class="desc">
+                                            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                                        </div>
+                                        <div class="capacity w-100 d-flex ion-justify-content-start ion-align-items-center">
+                                            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                                        </div>
+                                    </div>
+                                </ion-card>
+                            </ion-col>
+                        </ion-row>
+                     </ng-template>
+                    <ion-row class="ion-justify-content-center align-items-center" *ngIf="mediaCount > 0">
+                        <ion-col size="auto">
+                            <pagination-controls id="second" previousLabel="قبلی" nextLabel="بعدی" (pageChange)="pageChange($event)">
+                            </pagination-controls>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+                <app-not-found icon="videocam-outline" description="موردی یافت نشد" *ngIf="mediaCount === 0 && !loading">
+                </app-not-found>
+            </div>
+        </section>
+        <app-footer></app-footer>
+    </div>
+</ion-content>

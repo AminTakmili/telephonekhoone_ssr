@@ -1,0 +1,70 @@
+<ion-header class="ion-hide-md-down">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="dismiss()" color="medium">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title color="primary">
+            عدم موجودی
+        </ion-title>
+
+    </ion-toolbar>
+</ion-header>
+<div class="box-shadow flex-column wallet-profile w-100 px-10 pb-15 p-md-40">
+    <ion-toolbar class="ion-hide-md-up">
+        <ion-title color="primary">
+            عدم موجودی
+        </ion-title>
+        <ion-buttons slot="start">
+            <ion-button (click)="dismiss()" color="medium">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <p class="ion-text-center ion-no-margin">
+        موجودی کیف پول : {{ balance | number }} تومان
+    </p>
+    <form [formGroup]="walletForm">
+        <ion-grid>
+            <ion-row>
+                <ng-template [ngIf]="!loading && packages.length != 0">
+                    <ion-col size="4" *ngFor="let item of packages">
+                        <ion-button (click)="setPackage(item)" expand="block" fill="clear" class="gray-title shadow-clear font-size-12 border-box">
+                            {{ item.amount | number }}
+                            <small class="mr-5"> تومان </small>
+                        </ion-button>
+                    </ion-col>
+                </ng-template>
+                <ng-template [ngIf]="loading">
+                    <ion-col size="4" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
+                        <ion-button expand="block" fill="clear" class="gray-title shadow-clear ion-no-padding border-box">
+                            <ion-skeleton-text animated style="width: 100%; height: 100%"></ion-skeleton-text>
+                        </ion-button>
+                    </ion-col>
+                </ng-template>
+
+                <ion-col size="12">
+                    <ion-item class="border-box" lines="none">
+                        <ion-input #amounPrice class="ion-text-center font-size-14" formControlName="amount" placeholder="مبلغ مورد نظر خود را وارد کنید"></ion-input>
+                        <ion-label slot="end"> تومان </ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-button (click)="payWallet()" [disabled]="!walletForm.valid || payLoading" expand="block" color="red-medium" class="btn shadow-clear mt-20">
+                        <ng-template [ngIf]="!payLoading">
+                            پرداخت
+                            <span class="mr-5" *ngIf="walletForm.valid">
+								{{ amounPrice.value | number }} تومان
+							</span>
+                        </ng-template>
+
+                        <ng-template [ngIf]="payLoading">
+                            <ion-spinner name="crescent"></ion-spinner>
+                        </ng-template>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</div>

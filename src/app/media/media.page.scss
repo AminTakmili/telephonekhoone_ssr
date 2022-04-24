@@ -1,0 +1,135 @@
+@import "src/theme/extends";
+#media {
+    .blog-cards {
+        position: relative;
+        overflow: hidden;
+        .image {
+            border-radius: 10px;
+            overflow: hidden;
+            width: 100%;
+            height: 161px;
+        }
+        .mediaItem {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #dadada;
+            border-radius: 10px;
+            ion-icon {
+                font-size: 80px;
+                padding: 20px 0;
+            }
+        }
+        .desc {
+            margin: 15px 0 10px;
+            font-size: 12px;
+            width: 100%;
+            p {
+                line-height: 20px;
+                height: 60px;
+                overflow: hidden;
+            }
+        }
+        p {
+            z-index: 1;
+        }
+    }
+}
+
+.content {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.filters {
+    margin-bottom: 15px;
+    @include breakpoint(md-down) {
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 0 15px;
+        p {
+            margin-top: 15px !important;
+        }
+        .consultantSearch {
+            margin: 10px 0 !important;
+        }
+        .mediaSearch {
+            margin: 0 !important;
+        }
+        .mediaSearch,
+        .consultantSearch {
+            flex: 1 !important;
+            width: 100%;
+        }
+    }
+    display: flex;
+    align-items: center;
+    p {
+        margin: 0;
+    }
+    ion-searchbar {
+        border: 1px solid #cecece;
+        padding: 0;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .mediaSearch,
+    .consultantSearch {
+        flex: 0 0 20%;
+    }
+}
+
+.consultantSearch {
+    position: relative;
+    .searchResult {
+        ion-item {
+            cursor: pointer;
+            &:hover {
+                --background: #f1f1f1;
+            }
+        }
+        position: absolute;
+        top: 100%;
+        z-index: 2;
+        width: 100%;
+        box-shadow: 0px 12px 30px rgb(0 0 0 / 16%);
+        border-radius: 0 0 10px 10px;
+        max-height: 235px;
+        overflow-y: auto;
+        direction: ltr;
+        &>* {
+            direction: rtl;
+        }
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+        /* Track */
+        &::-webkit-scrollbar-track {
+            background: var(--color-white);
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+        }
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+            background: var(--ion-color-secondary);
+        }
+        /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+            background: var(--ion-color-primary);
+        }
+    }
+}
+
+.consultantLoading {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    ion-spinner {
+        margin-left: 15px;
+    }
+}
