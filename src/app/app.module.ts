@@ -1,3 +1,4 @@
+import { LottieModule } from 'ngx-lottie';
 import { AppShellNoRenderDirective } from './directives/app-shell-norender.directive';
 import { AppShellRenderDirective } from './directives/app-shell-render.directive';
 import { GlobalService } from './services/global.service';
@@ -17,6 +18,11 @@ import { environment } from '../environments/environment';
 import { Drivers } from '@ionic/storage';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { TransferHttpCacheModule } from '@nguniversal/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+export function playerFactory() {
+	return import('lottie-web');
+}
 
 @NgModule({
   declarations: [
@@ -31,11 +37,13 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
     AppRoutingModule,
     HttpClientModule,
     BrowserTransferStateModule,
+    LottieModule.forRoot({ player: playerFactory }),
+    
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
 
-    // BrowserAnimationsModule,
+    BrowserAnimationsModule,
 
     IonicStorageModule.forRoot({
       name: '_telephonekhoone',

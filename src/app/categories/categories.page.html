@@ -1,0 +1,94 @@
+<ion-header class="ion-hide-lg-up">
+  <ion-toolbar color="light">
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title> دسته بندی مشاوران </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-header type="relative"></app-header>
+  <!-- <ion-button (click)="getData()">
+<ion-icon name="refresh"></ion-icon>
+</ion-button> -->
+  <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+  <section id="Categories">
+      <div class="container px-0">
+          <h2 class="title page-title-two ion-text-center gray-title font-size-20 ion-hide-lg-down">
+              دسته بندی مشاوران
+          </h2>
+          <nav  class="menu-cat" #nav>
+              <ion-slides #DesktopMenu class="desktop-menu-item menu-ul" pager="false" [options]="galleryThumbsConfig2">
+                  <ion-slide class="circleShadow" *ngFor="let item of newAllCatObj"  [class.current]="item.id == selectedId||!item.id&&!selectedId"(click)="changeActiveCategory(item.id)">
+                      {{ item.name }}
+                  </ion-slide>
+              </ion-slides>
+          </nav>
+          <ion-grid>
+              <ion-row>
+                 <!-- <ion-button (click)="addAllCat()" expand="block" fill="clear" shape="round">
+                      Click me
+                  </ion-button> -->
+                  <ng-template [ngIf]="!loading">
+                      <ion-col size-lg="3" size="12" class="p-10" *ngFor="let item of categoryItems">
+                          <a [routerLink]="['/c/search',item.id]" class="cat-cards box-shadow cursor-pointer w-100">
+                              <div class="image">
+                                  <!-- (ionImgDidLoad)="imageLoad($event)" -->
+                                  <ion-img class="img-cover" [src]="item.media.options?.subSizes?.large ? item.media.options?.subSizes?.large : item.media.options?.subSizes?.medium ? item.media.options?.subSizes?.medium : item.media?.path" [alt]="item.name"></ion-img>
+                              </div>
+                              <div class="desc w-100">
+                                  <p>{{ item.name }}</p>
+                              </div>
+                              <div class="show-more w-100">
+                                  <div class="imgages" *ngIf="item.consultants">
+                                      <ng-template ngFor let-consultant [ngForOf]="item.consultants" let-i="index">
+                                          <div class="img" *ngIf="consultant.media.length != 0">
+                                              <ng-template ngFor let-img [ngForOf]="consultant.media">
+                                                  <img *ngIf="img.name == 'profile' && img?.options?.subSizes?.thumbnail" class="img-cover" [src]="img?.options?.subSizes?.thumbnail" alt="{{ consultant.fullname }}" />
+                                                  <img *ngIf="img.name == 'profile' && !img?.options?.subSizes?.thumbnail" class="img-cover" src="assets/img/no-image.jpg" alt="{{ consultant.fullname }}" />
+                                              </ng-template>
+                                              <span class="online-badge"></span>
+                                          </div>
+                                      </ng-template>
+                                  </div>
+                                  <span class="gray-600 font-size-11 more" *ngIf="item.entity_count">{{
+                  item.entity_count }} مشاور </span>
+                              </div>
+                          </a>
+                      </ion-col>
+                  </ng-template>
+                  <div class="notFound" [class.d-none]="loading || categoryItems.length !== 0">
+                      <ng-lottie [options]="searchAnimate" (animationCreated)="handleEmptyAnimation($event)"></ng-lottie>
+                      <h3>موردی یافت نشد</h3>
+                  </div>
+
+                  <ng-template [ngIf]="loading"  *appShellNoRender>
+                      <ion-col size-lg="3" size="12" class="p-10" *ngFor="let item of [1,1,1,1,1,1,1,1]">
+                          <div class="cat-cards shimmer box-shadow cursor-pointer w-100">
+                              <div class="image">
+                                  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                              </div>
+                              <div class="desc w-100">
+                                  <p>
+                                      <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+                                      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+                                  </p>
+                              </div>
+                              <div class="show-more w-100">
+                                  <div class="imgages">
+                                      <ng-template ngFor let-consultant [ngForOf]="[1 , 2 , 3 , 4]" let-i="index">
+                                          <div class="img shimmerImg">
+                                              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                          </div>
+                                      </ng-template>
+                                  </div>
+                              </div>
+                          </div>
+                      </ion-col>
+                  </ng-template>
+              </ion-row>
+          </ion-grid>
+      </div>
+  </section>
+  <app-footer></app-footer>
+</ion-content>

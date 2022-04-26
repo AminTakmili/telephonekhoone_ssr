@@ -60,6 +60,5 @@ export class ImageGalleryComponent implements OnInit {
 				loading: false
 			})
 		})
-
 	}
 }

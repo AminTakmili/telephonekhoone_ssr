@@ -109,7 +109,6 @@ export class GlobalService {
 		});
 	}
 
-
 	SSRsetTimeout(callback: (...args: any[]) => void, ms: number,...args: any[]){
 		if (this.isBrowser) {	
 			setTimeout(callback, ms,...args);
@@ -199,30 +198,33 @@ export class GlobalService {
 			this.changeLogin(false);
 			return;
 		} else {
-			const alert = await this.alertController.create({
-				header: 'خروج از حساب کاربری',
-				message: 'میخواهید از حساب کاربری خود خارج شوید ؟ ',
-				buttons: [
-					{
-						text: 'تایید',
-						handler: () => {
-							this.changeLogin(false);
-							localStorage.clear();
-							this.storageService.clearAll();
-							this.setUserType('');
-							this.setUserInfo(new UserInfo());
-							this.setToken('9x8869x31134x7906x6x54474x21x18xxx90857x');
-							// window.location.reload();
+			if (this.isBrowser) {
+				
+				const alert = await this.alertController.create({
+					header: 'خروج از حساب کاربری',
+					message: 'میخواهید از حساب کاربری خود خارج شوید ؟ ',
+					buttons: [
+						{
+							text: 'تایید',
+							handler: () => {
+								this.changeLogin(false);
+								localStorage.clear();
+								this.storageService.clearAll();
+								this.setUserType('');
+								this.setUserInfo(new UserInfo());
+								this.setToken('9x8869x31134x7906x6x54474x21x18xxx90857x');
+								// window.location.reload();
+							},
 						},
-					},
-					{
-						text: 'لغو',
-						role: 'cancle',
-					},
-
-				],
-			});
-			await alert.present();
+						{
+							text: 'لغو',
+							role: 'cancle',
+						},
+	
+					],
+				});
+				await alert.present();
+			}
 		}
 	}
 
@@ -327,7 +329,6 @@ export class GlobalService {
 
 		}
 	}
-
 	async showToast(
 		message: string,
 		duration: number,
@@ -572,61 +573,64 @@ export class GlobalService {
 	}
 
 	async showError(err: HttpErrorResponse): Promise<any> {
-		return new Promise(async (resolve) => {
-			if (err.status === 403 || err.status === 401) {
-				localStorage.clear();
-				const alert = await this.alertController.create({
-					header: 'عدم دسترسی',
-					message:
-						'جهت دسترسی به این بخش ابتدا وارد حساب کاربری خود شوید',
-					buttons: [
-						{
-							text: 'وررود/عضویت',
-							handler: () => {
-								this.forceLogOut();
-								this.showLogin();
-							},
-						},
-						{
-							text: 'لغو',
-							role: 'cancel',
-						},
-
-					],
-				});
-				alert.present();
-			} else if (err.status === 400) {
-				if (err.error.msg) {
+		if (this.isBrowser) {
+			
+			return new Promise(async (resolve) => {
+				if (err.status === 403 || err.status === 401) {
+					localStorage.clear();
 					const alert = await this.alertController.create({
-						header: 'خطا',
-						message: err.error.msg,
+						header: 'عدم دسترسی',
+						message:
+							'جهت دسترسی به این بخش ابتدا وارد حساب کاربری خود شوید',
 						buttons: [
 							{
-								text: 'تایید',
+								text: 'وررود/عضویت',
+								handler: () => {
+									this.forceLogOut();
+									this.showLogin();
+								},
+							},
+							{
+								text: 'لغو',
 								role: 'cancel',
+							},
+	
+						],
+					});
+					alert.present();
+				} else if (err.status === 400) {
+					if (err.error.msg) {
+						const alert = await this.alertController.create({
+							header: 'خطا',
+							message: err.error.msg,
+							buttons: [
+								{
+									text: 'تایید',
+									role: 'cancel',
+								},
+							],
+						});
+						await alert.present();
+					}
+	
+					resolve('');
+				} else if (err.status === 500) {
+					const alert = await this.alertController.create({
+						header: 'خطا',
+						message: 'متاسفانه خطایی رخ داده است !',
+						buttons: [
+							{
+								text: 'تلاش مجدد',
+								// role: "cancel",
+								handler: () => {
+									resolve('req');
+								},
 							},
 						],
 					});
 					await alert.present();
 				}
-
-				resolve('');
-			} else if (err.status === 500) {
-				const alert = await this.alertController.create({
-					header: 'خطا',
-					message: 'متاسفانه خطایی رخ داده است !',
-					buttons: [
-						{
-							text: 'تلاش مجدد',
-							// role: "cancel",
-							handler: () => {
-								resolve('req');
-							},
-						},
-					],
-				});
-				await alert.present();
-			}
-		});
+			});
+		}
 	}
 }

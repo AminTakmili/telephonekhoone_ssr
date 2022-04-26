@@ -46,7 +46,7 @@ export class HomePage {
       desc: 'تماس با مشاورین متخصص تلفن خونه و دریافت مشاوره',
       type: 1,
       color: 'blue-light',
-      link: '/categories',
+      link: '/c',
     },
     {
       name: ' وبینارها',
@@ -186,7 +186,7 @@ export class HomePage {
   }
 
   gotoCategory(item) {
-    this.router.navigate(['/categories'], {
+    this.router.navigate(['/c'], {
       relativeTo: this.activateRoute,
       queryParams: { id: item.id },
       queryParamsHandling: 'merge',

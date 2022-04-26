@@ -102,25 +102,28 @@ export class DetailComponent implements OnInit {
 				alrt.present();
 			});
 		} else {
-			const alert = await this.alertCtrl.create({
-				header: 'دریافت رسانه',
-				message:
-					'برای دریافت این رسانه ابتدا باید به حساب کاربری خود وارد شوید',
-				buttons: [
-					{
-						text: 'ورود/عضویت',
-						handler: () => {
-							this.global.showLogin();
+			if (this.global.isBrowser) {
+				const alert = await this.alertCtrl.create({
+					header: 'دریافت رسانه',
+					message:
+						'برای دریافت این رسانه ابتدا باید به حساب کاربری خود وارد شوید',
+					buttons: [
+						{
+							text: 'ورود/عضویت',
+							handler: () => {
+								this.global.showLogin();
+							},
 						},
-					},
-					{
-						text: 'لغو',
-						role: 'cancel',
-					},
-
-				],
-			});
-			await alert.present();
+						{
+							text: 'لغو',
+							role: 'cancel',
+						},
+	
+					],
+				});
+				await alert.present();
+				
+			}
 		}
 	}
 
@@ -153,7 +156,6 @@ export class DetailComponent implements OnInit {
 		}
 		return fileInfo;
 	}
-
 
 
 }

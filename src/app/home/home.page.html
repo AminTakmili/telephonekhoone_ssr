@@ -79,7 +79,7 @@
                       <div class="searchItems" *ngIf="searchItems.blogs?.length + searchItems.consoltants?.length != 0">
                           <ul>
                               <li *ngFor="let consoltant of searchItems.consoltants" class="searchItem">
-                                  <a [routerLink]="['/categories' , 'consultant' ,consoltant.category_item_id ,consoltant.id]">
+                                  <a [routerLink]="['/c' , 'consultant' ,consoltant.category_item_id ,consoltant.id]">
                   {{ consoltant.fullname }} در دسته بندی
                   <span> {{ consoltant.category }} </span>
                 </a>
@@ -209,7 +209,7 @@
           <!-- مشاوران -->
           <div class="more-title flex-row-center-between width-100">
               <h2 class="title title-type-one"><span>مشاوران آنلاین</span></h2>
-              <ion-button color="primary" expand="block" fill="clear" [routerLink]="['/categories']">
+              <ion-button color="primary" expand="block" fill="clear" [routerLink]="['/c']">
                   مشاهده همه <i class="fas fa-chevron-left mr-10"></i></ion-button>
           </div>
 
@@ -235,7 +235,7 @@
                           </div>
                           <p><span>{{ item.consultations }}</span> مشاوره</p>
                       </div>
-                      <ion-button [routerLink]="['/categories' , 'consultant' ,item.category_item_id ,item.id]" class="font-size-12 w-100" expand="block" shape="round" fill="outline" color="primary">
+                      <ion-button [routerLink]="['/c' , 'consultant' ,item.category_item_id ,item.id]" class="font-size-12 w-100" expand="block" shape="round" fill="outline" color="primary">
                           <ion-label> دریافت مشاوره</ion-label>
                       </ion-button>
                       <!-- <div class="btns flex-row-center-between w-100"> -->
@@ -257,7 +257,7 @@
           <!--            </h2>-->
           <div class="more-title flex-row-center-between width-100">
               <h2 class="title title-type-one"><span>دسته بندی ها</span></h2>
-              <ion-button color="primary" expand="block" fill="clear" [routerLink]="['/categories']">
+              <ion-button color="primary" expand="block" fill="clear" [routerLink]="['/c']">
                   مشاهده همه <i class="fas fa-chevron-left mr-10"></i></ion-button>
           </div>
           <ion-slides class="mt-10 mt-md-50 pt-0 pt-md-40 show-overslide" [options]="categoryOpts">

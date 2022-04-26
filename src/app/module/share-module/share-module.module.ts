@@ -32,7 +32,7 @@ import { UploadFileComponent } from 'src/app/components/upload-file/upload-file.
 import { SurveyComponent } from './survey/survey.component';
 import { StarRatingComponent } from './star-rating/star-rating.component';
 import { ImageGalleryComponent } from 'src/app/components/image-gallery/image-gallery.component';
-// // !import { RulesPage } from 'src/app/rules-component/rules.page';
+import { RulesPage } from 'src/app/rules-component/rules.page';
 
 @NgModule({
 	imports: [
@@ -70,7 +70,7 @@ import { ImageGalleryComponent } from 'src/app/components/image-gallery/image-ga
 		ImageGalleryComponent,
 		AppShellRenderDirective,
 		AppShellNoRenderDirective,
-		// // RulesPage
+		RulesPage
 
 	],
 	entryComponents: [SpecialtyComponent],
@@ -97,7 +97,7 @@ import { ImageGalleryComponent } from 'src/app/components/image-gallery/image-ga
 		AppShellRenderDirective,
 		AppShellNoRenderDirective,
 		// PipesModule,
-		// // RulesPage
+		RulesPage
 	],
 	
 })

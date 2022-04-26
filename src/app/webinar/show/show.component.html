@@ -1,0 +1,92 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/webinar']">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> جزئیات وبینار </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <section class="webinar-show pb-50 pt-15">
+        <div class="container">
+            <ion-grid class="box-shadow no-scroll w-100 p-10 pb-20">
+                <ion-row class="w-100">
+                    <ion-col size-lg="4" size="12">
+                        <div class="border-box w-100 webinarSide">
+                            <div class="disc w-100">
+                                <p class="text-bold">{{ seminarDetail?.title }}</p>
+                            </div>
+                            <div class="capacity my-20 w-100 d-flex ion-justify-content-start ion-align-items-center">
+                                <ion-text color="red-light">
+                                    <p class="font-size-30 ml-5 text-bold">
+                                        {{ seminarDetail?.capacity - seminarDetail?.users_count }}
+                                    </p>
+                                </ion-text>
+                                <p class="gray-600">نفر مانده تا تکمیل ظرفیت</p>
+                            </div>
+                            <ion-item class="w-100 user-details" lines="none">
+                                <ion-thumbnail slot="start">
+                                    <img *ngIf="seminarDetail?.presenter_profile" class="img-cover" [src]="
+									seminarDetail?.presenter_profile?.options.subSizes.medium ? seminarDetail?.presenter_profile?.options.subSizes.medium : seminarDetail?.presenter_profile?.path
+                    " [alt]="seminarDetail?.presenter_name" />
+                                </ion-thumbnail>
+                                <ion-label class="w-100 ion-justify-content-between">
+                                    <div class="flex-column">
+                                        <span class="name font-size-14">{{
+											seminarDetail?.presenter_name
+											}}</span>
+                                        <span class="date gray-600 font-size-12 mt-10">تاریخ شروع : {{
+											seminarDetail?.holding_date }}</span>
+                                    </div>
+                                    <!-- <div class="flex-column price ion-align-items-end">
+                    <ion-text color="red-dark">
+                      <p
+                        *ngIf="seminarDetail?.price > 0"
+                        class="ml-5 ion-text-left"
+                      >
+                        {{ seminarDetail?.price | number }} تومان
+                      </p>
+                      <p
+                        *ngIf="seminarDetail?.price === 0"
+                        class="ml-5 ion-text-left"
+                      >
+                        رایگان
+                      </p>
+                    </ion-text>
+                    <ion-text class="new" color="medium">
+                      <p class="old font-size-12">15,000 تومان</p>
+                    </ion-text>
+                  </div> -->
+                                </ion-label>
+                            </ion-item>
+                            <ion-button [disabled]="isReserved" (click)="reserveSeminar()" class="shadow-clear buyBtn" expand="block" [color]="isReserved ? 'success' : 'primary'">
+                                <ion-label *ngIf="isReserved"> رزرو شده </ion-label>
+                                <ion-label *ngIf="!isReserved"> ثبت نام در وبینار </ion-label>
+                                <span class="pr-15 mr-15" *ngIf="seminarDetail?.price > 0 && !isReserved">
+									{{ seminarDetail?.price | number }} تومان
+								</span>
+                                <span class="pr-15 mr-15" *ngIf="seminarDetail?.price == 0 && !isReserved">رایگان</span>
+                            </ion-button>
+                        </div>
+                    </ion-col>
+                    <ion-col size-lg="8" class="pr-20">
+                        <div class="webinar-desc w-100 p-0">
+                            <div class="image">
+                                <img *ngIf="seminarDetail?.logo?.options.subSizes.large" class="img-cover" [src]="seminarDetail?.logo.options.subSizes.large" alt="" />
+                            </div>
+                            <h2 class="title title-type-one">
+                                <span>درباره این وبینار</span>
+                            </h2>
+                            <p class="desc" [innerHtml]="seminarDetail?.description"></p>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

@@ -1,0 +1,93 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title> وبینارها </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content [scrollEvents]="true" #myContent>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <section id="webinar">
+        <div class="container px-0">
+            <ion-grid>
+                <ion-row>
+                    <ion-col size-lg="9" size="12">
+                        <ion-grid>
+                            <ion-row *ngIf="!loading && seminarItems.length != 0">
+                                <ion-col size-lg="4" size="12" class="px-10 pb-15" *ngFor="let item of seminarItems | paginate: { totalItems: seminarsCount,  itemsPerPage: 9, currentPage: p2, id: 'second' } , let x = index">
+                                    <ion-card mode="ios" class="blog-cards w-100 ion-no-margin">
+                                        <div class="p-10">
+                                            <div class="image cursor-pointer" [routerLink]="['/webinar/' + item.id]">
+                                                <img *ngIf="item.logo?.options?.subSizes?.large" class="img-cover" [src]="item.logo?.options?.subSizes?.large" alt="" />
+                                                <img *ngIf="!item.logo?.options?.subSizes?.large" class="img-cover" src="assets/img/no-image.jpg" alt="{{ item.title }}" />
+                                            </div>
+                                            <div class="desc cursor-pointer" [routerLink]="['/webinar/' + item.id]">
+                                                <p>{{item.title}}</p>
+                                            </div>
+                                            <div class="capacity w-100 d-flex ion-justify-content-start ion-align-items-center">
+                                                <ion-text color="red-light">
+                                                    <p class="font-size-30 ml-5 text-bold">
+                                                        {{ item.capacity - item.users_count }}
+                                                    </p>
+                                                </ion-text>
+                                                <p class="gray-600 font-size-12">
+                                                    نفر مانده تا تکمیل ظرفیت
+                                                </p>
+                                            </div>
+                                            <div class="price w-100">
+                                                <ion-text color="red-light">
+                                                    <p *ngIf="item.price > 0" class="ml-5 ion-text-left">
+                                                        {{ item.price | number}} تومان
+                                                    </p>
+                                                    <p *ngIf="item.price === 0" class="ml-5 ion-text-left">
+                                                        رایگان
+                                                    </p>
+                                                </ion-text>
+                                            </div>
+                                        </div>
+                                        <ion-button [routerLink]="['/webinar/' + item.id]" class="ion-no-margin" expand="full" mode="ios" color="primary">مشاهده جزئیات و ثبت نام
+                                        </ion-button>
+                                    </ion-card>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row *ngIf="loading">
+                                <ion-col size-lg="4" size="12" *ngFor="let dummy of ' '.repeat(15).split('')">
+                                    <ion-card mode="ios" class="blog-cards w-100 ion-no-margin">
+                                        <div class="p-10">
+                                            <div class="image">
+                                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                            </div>
+                                            <div class="desc">
+                                                <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                                            </div>
+                                            <div class="capacity w-100 d-flex ion-justify-content-start ion-align-items-center">
+                                                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                                            </div>
+                                        </div>
+                                    </ion-card>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                        <ion-grid class="ion-no-padding" *ngIf="seminarsCount !== 0">
+                            <ion-row class="ion-justify-content-center align-items-center">
+                                <ion-col size="auto">
+                                    <pagination-controls id="second" previousLabel="قبلی" nextLabel="بعدی" (pageChange)="pageChange($event)">
+                                    </pagination-controls>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                        <app-not-found icon="easel-outline" description="موردی یافت نشد" *ngIf="seminarsCount === 0">
+                        </app-not-found>
+                    </ion-col>
+                    <ion-col size-lg="3" size="12">
+                        <app-blog-side (searchEmitter)="getWebinarData($event)" [data]="blogSideData" [loading]="loading">
+                        </app-blog-side>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

@@ -1,0 +1,24 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button (click)="modalCtrl.dismiss()">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>قوانین و مقررات</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="box-container">
+        <app-header type="relative"></app-header>
+        <div class="container">
+            <div *ngIf="!loading" class="ion-padding" [innerHTML]="data"></div>
+            <div *ngIf="loading" class="loading">
+                <ion-spinner name="crescent"></ion-spinner>
+                در حال بارگذاری
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</ion-content>

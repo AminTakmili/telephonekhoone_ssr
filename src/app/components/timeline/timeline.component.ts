@@ -45,8 +45,7 @@ export class TimelineComponent implements OnInit {
             });
     }
     reserveItemRequest(item) {
-        this.global.showLoading().then((loader) => {
-            loader.present();
+        this.global.showLoading().then(() => {
             this.global
                 .httpPost('requestCall', {
                     plan_id: this.planId,
@@ -54,10 +53,10 @@ export class TimelineComponent implements OnInit {
                 })
                 .subscribe(
                     (res) => {
-                        loader.dismiss();
+                        this.global.dismisLoading()
                     },
                     (err) => {
-                        loader.dismiss();
+                        this.global.dismisLoading()
                         this.global.showError(err).then((val) => {
                             if (val === 'req') {
                                 this.reserveItemRequest(item);

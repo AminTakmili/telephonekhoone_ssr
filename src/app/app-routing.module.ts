@@ -42,6 +42,21 @@ const routes: Routes = [
 		path: 'media',
 		loadChildren: () => import('./media/media.module').then(m => m.MediaPageModule)
 	},
+	{
+		path: 'webinar',
+		loadChildren: () =>
+			import('./webinar/webinar.module').then((m) => m.WebinarPageModule),
+	},
+	{
+		path: 'rules',
+		loadChildren: () => import('./rules/rules.module').then( m => m.RulesPageModule)
+	  },
+  {
+    path: 'c',
+    loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesPageModule)
+  },
+
+
 ];
 
 @NgModule({

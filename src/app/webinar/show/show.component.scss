@@ -1,0 +1,68 @@
+@import "~src/theme/extends";
+.webinar-show {
+    .border-box {
+        padding: 15px;
+        ion-button {
+            height: 50px;
+            margin-top: 20px;
+        }
+    }
+    .user-details {
+        ion-label {
+            flex-direction: row !important;
+        }
+        ion-thumbnail {
+            margin-left: 10px;
+            background-color: #ececec;
+        }
+    }
+    .price {
+        .old {
+            text-decoration: line-through;
+            margin-top: 5px;
+        }
+    }
+}
+
+.buyBtn {
+    span {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &::after {
+            content: "";
+            background-color: var(--ion-color-light);
+            position: absolute;
+            height: 30px;
+            width: 1px;
+            right: 0;
+        }
+    }
+}
+
+.webinar-desc {
+    .image {
+        width: 100%;
+        height: 480px;
+        @include breakpoint(md-down) {
+            height: 310px;
+        }
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #ececec;
+    }
+    .title {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    .desc {
+        font-size: 14px;
+        line-height: 30px;
+    }
+}
+
+.webinarSide {
+    position: sticky;
+    top: 50px;
+}

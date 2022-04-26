@@ -46,7 +46,9 @@ export class ShowBlogComponent implements OnInit {
     }
 
     onClickBack() {
-        window.history.back();
+        if (this.global.isBrowser) {
+            window.history.back();
+        }
     }
 
     getData() {

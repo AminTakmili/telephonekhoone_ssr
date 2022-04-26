@@ -50,7 +50,7 @@
     <ng-template [ngIf]="!_loading">
         <h3 class="font-size-18 mb-20 mt-30">دسته بندی مطالب</h3>
         <ion-card color="header" class="ion-no-padding ion-no-margin border-box item-clear ion-rounded-0 py-0">
-            <ion-list class="ion-no-padding font-size-12 categoriesList">
+            <ion-list *ngIf="data.categories&&data.categories.length!=0" class="ion-no-padding font-size-12 categoriesList">
                 <ion-item [routerLink]="isBlog ?['/blog/categories' , items.id] : ['/webinar/categories' , items.id]" routerLinkActive="active" [lines]="data.categories.length - 1 == i ? 'none' : 'full'" *ngFor="let items of data.categories; let i = index;">
                     <ion-label slot="start">
                         <p>{{ items.name }}</p>
