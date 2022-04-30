@@ -1,0 +1,83 @@
+<ion-content class="paddings">
+    <div class="loginBack">
+        <div class="mainContent" *ngIf="!register">
+            <ion-toolbar class="custom" color="light">
+                <ion-buttons slot="start">
+                    <ion-button (click)="dismissModal()">
+                        <ion-icon slot="icon-only" name="close"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+                <ion-title> برای ادامه به حساب کاربری خود وارد شوید </ion-title>
+            </ion-toolbar>
+            <div class="login-head">
+                <ion-img src="assets/images/loginPhone.png"></ion-img>
+                <p>شماره تلفن همراه خود را وارد کنید</p>
+                <small class="ion-text-center">
+          برای ارتباط بهتر با فروشندگان و یا مشتریان شماره ای که روی آن واتساپ
+          فعال است را وارد نمایید
+        </small>
+            </div>
+            <div class="login-content">
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin()" autocomplete="off">
+                    <ion-row>
+                        <ion-col size="8">
+                            <ion-item>
+                                <ion-input #tel type="tel" formControlName="mobile" maxlength="11" placeholder="- - - - - - - - - 09"></ion-input>
+                            </ion-item>
+                            <app-validator [control]="loginForm.controls['mobile']" [controlName]="'شماره تلفن'">
+                            </app-validator>
+                        </ion-col>
+                    </ion-row>
+                    <div class="btn">
+                        <ion-button type="submit" class="bigBtn" color="danger">
+                            <span *ngIf="!loading"> ادامه </span>
+                            <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+                        </ion-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="mainContent" *ngIf="register">
+            <ion-toolbar class="custom" color="light">
+                <ion-buttons slot="start">
+                    <ion-button (click)="dismissModal()">
+                        <ion-icon slot="icon-only" name="close"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+                <ion-title> ثبت نام در تلفن خونه </ion-title>
+            </ion-toolbar>
+            <div class="login-head">
+                <ion-img src="assets/images/signup.png"></ion-img>
+            </div>
+            <div class="login-content register">
+                <form [formGroup]="registerForm" (ngSubmit)="registerData()" autocomplete="off" class="myForm">
+                    <div class="edit-itms">
+                        <ion-item lines="none">
+                            <ion-label position="floating"> نام و نام خانوادگی </ion-label>
+                            <ion-input formControlName="name"></ion-input>
+                        </ion-item>
+                        <app-validator [control]="registerForm.controls['name']" [controlName]="'نام و نام خانوادگی'">
+                        </app-validator>
+                        <ion-item lines="none" class="ion-margin-top">
+                            <ion-label position="floating"> نام شرکت (اختیاری) </ion-label>
+                            <ion-input type="text" formControlName="companyName"> </ion-input>
+                        </ion-item>
+                        <app-validator [control]="registerForm.controls['companyName']" [controlName]="'نام شرکت'"></app-validator>
+                    </div>
+                </form>
+                <ion-item lines="none" class="">
+                    <ion-checkbox [(ngModel)]="rulesChecked" slot="start"></ion-checkbox>
+                    <ion-label class="ion-text-wrap customLabel">
+                        تمامی
+                        <ion-text color="primary" class="rules" (click)="showRules()"><strong>قوانین و ضوابط</strong></ion-text> را خوانده ام و میپذیرم
+                    </ion-label>
+                </ion-item>
+                <div class="btn">
+                    <ion-button (click)="registerData()" type="submit" class="bigBtn" color="danger">
+                        ثبت نام
+                    </ion-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

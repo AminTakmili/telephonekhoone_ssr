@@ -1,0 +1,20 @@
+<div class="selectedFiles">
+    <div class="file-item" *ngFor="let item of selectedFiles">
+        <div class="progressLoading" [style.width]="item.loadPercent+'%'"></div>
+        <ion-icon *ngIf="!item.loading" class="icon" [name]="item.file.name | fileTypeIcon">
+        </ion-icon>
+        <span class="percent" *ngIf="item.loading && item.loadPercent"> {{
+			item.loadPercent
+			}}% </span>
+        <ion-spinner name="crescent" *ngIf="item.loading && !item.loadPercent">
+        </ion-spinner>
+        <span class="name">{{ item.file.name }}</span>
+        <div class="removeFile">
+            <ion-buttons>
+                <ion-button (click)="removeFileEmitter.emit(item)" class="removeBtn">
+                    <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </div>
+    </div>
+</div>

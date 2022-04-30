@@ -1,0 +1,107 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/profile']">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> مکامات من </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <app-profile-header></app-profile-header>
+    <section class="">
+        <div class="container px-0 py-md-50">
+            <ion-grid>
+                <ion-row class="ion-justify-content-center">
+                    <ion-col size-lg="5" size="12">
+                        <div class="box-shadow profile-empty flex-column w-100" *ngIf="myCalls.length == 0 && !loading">
+                            <ion-icon class="bigIcon" name="call-outline"></ion-icon>
+                            <p class="gray-600 ion-text-center py-30">
+                                شما هنوز مشاوره ای دریافت نکرده اید
+                            </p>
+                            <ion-button routerLink="/categories" expand="block" color="red-medium" class="btn shadow-clear">مشاهده لیست مشاوران
+                            </ion-button>
+                        </div>
+                        <div class="box-shadow profile-items no-flex calls-profile w-100" *ngIf="loading">
+                            <ion-list class="item-clear font-size-12 w-100">
+                                <ion-item class="item-clear ion-no-padding" lines="full" *ngFor="let item of [1, 2, 3, 4]">
+                                    <!-- <ion-thumbnail slot="start" class="flex-row-center-center"> -->
+                                    <!-- <i class="fal fa-comment-alt"></i> -->
+                                    <!-- </ion-thumbnail> -->
+                                    <ion-label class="d-flex ion-justify-content-between w-100">
+                                        <div class="right flex-column w-100">
+                                            <ion-skeleton-text animated style="width: 60%; margin-bottom: 10px">
+                                            </ion-skeleton-text>
+                                            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                                        </div>
+                                    </ion-label>
+                                    <ion-skeleton-text animated style="width: 90px; border-radius: 8px; height: 30px">
+                                    </ion-skeleton-text>
+                                </ion-item>
+                            </ion-list>
+                        </div>
+                        <div class="box-shadow profile-items no-flex calls-profile w-100" *ngIf="myCalls.length != 0">
+                            <ion-list class="item-clear font-size-12 w-100">
+                                <ion-item class="item-clear ion-no-padding" lines="full" *ngFor="let item of myCalls; let x = index">
+                                    <ion-thumbnail slot="start" class="flex-row-center-center" *ngIf="item.consultant_image?.options?.subSizes?.medium">
+                                        <ion-img [src]="item.consultant_image?.options?.subSizes?.medium"></ion-img>
+                                    </ion-thumbnail>
+                                    <ion-thumbnail *ngIf="!item.consultant_image?.options?.subSizes?.medium" slot="start" class="flex-row-center-center icon-thumbnail">
+                                        <i class="fal fa-phone-alt"></i>
+                                    </ion-thumbnail>
+                                    <ion-label class="d-flex .lg-down-column ion-justify-content-between w-100">
+                                        <div class="right flex-column">
+                                            <p class="name mb-20">
+                                                {{ item.consultant }}
+                                                <span class="label">{{ item.category }}</span>
+                                            </p>
+                                            <span class="date gray-600 font-size-12">{{
+												item.created_at
+												}}</span>
+                                        </div>
+                                        <div class="left ion-align-items-center d-flex">
+                                            <ion-chip *ngIf="!item.can_rate && item.status !== 'pending_payment'" [color]="
+                            item.status == 'pending'
+                              ? 'primary'
+                              : item.status == 'accepted'
+                              ? 'success'
+                              : item.status == 'onCall'
+                              ? 'secondary'
+                              : item.status == 'ended'
+                              ? 'medium'
+                              : 'danger'
+                          ">
+                                                {{ item.status_text }}
+                                            </ion-chip>
+                                            <ion-button shape="round" (click)="showSurvey(item)" *ngIf="item.can_rate" expand="block" color="danger" class="btn shadow-clear">
+                                                شرکت در نظرسنجی
+                                            </ion-button>
+                                            <ion-button shape="round" (click)="goPay(item)" [attr.disabled]="payLoading" *ngIf="item.status === 'pending_payment'" expand="block" color="danger" class="btn shadow-clear">
+                                                <ion-label *ngIf="!payLoading">
+                                                    پرداخت و ایجاد تماس
+                                                </ion-label>
+                                                <ion-spinner name="dots" *ngIf="payLoading"></ion-spinner>
+                                            </ion-button>
+                                            <!-- <ion-button *ngIf="item.status == 'ended' && !item.can_rate" expand="block" color="success" class="btn shadow-clear">تماس مجدد
+                                            </ion-button> -->
+                                        </div>
+                                    </ion-label>
+                                </ion-item>
+                                <ion-button *ngIf="!end" [attr.disabled]="loadMoreLoading" (click)="loadMore()" mode="ios" expand="block" color="red-medium">
+                                    <ion-label *ngIf="!loadMoreLoading">
+                                        نمایش بیشتر
+                                    </ion-label>
+                                    <ion-spinner *ngIf="loadMoreLoading" name="crescent"></ion-spinner>
+                                </ion-button>
+                            </ion-list>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

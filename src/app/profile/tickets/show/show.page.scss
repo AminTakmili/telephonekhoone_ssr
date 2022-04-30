@@ -1,0 +1,80 @@
+@import "~src/theme/extends";
+.chatScreen {
+    display: flex;
+    flex-direction: column;
+    .messageItem {
+        &.user {
+            background-color: #2d6aab;
+            border-radius: 15px 0px 15px 15px;
+            float: right;
+            .sender {
+                color: rgba(255, 255, 255, 0.8);
+            }
+            p {
+                color: #ffffff;
+            }
+            .date {
+                color: rgba(255, 255, 255, 0.6);
+            }
+        }
+        &.admin {
+            background-color: #ececec;
+            border-radius: 0px 15px 15px 15px;
+            float: left;
+            .sender {
+                color: #a4a4a4;
+            }
+            .date {
+                opacity: 0.8;
+            }
+        }
+        width: 85%;
+        margin: 15px;
+        p {
+            margin: 10px 0;
+        }
+        .date {
+            font-size: 12px;
+        }
+        .sender {
+            font-size: 13px;
+        }
+        padding: 10px;
+    }
+}
+
+@media (min-width: 640px) {
+    .myChatScreen {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: space-between;
+        .chatScreen {
+            min-height: 270px;
+            max-height: 389px;
+            overflow-y: auto;
+        }
+    }
+}
+
+.footSendMessage {
+    box-shadow: 0 -3px 4px rgb(0 0 0 / 7%);
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-top: 6px;
+    ion-textarea {
+        padding-right: 10px;
+        border: 1px solid #b8b8b8;
+        border-radius: 20px;
+        height: 57px;
+        margin-right: 10px;
+    }
+}
+
+.box-shadow {
+    @include breakpoint(lg-down) {
+        border-radius: 0;
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.09);
+    }
+}

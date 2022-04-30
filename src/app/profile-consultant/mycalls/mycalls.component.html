@@ -1,0 +1,126 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/profile-consultant']">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> مکالمات من </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <app-profile-consultant-header></app-profile-consultant-header>
+    <section class="">
+        <div class="container px-0 py-md-50">
+            <ion-row class="ion-justify-content-center">
+                <ion-col size-lg="5" size="12">
+                    <div class="box-shadow profile-empty flex-column w-100" *ngIf="myCalls.length == 0 && !loading">
+                        <ion-icon class="bigIcon" name="call-outline"></ion-icon>
+                        <p class="gray-600 ion-text-center py-30">
+                            هنوز مشاوره ای انجام نشده است !
+                        </p>
+                    </div>
+                    <div class="box-shadow profile-items no-flex calls-profile w-100" *ngIf="loading">
+                        <ion-list class="item-clear font-size-12 w-100">
+                            <ion-item class="item-clear ion-no-padding" lines="full" *ngFor="let item of [1, 2, 3, 4]">
+                                <!-- <ion-thumbnail slot="start" class="flex-row-center-center"> -->
+                                <!-- <i class="fal fa-comment-alt"></i> -->
+                                <!-- </ion-thumbnail> -->
+                                <ion-label class="d-flex ion-justify-content-between w-100">
+                                    <div class="right flex-column w-100">
+                                        <ion-skeleton-text animated style="width: 60%; margin-bottom: 10px">
+                                        </ion-skeleton-text>
+                                        <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                                    </div>
+                                </ion-label>
+                                <ion-skeleton-text animated style="width: 90px; border-radius: 40px; height: 30px">
+                                </ion-skeleton-text>
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                    <div class="box-shadow calls-profile no-flex w-100" *ngIf="myCalls.length != 0">
+                        <ion-list class="item-clear font-size-12 w-100">
+                            <ng-template ngFor let-item [ngForOf]="myCalls">
+                                <ion-item class="item-clear calls-items" [lines]="
+                      item.status != 'pending' && item.status != 'accepted'
+                        ? 'full'
+                        : 'none'
+                    ">
+                                    <div class="userGuide" [class.active]="showGuideValue" *ngIf="
+                        (!item.loading && item.status == 'pending') ||
+                        item.status == 'accepted'
+                      ">
+                                        <span *ngIf="item.status == 'pending'">
+											برای تایید تماس دکمه را نگه دارید ..</span>
+                                        <span *ngIf="item.status == 'accepted'">برای برقراری تماس دکمه را نگه دارید
+											..</span>
+                                    </div>
+                                    <ion-thumbnail slot="start" class="flex-row-center-center ion-hide-md-down">
+                                        <i class="fal fa-phone-alt"></i>
+                                    </ion-thumbnail>
+                                    <ion-label class="ion-no-padding">
+                                        <h4 class="name">
+                                            {{ item.user }}
+                                        </h4>
+                                        <p>
+                                            {{item.created_at}} <span class="label">{{ item.category }}</span>
+                                        </p>
+                                    </ion-label>
+                                    <ion-chip [color]="getStatusColor(item.status)" slot="end" class="ion-no-margin">
+                                        <small> {{ item.status_text }} </small>
+                                    </ion-chip>
+                                    <ion-buttons *ngIf="item.chat" slot="end" class="ion-no-margin">
+                                        <ion-button [routerLink]="isMobile ? ['/conversation/mobile/detail' , item.chat.id ] : ['/conversation/detail' , item.chat.id]">
+                                            <ion-icon slot="icon-only" name="chatbubble-ellipses-outline">
+                                            </ion-icon>
+                                        </ion-button>
+                                    </ion-buttons>
+                                </ion-item>
+                                <div class="call-btns d-flex" *ngIf="
+                      item.status == 'pending' || item.status == 'accepted'
+                    ">
+                                    <!-- (click)="acceptCall(item)" -->
+                                    <ion-button [attr.disabled]="item.loading" color="secondary" [class.hideBtn]="item.rejected" [class.fullBtn]="item.accepted" mode="ios" fill="outline" class="myBtn" color="success" expand="block">
+                                        <!--! <div ion-long-press [interval]="100" (pressed)="pressed($event, item)" (click)="showGuide(item)" (longPressed)="active(item)" (pressEnded)="released()" class="btnTop"></div> -->
+                                        <ion-icon *ngIf="!item.loading" slot="start" name="call-outline"></ion-icon>
+                                        <ion-label *ngIf="!item.loading && item.status == 'pending'">
+                                            تایید
+                                        </ion-label>
+                                        <ion-label *ngIf="!item.loading && item.status == 'accepted'">
+                                            تماس
+                                        </ion-label>
+                                        <ion-spinner color="success" *ngIf="item.loading" name="crescent">
+                                        </ion-spinner>
+                                        <ion-label class="ion-margin-start" *ngIf="item.loading && item.status == 'accepted'">
+                                            در حال تماس ...
+                                        </ion-label>
+                                    </ion-button>
+                                    <ion-button [attr.disabled]="item.loading" (click)="rejectCall(item)" [class.hideBtn]="item.accepted" [class.fullBtn]="item.rejected" mode="ios" fill="outline" color="danger" expand="block" class="myBtn" [style.width]="activeBtn + '%'" [style.opacity]="activeOpacity">
+                                        <ion-icon *ngIf="!item.loading" slot="start" name="close"></ion-icon>
+                                        <ion-label *ngIf="!item.loading && item.status == 'pending'">
+                                            رد تماس
+                                        </ion-label>
+                                        <ion-label *ngIf="!item.loading && item.status == 'accepted'">
+                                            لغو
+                                        </ion-label>
+                                        <ion-spinner color="danger" *ngIf="item.loading" name="crescent">
+                                        </ion-spinner>
+                                    </ion-button>
+                                </div>
+                            </ng-template>
+                            <ion-button *ngIf="!end" [attr.disabled]="loadMoreLoading" (click)="loadMore()" mode="ios" expand="block" fill="outline" class="mx-10 mt-10" color="red-medium">
+                                <ion-label *ngIf="!loadMoreLoading">
+                                    نمایش بیشتر
+                                </ion-label>
+                                <ion-spinner *ngIf="loadMoreLoading" name="crescent" color="red-medium"></ion-spinner>
+                            </ion-button>
+                        </ion-list>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

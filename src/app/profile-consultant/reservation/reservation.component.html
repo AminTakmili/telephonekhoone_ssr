@@ -1,0 +1,131 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/profile-consultant']" *ngIf="page == 'plans'">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+            <ion-button (click)="backPlans()" *ngIf="page == 'times'">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> پکیج های مشاوره </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <app-profile-consultant-header></app-profile-consultant-header>
+    <section class="consultant-reservation">
+        <div class="container px-0 py-md-50">
+            <ion-grid>
+                <ion-row class="ion-justify-content-center">
+                    <ion-col size-lg="5" *ngIf="page == 'times' && !loading">
+                        <ion-toolbar class="ion-hide-md-down">
+                            <ion-buttons slot="start">
+                                <ion-button slot="start" (click)="backPlans()">
+                                    <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+                                    <ion-label> بازگشت </ion-label>
+                                </ion-button>
+                            </ion-buttons>
+                            <ion-buttons slot="end" *ngIf="reserveItems.length !== 0">
+                                <ion-button (click)="showDatePicker()">
+                                    <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+                                    <ion-label> زمان جدید </ion-label>
+                                </ion-button>
+                            </ion-buttons>
+                        </ion-toolbar>
+
+                        <div class="box-shadow ion-justify-content-start profile-items no-flex flex-column w-100">
+
+                            <ng-template [ngIf]="reserveItems.length !== 0">
+                                <ion-list class="w-100">
+                                    <ng-template ngFor let-item [ngForOf]="reserveItems">
+                                        <ion-item lines="full" [attr.disabled]="item.loading">
+                                            <ion-label>
+                                                <h3>
+                                                    {{ item.reserve_day_archive }}
+                                                </h3>
+                                                <p>از ساعت {{ item.from }} تا {{ item.to }}</p>
+                                            </ion-label>
+                                            <ion-buttons slot="end">
+                                                <ion-button color="primary" (click)="showDatePicker(item)">
+                                                    <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+                                                </ion-button>
+                                                <ion-button color="danger" (click)="removeTimeline(item)">
+                                                    <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                                                </ion-button>
+                                            </ion-buttons>
+                                        </ion-item>
+                                        <ion-progress-bar *ngIf="item.loading" type="indeterminate"></ion-progress-bar>
+                                    </ng-template>
+                                </ion-list>
+                            </ng-template>
+
+                            <div class="profile-empty" *ngIf="reserveItems.length === 0">
+                                <ion-icon class="bigIcon" name="time-outline"></ion-icon>
+
+                                <p class="gray-600 ion-text-center py-30">موردی یافت نشد</p>
+                                <ion-button (click)="showDatePicker()" expand="block" color="red-medium" mode="ios">ثبت مورد جدید</ion-button>
+                            </div>
+                        </div>
+                    </ion-col>
+                    <ion-col size-lg="5" size-md="6" size="12" *ngIf="loading">
+                        <div class="box-shadow flex-column w-100">
+                            <ion-spinner name="crescent"></ion-spinner>
+                            در حال بارگذاری
+                        </div>
+                    </ion-col>
+                    <ion-col size-lg="5" size-md="6" size="12" *ngIf="page == 'plans' && !loading">
+                        <div class="box-shadow profile-empty flex-column w-100" *ngIf="plans.length == 0">
+                            <ion-icon class="bigIcon" name="calendar-outline"></ion-icon>
+                            <p class="gray-600 ion-text-center py-30">
+                                برنامه ای برای شما یافت نشد لطفا برای دریافت برنامه کاری با پشتیبانی در تماس باشید
+                            </p>
+                            <ion-button onclick="window.Raychat.open();" expand="block" color="red-medium" class="btn shadow-clear">تماس با پشتیبانی</ion-button>
+                        </div>
+                        <h3 class="items-title" *ngIf="plans.length != 0"> پکیج های مشاوره تعریف شده برای شما </h3>
+                        <div class="box-shadow w-100 ion-align-items-start" *ngIf="plans.length != 0">
+                            <ion-list class="item-clear font-size-12 w-100">
+                                <ng-template ngFor let-item [ngForOf]="plans">
+                                    <div class="planItem ">
+                                        <div class="desc">
+                                            <h1 class="mb-10 planTitle">
+                                                <ion-text color="primary">
+                                                    {{ item.description }}
+                                                </ion-text>
+                                            </h1>
+                                            <p *ngFor="let priceItem of item.price">
+                                                <ng-template [ngIf]="priceItem.type === 'call'">
+                                                    <strong>{{ priceItem.name }}</strong> : {{ priceItem.price | number}} تومان به ازای هر {{ priceItem.time }} دقیقه
+                                                </ng-template>
+                                                <ng-template [ngIf]="priceItem.type === 'chat'">
+                                                    <strong>{{ priceItem.name }}</strong> : {{ priceItem.price | number}} تومان با پایان توافقی
+                                                </ng-template>
+                                            </p>
+                                        </div>
+                                        <div class="d-flex ion-justify-content-end">
+                                            <ion-buttons slot="end">
+                                                <ion-button color="danger" (click)="showReserves(item)">
+                                                    زمان های رزرو
+                                                </ion-button>
+                                                <ion-button color="primary" (click)="showDetails(item)">
+                                                    اطلاعات بیشتر
+                                                </ion-button>
+                                            </ion-buttons>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ion-list>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </section>
+    <ion-fab class="ion-hide-md-up" slot="fixed" vertical="bottom" horizontal="start" *ngIf="page == 'times'">
+        <ion-fab-button (click)="showDatePicker()">
+            <ion-icon name="add-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <app-footer></app-footer>
+</ion-content>

@@ -7,6 +7,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+
   <app-header type="relative"></app-header>
   <!-- <ion-button (click)="getData()">
 <ion-icon name="refresh"></ion-icon>
@@ -26,12 +27,11 @@
           </nav>
           <ion-grid>
               <ion-row>
-                 <!-- <ion-button (click)="addAllCat()" expand="block" fill="clear" shape="round">
-                      Click me
-                  </ion-button> -->
+                 
                   <ng-template [ngIf]="!loading">
                       <ion-col size-lg="3" size="12" class="p-10" *ngFor="let item of categoryItems">
-                          <a [routerLink]="['/c/search',item.id]" class="cat-cards box-shadow cursor-pointer w-100">
+                         <!-- item['parent_id'] -->
+                          <a   [routerLink]="['/c/m',item.id]" class="cat-cards box-shadow cursor-pointer w-100">
                               <div class="image">
                                   <!-- (ionImgDidLoad)="imageLoad($event)" -->
                                   <ion-img class="img-cover" [src]="item.media.options?.subSizes?.large ? item.media.options?.subSizes?.large : item.media.options?.subSizes?.medium ? item.media.options?.subSizes?.medium : item.media?.path" [alt]="item.name"></ion-img>

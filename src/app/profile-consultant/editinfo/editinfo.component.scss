@@ -1,0 +1,79 @@
+@import "~src/theme/extends";
+.consultant-editinfo {
+    .profile-items {
+        padding: 8px;
+        h2 {
+            margin-bottom: 10px;
+        }
+        p {
+            color: #696969;
+        }
+        .avatarImage {
+            width: 116px;
+            height: 116px;
+            flex: 0 0 116px;
+            margin: 15px 15px 10px;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .pro-btn {
+            height: 30px;
+        }
+        @include breakpoint(lg-down) {
+            padding: 0px;
+            .avatarImage {
+                width: 96px;
+                height: 96px;
+                flex: 0 0 96px;
+            }
+        }
+    }
+}
+
+.amountBadge {
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 20px;
+    background-color: #fff;
+    z-index: 2;
+    padding: 0 5px;
+}
+
+.consultantAvatar {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid #afafaf;
+    border-radius: 10px;
+    opacity: 0.6;
+}
+
+.bigImages {
+    height: 195px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.border-header {
+    margin-bottom: 15px;
+}
+
+.box-shadow {
+    @include breakpoint(lg-down) {
+        border-radius: 0;
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.09);
+    }
+}

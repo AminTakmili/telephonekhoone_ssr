@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnimationOptions } from 'ngx-lottie';
@@ -116,19 +117,27 @@ export class CategoriesPage implements OnInit {
 						const cat = new Categories();
 						cat.id = item.id;
 						cat.name = item.name;
-						cat.children = item.children;
+						cat.children = item.children.map((child:any)=>{
+							child['parent_id'] = item.id;
+							return child;
+						});
 						if (index == 0) {
 							cat.active = true;
-							this.categoryItems = item.children;
+							this.categoryItems = item.children.map((child:any)=>{
+								child['parent_id'] = item.id;
+								return child;
+							});
 						}
 						if (this.categories.findIndex(item => item.id ==cat.id)==-1) {
 							
 							this.categories.push(cat)
 						}
 						
+						
 					});
+					
 					if (this.categoryItems.length == 0) {
-						setTimeout(() => {
+						this.global.SSRsetTimeout(() => {
 							this.emptyAnimation.goToAndPlay(0);
 						}, 500);
 					}
@@ -150,17 +159,34 @@ export class CategoriesPage implements OnInit {
 						const cat = new Categories();
 						cat.id = item.id;
 						cat.name = item.name;
-						cat.children = item.children;
+						cat.children = item.children.map((child:any)=>{
+							child['parent_id'] = item.id;
+							return child;
+						});
 						if (this.categories.findIndex(item => item.id ==cat.id)==-1) {
 							
 							this.categories.push(cat)
 						}
 						
 					});
+					// console.log(this.categories);
 					if (this.categoryId) {
 						this.setActiveId(this.categoryId);
 					} else {
 						this.changeActiveCategory(this.newAllCatObj[0].id);
+					}
+					if (this.activatedRoute.snapshot.paramMap.get('catId')) {
+			
+						console.log(res);
+						let thiscat=res.find((item)=>{
+							return item.id==this.activatedRoute.snapshot.paramMap.get('catId')
+						})
+						console.log(thiscat);
+
+						this.breadCrumb = [
+							{ url: '/', name: 'صفحه نخست' },
+							{ url: '/c/'+this.activatedRoute.snapshot.paramMap.get('catId'), name: `${thiscat.name}` },
+						];
 					}
 				},
 				(err) => {
@@ -223,7 +249,7 @@ export class CategoriesPage implements OnInit {
 		// console.log(selectedCategory);
 		this.categoryItems = selectedCategory.children;
 		if (this.categoryItems.length == 0) {
-			setTimeout(() => {
+			this.global.SSRsetTimeout(() => {
 				this.emptyAnimation.goToAndPlay(0);
 			}, 500);
 		}
@@ -307,5 +333,6 @@ export class CategoriesPage implements OnInit {
 
 
 	}
+	
 
 }

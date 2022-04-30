@@ -32,7 +32,7 @@ export class DatePickerComponent implements OnInit {
 		private screenSize: ScreensizeService
 	) {
 		this.timeInputForm = this.fb.group({
-			reserve_day: [""],
+			reserve_day: [this.pickerValue],
 			from: ["", Validators.compose([Validators.required])],
 			to: ["", Validators.compose([Validators.required])],
 		});

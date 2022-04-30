@@ -1,0 +1,75 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/profile']">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> علاقه مندی ها </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <app-profile-header></app-profile-header>
+    <section class="">
+        <div class="container px-0 py-md-50">
+            <ion-grid>
+                <ion-row class="ion-justify-content-center">
+                    <ion-col size-lg="5" *ngIf="!loading && favouritesList.length === 0">
+                        <div class="box-shadow profile-empty flex-column w-100">
+                            <ion-icon class="bigIcon" name="heart-outline"></ion-icon>
+                            <p class="gray-600 ion-text-center py-30">
+                                لیست علاقه مندی ها خالی میباشد
+                            </p>
+                            <ion-button routerLink="/categories" expand="block" color="red-medium" class="btn shadow-clear">مشاهده لیست مشاوران</ion-button>
+                        </div>
+                    </ion-col>
+                    <ion-col size-lg="5" *ngIf="!loading && favouritesList.length !== 0">
+                        <div class="box-shadow profile-items no-flex w-100">
+                            <ion-list class="item-clear font-size-12 w-100">
+                                <ion-item class="item-clear ion-no-padding" lines="full" *ngFor="let item of favouritesList">
+                                    <ion-thumbnail slot="start">
+                                        <img class="img-cover" [src]="item.consultant.media?.options?.subSizes.medium? item.consultant.media?.options?.subSizes.medium : item.consultant.media?.path" alt="{{ item.consultant.fullname }}" />
+                                    </ion-thumbnail>
+                                    <ion-label class="d-flex ion-justify-content-between w-100">
+                                        <div class="right flex-column">
+                                            <p class="name mb-10">{{ item.consultant.fullname }}</p>
+                                            <span class="label gray-600 font-size-12">{{
+                        item.consultant.category
+                      }}</span>
+                                        </div>
+                                        <div class="left d-flex ion-align-items-center">
+                                            <ion-button (click)="removeFavourite(item)" [disabled]="item.loading" expand="block" color="red-medium" class="btn shadow-clear">
+                                                <ion-label *ngIf="!item.loading"> حذف </ion-label>
+                                                <ion-spinner *ngIf="item.loading" name="crescent"></ion-spinner>
+                                            </ion-button>
+                                        </div>
+                                    </ion-label>
+                                </ion-item>
+                            </ion-list>
+                        </div>
+                    </ion-col>
+                    <ion-col size-lg="5" *ngIf="loading">
+                        <div class="box-shadow profile-items no-flex w-100">
+                            <ion-list class="item-clear font-size-12 w-100">
+                                <ion-item class="item-clear ion-no-padding" lines="full" *ngFor="let dummy of ' '.repeat(4).split(''); let x = index">
+                                    <ion-thumbnail slot="start">
+                                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                    </ion-thumbnail>
+                                    <ion-label class="d-flex ion-justify-content-between w-100">
+                                        <div class="w-100">
+                                            <ion-skeleton-text animated style="width: 90%" class="mb-10"></ion-skeleton-text>
+                                            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                                        </div>
+                                    </ion-label>
+                                </ion-item>
+                            </ion-list>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

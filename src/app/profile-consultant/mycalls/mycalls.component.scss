@@ -1,0 +1,114 @@
+@import "~src/theme/extends";
+.calls-profile {
+    ion-thumbnail {
+        width: 49px;
+        height: 60px;
+        i {
+            font-size: 28px;
+            color: var(--color-gray-600);
+        }
+    }
+    .label {
+        padding-right: 10px;
+        color: var(--color-gray-600);
+        border-right: 1px solid var(--color-gray-600);
+        font-size: 12px;
+        margin-right: 8px;
+    }
+    .btn {
+        height: 32px;
+        font-size: 11px;
+    }
+    @include breakpoint(lg-down) {
+        .lg-down-column {
+            flex-direction: column !important;
+        }
+        .btns {
+            width: 100%;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+        .btn {
+            margin: 0;
+        }
+    }
+}
+
+.status {
+    font-size: 12px;
+    background-color: #ee4242;
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 20px;
+}
+
+.calls-items {
+    @include breakpoint(md-up) {
+        --padding-start: 0;
+    }
+    &:last-child {
+        --border-width: 0 0 0 0;
+    }
+    ion-thumbnail {
+        margin: 0 15px;
+    }
+}
+
+.call-btns {
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom: 1px solid #dadada;
+    padding-bottom: 10px;
+    .myBtn {
+        position: relative;
+        overflow: hidden;
+        .btnTop {
+            position: absolute;
+            right: -16px;
+            left: -16px;
+            top: 0;
+            height: 100%;
+        }
+        transition: all 0.3s ease;
+        width: 50%;
+        &:hover {
+            width: 100%;
+        }
+    }
+}
+
+.hideBtn {
+    width: 0 !important;
+    opacity: 0;
+}
+
+.fullBtn {
+    width: 100% !important;
+}
+
+.userGuide {
+    opacity: 0;
+    @include breakpoint(lg-down) {
+        right: 5% !important;
+    }
+    right: 15%;
+    font-size: 12px;
+    top: 45px;
+    transition: all 0.3s ease;
+    position: absolute;
+    background-color: #ffffff;
+    z-index: 2;
+    padding: 8px 10px;
+    border-radius: 5px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    &.active {
+        opacity: 1;
+    }
+}
+
+.box-shadow {
+    @include breakpoint(lg-down) {
+        border-radius: 0;
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.09);
+    }
+}

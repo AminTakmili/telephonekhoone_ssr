@@ -1,0 +1,25 @@
+@import "~src/theme/extends";
+.transactions-profile {
+    min-height: 300px;
+    align-items: flex-start;
+}
+
+.box-shadow {
+    @include breakpoint(lg-down) {
+        border-radius: 0;
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.09);
+    }
+}
+
+.full-data-list {
+    ion-item {
+        ion-label {
+            overflow: visible;
+            flex: 0 0 60%;
+            margin-left: 0;
+            h3 {
+                white-space: pre-wrap;
+            }
+        }
+    }
+}

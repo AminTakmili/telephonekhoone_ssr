@@ -1,0 +1,282 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title [ngSwitch]="componentType">
+            <ng-template [ngSwitchCase]="'login'">
+                ثبت نام
+            </ng-template>
+            <ng-template [ngSwitchCase]="'verify'">
+                تایید شماره همراه
+            </ng-template>
+            <ng-template [ngSwitchCase]="'register'">
+                ثبت نام
+            </ng-template>
+            <ng-template [ngSwitchCase]="'type'">
+                انتخاب دسترسی
+            </ng-template>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <section id="cart-login" class="py-lg-30 py-10 px-0 px-lg-12">
+        <div class="container px-10 px-md-0" [ngSwitch]="componentType">
+            <ng-template [ngSwitchCase]="'login'">
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
+                    <ion-grid>
+                        <ion-row class="ion-justify-content-center ion-align-items-stretch">
+                            <ion-col size-lg="5" size="12" class="p-0">
+                                <ion-card class="box-shadow no-scroll py-md-30 px-md-50 py-10 px-10 m-0 w-100 login-form1">
+                                    <ion-grid>
+                                        <ion-row class="ion-justify-content-center">
+                                            <ion-col size="12">
+                                                <div class="image-login">
+                                                    <img class="img-contain" src="./assets/img/login1.png" alt="ورود" />
+                                                </div>
+                                            </ion-col>
+                                            <ion-col size-lg="12" size="12" class="">
+                                                <p class="gray-600 mb-20 font-size-12 login-title">
+                                                    برای ورود و یا ثبت نام در تلفن خونه لطفا شماره موبایل خود را وارد کنید
+                                                </p>
+                                                <div class="d-flex w-100">
+                                                    <div class="border-box w-100">
+                                                        <ion-input #mobileInput formControlName="mobile" [autofocus]="true" maxlength="11" minlength="10" type="tel" placeholder="شماره موبایل" (keypress)="global.justNumber($event)"></ion-input>
+                                                    </div>
+                                                    <div class="p-0 pre-number border-box dir-ltr areaCode" (click)="countriesPopover($event)">
+                                                        <ng-template [ngIf]="!countryLoading">
+                                                            <ion-icon name="add-outline"></ion-icon>
+                                                            <span>{{ areaCode.phone_code }}</span>
+                                                        </ng-template>
+                                                        <ng-template [ngIf]="countryLoading">
+                                                            <ion-spinner name="crescent"></ion-spinner>
+                                                        </ng-template>
+                                                    </div>
+                                                </div>
+                                            </ion-col>
+                                        </ion-row>
+                                        <ion-row class="ion-justify-content-center ion-hide-md-down">
+                                            <ion-col size="12">
+                                                <ion-button [attr.disabled]="!loginForm.valid || loading" type="submit" color="primary" expand="block" class="btn-style-1 mt-20">
+                                                    <ion-label *ngIf="!loading">ورود/ثبت نام</ion-label>
+                                                    <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+                                                </ion-button>
+                                            </ion-col>
+                                        </ion-row>
+                                    </ion-grid>
+                                </ion-card>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </form>
+            </ng-template>
+            <ng-template [ngSwitchCase]="'verify'">
+                <form [formGroup]="verifyForm" (ngSubmit)="onVerify()">
+                    <ion-grid>
+                        <ion-row class="ion-justify-content-around ion-align-items-stretch">
+                            <ion-col size-lg="5" size="12" class="p-0">
+                                <ion-card class="box-shadow no-scroll pb-md-30 px-md-50 pb-10 px-10 m-0 w-100">
+                                    <ion-toolbar color="light">
+                                        <ion-buttons slot="start">
+                                            <ion-button (click)="changeNum()">
+                                                <ion-icon slot="start" name="chevron-back-outline">
+                                                </ion-icon>
+                                                <ion-label> تغییر شماره</ion-label>
+                                            </ion-button>
+                                        </ion-buttons>
+                                    </ion-toolbar>
+                                    <ion-card-content>
+                                        <ion-grid>
+                                            <ion-row class="ion-justify-content-center">
+                                                <ion-col size="12">
+                                                    <div class="image-login">
+                                                        <img class="img-contain" src="./assets/img/login2.png" alt="وارد کردن کد" />
+                                                    </div>
+                                                </ion-col>
+                                                <!--  -->
+                                                <ion-col size-lg="12" size="12">
+                                                    <p class="gray-600 mb-20 font-size-12 login-title">
+                                                        کد 5 رقمی ارسال شده به شماره
+                                                        <strong class="boldNum">
+															&#x200F;{{ areaCode.phone_code.toString() +
+															mobile.toString() + '+' }} </strong>وارد کنید.
+                                                    </p>
+                                                    <div class="login-content border-box w-100">
+                                                        <ion-input (ionChange)="codeChange()" [autofocus]="true" #codeInput mode="md" class="ion-text-left" placeholder="*****" type="tel" maxlength="5" formControlName="code">
+                                                        </ion-input>
+                                                    </div>
+                                                </ion-col>
+                                                <!--  -->
+                                            </ion-row>
+                                            <ion-row class="ion-justify-content-center">
+                                                <ion-col>
+                                                    <div class="code-time d-flex w-100 ion-justify-content-between">
+                                                        <p (click)="reSend()" *ngIf="timer == '00:00'" class="gray-600 cursor-pointer font-size-12">
+                                                            ارسال مجدد
+                                                        </p>
+                                                        <p *ngIf="timer != '00:00'" class="ion-text-left gray-600 font-size-12">
+                                                            <span> {{ timer }} </span>تاارسال دوباره کد
+                                                        </p>
+                                                    </div>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row class="ion-justify-content-center ion-hide-md-down">
+                                                <ion-col size-lg="12" size="12">
+                                                    <ion-button [attr.disabled]="!verifyForm.valid" type="submit" color="primary" expand="block" class="btn-style-1 mt-20">تایید کد یکبار مصرف
+                                                    </ion-button>
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                    </ion-card-content>
+                                </ion-card>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </form>
+            </ng-template>
+            <ng-template [ngSwitchCase]="'register'">
+                <form autocomplete="off" [formGroup]="registerForm" (ngSubmit)="registerUser()">
+                    <ion-grid>
+                        <ion-row class="ion-justify-content-around ion-align-items-stretch">
+                            <ion-col size-lg="5" size="12" class="p-0">
+                                <ion-card class="box-shadow no-scroll py-md-30 px-md-50 py-10 px-10 m-0 w-100">
+                                    <ion-card-content class="w-100 p-0">
+                                        <ion-grid>
+                                            <ion-row class="flex-column-center-center ion-justify-content-center">
+                                                <div class="register-back">
+                                                    <ion-button mode="ios" fill="outline" (click)="changeComponent('login')" size="small">
+                                                        <ion-icon slot="start" name="chevron-back-outline"></ion-icon>
+                                                        <ion-label>
+                                                            بازگشت
+                                                        </ion-label>
+                                                    </ion-button>
+                                                </div>
+                                                <ion-col size-lg="12" size="12">
+                                                    <div class="image-login">
+                                                        <img class="img-contain" src="./assets/img/login3.png" alt="ثبت نام در تلفن خونه" />
+                                                    </div>
+                                                </ion-col>
+                                                <!--  -->
+                                                <ion-col size-lg="12" size="12" class="">
+                                                    <p class="gray-600 mb-20 font-size-12">
+                                                        ثبت نام در تلفن خونه
+                                                    </p>
+                                                    <div class="w-100">
+                                                        <div class="border-box w-100 mb-20">
+                                                            <ion-input formControlName="fullName" color="bg" inputmode="text" autofocus="true" placeholder="نام و نام خانوادگی"></ion-input>
+                                                        </div>
+                                                        <div class="border-box w-100">
+                                                            <ion-select formControlName="gender" okText="تایید" cancelText="لغو" placeholder="جنسیت" interface="popover">
+                                                                <ion-select-option value="female">خانم
+                                                                </ion-select-option>
+                                                                <ion-select-option value="male">آقا
+                                                                </ion-select-option>
+                                                            </ion-select>
+                                                        </div>
+                                                        <ion-item lines="none">
+                                                            <ion-checkbox (ionChange)="changeCheck()" class="ml-md-10 ml-5" slot="start" mode="md" [checked]="isChecked"></ion-checkbox>
+                                                            <ion-label class="font-size-12 gray-600">
+                                                                <ion-text class="rulesLink" color="secondary" (click)="rulesCheck()">قوانین و مقررات
+                                                                </ion-text>
+                                                                تلفن خونه را خوانده و موافقت میکنم
+                                                            </ion-label>
+                                                        </ion-item>
+                                                    </div>
+                                                </ion-col>
+                                                <!--  -->
+                                            </ion-row>
+                                            <ion-row class="ion-justify-content-center ion-hide-md-down">
+                                                <ion-col size-lg="12" size="12">
+                                                    <ion-button [disabled]="!registerForm.valid" type="submit" color="primary" expand="block" class="btn-style-1 mt-20">تکمیل ثبت نام
+                                                    </ion-button>
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                    </ion-card-content>
+                                </ion-card>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </form>
+            </ng-template>
+            <ng-template [ngSwitchCase]="'type'">
+                <ion-grid>
+                    <ion-row class="ion-justify-content-around ion-align-items-stretch">
+                        <ion-col size-lg="5" size="12" class="p-0">
+                            <ion-card class="box-shadow no-scroll pb-md-30 px-md-40 pb-10 pt-15 px-10 m-0 w-100">
+                                <div class="register-title">
+                                    <ion-button class="back-btn" mode="ios" fill="outline" (click)="changeComponent('login')" size="small">
+                                        <ion-icon slot="start" name="chevron-back-outline"></ion-icon>
+                                        <ion-label>
+                                            بازگشت
+                                        </ion-label>
+                                    </ion-button>
+                                    <h3>انتخاب نوع ثبت نام</h3>
+                                </div>
+                                <p class="type-desc">
+                                    در تلفن خونه میتوانید به عنوان کاربر ثبت نام کرده و مشاوره دریافت کنید و اگر مشاور هستید میتوانید به عنوان مشاور ثبت نام کرده و از همین امروز شروع به کار و کسب درامد کنید 🎉
+                                </p>
+                                <ion-row class="selectType">
+                                    <ion-col size="6">
+                                        <div class="item" [class.active]="activeRegister == 1" (click)="setActiveRegister(1)">
+                                            <ion-icon name="person-outline"></ion-icon>
+                                            <ion-label> ثبت نام کاربر</ion-label>
+                                        </div>
+                                    </ion-col>
+                                    <ion-col size="6">
+                                        <div class="item" [class.active]="activeRegister == 2" (click)="setActiveRegister(2)">
+                                            <ion-icon name="chatbubbles-outline"></ion-icon>
+                                            <ion-label> ثبت نام مشاور</ion-label>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-button (click)="registerNumber()" [disabled]="!activeRegister" type="submit" [color]="activeRegister ? 'primary' : 'medium' " expand="block" class="mt-20 w-100 ion-hide-md-down" mode="ios">
+                                    <ion-label *ngIf="!activeRegister">
+                                        یکی از موارد را انتخاب کنید
+                                    </ion-label>
+                                    <ion-label *ngIf="activeRegister == 2">
+                                        ثبت نام به عنوان مشاور
+                                    </ion-label>
+                                    <ion-label *ngIf="activeRegister == 1">
+                                        ثبت نام به عنوان کاربر
+                                    </ion-label>
+                                    <ion-icon *ngIf="activeRegister" name="arrow-forward-outline" slot="end"></ion-icon>
+                                </ion-button>
+                            </ion-card>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ng-template>
+        </div>
+    </section>
+
+    <app-footer></app-footer>
+</ion-content>
+
+<ion-footer class="ion-hide-md-up">
+    <div class="footer-btn" [ngSwitch]="componentType">
+        <ion-button *ngSwitchCase="'login'" [attr.disabled]="!loginForm.valid || loading" (click)="login()" color="primary" expand="block" class="btn-style-1 mt-20">
+            <ion-label *ngIf="!loading">ورود/ثبت نام</ion-label>
+            <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+        </ion-button>
+        <ion-button *ngSwitchCase="'verify'" [attr.disabled]="!verifyForm.valid" (click)="onVerify()" color="primary" expand="block" class="btn-style-1 mt-20">تایید کد یکبار مصرف
+        </ion-button>
+        <ion-button *ngSwitchCase="'register'" [attr.disabled]="!registerForm.valid" (click)="registerUser()" color="primary" expand="block" class="btn-style-1 mt-20">تکمیل ثبت نام
+        </ion-button>
+        <ion-button *ngSwitchCase="'type'" (click)="registerNumber()" [attr.disabled]="!activeRegister" [color]="activeRegister ? 'primary' : 'medium' " expand="block" class="mt-20 w-100" mode="ios">
+            <ion-label *ngIf="!activeRegister">
+                یکی از موارد را انتخاب کنید
+            </ion-label>
+            <ion-label *ngIf="activeRegister == 2">
+                ثبت نام به عنوان مشاور
+            </ion-label>
+            <ion-label *ngIf="activeRegister == 1">
+                ثبت نام به عنوان کاربر
+            </ion-label>
+            <ion-icon *ngIf="activeRegister" name="arrow-forward-outline" slot="end"></ion-icon>
+        </ion-button>
+    </div>
+</ion-footer>

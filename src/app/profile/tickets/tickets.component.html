@@ -1,0 +1,82 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/profile']">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>پشتیبانی</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <app-profile-header></app-profile-header>
+    <section class="">
+        <div class="container px-0 py-md-50">
+            <ion-grid>
+                <ion-row class="ion-justify-content-center">
+                    <ion-col size-lg="5">
+                        <ion-toolbar class="ion-margin-bottom">
+                            <ion-label slot="start"> پشتیبانی </ion-label>
+                            <ion-button [routerLink]="'/profile/tickets/new'" slot="end" color="danger" shape="round">
+                                درخواست جدید
+                            </ion-button>
+                        </ion-toolbar>
+                        <!-- <div class=""> -->
+                        <div class="box-shadow profile-empty flex-column w-100" *ngIf="tickets.length === 0 && !loading">
+                            <ion-icon class="bigIcon" name="chatbubbles-outline"></ion-icon>
+                            <p class="gray-600 ion-text-center py-30">
+                                تا کنون درخواست پشتیبانی ثبت نشده است
+                            </p>
+                            <ion-button expand="block" color="red-medium" class="btn shadow-clear" routerLink="new">ثبت درخواست جدید</ion-button>
+                        </div>
+                        <div class="box-shadow profile-items no-flex calls-profile w-100" *ngIf="loading">
+                            <ion-list class="item-clear font-size-12 w-100">
+                                <ion-item class="item-clear ion-no-padding" lines="full" *ngFor="let item of [1, 2, 3, 4]">
+                                    <ion-thumbnail slot="start" class="flex-row-center-center">
+                                        <i class="fal fa-comment-alt"></i>
+                                    </ion-thumbnail>
+                                    <ion-label class="d-flex ion-justify-content-between w-100">
+                                        <div class="right flex-column w-100">
+                                            <ion-skeleton-text animated style="width: 60%; margin-bottom: 10px"></ion-skeleton-text>
+                                            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                                        </div>
+                                    </ion-label>
+                                    <ion-skeleton-text animated style="width: 90px; border-radius: 50px; height: 30px"></ion-skeleton-text>
+                                </ion-item>
+                            </ion-list>
+                        </div>
+                        <ion-content *ngIf="tickets.length !== 0" class="contentScroll box-shadow profile-items no-flex calls-profile w-100">
+                            <ion-list class="item-clear font-size-12 w-100">
+                                <ion-item [routerLink]="'/profile/tickets/show/' + item.id" class="item-clear ion-no-padding" lines="full" *ngFor="let item of tickets">
+                                    <ion-thumbnail slot="start" class="flex-row-center-center">
+                                        <i class="fal fa-comment-alt"></i>
+                                    </ion-thumbnail>
+                                    <ion-label class="d-flex ion-justify-content-between w-100">
+                                        <div class="right flex-column">
+                                            <p class="name mb-20">{{ item.subject }}</p>
+                                            <span class="date gray-600 font-size-12">{{
+                        item.created_at
+                      }}</span>
+                                        </div>
+                                        <div class="left ion-align-items-center d-flex">
+                                            <ion-chip expand="block" color="primary">{{ item.status }}
+                                            </ion-chip>
+                                        </div>
+                                    </ion-label>
+                                </ion-item>
+                            </ion-list>
+                            <ion-infinite-scroll (ionInfinite)="loadData($event)" *ngIf="!loading">
+                                <ion-infinite-scroll-content loadingSpinner="lines" loadingText="در حال بارگیری ">
+                                </ion-infinite-scroll-content>
+                            </ion-infinite-scroll>
+                        </ion-content>
+                        <!-- </div> -->
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

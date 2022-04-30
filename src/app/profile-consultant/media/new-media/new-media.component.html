@@ -1,0 +1,88 @@
+<ion-row class="ion-justify-content-center">
+    <ion-col size-lg="10">
+        <ion-toolbar>
+            <ion-buttons slot="start">
+                <ion-button (click)="back()">
+                    <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+            <ion-title>
+                {{ pageTitle }}
+            </ion-title>
+        </ion-toolbar>
+
+        <ion-card class="ion-padding" mode="ios">
+            <p class="mb-20">
+                در این قسمت میتوانید رسانه جدید (ویدئو یا صوت) ثبت کنید و پس از تایید توسط مدیریت برای کاربران تلفن خونه نمایش داده خواهد شد
+            </p>
+            <form [formGroup]="mediaForm" (ngSubmit)="submitMediaForm()">
+                <ion-row>
+                    <ion-col size-md="12">
+                        <ion-radio-group (ionChange)="typeChanged()" #mediaType mode="md" class="customRadio mb-25">
+                            <ion-item lines="none" class="fileRadio">
+                                <ion-label class="font-size-14">ویدئو</ion-label>
+                                <ion-radio slot="start" value="video"></ion-radio>
+                            </ion-item>
+
+                            <ion-item lines="none" class="fileRadio">
+                                <ion-label class="font-size-14">پادکست</ion-label>
+                                <ion-radio slot="start" value="voice"></ion-radio>
+                            </ion-item>
+                        </ion-radio-group>
+                    </ion-col>
+                    <ion-col size="12" size-lg="6">
+                        <div class="border-header p-5 w-100">
+                            <h6>عنوان </h6>
+                            <ion-input formControlName="title"></ion-input>
+                        </div>
+                        <app-validator [control]="mediaForm.controls['title']" [controlName]="'عنوان'"></app-validator>
+                    </ion-col>
+                    <ion-col size="12" size-lg="6">
+                        <div class="border-header p-5 w-100">
+                            <h6>مبلغ پیشنهادی </h6>
+                            <ion-input type="tel" formControlName="price" (keypress)="global.justNumber($event)">
+                            </ion-input>
+                            <span class="amountBadge"> تومان </span>
+                        </div>
+                        <app-validator [control]="mediaForm.controls['price']" [controlName]="'مبلغ پیشنهادی'">
+                        </app-validator>
+                    </ion-col>
+                    <input #previewInput type="file" class="ion-hide" [accept]=" mediaType.value === 'voice' ? 'audio/*' :'video/*' " (change)="openFile($event , 'preview')">
+                    <input #mainInput type="file" class="ion-hide" [accept]=" mediaType.value === 'voice' ? 'audio/*' :'video/*' " (change)="openFile($event , mediaType.value)">
+                    <ion-col size="12" size-lg="6" class="p-10 pb-lg-20 pt-lg-0 mt-20" *ngFor="let inputs of [{name: ' پیش نمایش', key:'preview'} , {name: 'رسانه اصلی' , key: mediaType.value}]">
+                        <h6 class="font-size-12 gray-600 mt-0">{{ inputs.name }}</h6>
+                        <div class="border-header overflow-hidden w-100" (click)="$event.target['tagName'] !== 'ION-BUTTON'  ? mediaType.value ? inputs.key == 'preview' ? selectedPreview.length < 1 ? previewInput.click() : '' : selectedMain.length < 1 ? mainInput.click() : '' : showTypeError() : '' ">
+                            <div class="emptyFilesPlaceHolder" *ngIf="selectedPreview.length === 0 && inputs.key === 'preview'">
+                                {{ placeHolderText(mediaType.value , inputs.name ) }}
+                            </div>
+                            <div class="emptyFilesPlaceHolder" *ngIf="selectedMain.length === 0 && inputs.key !== 'preview'">
+                                {{ placeHolderText(mediaType.value , inputs.name ) }}
+                            </div>
+                            <app-selected-files *ngIf="selectedPreview.length !== 0 && inputs.key === 'preview'" [selectedFiles]="selectedPreview" (removeFileEmitter)="removeFile($event)">
+                            </app-selected-files>
+
+                            <app-selected-files *ngIf="selectedMain.length !== 0 && inputs.key !== 'preview'" [selectedFiles]="selectedMain" (removeFileEmitter)="removeFile($event)">
+                            </app-selected-files>
+                        </div>
+                    </ion-col>
+                    <ion-col size-md="12">
+                        <div class="border-header p-5 w-100 mb-20">
+                            <h6>توضیحات </h6>
+                            <ion-textarea rows="6" formControlName="description"></ion-textarea>
+                        </div>
+                        <app-validator [control]="mediaForm.controls['description']" [controlName]="'توضیحات'">
+                        </app-validator>
+                    </ion-col>
+                    <ion-col size-md="3" size="12">
+                        <ion-button [attr.disabled]="loading" expand="block" type="submit">
+                            <ion-label *ngIf="!loading">
+                                ثبت رسانه
+                            </ion-label>
+                            <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </form>
+        </ion-card>
+    </ion-col>
+</ion-row>

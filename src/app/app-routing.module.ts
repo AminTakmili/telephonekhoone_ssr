@@ -1,3 +1,6 @@
+import { NotLoginGuard } from './guards/notLogin.guard';
+import { ConsultantGuard } from './guards/consultant.guard';
+import { LoginGuard } from './guards/login.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -55,6 +58,26 @@ const routes: Routes = [
     path: 'c',
     loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesPageModule)
   },
+  {
+	path: 'login',
+	loadChildren: () =>
+		import('./login/login.module').then((m) => m.LoginPageModule),
+	canActivate: [LoginGuard],
+	},
+	{
+		path: 'sign-up',
+		loadChildren: () =>
+			import('./sign-up/sign-up.module').then((m) => m.SignUpPageModule),
+			 canActivate: [NotLoginGuard],
+	},
+	{
+		path: 'profile-consultant',
+		loadChildren: () =>
+			import('./profile-consultant/profile-consultant.module').then(
+				(m) => m.ProfileConsultantPageModule
+			),
+		canActivate: [ConsultantGuard],
+	},
 
 
 ];

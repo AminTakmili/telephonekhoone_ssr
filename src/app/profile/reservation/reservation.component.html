@@ -1,0 +1,56 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/profile']">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> وقت های رزرو شده </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <app-profile-header></app-profile-header>
+    <section class="">
+        <div class="container px-0 py-md-50">
+            <ion-grid>
+                <ion-row class="ion-justify-content-center">
+                    <ion-col size-lg="5">
+                        <div class="box-shadow profile-empty flex-column w-100">
+                            <ion-icon class="bigIcon" name="time-outline"></ion-icon>
+                            <p class="gray-600 ion-text-center py-30">
+                                هنوز هیچ وقتی رزرو نکرده اید
+                            </p>
+                            <ion-button routerLink="/categories" expand="block" color="red-medium" class="btn shadow-clear">مشاهده لیست مشاوران
+                            </ion-button>
+                        </div>
+                    </ion-col>
+                    <ion-col size-lg="5" class="ion-hide">
+                        <div class="box-shadow profile-items no-flex w-100">
+                            <ion-list class="item-clear font-size-12 ion-no-padding w-100">
+                                <ion-item class="item-clear ion-no-padding" lines="full" *ngFor="let dummy of ' '.repeat(3).split(''); let x = index">
+                                    <ion-thumbnail slot="start">
+                                        <img class="img-cover" src="/assets/img/home-bg-2.jpg" alt="" />
+                                    </ion-thumbnail>
+                                    <ion-label class="d-flex ion-justify-content-between w-100 m-0">
+                                        <div class="right flex-column">
+                                            <p class="name mb-10">بهاره رهنما</p>
+                                            <span class="label gray-600 font-size-12">مشاوره حقوقی</span>
+                                        </div>
+                                        <div class="left flex-column">
+                                            <p class="date gray-600 mb-15">13/05/1399 ساعت 15:40</p>
+                                            <ion-button expand="block" color="red-medium" class="btn shadow-clear">لغو رزرو
+                                            </ion-button>
+                                        </div>
+                                    </ion-label>
+                                </ion-item>
+                            </ion-list>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

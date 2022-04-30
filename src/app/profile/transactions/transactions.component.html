@@ -1,0 +1,76 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/profile']">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> تراکنش ها </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <app-profile-header></app-profile-header>
+    <section class="">
+        <div class="container px-0 py-md-50">
+            <ion-grid>
+                <ion-row class="ion-justify-content-center">
+                    <ion-col size-lg="5" *ngIf="transactions.length === 0 && !loading">
+                        <div class="box-shadow profile-empty flex-column w-100">
+                            <ion-icon class="bigIcon" name="card-outline"></ion-icon>
+                            <p class="gray-600 ion-text-center py-30">
+                                هیچ تراکنشی موجود نمیباشد
+                            </p>
+                            <ion-button expand="block" color="red-medium" class="btn shadow-clear">افزایش موجودی حساب</ion-button>
+                        </div>
+                    </ion-col>
+                    <ion-col size-lg="5" *ngIf="transactions.length !== 0 && !loading">
+                        <div class="box-shadow profile-items no-flex transactions-profile w-100">
+                            <ion-list class="item-clear full-data-list font-size-12 w-100">
+                                <ion-item class="item-clear ion-no-padding" lines="full" *ngFor="let item of transactions">
+                                    <ion-icon class="ml-15" slot="start" [name]="
+                      item.payType == 0
+                        ? 'arrow-down-outline'
+                        : 'arrow-up-outline'
+                    " [color]="item.payType == 1 ? 'success' : 'danger'"></ion-icon>
+                                    <ion-label slot="start">
+                                        <ion-text>
+                                            <h3 class="mb-10">{{ item.description }}
+                                            </h3>
+                                        </ion-text>
+                                        <ion-text color="medium">
+                                            <small>{{ item.created_at }}</small>
+                                        </ion-text>
+                                    </ion-label>
+                                    <ion-chip slot="end" [color]="item.payType == 1 ? 'success' : 'danger'">
+                                        {{ item.amount | number }} تومان
+                                    </ion-chip>
+                                </ion-item>
+                            </ion-list>
+                        </div>
+                    </ion-col>
+                    <ng-template *appShellNoRender>
+
+                    <ion-col size-lg="5" *ngIf="loading">
+                        <div class="box-shadow profile-items no-flex transactions-profile w-100">
+                            <ion-list class="item-clear font-size-12 w-100">
+                                <ion-item class="item-clear ion-no-padding" lines="full" *ngFor="let item of [1, 2, 3, 4, 5]">
+                                    <ion-label class="d-flex ion-justify-content-between w-100">
+                                        <div class="right flex-column w-100">
+                                            <ion-skeleton-text animated style="width: 60%; margin-bottom: 10px"></ion-skeleton-text>
+                                            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                                        </div>
+                                    </ion-label>
+                                    <ion-skeleton-text animated style="width: 90px; border-radius: 50px; height: 30px"></ion-skeleton-text>
+                                </ion-item>
+                            </ion-list>
+                        </div>
+                    </ion-col>
+                </ng-template>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

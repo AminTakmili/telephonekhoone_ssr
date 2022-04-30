@@ -1,0 +1,86 @@
+.login-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 65px;
+    margin-bottom: 30px;
+    ion-img {
+        margin-bottom: 20px;
+    }
+    p {
+        color: var(--ion-color-dark);
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+    small {
+        color: var(--ion-color-tertiary);
+        max-width: 80%;
+    }
+}
+
+.login-content {
+    &:not(.register) {
+        ion-input {
+            text-align: center;
+            --padding-top: 0 !important;
+            --padding-bottom: 0 !important;
+        }
+    }
+    padding: 0 15px;
+}
+
+.btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+ion-row {
+    justify-content: center;
+}
+
+// .mainContent {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   flex-direction: column;
+//   height: 100%;
+// }
+.mainContent {
+    .contentHead {
+        background-color: #f1f1f1;
+        span {
+            padding: 15px;
+            display: block;
+        }
+    }
+}
+
+@media (min-width: 640px) {
+    .login-head {
+        margin-top: 40px !important;
+    }
+    .mainContent {
+        width: 400px;
+        margin: 0 auto;
+        border: 1px solid #d7d7d7;
+        border-radius: 8px;
+        padding-bottom: 20px;
+        overflow: hidden;
+    }
+    .loginBack {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.rules {
+    cursor: pointer;
+    z-index: 2;
+    position: relative;
+}

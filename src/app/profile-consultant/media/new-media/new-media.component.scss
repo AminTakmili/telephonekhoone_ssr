@@ -1,0 +1,35 @@
+.customRadio {
+    display: flex;
+    .fileRadio {
+        &:last-child {
+            margin-right: 10px;
+        }
+        border: 1px solid var(--color-gray-600);
+        border-radius: 8px;
+    }
+}
+
+.emptyFilesPlaceHolder {
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.amountBadge {
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 20px;
+    background-color: #fff;
+    z-index: 2;
+    padding: 0 5px;
+}
+
+@media screen and (max-width: 768px) {
+    .ion-padding {
+        margin: 0 !important;
+        box-shadow: 0 0 0 #000;
+    }
+}

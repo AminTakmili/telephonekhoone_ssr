@@ -1,0 +1,100 @@
+@import "~src/theme/extends";
+.consultant-reservation {
+    .box-shadow {
+        padding: 0;
+        min-height: 300px;
+    }
+    .week-days {
+        padding: 25px 0;
+        border-bottom: 1px solid var(--color-gray-850);
+        .day {
+            flex: 1 1 14.285%;
+            text-align: center;
+            color: var(--color-gray-600);
+        }
+    }
+    .reservations {
+        .time {
+            flex: 1 1 14.285%;
+            margin: 10px;
+            p {
+                padding: 7px 21px;
+                border: 1px solid var(--color-gray-850);
+                color: var(--color-gray-600);
+                border-radius: 5px;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+        }
+        @include breakpoint(lg-down) {
+            display: flex !important;
+            flex-direction: column !important;
+            .time {
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: wrap;
+                border-bottom: 1px solid var(--color-gray-600);
+                &:last-child {
+                    border: 0;
+                }
+                p {
+                    margin-left: 5px;
+                    flex: 1 1 30%;
+                    max-width: 110px;
+                    &:first-child {
+                        border: 0;
+                        color: var(--ion-color-primary);
+                        text-align: right;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.planTitle {
+    font-size: 18px;
+    margin-top: 0;
+}
+
+.profile-empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-shadow {
+    @include breakpoint(lg-down) {
+        border-radius: 0;
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.09);
+    }
+}
+
+.planItem {
+    padding: 10px 15px;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+::ng-deep {
+    .date-popover {
+        .popover-content {
+            box-shadow: 0 10px 20px rgb(0 0 0 / 16%);
+            border-radius: 15px;
+            padding: 10px;
+            .datepicker-outer-container {
+                box-shadow: none !important;
+                border: none !important;
+            }
+        }
+    }
+}
+
+.items-title {
+    @include breakpoint(md-up) {
+        margin-bottom: 25px;
+    }
+    @include breakpoint(md-down) {
+        font-size: 19px !important;
+    }
+}

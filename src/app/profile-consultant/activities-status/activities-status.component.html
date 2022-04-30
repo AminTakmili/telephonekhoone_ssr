@@ -1,0 +1,68 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/profile-consultant']">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> وضعیت فعالیت </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <app-profile-consultant-header></app-profile-consultant-header>
+    <section>
+        <div class="container px-0 py-md-50">
+            <ion-grid>
+                <ion-row class="ion-justify-content-center">
+                    <!-- <ion-col size-lg="5">
+                    <div class="box-shadow profile-empty flex-column w-100">
+                        <ion-text color="primary">
+                            <i class="fal fa-phone-alt image"></i>
+                        </ion-text>
+                        <p class="gray-600 ion-text-center py-30">شما هنوز مشاوره ای دریافت نکرده اید</p>
+                        <ion-button expand="block" color="red-medium" class="btn shadow-clear">مشاهده لیست مشاوران</ion-button>
+                    </div>
+                </ion-col> -->
+                    <ion-col size-lg="5">
+                        <div class="box-shadow profile-items no-flex flex-column w-100 px-20 pb-30">
+                            <ion-text color="primary">
+                                <p class="ion-text-center font-size-20 my-30">
+                                    تعیین وضعیت فعالیت
+                                </p>
+                            </ion-text>
+                            <p class="gray-600 ion-text-center font-size-12">
+                                از این قسمت میتوانید تماس تصویری و صوتی را فعال یا غیر فعال کنید
+                            </p>
+                            <ion-list class="item-clear font-size-12 w-100 mt-30">
+                                <!-- <ion-item  lines="full">
+                  <ion-label class="my-20 font-size-14 gray-title"
+                    >تماس تصویری</ion-label
+                  >
+                  <ion-toggle mode="ios" color="primary"></ion-toggle>
+                </ion-item> -->
+                                <ion-item lines="full">
+                                    <ion-label class="my-20 font-size-14 gray-title">تماس صوتی</ion-label>
+                                    <ion-toggle [(ngModel)]="voice_call" mode="ios" color="primary"></ion-toggle>
+                                </ion-item>
+                                <ion-item lines="full">
+                                    <ion-label class="my-20 font-size-14 gray-title">مشاوره متنی</ion-label>
+                                    <ion-toggle [(ngModel)]="chat" mode="ios" color="primary"></ion-toggle>
+                                </ion-item>
+                            </ion-list>
+                            <ion-button (click)="changeStatus()" expand="block" color="red-medium" class="shadow-clear mt-20 w-100" [disabled]="loading">
+                                <ng-template [ngIf]="!loading"> تغییر وضعیت </ng-template>
+
+                                <ng-template [ngIf]="loading">
+                                    <ion-spinner name="crescent"></ion-spinner>
+                                </ng-template>
+                            </ion-button>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

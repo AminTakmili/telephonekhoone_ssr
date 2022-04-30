@@ -1,0 +1,76 @@
+<ion-header class="ion-hide-lg-up">
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+		<ion-button [routerLink]="['/profile/tickets']">
+			<ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+		</ion-button>
+    </ion-buttons>
+    <ion-title> جزئیات تیکت </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-header type="relative"></app-header>
+  <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+  <app-profile-header></app-profile-header>
+  <section>
+    <div class="container px-0 py-md-50">
+      <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-lg="5">
+            <div class="box-shadow w-100">
+              <div
+                #chat
+                [scrollTop]="chat.scrollHeight"
+                class="myChatScreen w-100"
+              >
+                <div class="messages">
+                  <ion-toolbar class="ion-no-border ion-hide-md-down">
+                    <ion-back-button
+                      routerAnimation="root"
+                      slot="start"
+                      defaultHref="/profile/tickets"
+                      color="medium"
+                      text="بازگشت"
+                    ></ion-back-button>
+                  </ion-toolbar>
+                  <ion-content class="chatScreen" #content>
+                    <ng-template ngFor let-item [ngForOf]="messages">
+                      <div class="messageItem user" *ngIf="!item.admin_id">
+                        <span class="sender">
+                          {{ global.getUserInfo().name }}
+                        </span>
+                        <p>{{ item.message }}</p>
+                        <span class="date"> {{ item.created_at }} </span>
+                      </div>
+                      <div class="messageItem admin" *ngIf="item.admin_id == 1">
+                        <span class="sender"> مدیریت سایت </span>
+                        <p>{{ item.message }}</p>
+                        <span class="date"> {{ item.created_at }} </span>
+                      </div>
+                    </ng-template>
+                  </ion-content>
+                </div>
+                <form [formGroup]="replayForm" class="ion-hide-md-down">
+                  <div class="footSendMessage">
+                    <ion-fab-button (click)="sendMessage()" color="primary">
+                      <ion-icon *ngIf="!loading" name="send-outline"></ion-icon>
+                      <ion-spinner *ngIf="loading"></ion-spinner>
+                    </ion-fab-button>
+                    <ion-textarea
+                      placeholder="برای ارسال Ctrl + Enter"
+                      rows="1"
+                      #input
+                      color="dark"
+                      formControlName="message"
+                    ></ion-textarea>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </section>
+  <app-footer></app-footer>
+</ion-content>

@@ -20,6 +20,10 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { NgxStarRatingModule } from 'ngx-star-rating';
+import { DecimalPipe } from '@angular/common';
+import { PipesModule } from './module/pipes-module/pipes/pipes.module';
+
 export function playerFactory() {
 	return import('lottie-web');
 }
@@ -50,9 +54,14 @@ export function playerFactory() {
       driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
     }),
     // LottieModule.forRoot({ player: playerFactory }),
+    NgxStarRatingModule,
+    PipesModule
   ],
 
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    DecimalPipe,
+    
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

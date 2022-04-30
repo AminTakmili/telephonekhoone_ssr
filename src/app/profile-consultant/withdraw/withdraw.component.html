@@ -1,0 +1,76 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/profile-consultant']">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> برداشت از حساب </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <app-profile-consultant-header></app-profile-consultant-header>
+    <section class="consultant-withdraw">
+        <div class="container px-0 py-md-50">
+            <ion-grid>
+                <ion-row class="ion-justify-content-center">
+                    <ion-col size-lg="5" size="12">
+                        <div class="history-btn">
+                            <ion-item detail="true" lines="none" [routerLink]="['/profile-consultant/withdraw' , 'history']">
+                                <ion-icon class="ion-hide-md-down" name="time-outline" slot="start"></ion-icon>
+                                <ion-label>
+                                    <h3>
+                                        تاریخچه درخواست ها
+                                    </h3>
+                                    <p *ngIf="lastPayRequest">
+                                        ( درخواست <strong> {{ lastPayRequest.amount | number }}  </strong> تومان
+                                        <ion-text [color]="getStatusColor(lastPayRequest.status)">
+                                            <strong>{{ lastPayRequest.status_text }}</strong>
+                                        </ion-text>
+                                        است )
+                                    </p>
+                                </ion-label>
+                            </ion-item>
+                        </div>
+                        <div class="box-shadow flex-column w-100">
+                            <div class="flex-column ion-align-items-start">
+                                <p class="gray-600 font-size-14 mb-5">مبلغ قابل دریافت</p>
+                                <ion-text (click)="balance > 100 && (amountCash.value = balance)" color="primary" class="font-size-25 cursor-pointer">{{ balance | number }} تومان</ion-text>
+                            </div>
+                            <p class="gray-600 ion-text-center my-30">
+                                برای دریافت وجه لطفا مبلغ درخواست را وارد کنید
+                            </p>
+                            <form [formGroup]="walletForm" class="w-100">
+                                <div class="border-header w-100">
+                                    <!-- <h6>نام و نام خانوادگی</h6> -->
+                                    <ion-input #amountCash class="pr-10 pr-md-0" placeholder="مبلغ درخواستی" formControlName="amount" (keypress)="global.justNumber($event)"></ion-input>
+                                </div>
+                                <app-validator [control]="walletForm.controls['amount']" [controlName]="'مبلغ درخواستی'"></app-validator>
+                                <ion-button (click)="payWallet()" [disabled]="!walletForm.valid || payLoading" expand="block" [color]="
+                    amountCash.value <= balance ? 'primary' : 'red-medium'
+                  " class="btn shadow-clear mt-15">
+                                    <ng-template [ngIf]="!payLoading && amountCash.value <= balance">
+                                        دریافت
+                                        <span class="mr-5" *ngIf="walletForm.valid">
+											{{ amountCash.value | number }} تومان
+										</span>
+                                    </ng-template>
+                                    <ng-template [ngIf]="amountCash.value > balance">
+                                        مبلغ بیش از حد مجاز
+                                    </ng-template>
+
+                                    <ng-template [ngIf]="payLoading">
+                                        <ion-spinner name="crescent"></ion-spinner>
+                                    </ng-template>
+                                </ion-button>
+                            </form>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

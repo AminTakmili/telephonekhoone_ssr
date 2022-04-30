@@ -1,0 +1,191 @@
+<ion-header class="ion-hide-lg-up">
+  <ion-toolbar color="light">
+      <ion-buttons slot="start">
+          <ion-icon slot="start" name="arrow-back-outline" class="mr-15" (click)="onClickBack()"></ion-icon>
+      </ion-buttons>
+      <ion-title> جستجو </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-header type="relative"></app-header>
+  <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+  <section id="cat-search">
+      <div class="cat-search-box">
+          <div class="content">
+              <div class="container">
+                  <h1 class="title mt-0">
+                      {{ filter == 'chat' ? 'دریافت مشاوره آنلاین' : filter == 'call' ? 'دریافت مشاوره تلفنی' : 'جستجوی مشاور'}}
+                  </h1>
+                  <p class="dsec">
+                      {{ getFilterText(filter) }}
+                  </p>
+                  <div class="search">
+                      <ion-icon class="location-icon" name="location"></ion-icon>
+                      <div (click)="countriesPopover($event)" class="countrySelect">
+                          {{ selectedCountryName }}
+                      </div>
+                      <ion-searchbar #searchBar mode="md" class="ion-no-padding" placeholder="نام و نام خانوادگی یا کد پرسنلی" search-icon="undefined"></ion-searchbar>
+                      <ion-button class="ion-hide-md-down" (click)="searchItems()" color="primary">
+                          <ion-label> جستجو </ion-label>
+                      </ion-button>
+                      <ion-buttons class="ion-hide-md-up">
+                          <ion-button color="primary" (click)="searchItems()">
+                              <ion-icon name="search" slot="icon-only" class="ion-hide-md-up"></ion-icon>
+                          </ion-button>
+                      </ion-buttons>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="container px-0">
+          <div class="notFound" [class.d-none]="loading || listCount !== 0">
+              <ng-lottie [options]="searchAnimate" (animationCreated)="handleEmptyAnimation($event)"></ng-lottie>
+              <h3>موردی یافت نشد</h3>
+          </div>
+          <div class="sort-box" *ngIf="searchList.length != 0 || loading">
+              <ion-grid class="p-0">
+                  <ion-row class="p-0" class="ion-align-items-center">
+                      <ion-col size-lg="2" class="ion-hide-lg-down">
+                          <ion-text color="lightblue">
+                              <p class="title">مرتب سازی بر اساس</p>
+                          </ion-text>
+                      </ion-col>
+                      <ion-col size-lg="10" size="12" class="p-0">
+                          <nav class="menu-cat" #nav>
+                              <ion-slides #DesktopMenu (ionSlidesDidLoad)="loadSwiper()" class="desktop-menu-item menu-ul" pager="false" [options]="galleryThumbsConfig2">
+                                  <!-- <ion-slide
+                  (click)="changeSort({ value: 'all' })"
+                  [class.current]="sortItem == 'all'"
+                >
+                  همه مشاوران
+                </ion-slide> -->
+                                  <ion-slide *ngFor="let item of sortingList" (click)="changeSort(item)" [class.current]="sortItem == item.value">
+                                      {{ item.name }}
+                                  </ion-slide>
+                              </ion-slides>
+                          </nav>
+                      </ion-col>
+                  </ion-row>
+              </ion-grid>
+          </div>
+          <ion-grid class="m-0 my-md-20">
+              <ion-row *ngIf="!loading">
+                  <ion-col class="p-10" size-lg="6" *ngFor="let item of searchList; let x = index">
+
+                      <a [routerLink]="[ '/c/m' , myId ,item.id]" class="advisor cursor-pointer box-shadow w-100">
+                          <!-- <div class="w-100"> -->
+
+                          <div class="info w-100 flex-row-center-between">
+                              <div class="image">
+                                  <img class="img-cover" [src]="item.image.path" alt="{{ item.fullname }}" />
+                              </div>
+                              <div class="right">
+                                  <div class="name d-flex">
+                                      <p>{{ item.fullname }}</p>
+                                      <ion-chip *ngIf="item.is_online == 1" color="success">آنلاین</ion-chip>
+                                      <ion-chip *ngIf="item.is_online == 0" color="danger">آفلاین</ion-chip>
+                                      <ion-chip *ngIf="item.is_online == 2" color="primary">در حال مشاوره</ion-chip>
+                                  </div>
+                                  <div class="desc d-flex">
+                                      <div class="option gray-600 font-size-10 ml-20">
+                                          <i class="fas fa-medal ml-5"></i>{{ item.title }}
+                                      </div>
+                                      <div class="location gray-600 font-size-10">
+                                          <i class="fas fa-map-marker-alt ml-5"></i>{{ item.country }}
+                                      </div>
+                                  </div>
+                                  <div class="btns d-flex w-100">
+                                      <ion-button color="light" class="font-size-10 shadow-clear" expand="block" shape="round">
+                                          مشاوره تلفنی
+                                          <ion-icon slot="start" class="ml-5 font-size-15" name="call" color="primary"></ion-icon>
+                                      </ion-button>
+                                      <ion-button color="light" class="font-size-10 shadow-clear" expand="block" shape="round">
+                                          <ion-icon slot="start" class="ml-5 font-size-15" name="chatbubble-outline" color="red-light"></ion-icon>مشاوره آنلاین
+                                      </ion-button>
+                                  </div>
+                              </div>
+
+                              <div class="left ion-hide-lg-down">
+                                  <div class="star-rate-block">
+                                      <!-- <form  [formGroup]="starform" action=""> -->
+                                          <!-- <ionic5-star-rating class="mt-15" #rating activeIcon="star" defaultIcon="star-outline" activeColor="#FFE53B" defaultColor="#B9B9B9" readonly="true" [rating]="item.rate" fontSize="24px">
+                                          </ionic5-star-rating> -->
+                                         
+                                          <!-- <ngx-star-ratingclass="mt-15" #rating activeIcon="star" defaultIcon="star-outline" activeColor="#FFE53B" defaultColor="#B9B9B9" readonly="true" [rating]="item.rate" fontSize="24px"[id]="'rating'"></ngx-star-ratingclass=> -->
+                                      
+                                          <!-- <ngx-star-rating formControlName="rating" [(ngModel)]="item.rate" [id]="'rating'" [disabled] ="true"></ngx-star-rating>
+
+                                        </form> -->
+
+
+                                        <!-- <div class="cont">
+                                            <div class="stars">
+                                                <ngx-star-rating [(ngModel)]="rating3" [id]="'rating3'" ></ngx-star-rating >
+                                            </div> -->
+                                            <!-- <div>Rating: {{ rating3 }}</div> -->
+                                        <!-- </div> -->
+
+
+                                      <div class="stars"></div>
+                                  </div>
+                                  <ion-button [routerLink]="[
+                    '/categories/consultant/' + myId + '/' + item.id
+                  ]" class="font-size-10 shadow-clear" color="secondary" expand="block" shape="round">
+                                      مشاهده پروفایل
+                                  </ion-button>
+                              </div>
+                          </div>
+                          <div class="left ion-hide-lg-up w-100 mt-5">
+                              <div class="star-rate-block ion-text-center">
+                                  <div class="stars">
+                                      <ion-icon name="star"></ion-icon>
+                                      <span>{{ item.rate }}</span>
+                                  </div>
+                              </div>
+                              <ion-button class="font-size-12 shadow-clear" color="secondary" expand="block" shape="round">
+                                  مشاهده پروفایل
+                              </ion-button>
+                              <!-- </div> -->
+                          </div>
+                      </a>
+                  </ion-col>
+              </ion-row>
+              <ng-template [ngIf]="loading"  *appShellNoRender>
+              <ion-row >
+                  <ion-col class="p-10" size-lg="6" size="12" *ngFor="let item of [1, 2, 3, 4, 5, 6]; let x = index">
+                      <div class="advisor shimmer cursor-pointer box-shadow w-100">
+                          <!-- <div class="w-100"> -->
+
+                          <div class="info w-100 flex-row-center-between">
+                              <div class="image">
+                                  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                              </div>
+                              <div class="right">
+                                  <ion-skeleton-text animated style="width: 80%; height: 16px"></ion-skeleton-text>
+                                  <div class="desc d-flex">
+                                      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+                                  </div>
+                                  <ion-skeleton-text animated style="width: 100%; height: 27px; border-radius: 5px">
+                                  </ion-skeleton-text>
+                                  <div class="btns d-flex w-100"></div>
+                              </div>
+
+                              <div class="left ion-hide-lg-down">
+                                  <div class="star-rate-block">
+                                      <div class="stars">
+                                          <ion-skeleton-text animated style="width: 70px"></ion-skeleton-text>
+                                      </div>
+                                  </div>
+                                  <ion-skeleton-text animated style="width: 100%; height: 35%; border-radius: 50px">
+                                  </ion-skeleton-text>
+                              </div>
+                          </div>
+                      </div>
+                  </ion-col>
+              </ion-row>
+              </ng-template>
+          </ion-grid>
+      </div>
+  </section>
+  <app-footer></app-footer>
+</ion-content>

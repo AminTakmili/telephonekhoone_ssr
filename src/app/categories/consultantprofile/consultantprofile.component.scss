@@ -1,0 +1,229 @@
+#dr-profile {
+    .side-profile {
+        overflow: hidden;
+        position: sticky;
+        top: 30px;
+        .placeHolder {
+            background-color: #ececec;
+            height: 10px;
+            border-radius: 3px;
+        }
+        .image {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            background-color: #ececec;
+            border-radius: 15px;
+            ion-chip {
+                position: absolute;
+                top: 9px;
+                left: -29px;
+                font-size: 12px;
+                height: 24px;
+                background: #fff;
+            }
+            img {
+                border-radius: 15px;
+            }
+        }
+        .name {
+            padding: 15px 0;
+            p {
+                font-size: 18px;
+                font-weight: bold;
+            }
+            .badge {
+                background: var(--ion-color-warning);
+                color: var(--color-white);
+                padding: 2px 7px 0;
+                border-radius: 24px;
+                margin-left: 10px;
+                box-shadow: 0 0px 9px 0 #ffc409b8;
+                font-size: 12px;
+                margin-right: 5px;
+            }
+        }
+        .btns {
+            ion-button {
+                --border-width: 1px;
+                ion-icon {
+                    position: absolute;
+                    right: 0;
+                }
+            }
+        }
+    }
+    .profile-info {
+        padding: 20px;
+        color: var(--color-font);
+        p {
+            line-height: 1.5;
+            font-size: 13px;
+        }
+        .question {
+            font-weight: bold;
+            margin-bottom: 11px;
+            font-size: 14px;
+        }
+    }
+}
+
+.comment-info {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.shadow-clear {
+    min-height: 45px;
+}
+
+.title-type-two {
+    p {
+        span {
+            font-size: 14px !important;
+        }
+    }
+}
+
+.planItems {
+    &.disabled {
+        opacity: 0.5;
+    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #d3d3d3;
+    padding: 10px;
+    border-radius: 8px;
+    .priceTag {
+        color: var(--ion-color-primary);
+    }
+    .chatDesc {
+        color: #919191;
+        display: block;
+        margin-top: 7px;
+    }
+    .chatLoading {
+        position: absolute;
+        right: 0;
+        left: 0;
+        top: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--ion-color-primary);
+        color: #fff;
+        ion-spinner {
+            margin-left: 15px;
+            color: #fff;
+        }
+    }
+    .startDescription {
+        display: flex;
+        align-items: center;
+        .icon {
+            ion-icon {
+                color: var(--ion-color-primary);
+                font-size: 27px;
+            }
+            padding-left: 6px;
+        }
+    }
+    position: relative;
+    overflow: hidden;
+    &:not(.disabled) {
+        cursor: pointer;
+        &:hover {
+            .planOverlay {
+                opacity: 1;
+            }
+        }
+    }
+    .planOverlay {
+        transition: all 0.3s ease;
+        opacity: 0;
+        top: 0;
+        right: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: var(--ion-color-primary);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15px;
+        z-index: 2;
+        font-weight: bold;
+        ion-icon {
+            font-size: 25px;
+        }
+    }
+}
+
+.callAlert {
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #27a741;
+    margin-bottom: 15px;
+    background-color: rgb(31 195 64 / 4%);
+    .countDown {
+        display: inline-flex;
+        flex-direction: row-reverse;
+        span {
+            margin: 0 10px;
+        }
+    }
+}
+
+.avater-section {
+    padding-top: 15px;
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .image {
+        position: relative;
+        z-index: 2;
+        box-shadow: 0 7px 10px 0 rgb(0 0 0 / 15%);
+    }
+    &::after {
+        z-index: 1;
+        position: absolute;
+        content: "";
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 60%;
+        background: #21d4fd;
+        background-image: linear-gradient(109.6deg, rgba(62, 161, 219, 1) 11.2%, rgba(93, 52, 236, 1) 100.2%);
+    }
+}
+
+.status-text {
+    border-radius: 20px;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 5px 15px;
+}
+
+.online-text {
+    border: 1px solid var(--ion-color-success);
+}
+
+.offline-text {
+    border: 1px solid var(--ion-color-danger);
+}
+
+.incall-text {
+    border: 1px solid var(--ion-color-medium);
+}
+
+.dr-profile-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}

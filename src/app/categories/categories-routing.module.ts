@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { CategoriesPage } from './categories.page';
+import { ConsultantprofileComponent } from './consultantprofile/consultantprofile.component';
+import { SubCategoriListComponent } from './sub-categori-list/sub-categori-list.component';
 
 const routes: Routes = [
   {
@@ -11,7 +13,15 @@ const routes: Routes = [
   {
     path: ':catId',
     component: CategoriesPage
-  }
+  },
+  {
+    path: 'm/:subCatId',
+    component: SubCategoriListComponent
+  },
+  {
+    path: 'm/:subCatId/:consultantId',
+    component: ConsultantprofileComponent
+  },
   	//   {
 	// 	path: '/c',//همه دسته بندی های مشاوران
 	// 	component: RulesPage

@@ -1,0 +1,72 @@
+<!-- <ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title> تایید شماره همراه </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()" color="dark">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content class="paddings">
+  <div class="loginBack">
+    <div class="mainContent">
+      <ion-toolbar class="custom"  color="light">
+        <ion-title> تایید شماره همراه </ion-title>
+        <ion-buttons slot="start">
+          <ion-button (click)="dismiss()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+      <div class="login-head">
+        <ion-img src="assets/images/confirmShield.png"></ion-img>
+        <p class="ion-text-center confirm-desc">
+          کد 5 رقمی ارسال شده به شماره {{ mobile }} را وارد کنید.
+        </p>
+      </div>
+      <div class="login-content">
+        <form
+          [formGroup]="verifyForm"
+          (ngSubmit)="onVerify()"
+          autocomplete="off"
+        >
+          <div class="confirmInput">
+            <div class="Inner-in">
+              <div class="myItem" mode="md" lines="none">
+                <ion-input
+                  (ionFocus)="checkFocus()"
+                  (ionBlur)="checkBlur()"
+                  (ionChange)="codeChange()"
+                  #codeInput
+                  mode="md"
+                  class="ion-text-left"
+                  placeholder="*****"
+                  formControlName="code"
+                  type="tel"
+                  maxlength="5"
+                >
+                </ion-input>
+              </div>
+              <div
+                class="dashInput2 inputFocused"
+                [class.inputFocused]="isfocused"
+                [class.fillOne]="Inputfill === 1 && isfocused"
+                [class.fillTwo]="Inputfill === 2"
+                [class.fillThree]="Inputfill === 3"
+                [class.fillFour]="Inputfill === 4"
+                [class.fillFive]="Inputfill === 5"
+                [class.full]="Inputfill === 6"
+              ></div>
+            </div>
+          </div>
+        </form>
+        <div class="code-time ion-text-center">
+          <p *ngIf="timer != '00:00'">{{ timer }}</p>
+          <p (click)="reSend()" *ngIf="timer == '00:00'">ارسال مجدد</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

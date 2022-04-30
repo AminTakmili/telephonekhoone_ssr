@@ -1,0 +1,73 @@
+<ion-header class="ion-hide-lg-up">
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+		<ion-button [routerLink]="['/profile/tickets']">
+			<ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+		</ion-button>
+    </ion-buttons>
+    <ion-title> ایجاد تیکت جدید </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-header type="relative"></app-header>
+  <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+  <app-profile-header></app-profile-header>
+  <section class="">
+    <div class="container px-0 py-md-50">
+      <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-lg="5" size="12">
+            <ion-toolbar class="ion-margin-bottom ion-hide-lg-down">
+              <ion-back-button
+                routerAnimation="root"
+                slot="start"
+                defaultHref="/profile/tickets"
+                color="medium"
+                text="بازگشت"
+              ></ion-back-button>
+            </ion-toolbar>
+            <div class="box-shadow flex-column w-100 ion-padding">
+              <form
+                class="w-100"
+                [formGroup]="ticketForm"
+                (ngSubmit)="submitReq()"
+              >
+                <div class="border-header p-5 w-100 ion-margin-bottom">
+                  <h6>عنوان درخواست</h6>
+                  <ion-input formControlName="subject"></ion-input>
+                </div>
+                <app-validator
+                  [control]="ticketForm.controls['subject']"
+                  [controlName]="'عنوان درخواست'"
+                >
+                </app-validator>
+                <div class="border-header p-5 w-100 ion-margin-bottom">
+                  <h6>متن درخواست</h6>
+                  <ion-textarea
+                    rows="6"
+                    formControlName="message"
+                  ></ion-textarea>
+                </div>
+                <app-validator
+                  [control]="ticketForm.controls['message']"
+                  [controlName]="'متن درخواست'"
+                >
+                </app-validator>
+                <ion-button
+                  color="red-medium"
+                  class="w-100 shadow-clear"
+                  type="submit"
+                  [disabled]="!ticketForm.valid || loading"
+                >
+                  <ion-label *ngIf="!loading"> ارسال درخواست </ion-label>
+                  <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+                </ion-button>
+              </form>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </section>
+  <app-footer></app-footer>
+</ion-content>

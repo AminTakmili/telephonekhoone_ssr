@@ -1,0 +1,95 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/profile-consultant']">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> تاریخچه درخواست وجه </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <app-profile-consultant-header></app-profile-consultant-header>
+    <section class="consultant-withdraw">
+        <div class="container px-0 py-md-50">
+            <ion-grid>
+                <ion-row class="ion-justify-content-center">
+                    <ion-col size-lg="8" size="12">
+                        <ion-toolbar class="ion-hide-md-down">
+                            <ion-buttons slot="start">
+                                <ion-button slot="start" (click)="back()">
+                                    <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+                                    <ion-label> بازگشت </ion-label>
+                                </ion-button>
+                            </ion-buttons>
+                        </ion-toolbar>
+                        <div class="box-shadow flex-column w-100">
+                            <div class="profile-empty" *ngIf="!loading && historyList.length === 0">
+                                <ion-icon class="bigIcon" name="time-outline"></ion-icon>
+                                <p class="gray-600 ion-text-center pt-30">
+                                    موردی یافت نشد !
+                                </p>
+                            </div>
+                            <div class="loading" *ngIf="loading">
+                                <ion-spinner name="crescent"></ion-spinner>
+                                <p>
+                                    در حال بارگیری ...
+                                </p>
+                            </div>
+                            <div class="w-100 ionic-table ion-hide-md-down" *ngIf="!loading && historyList.length !== 0">
+                                <ion-row class="table-header">
+                                    <ion-col size="1" class="ion-text-center"> شناسه </ion-col>
+                                    <ion-col size="3">تاریخ ثبت</ion-col>
+                                    <ion-col size="2" class="ion-text-center">مبلغ</ion-col>
+                                    <ion-col size="2" class="ion-text-center">وضعیت</ion-col>
+                                    <ion-col> جزئیات بیشتر </ion-col>
+                                </ion-row>
+                                <div class="table-rows">
+                                    <ion-row *ngFor="let data of historyList" class="ion-align-items-center">
+                                        <ion-col size="1" class="ion-text-center">{{data.id}}</ion-col>
+                                        <ion-col size="3">{{data.created_at}}</ion-col>
+                                        <ion-col size="2" class="ion-text-center">{{data.amount | number}} <small> تومان
+											</small>
+                                        </ion-col>
+                                        <ion-col size="2" class="ion-text-center">
+                                            <ion-chip [color]="getStatusColor(data.status)">
+                                                {{data.status_text}}
+                                            </ion-chip>
+                                        </ion-col>
+                                        <ion-col>
+                                            <ion-button (click)="openGallery(data.media)" *ngIf="data.media" mode="ios" size="small">
+                                                مشاهده رسید
+                                            </ion-button>
+                                            <p class="m-0" *ngIf="data.decline_reason">
+                                                {{ data.decline_reason }}
+                                            </p>
+                                        </ion-col>
+                                    </ion-row>
+                                </div>
+                            </div>
+                            <ion-list *ngIf="!loading && historyList.length !== 0" class="ion-hide-md-up w-100 historyMobileList">
+                                <ion-item lines="full" *ngFor="let historyItem of historyList" class="ion-no-padding" (click)="openGallery(historyItem.media)" [detail]="historyItem.media">
+                                    <ion-label slot="start">
+                                        <h3>
+                                            {{ historyItem.amount | number }} <small> تومان </small>
+                                        </h3>
+                                        <p>
+                                            {{ historyItem.created_at }}
+                                        </p>
+                                    </ion-label>
+                                    <ion-chip [color]="getStatusColor(historyItem.status)" slot="end">
+                                        <small>{{ historyItem.status_text }}</small>
+                                    </ion-chip>
+                                </ion-item>
+                            </ion-list>
+
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

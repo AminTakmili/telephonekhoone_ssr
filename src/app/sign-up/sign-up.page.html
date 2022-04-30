@@ -1,0 +1,286 @@
+<ion-header class="ion-hide-md-up">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="dark" routerLink="/">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>ثبت نام مشاور</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <!-- <app-profile-consultant-header></app-profile-consultant-header> -->
+    <section class="consultant-signUp">
+        <div class="sign-up-component">
+            <ion-grid>
+                <ion-row class="ion-justify-content-center">
+                    <ion-col size="3" class="ion-hide-lg-down">
+                        <div class="consultant-vector d-flex ion-align-items-center ion-justify-content-center h-100">
+                            <ion-img src="assets/img/man-consultant.svg"></ion-img>
+                        </div>
+                    </ion-col>
+                    <ion-col size="12" size-lg="6">
+                        <ion-card class="ion-padding-horizontal w-100 ion-no-margin" mode="ios">
+                            <div class="mt-20">
+                                <ion-buttons *ngIf="page == 1">
+                                    <ion-button color="medium" (click)="changePage(0)">
+                                        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+                                        <ion-label>بازگشت</ion-label>
+                                    </ion-button>
+                                </ion-buttons>
+                            </div>
+                            <div class="bg-white" *ngIf="page === 0">
+                                <div class="upload-img mr-20 w-100 d-flex">
+                                    <div class="consultant-avatar">
+                                        <div (click)="uploadImage_click('profile')" class="image-base cursor-pointer w-100 h-100 flex-column-center-center">
+                                            <ng-template [ngIf]="!profileLoading && !profileImage">
+                                                <i class="far fa-camera font-size-25 mb-5"></i>
+                                                <span>آپلود تصویر</span>
+                                            </ng-template>
+                                            <ion-img *ngIf="!profileLoading && profileImage" [src]="profileImage.path">
+                                            </ion-img>
+                                            <ion-spinner *ngIf="profileLoading" name="crescent"></ion-spinner>
+                                        </div>
+                                        <p class="font-size-12" *ngIf="itemsValidation?.profileValidation">
+                                            <ion-text color="danger"> آپلود تصویر مشاور ضروری است </ion-text>
+                                        </p>
+                                    </div>
+                                    <div class="py-10 mr-15 userFullName">
+                                        <h3>{{ fullName.value }}</h3>
+                                        <p>{{ selectedCategory?.name }}</p>
+                                    </div>
+                                </div>
+                                <form class="w-100 mt-20" [formGroup]="signUpForm">
+                                    <ion-grid class="">
+                                        <ion-row class="ion-justify-content-end">
+                                            <ion-col size-lg="6" size="12" class="p-lg-10 pb-lg-20">
+                                                <div class="border-header p-5 w-100">
+                                                    <h6>نام و نام خانوادگی</h6>
+                                                    <ion-input #fullName formControlName="fullName"></ion-input>
+                                                </div>
+                                                <app-validator [control]="signUpForm.controls['fullName']" [controlName]="'نام و نام خانوادگی'">
+                                                </app-validator>
+                                            </ion-col>
+                                            <ion-col size-lg="6" size="12" class="p-lg-10 pb-lg-20">
+                                                <div class="border-header p-5 w-100">
+                                                    <!-- formControlName="gender" -->
+                                                    <h6>جنسیت</h6>
+                                                    <ion-select mode="md" formControlName="gender" okText="تایید" cancelText="لغو" placeholder="انتخاب کنید" interface="popover">
+                                                        <ion-select-option value="female">خانم</ion-select-option>
+                                                        <ion-select-option value="male">آقا</ion-select-option>
+                                                    </ion-select>
+                                                </div>
+                                                <app-validator [control]="signUpForm.controls['gender']" [controlName]="'جنسیت'">
+                                                </app-validator>
+                                            </ion-col>
+                                            <ion-col size-lg="12" size="12" class="p-lg-10 pb-lg-20">
+                                                <div (click)="onspecialty($event)" class="border-header cursor-pointer p-10 w-100">
+                                                    <h6>تخصص</h6>
+                                                    <ng-template [ngIf]="selectedCategory?.name">
+                                                        {{ selectedCategory?.name }}
+                                                        <span class="sep-border">
+															<ion-chip (click)="removeChild(item.id)"
+																*ngFor="let item of showChilds()">
+																<ion-icon name="close-circle"></ion-icon>
+																<ion-label> {{ item.name }} </ion-label>
+															</ion-chip>
+														</span>
+                                                    </ng-template>
+                                                    <ng-template [ngIf]="!selectedCategory?.name">
+                                                        <ion-text class="p-5 d-block" color="medium">
+                                                            تخصص و دسته بندی حوضه فعالیت خود را مشخص کنید
+                                                        </ion-text>
+                                                    </ng-template>
+                                                </div>
+                                                <p class="font-size-12" *ngIf="!selectedCategory?.name && fillForms">
+                                                    <ion-text color="danger">
+                                                        انتخاب تخصص و دسته بندی ضروری است </ion-text>
+                                                </p>
+                                            </ion-col>
+
+                                            <ion-col size-lg="6" size="12" class="p-lg-10 pb-lg-20">
+                                                <div class="border-header p-5 w-100">
+                                                    <h6>کشور</h6>
+                                                    <ion-select mode="md" formControlName="country" okText="تایید" cancelText="لغو" placeholder="انتخاب کنید" interface="popover">
+                                                        <ion-select-option *ngFor="let item of countries" [value]="item.id">
+                                                            {{ item.name }}</ion-select-option>
+                                                    </ion-select>
+                                                </div>
+                                                <app-validator [control]="signUpForm.controls['country']" [controlName]="'انتخاب کشور'">
+                                                </app-validator>
+                                            </ion-col>
+                                            <ion-col size-lg="6" size="12" class="p-lg-10 pb-lg-20">
+                                                <div class="border-header p-5 w-100">
+                                                    <h6>شماره شبا</h6>
+                                                    <ion-input formControlName="shaba"></ion-input>
+                                                </div>
+                                                <app-validator [control]="signUpForm.controls['shaba']" [controlName]="'شماره شبا'">
+                                                </app-validator>
+                                            </ion-col>
+                                            <ion-col size-lg="6" size="12" class="p-lg-10 pb-lg-20">
+                                                <div class="border-header p-5 w-100">
+                                                    <h6>شماره حساب</h6>
+                                                    <ion-input formControlName="accountNumber"></ion-input>
+                                                </div>
+                                                <app-validator [control]="signUpForm.controls['accountNumber']" [controlName]="'شماره حساب'">
+                                                </app-validator>
+                                            </ion-col>
+                                            <ion-col size-lg="6" size="12" class="p-lg-10 pb-lg-20">
+                                                <div class="border-header p-5 w-100">
+                                                    <h6>شماره کارت</h6>
+                                                    <ion-input formControlName="cardNumber"></ion-input>
+                                                </div>
+                                                <app-validator [control]="signUpForm.controls['cardNumber']" [controlName]="'شماره کارت'">
+                                                </app-validator>
+                                            </ion-col>
+                                            <ion-col size-lg="6" size="12" class="p-lg-10 pb-lg-20">
+                                                <div class="border-header p-5 w-100">
+                                                    <h6>نام بانک</h6>
+                                                    <ion-input formControlName="bankName"></ion-input>
+                                                </div>
+                                                <app-validator [control]="signUpForm.controls['bankName']" [controlName]="'نام بانک'">
+                                                </app-validator>
+                                            </ion-col>
+                                            <ion-col size-lg="6" size="12" class="p-lg-10 pb-lg-20">
+                                                <div class="border-header p-5 w-100">
+                                                    <h6>مدت سابقه</h6>
+                                                    <ion-input formControlName="experienceYear"></ion-input>
+                                                </div>
+                                                <app-validator [control]="signUpForm.controls['experienceYear']" [controlName]="'مدت سابقه'">
+                                                </app-validator>
+                                            </ion-col>
+                                            <ion-col size-lg="12" size="12" class="p-lg-10 pb-lg-20">
+                                                <div class="border-header p-5 w-100">
+                                                    <h6>آخرین مدرک تحصیلی</h6>
+                                                    <ion-input formControlName="lastCertificate"></ion-input>
+                                                </div>
+                                                <app-validator [control]="signUpForm.controls['lastCertificate']" [controlName]="'آخرین مدرک تحصیلی'">
+                                                </app-validator>
+                                            </ion-col>
+                                            <ion-col size-lg="12" size="12" class="p-lg-10 pb-lg-20">
+                                                <app-upload-file (exportDataEmitter)="setResumeFiles($event)" [key]="'resume'" [type]="'document'" [title]="'رزومه کاری'" [description]="'برای آپلود فایل رزومه اینجا کلیک کنید (عکس / pdf)'" [multiple]="false"></app-upload-file>
+                                                <p class="font-size-12" *ngIf="itemsValidation.resumeFileValidation">
+                                                    <ion-text color="danger"> آپلود رزومه کاری ضروری است </ion-text>
+                                                </p>
+                                            </ion-col>
+                                            <ion-col size-lg="6" size="12" class=" pb-lg-20 pt-lg-0">
+                                                <h6 class="font-size-12 gray-600 mt-0">تصویر کارت ملی</h6>
+                                                <div class="border-header overflow-hidden w-100">
+                                                    <div class="bigImages cursor-pointer" (click)="uploadImage_click('personal_card')">
+                                                        <ng-template [ngIf]="!cardLoading">
+                                                            <ion-img *ngIf="personalCardImage" [src]="personalCardImage.path"></ion-img>
+                                                            <p *ngIf="!personalCardImage">
+                                                                برای آپلود تصویر کارت ملی کلیک کنید
+                                                            </p>
+                                                        </ng-template>
+                                                        <ion-spinner *ngIf="cardLoading" name="crescent"></ion-spinner>
+                                                    </div>
+                                                </div>
+                                                <p class="font-size-12" *ngIf="itemsValidation.personalCardValidation">
+                                                    <ion-text color="danger"> آپلود تصویر کارت ملی ضروری است </ion-text>
+                                                </p>
+                                            </ion-col>
+                                            <ion-col size-lg="6" size="12" class=" pb-lg-20 pt-lg-0">
+                                                <h6 class="font-size-12 gray-600 mt-0">تصویر مدرک</h6>
+                                                <div class="border-header overflow-hidden w-100">
+                                                    <div class="bigImages cursor-pointer" (click)="uploadImage_click('document')">
+                                                        <ng-template [ngIf]="!docLoading">
+                                                            <ion-img *ngIf="documentImage" [src]="documentImage.path">
+                                                            </ion-img>
+                                                            <p *ngIf="!documentImage">
+                                                                برای آپلود تصویر مدرک کلیک کنید
+                                                            </p>
+                                                        </ng-template>
+                                                        <ion-spinner *ngIf="docLoading" name="crescent"></ion-spinner>
+                                                    </div>
+                                                </div>
+                                                <p class="font-size-12" *ngIf="itemsValidation.documentValidation">
+                                                    <ion-text color="danger"> آپلود تصویر مدرک ضروری است </ion-text>
+                                                </p>
+                                            </ion-col>
+                                            <ion-col size-lg="12" size="12" class="p-lg-10 pb-lg-10">
+                                                <div class="border-header w-100 pt-20 px-10 pb-10">
+                                                    <h6>متن درباره من</h6>
+                                                    <ckeditor formControlName="aboutData" [editor]="Editor" [config]="ckConfig"></ckeditor>
+                                                </div>
+                                                <app-validator [control]="signUpForm.controls['aboutData']" [controlName]="'متن درباره من'">
+                                                </app-validator>
+                                            </ion-col>
+                                        </ion-row>
+                                    </ion-grid>
+                                </form>
+                            </div>
+                            <div class="bg-white" *ngIf="page === 1">
+                                <form [formGroup]="childValuesForm">
+                                    <ion-row *ngFor="let child of childrenNames">
+                                        <ion-col size="12">
+                                            <p class="my-15">
+                                                مبالغ پیشنهادی شما برای فعالیت در دسته بندی <strong class="boldTitle">{{
+													child.name }}</strong> </p>
+                                        </ion-col>
+                                        <ion-col size-lg="6" size="12" class="p-lg-10 pb-lg-20">
+                                            <div class="border-header p-5 w-100">
+                                                <h6>تماس تلفنی به ازای هر {{ child.site_time }} دقیقه</h6>
+                                                <ion-input (keypress)="global.justNumber($event)" [formControlName]="'call'+child.id"></ion-input>
+                                                <span class="amountBadge"> تومان </span>
+                                            </div>
+                                            <app-validator [control]="childValuesForm.controls['call'+child.id]" [controlName]="'مبلغ پیشنهادی تماس تلفنی'">
+                                            </app-validator>
+                                        </ion-col>
+                                        <ion-col size-lg="6" size="12" class="p-lg-10 pb-lg-20">
+                                            <div class="border-header p-5 w-100">
+                                                <h6>گفتگوی متنی با پایان توافقی</h6>
+                                                <ion-input (keypress)="global.justNumber($event)" [formControlName]="'message'+child.id"></ion-input>
+                                                <span class="amountBadge"> تومان </span>
+                                            </div>
+                                            <app-validator [control]="childValuesForm.controls['message'+child.id]" [controlName]="'مبلغ پیشنهادی گفتگوی متنی'">
+                                            </app-validator>
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-item lines="none">
+                                        <ion-checkbox (ionChange)="changeCheck()" class="ml-md-10 ml-5" slot="start" mode="md" [checked]="isChecked"></ion-checkbox>
+                                        <ion-label class="font-size-12 gray-600 rulesLabel">
+                                            <ion-text class="rulesLink" color="secondary" (click)="rulesCheck()">
+                                                قوانین و مقررات</ion-text>
+                                            تلفن خونه را خوانده و موافقت میکنم
+                                        </ion-label>
+                                    </ion-item>
+                                </form>
+                            </div>
+                            <ion-row class="ion-justify-content-end ion-hide-lg-down">
+                                <ion-col size-md="5" size="12">
+                                    <ion-button *ngIf="page === 0" (click)="changePage(1)" color="primary" expand="block" class="btn-style-1 shadow-clear font-size-14 ion-hide-lg-down">
+                                        مرحله بعد
+                                    </ion-button>
+                                    <ion-button *ngIf="page === 1" (click)="submitForm()" color="primary" expand="block" class="btn-style-1 shadow-clear font-size-14 ">
+                                        ثبت اطلاعات
+                                    </ion-button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-card>
+                    </ion-col>
+                    <ion-col size="3" class="ion-hide-lg-down">
+                        <div class="consultant-vector d-flex ion-align-items-center ion-justify-content-center h-100">
+                            <ion-img src="assets/img/woman-consultant.svg"></ion-img>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </section>
+
+</ion-content>
+
+<ion-footer class="ion-hide-md-up">
+    <div class="px-10 py-5 bg-white">
+        <ion-button *ngIf="page === 0" (click)="changePage(1)" color="primary" expand="block" class="btn-style-1 shadow-clear font-size-14">
+            مرحله بعد
+        </ion-button>
+        <ion-button *ngIf="page === 1" (click)="submitForm()" color="primary" expand="block" class="btn-style-1 shadow-clear font-size-14">
+            ثبت اطلاعات
+        </ion-button>
+    </div>
+</ion-footer>

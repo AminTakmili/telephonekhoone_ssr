@@ -1,0 +1,244 @@
+@import "~src/theme/extends";
+
+.star-rate-block {
+	@include breakpoint(lg-down) {
+		position: absolute;
+		left: 25px;
+		top: 25px;
+	}
+}
+#cat-search {
+	.cat-search-box {
+		position: relative;
+		width: 100%;
+		height: 300px;
+		background-image: url(/assets/img/searchboxback.png);
+		background-repeat: no-repeat;
+		// background-size: 100%;
+		.content {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 3;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			.title {
+				text-align: center;
+				color: var(--color-white);
+				font-size: 30px;
+			}
+			.dsec {
+				text-align: center;
+				color: var(--color-white);
+				margin-top: 30px;
+				font-size: 16px;
+			}
+		}
+		.search {
+			background: var(--color-white);
+			.location-icon {
+				font-size: 36px;
+				margin: auto 10px auto 3px;
+				color: var(--color-gray-title);
+			}
+			.countrySelect {
+				flex: 0 0 90px;
+				background: var(--color-white);
+				border-left: 1px solid var(--color-gray-light);
+				padding: 10px 0;
+				margin-left: 10px;
+				display: flex;
+				align-items: center;
+				color: var(--color-gray-title);
+				cursor: pointer;
+			}
+			margin: 0 auto;
+			margin-top: 50px;
+			display: flex;
+			box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2);
+			border-radius: 5px;
+			overflow: hidden;
+			height: 44px;
+			width: 584px;
+			ion-searchbar {
+				padding: 0;
+				--box-shadow: none;
+				--placeholder-color: var(--color-gray-title);
+				--placeholder-opacity: 1;
+				color: var(--color-gray-title);
+				height: 100% !important;
+			}
+			ion-button {
+				margin: 0;
+				height: 100%;
+				--border-radius: 0 !important;
+				@include breakpoint(lg-up) {
+					width: 134px;
+				}
+			}
+			@include breakpoint(lg-down) {
+				width: 100%;
+				margin-top: 20px;
+				ion-select {
+					font-size: 12px;
+					flex: 1 1 185px;
+				}
+				input {
+					padding: 0;
+				}
+			}
+		}
+	}
+	.sort-box {
+		background: var(--color-grey-100);
+		border-radius: 10px;
+		padding: 0 10px;
+		margin-top: 30px;
+		.title {
+			border-left: 1px solid var(--color-gray-light);
+		}
+		.menu-cat {
+			.menu-ul {
+				padding: 11px 16px;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+				// li,
+				.swiper-slide {
+					width: auto !important;
+					cursor: pointer;
+					position: relative;
+					display: block;
+					padding: 8px 25px !important;
+					font-size: 14px;
+					background: #fff;
+					margin-left: 20px;
+					border-radius: 25px;
+					&.current {
+						position: relative;
+						background: #008ba375;
+					}
+				}
+			}
+		}
+	}
+	.advisor {
+		&.shimmer {
+			.image {
+				@include breakpoint(lg-down) {
+					flex: 0 0 108px !important;
+					height: 100% !important;
+					width: 50px !important;
+				}
+			}
+		}
+		padding: 10px;
+		border-radius: 15px;
+		.image {
+			width: 146px;
+			height: 109px;
+			overflow: hidden;
+			border-radius: 15px;
+		}
+		.name {
+			ion-chip {
+				margin: 0;
+				font-size: 11px;
+				height: 20px;
+				margin-right: 3px;
+			}
+		}
+		.info {
+			height: 109px;
+			ion-button {
+				width: 103px;
+				--padding-start: 0 !important;
+				--padding-end: 0 !important;
+			}
+			.right {
+				flex: 1 1 auto;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				height: 100%;
+				padding: 5px 10px 0;
+				ion-button {
+					--background: var(--color-grey-100);
+					color: initial;
+				}
+			}
+			.name {
+				ion-chip {
+					margin: 0;
+					font-size: 11px;
+					height: 20px;
+					margin-right: 3px;
+				}
+			}
+			.left {
+				display: flex;
+				flex-direction: column;
+				height: 100%;
+				align-items: flex-end;
+				justify-content: space-between;
+			}
+		}
+	}
+	@include breakpoint(lg-down) {
+		.cat-search-box {
+			height: 185px;
+			.content {
+				.title {
+					font-size: 18px;
+				}
+				.dsec {
+					font-size: 14px;
+					margin-top: 15px;
+				}
+			}
+		}
+		.sort-box {
+			margin: 10px;
+			margin-bottom: 0;
+			padding: 0;
+			.menu-cat {
+				.menu-ul {
+					.swiper-slide {
+						padding: 6px 20px !important;
+						font-size: 12px;
+						margin-left: 10px;
+					}
+				}
+			}
+		}
+		.advisor {
+			flex-direction: column;
+			.image {
+				flex: 1 1 137px;
+				height: 90px;
+				width: initial;
+			}
+		}
+	}
+}
+
+.notFound {
+	padding: 20px 0;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	ng-lottie {
+		height: 310px;
+		display: block;
+	}
+	h3 {
+		color: rgb(138 138 138);
+	}
+}

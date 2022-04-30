@@ -1,0 +1,51 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button [routerLink]="['/profile']">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-toolbar> اطلاعات فردی </ion-toolbar>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <app-profile-header></app-profile-header>
+    <section class="">
+        <div class="container px-0 py-md-50">
+            <ion-grid>
+                <ion-row class="ion-justify-content-center">
+                    <ion-col size-lg="5" size="12">
+                        <div class="box-shadow profil-editinfo flex-column w-100">
+                            <!-- <div class="image">
+                                <img class="img-cover" src="/assets/img/home-bg-2.jpg" alt="" />
+                            </div> -->
+                            <div class="show-credit mb-30 d-flex ion-align-items-center">
+                                <p class="gray-600 ml-10">موجودی فعلی</p>
+                                <ion-text color="red-dark">{{ balance | number }} تومان</ion-text>
+                            </div>
+                            <form [formGroup]="editInfoForm" class="w-100" (ngSubmit)="editInfo()">
+                                <div class="border-header p-5 w-100 mb-15">
+                                    <h6>نام و نام خانوادگی</h6>
+                                    <ion-input formControlName="fullName" inputmode="text" autofocus="true"></ion-input>
+                                </div>
+                                <div class="border-header w-100">
+                                    <ion-select formControlName="gender" okText="تایید" cancelText="لغو" placeholder="جنسیت" interface="popover">
+                                        <ion-select-option value="female">خانم</ion-select-option>
+                                        <ion-select-option value="male">آقا</ion-select-option>
+                                    </ion-select>
+                                </div>
+                                <ion-button expand="block" type="submit" color="primary" class="btn" [attr.disabled]="loading || editInfoForm.invalid">
+                                    <ion-label *ngIf="!loading"> ویرایش اطلاعات </ion-label>
+                                    <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+                                </ion-button>
+                            </form>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>

@@ -1,20 +1,22 @@
 <form [formGroup]="timeInputForm" (ngSubmit)="confirmDate()">
-  <input
-    class="ion-hide"
-    formControlName="reserve_day"
-    type="text"
-    #datepickerInput
-  />
-
+  
+  <!-- [input]="datepickerInput" -->
   <ng-persian-datepicker
     [uiIsVisible]="true"
     [timeEnable]="false"
     [uiHideAfterSelectDate]="false"
     [uiHideOnOutsideClick]="false"
-    [input]="datepickerInput"
     [dateFormat]="'jYYYY-jMM-jDD'"
-    [dateValue]="pickerValue"
-  ></ng-persian-datepicker>
+    >
+    <!-- [dateValue]="pickerValue" -->
+  <input
+  class="ion-hide"
+  formControlName="reserve_day"
+  type="text"
+  #datepickerInput
+/>
+
+</ng-persian-datepicker>
 
   <ion-list>
     <ion-item lines="full">

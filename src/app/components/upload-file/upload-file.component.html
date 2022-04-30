@@ -1,4 +1,4 @@
-<!-- <input #fileInput type="file" class="ion-hide" [accept]="type" (change)="openFile($event)">
+<input #fileInput type="file" class="ion-hide" [accept]="type" (change)="openFile($event)">
 <h6 class="font-size-12 gray-600 mt-0">{{ title }}</h6>
 <div class="border-header overflow-hidden w-100" (click)="clickUploadInput($event.target['tagName'])">
     <div class="emptyFilesPlaceHolder" *ngIf="selectedFiles.length === 0">
@@ -6,4 +6,4 @@
     </div>
     <app-selected-files *ngIf="selectedFiles.length !== 0" [selectedFiles]="selectedFiles" (removeFileEmitter)="removeFile($event)">
     </app-selected-files>
-</div> -->
+</div>
