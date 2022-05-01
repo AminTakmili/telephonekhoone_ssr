@@ -31,7 +31,8 @@
                             </p>
                             <ion-button expand="block" color="red-medium" class="btn shadow-clear" routerLink="new">ثبت درخواست جدید</ion-button>
                         </div>
-                        <div class="box-shadow profile-items no-flex calls-profile w-100" *ngIf="loading">
+                        <ng-template [ngIf]="loading"  *appShellNoRender>
+                               <div class="box-shadow profile-items no-flex calls-profile w-100" *ngIf="loading">
                             <ion-list class="item-clear font-size-12 w-100">
                                 <ion-item class="item-clear ion-no-padding" lines="full" *ngFor="let item of [1, 2, 3, 4]">
                                     <ion-thumbnail slot="start" class="flex-row-center-center">
@@ -47,6 +48,8 @@
                                 </ion-item>
                             </ion-list>
                         </div>
+                        </ng-template>
+                     
                         <ion-content *ngIf="tickets.length !== 0" class="contentScroll box-shadow profile-items no-flex calls-profile w-100">
                             <ion-list class="item-clear font-size-12 w-100">
                                 <ion-item [routerLink]="'/profile/tickets/show/' + item.id" class="item-clear ion-no-padding" lines="full" *ngFor="let item of tickets">

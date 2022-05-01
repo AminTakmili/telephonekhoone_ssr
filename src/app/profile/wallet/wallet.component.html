@@ -47,7 +47,8 @@
                         </ion-button>
                       </ion-col>
                     </ng-template>
-                    <ng-template [ngIf]="loading">
+                    <ng-template [ngIf]="loading"  *appShellNoRender>
+                   
                       <ion-col size="4" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
                         <ion-button
                           expand="block"

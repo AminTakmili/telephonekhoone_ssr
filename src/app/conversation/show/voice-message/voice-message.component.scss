@@ -1,0 +1,16 @@
+.playVoice {
+    direction: ltr;
+    display: flex;
+    align-items: center;
+    position: relative;
+    .timer {
+        position: absolute;
+        bottom: 0;
+        z-index: 2;
+    }
+}
+
+.voiceRange {
+    width: 200px;
+    --background: transparent;
+}

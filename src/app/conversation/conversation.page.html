@@ -1,0 +1,33 @@
+<ion-content>
+    <app-header type="relative"></app-header>
+    <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+    <section class="conversation pb-50 " *ngIf="!isMobile">
+        <div class="container">
+            <ion-row class="border-box">
+                <ion-col size-lg="3" class="ion-no-padding">
+                    <ion-toolbar class="chat-toolbar">
+                        <ion-title> گفتگو ها </ion-title>
+                        <ion-buttons slot="end">
+                            <ion-button (click)="refresh()">
+                                <ion-icon *ngIf="!refreshLoading" slot="icon-only" name="refresh-outline"> </ion-icon>
+                                <ion-spinner *ngIf="refreshLoading" name="crescent"></ion-spinner>
+                            </ion-button>
+                        </ion-buttons>
+                    </ion-toolbar>
+                    <app-conversation-side [activeChatId]="activeChatId" [loading]="archiveLoading">
+                    </app-conversation-side>
+                </ion-col>
+                <ion-col size-lg="9" class="ion-no-padding">
+                    <ion-router-outlet [animated]=false></ion-router-outlet>
+                    <div class="box w-100 no-scroll" *ngIf="emptyPage">
+                        <ion-icon class="bigIcon" name="chatbubbles"></ion-icon>
+                        <p class="gray-600 font-size-16">برای شروع گفتگو از منو کنار یک مورد را انتخاب کنید</p>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </div>
+    </section>
+    <app-footer></app-footer>
+</ion-content>
+
+<!-- <ion-router-outlet class="ion-hide-md-up" animated="false"></ion-router-outlet> -->

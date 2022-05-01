@@ -1,0 +1,18 @@
+<ion-button *ngIf="!recording" class="customButton" mode="ios" (click)="initiateRecording()" expand="block" color="primary">
+    <ion-icon slot="icon-only" name="mic-outline"></ion-icon>
+</ion-button>
+<div class="recordingBtns" *ngIf="recording">
+    <ion-button class="customButton" mode="ios" (click)="sendVoice()" expand="block" color="success">
+        <ion-icon slot="icon-only" name="checkmark-outline"></ion-icon>
+    </ion-button>
+    <div class="calcTime">
+        <span class="blinking"></span> {{ totalMinutes }}:{{ totalSeconds}}
+    </div>
+    <ion-button class="customButton" mode="ios" (click)="cancelVoice()" expand="block" color="danger">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+    </ion-button>
+</div>
+
+<!-- <audio controls="" *ngIf="url">
+	<source [src]="sanitize(url)" type="audio/wav">
+</audio> -->

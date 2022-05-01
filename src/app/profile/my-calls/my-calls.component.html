@@ -25,7 +25,8 @@
                             <ion-button routerLink="/categories" expand="block" color="red-medium" class="btn shadow-clear">مشاهده لیست مشاوران
                             </ion-button>
                         </div>
-                        <div class="box-shadow profile-items no-flex calls-profile w-100" *ngIf="loading">
+                        <ng-template [ngIf]="loading"  *appShellNoRender>
+                                  <div class="box-shadow profile-items no-flex calls-profile w-100" *ngIf="loading">
                             <ion-list class="item-clear font-size-12 w-100">
                                 <ion-item class="item-clear ion-no-padding" lines="full" *ngFor="let item of [1, 2, 3, 4]">
                                     <!-- <ion-thumbnail slot="start" class="flex-row-center-center"> -->
@@ -43,6 +44,8 @@
                                 </ion-item>
                             </ion-list>
                         </div>
+                        </ng-template>
+                  
                         <div class="box-shadow profile-items no-flex calls-profile w-100" *ngIf="myCalls.length != 0">
                             <ion-list class="item-clear font-size-12 w-100">
                                 <ion-item class="item-clear ion-no-padding" lines="full" *ngFor="let item of myCalls; let x = index">

@@ -212,8 +212,8 @@ export class SignUpPage implements OnInit {
 		const countryReq = this.global.httpGet('getCountries');
 		this.global.showLoading().then(() => {
 			this.global.parallelRequest([catReq, countryReq]).subscribe(
-				([categories, countries]) => {
-this.global.dismisLoading()
+				([categories, countries='']) => {
+					this.global.dismisLoading()
 					this.categories = categories;
 					this.countries = countries;
 				},

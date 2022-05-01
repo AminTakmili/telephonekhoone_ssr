@@ -87,7 +87,7 @@ export class GlobalService {
 			this.enamad.next(val);
 		});
 
-		// this.setItemFormStorage();
+		this.setItemFormStorage();
 	}
 
 	setItemFormStorage(){
@@ -102,6 +102,8 @@ export class GlobalService {
 		//login
 		this.storageService.get('isLogin').then((val) => {
 			this.login = val ;
+			// this._login.next(val);
+			console.log(val);
 		});
 		//token
 		this.storageService.get('token').then((val) => {

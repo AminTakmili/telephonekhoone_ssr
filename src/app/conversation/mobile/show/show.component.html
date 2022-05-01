@@ -1,0 +1,150 @@
+<ion-header *ngIf="!loading">
+    <ion-toolbar color="light" class="mobile-toolbar">
+        <ion-buttons slot="start">
+            <ion-button (click)="back()">
+                <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <div class="d-flex">
+            <ion-avatar class="chat-avatar" *ngIf="global.userType.value !== 'consultant'">
+                <img *ngIf="!loading" [src]="chatData?.consultant?.image?.options?.subSizes?.medium">
+                <div class="avatarLoading" *ngIf="loading"></div>
+            </ion-avatar>
+            <ion-label class="headerLabel" *ngIf="chatData">
+                <h3 *ngIf="global.getUserInfo().type === 'consultant'"> {{ chatData?.user.fullname }} </h3>
+                <h3 *ngIf="global.getUserInfo().type !== 'consultant'"> {{ chatData?.consultant.fullname }} </h3>
+                <ng-template [ngIf]="!isTyping">
+                    <p *ngIf="!notPaid && created_at">گفتگو از {{ created_at }} ساعت {{ clock_created_at }} آغاز شده
+                    </p>
+                    <p *ngIf="!created_at"> {{ chatData?.status_text }} </p>
+                </ng-template>
+                <ng-template [ngIf]="isTyping">
+                    <p> در حال نوشتن ... </p>
+                </ng-template>
+            </ion-label>
+        </div>
+        <ion-buttons slot="end" *ngIf="global.getUserInfo().type === 'consultant' && (chatData?.status === 'paid' || chatData?.status === 'in_chat') ">
+            <ion-button (click)="chatOptionsPopover($event)">
+                <ion-icon slot="icon-only" name="ellipsis-vertical-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content scrollEvents="true" #mainContent (ionScroll)="onChatBoxScroll($event)">
+    <div class="notPayed" *ngIf="notPaid && !loading">
+        <ion-icon name="wallet-outline"></ion-icon>
+        <h3 *ngIf="global.getUserInfo().type !== 'consultant'"> در انتظار پرداخت </h3>
+        <h3 *ngIf="global.getUserInfo().type === 'consultant'" class="mb-25"> در انتظار پرداخت توسط کاربر </h3>
+        <p class="payable" *ngIf="global.getUserInfo().type !== 'consultant'">
+            مبلغ قابل پرداخت : <span class="price"> {{ chatData?.remain_price | number }} <small class="unit"> تومان
+				</small> </span>
+        </p>
+        <p class="mb-15" *ngIf="global.getUserInfo().type !== 'consultant' ">
+            پس از پرداخت هزینه، گفتگوی شما با مشاور آغاز خواهد شد.
+        </p>
+        <p class="mb-15" *ngIf="global.getUserInfo().type === 'consultant'">
+            پس از پرداخت هزینه، گفتگوی شما با کاربر آغاز خواهد شد.
+        </p>
+        <div class="d-flex" *ngIf="global.getUserInfo().type !== 'consultant'">
+            <ion-button (click)="paymentMethod('online')" class="ml-10" mode="ios" color="danger">
+                پرداخت از طریق درگاه بانکی
+            </ion-button>
+            <ion-button (click)="paymentMethod('wallet')" mode="ios" color="primary" *ngIf="global.getUserInfo().balance >= chatData?.remain_price">
+                پرداخت از کیف پول
+            </ion-button>
+        </div>
+    </div>
+    <div class="mobile-chatBox">
+        <div class="loading" *ngIf="loading">
+            <ion-spinner name="crescent"></ion-spinner>
+        </div>
+        <div class="notFound" *ngIf="chatMessages.length === 0 && !loading">
+            <p class="alert">{{ notFoundMsg }}</p>
+        </div>
+        <ng-template ngFor let-item [ngForOf]="chatMessages" let-i="index">
+            <div *ngIf="item.message" class=" no-scroll" [class.chat]="item.type != 'alert'" [class.border-box]="item.type != 'alert'" [class.patient]="item?.user?.id == global.getUserInfo().id" [class.consultant]="item?.user?.id != global.getUserInfo().id" [class.alert]="item.type == 'alert'">
+                <p>{{ item.message }}</p>
+                <small *ngIf="item.type !== 'alert'" class="time"> {{ item.createdAt ?
+					getJalaliDate(item.createdAt).time : getJalaliDate(item.created_at).time }} </small>
+            </div>
+
+            <!-- file messages for download -->
+            <div class="chat border-box" *ngIf="item.type === 'file'" [class.patient]="item?.user?.id == global.getUserInfo().id" [class.consultant]="item?.user?.id != global.getUserInfo().id">
+                <ng-template [ngIf]="item.medium.mimeType !== 'image/png' && item.medium.mimeType !== 'image/jpeg'">
+                    <div class="fileMsg">
+                        <div class="desc">
+                            <ion-icon class="icon" [name]="item.medium.mimeType | fileTypeIcon"></ion-icon>
+                            <ion-label>
+                                <h2>
+                                    {{ item.medium?.name }}
+                                </h2>
+                                <p *ngIf="item.type !== 'alert'"> {{ item.createdAt ? getJalaliDate(item.createdAt).time : getJalaliDate(item.created_at).time }} </p>
+                            </ion-label>
+                        </div>
+                        <div class="downloadFile">
+                            <ion-buttons>
+                                <ion-button [download]="item.medium?.name" [href]="item.medium?.path" target="_blank">
+                                    <ion-icon slot="icon-only" name="arrow-down-outline"></ion-icon>
+                                </ion-button>
+                            </ion-buttons>
+                        </div>
+                    </div>
+                </ng-template>
+
+                <ng-template [ngIf]="item.medium.mimeType === 'image/png' || item.medium.mimeType === 'image/jpeg'">
+                    <div class="imgMsg">
+                        <img src="{{ showImage(item.medium) }}" alt="">
+                    </div>
+                </ng-template>
+            </div>
+
+            <!-- voice or audio messages -->
+            <div class="chat border-box" *ngIf="item.type === 'voice'" [class.patient]="item?.user?.id == global.getUserInfo().id" [class.consultant]="item?.user?.id != global.getUserInfo().id">
+                <app-voice-message [item]="item"></app-voice-message>
+            </div>
+        </ng-template>
+    </div>
+    <!-- <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+        <ion-fab-button (click)="scrollToBottom()">
+            <ion-icon name="chevron-down-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab> -->
+</ion-content>
+
+
+
+<ion-footer>
+    <div class="chat-input d-flex" *ngIf="!notPaid && !loading && chatData?.status !== 'ended' && chatData?.status !== 'canceled'">
+        <input #fileInput type="file" class="ion-hide" multiple (change)='openFile($event)'>
+        <app-voice (sendVoiceEmitter)="sendVoice($event)" (recordingEmitter)="toggleRecording($event)" *ngIf="selectedFiles.length === 0 && messageText === ''"></app-voice>
+        <ion-button *ngIf="selectedFiles.length === 0 && messageText !== ''" class="customButton" mode="ios" (mousedown)="sendMessage(); $event.preventDefault()" expand="block" color="primary">
+            <ion-icon slot="icon-only" name="paper-plane-outline"></ion-icon>
+        </ion-button>
+        <ion-button [attr.disabled]="recording" *ngIf="selectedFiles.length !== 0" class="customButton" mode="ios" (click)="sendFiles()" expand="block" color="primary">
+            <ion-icon slot="icon-only" name="paper-plane-outline"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="!recording" class="customButton" (click)="fileInput.click()" mode="ios" expand="block" color="medium">
+            <ion-icon slot="icon-only" name="attach-outline"></ion-icon>
+        </ion-button>
+        <!-- <textarea autosize [maxRows]="10" (input)="typingUser($event)" class="border-box mt-0"></textarea> -->
+        <ion-textarea mode="md" [disabled]="recording" *ngIf="selectedFiles.length === 0" rows="1" [placeholder]=" recording ? 'در حال ضبط صدا' : ' پیام '" #messageInput [(ngModel)]="messageText" [maxRows]="6" autosize (input)="typingUser()" class="border-box mt-0 w-100">
+        </ion-textarea>
+        <div class="selectedFiles" *ngIf="selectedFiles.length !== 0">
+            <div class="file-item" *ngFor="let item of selectedFiles">
+                <div class="progressLoading" [style.width]="item.loadPercent+'%'"></div>
+                <ion-icon *ngIf="!item.loading" class="icon" [name]="item.file.name | fileTypeIcon"></ion-icon>
+                <span class="percent" *ngIf="item.loading && item.loadPercent"> {{ item.loadPercent }}% </span>
+                <ion-spinner name="crescent" *ngIf="item.loading && !item.loadPercent"></ion-spinner>
+                <span class="name">{{ item.file.name }}</span>
+                <div class="removeFile">
+                    <ion-buttons>
+                        <ion-button (click)="removeFile(item)" class="removeBtn">
+                            <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-footer>

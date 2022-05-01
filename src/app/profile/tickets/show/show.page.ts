@@ -91,8 +91,7 @@ export class ShowPage implements OnInit {
     }
 
     getData(id) {
-        this.global.showLoading().then((loader) => {
-            loader.present();
+        this.global.showLoading().then(() => {
             this.global
                 .httpPost('support/detail', {
                     id: id,
@@ -102,13 +101,13 @@ export class ShowPage implements OnInit {
                         res.map((item) => {
                             this.messages.push(item);
                         });
-                        loader.dismiss();
+                       this.global.dismisLoading();
                         setTimeout(() => {
                             this.content.scrollToBottom(200);
                         }, 200);
                     },
                     (err) => {
-                        loader.dismiss();
+                       this.global.dismisLoading();
                         this.global.showError(err);
                     }
                 );

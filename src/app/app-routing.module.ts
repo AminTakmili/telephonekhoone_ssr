@@ -3,6 +3,8 @@ import { ConsultantGuard } from './guards/consultant.guard';
 import { LoginGuard } from './guards/login.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ProfileGuard } from './guards/profile.guard';
+import { ChatGuard } from './guards/chat.guard';
 
 const routes: Routes = [
   // {
@@ -78,6 +80,29 @@ const routes: Routes = [
 			),
 		canActivate: [ConsultantGuard],
 	},
+	{
+		path: 'profile',
+		loadChildren: () =>
+			import('./profile/profile.module').then((m) => m.ProfilePageModule),
+		canActivate: [ProfileGuard],
+	},
+	{
+		path: 'conversation',
+		loadChildren: () =>
+			import('./conversation/conversation.module').then(
+				(m) => m.ConversationPageModule
+			),
+		canActivate: [ChatGuard],
+	},
+
+	// {
+	// 	path: 'profile-consultant',
+	// 	loadChildren: () =>
+	// 		import('./profile-consultant/profile-consultant.module').then(
+	// 			(m) => m.ProfileConsultantPageModule
+	// 		),
+	// 	canActivate: [ConsultantGuard],
+	// },
 
 
 ];

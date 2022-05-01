@@ -1,0 +1,22 @@
+<div class="playVoice">
+    <ion-buttons>
+        <ion-button (click)="toggleVoice()">
+            <ion-icon *ngIf="!playing" slot="icon-only" name="play-outline"></ion-icon>
+            <ion-icon *ngIf="playing" slot="icon-only" name="pause-outline"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <div class="time">
+        <!-- <ion-item class="voiceRange ion-no-padding" lines="none"> -->
+        <ion-range dir="ltr" class="voiceRange ion-no-padding" min="0" [value]="currentTime" [max]="duration">
+        </ion-range>
+        <!-- </ion-item> -->
+        <div class="timer">
+            <span *ngIf="currentTime !== 0">
+				{{ getMinutesAndSeconds(currentTime).minutes }} : {{ getMinutesAndSeconds(currentTime).seconds }}
+			</span>
+            <span *ngIf="currentTime === 0">
+				{{ getMinutesAndSeconds(duration).minutes }} : {{ getMinutesAndSeconds(duration).seconds }}
+			</span>
+        </div>
+    </div>
+</div>

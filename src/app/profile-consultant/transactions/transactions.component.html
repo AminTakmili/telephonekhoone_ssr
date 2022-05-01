@@ -48,21 +48,24 @@
                             </ion-list>
                         </div>
                     </ion-col>
-                    <ion-col size-lg="5" *ngIf="loading">
-                        <div class="box-shadow profile-items no-flex transactions-profile w-100">
-                            <ion-list class="item-clear font-size-12 w-100">
-                                <ion-item class="item-clear ion-no-padding" lines="full" *ngFor="let item of [1, 2, 3, 4, 5]">
-                                    <ion-label class="d-flex ion-justify-content-between w-100">
-                                        <div class="right flex-column w-100">
-                                            <ion-skeleton-text animated style="width: 60%; margin-bottom: 10px"></ion-skeleton-text>
-                                            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
-                                        </div>
-                                    </ion-label>
-                                    <ion-skeleton-text animated style="width: 90px; border-radius: 50px; height: 30px"></ion-skeleton-text>
-                                </ion-item>
-                            </ion-list>
-                        </div>
-                    </ion-col>
+                    <ng-template [ngIf]="loading"  *appShellNoRender>
+
+                        <ion-col size-lg="5" *ngIf="loading">
+                            <div class="box-shadow profile-items no-flex transactions-profile w-100">
+                                <ion-list class="item-clear font-size-12 w-100">
+                                    <ion-item class="item-clear ion-no-padding" lines="full" *ngFor="let item of [1, 2, 3, 4, 5]">
+                                        <ion-label class="d-flex ion-justify-content-between w-100">
+                                            <div class="right flex-column w-100">
+                                                <ion-skeleton-text animated style="width: 60%; margin-bottom: 10px"></ion-skeleton-text>
+                                                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                                            </div>
+                                        </ion-label>
+                                        <ion-skeleton-text animated style="width: 90px; border-radius: 50px; height: 30px"></ion-skeleton-text>
+                                    </ion-item>
+                                </ion-list>
+                            </div>
+                        </ion-col>
+                    </ng-template>
                 </ion-row>
             </ion-grid>
         </div>

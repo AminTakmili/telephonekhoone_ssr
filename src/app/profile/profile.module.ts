@@ -23,6 +23,7 @@ import { TicketsComponent } from './tickets/tickets.component';
     IonicModule,
     ProfilePageRoutingModule,
     ShareModulePageModule,
+    ReactiveFormsModule,
     ReactiveFormsModule
   ],
   declarations: [

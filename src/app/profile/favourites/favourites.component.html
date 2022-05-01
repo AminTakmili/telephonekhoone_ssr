@@ -50,6 +50,7 @@
                             </ion-list>
                         </div>
                     </ion-col>
+                    <ng-template [ngIf]="loading"  *appShellNoRender>
                     <ion-col size-lg="5" *ngIf="loading">
                         <div class="box-shadow profile-items no-flex w-100">
                             <ion-list class="item-clear font-size-12 w-100">
@@ -67,6 +68,7 @@
                             </ion-list>
                         </div>
                     </ion-col>
+                    </ng-template>
                 </ion-row>
             </ion-grid>
         </div>

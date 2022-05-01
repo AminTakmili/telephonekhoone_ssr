@@ -14,7 +14,7 @@ export class AppShellNoRenderDirective implements OnInit{
         // private loadingService : LoadingService
 
         ){
-            console.log(isPlatformBrowser(this.platformId));
+            // console.log(isPlatformBrowser(this.platformId));
 
             // console.log(this.loadingService);
             // console.log(this.templateRef);

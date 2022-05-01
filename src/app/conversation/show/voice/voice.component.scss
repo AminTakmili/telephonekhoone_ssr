@@ -1,0 +1,42 @@
+.customButton {
+    height: 52px;
+    margin: 0;
+    margin-left: 5px;
+    border: 0;
+    --padding-start: 10px;
+    --padding-end: 10px;
+}
+
+.recordingBtns {
+    display: flex;
+    align-items: center;
+    .calcTime {
+        margin-left: 30px;
+        margin-right: 10px;
+        font-size: 17px;
+        position: relative;
+    }
+}
+
+.blinking {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    left: -22px;
+    top: -4px;
+    bottom: 0;
+    margin: auto;
+    border-radius: 50%;
+    background-color: #ff6060;
+    animation: 1.5s blink ease infinite;
+}
+
+@keyframes blink {
+    from,
+    to {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}

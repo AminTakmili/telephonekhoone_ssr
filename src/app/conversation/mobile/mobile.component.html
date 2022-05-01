@@ -1,0 +1,49 @@
+<ion-header class="ion-hide-lg-up">
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-button routerLink="/">
+                <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-label>
+            مکالمات من
+        </ion-label>
+        <ion-buttons slot="end">
+            <ion-button (click)="refresh()">
+                <ion-icon *ngIf="!refreshLoading" name="refresh-outline" slot="icon-only"></ion-icon>
+                <ion-spinner name="crescent" *ngIf="refreshLoading"></ion-spinner>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div class="mobileChatScreen">
+        <div class=" conversation-side calls-profile  font-size-12 w-100">
+            <div class="ion-text-center ion-padding-top" *ngIf="archiveLoading">
+                <ion-spinner name="crescent"></ion-spinner>
+            </div>
+            <div class="cursor-pointer" *ngFor="let items of chats, let x = index">
+                <ion-item class="item-clear" details="none" lines="full">
+                    <ion-avatar class="chat-avatar" *ngIf="global.userType.value !== 'consultant'" [routerLink]="['/conversation/mobile/detail' , items.id ]" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" (click)="setChatData(items)">
+                        <img [src]="items['consultant']?.image?.options?.subSizes?.medium">
+                    </ion-avatar>
+                    <ion-label class="w-100" [routerLink]="['/conversation/mobile/detail' , items.id ]" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" (click)="setChatData(items)">
+                        <h3 class="font-size-14">{{ global.userType.value == 'consultant' ? items['user']?.fullname : items['consultant']?.fullname }}</h3>
+                        <p class="date gray-600 font-size-12">{{ items?.created_at }}</p>
+                    </ion-label>
+                    <ion-chip *ngIf="!items['can_rate'] || global.getUserInfo().type == 'consultant'" [color]="items['status'] === 'paid' ? 'success' : items['status'] === 'pending' ? 'primary' : items['status'] === 'ended' ? 'medium' : items['status'] === 'in_chat' ? 'success' : 'danger'"
+                        [routerLink]="['/conversation/mobile/detail' , items.id ]" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" (click)="setChatData(items)">
+                        {{ items.status_text }}
+                    </ion-chip>
+                    <ion-button slot="end" shape="round" (click)="showSurvey(items)" *ngIf="items['can_rate'] && global.getUserInfo().type != 'consultant'" expand="block" color="danger" class="btn shadow-clear">
+                        شرکت در نظرسنجی
+                    </ion-button>
+                </ion-item>
+            </div>
+        </div>
+    </div>
+</ion-content>
+
+<!-- <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher> -->
