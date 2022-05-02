@@ -1,3 +1,4 @@
+import { StorageService } from './../../services/storage.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {
     NavController,
@@ -34,7 +35,9 @@ export class VerifyComponent implements OnInit {
         public modalController: ModalController,
         private fb: FormBuilder,
         private navParams: NavParams,
-        private deviceType: ScreensizeService
+        private deviceType: ScreensizeService,
+        private StorageService: StorageService,
+
     ) {
         this.deviceType.isDesktopView().subscribe((res) => {
             this.isDesktop = res;
@@ -56,7 +59,7 @@ export class VerifyComponent implements OnInit {
     }
 
     ionViewDidEnter() {
-        clearInterval(this.interval);
+         this.global.SSRclearInterval(this.interval);
         this.countdown();
         this.mobile = this.navParams.get('phone');
         this.codeInput.getInputElement().then((input) => {
@@ -65,7 +68,7 @@ export class VerifyComponent implements OnInit {
     }
 
     ionViewDidLeave() {
-        clearInterval(this.interval);
+         this.global.SSRclearInterval(this.interval);
         // localStorage.removeItem('verifyCart');
     }
 
@@ -103,7 +106,7 @@ export class VerifyComponent implements OnInit {
         let countDownDate: any = new Date();
         countDownDate.setMinutes(countDownDate.getMinutes() + 2);
         countDownDate = countDownDate.getTime();
-        this.interval = setInterval(() => {
+        this.interval = this.global.SSRsetInterval(() => {
             const now = new Date().getTime();
             const distance = countDownDate - now;
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -114,7 +117,7 @@ export class VerifyComponent implements OnInit {
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             if (distance < 0) {
-                clearInterval(this.interval);
+                this.global.SSRclearInterval(this.interval);
                 this.timer = '00:00';
             } else {
                 this.timer = `0${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
@@ -169,13 +172,13 @@ export class VerifyComponent implements OnInit {
                                 (userInfo.id = res.id),
                                 this.global.setToken(res.token);
 
-                            localStorage.setItem('userInfo', JSON.stringify(userInfo));
+                             this.StorageService.set('userInfo', JSON.stringify(userInfo));
 
                             if (res.fullname == '') {
                                 this.modalController.dismiss(2);
                             } else {
                                 this.global.changeLogin(true);
-                                localStorage.setItem('isLogin', 'true');
+                                 this.StorageService.set('isLogin', 'true');
                                 this.global.menuBehavior().next(true);
                                 this.modalController.dismiss(1);
                             }

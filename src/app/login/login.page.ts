@@ -12,6 +12,7 @@ import { UserInfo } from '../classes/UserInfo';
 import { CountriesPopoverComponent } from '../components/countries-popover/countries-popover.component';
 import { RulesPage } from '../rules-component/rules.page';
 import { GlobalService } from '../services/global.service';
+import { StorageService } from '../services/storage.service';
 import { UserBalanceService } from '../services/user-balance.service';
 import { ValidateMobile } from '../validators/mobile.validator';
 
@@ -55,9 +56,11 @@ export class LoginPage implements OnInit {
 		private navCtrl: NavController,
 		private popoverController: PopoverController,
 		private userBalance: UserBalanceService,
-		private storage: Storage
+		private storage: Storage,
+		private StorageService: StorageService,
+		
 	) {
-		this.storage.get('url').then((val) => {
+		this.StorageService.get('url').then((val) => {
 			this.nextLink = val;
 		});
 		this.loginForm = this.fb.group({
@@ -373,7 +376,7 @@ export class LoginPage implements OnInit {
 							this.global.setUserType(res.type);
 							this.global.setToken(res.token);
 							this.global.changeLogin(true);
-							localStorage.setItem('isLogin', 'true');
+							this.StorageService.set('isLogin', 'true');
 							if (res.fullname) {
 								this.navCtrl.navigateForward(
 									this.nextLink ?? '/'
@@ -445,7 +448,7 @@ export class LoginPage implements OnInit {
 							userInfo.id = this.global.getUserInfo().id;
 							this.global.setUserInfo(userInfo);
 							this.global.changeLogin(true);
-							localStorage.setItem('isLogin', 'true');
+							this.StorageService.set('isLogin', 'true');
 							this.global.menuBehavior().next(true);
 							await this.navCtrl.navigateForward(this.nextLink ?? '/');
 						},

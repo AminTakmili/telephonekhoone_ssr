@@ -43,9 +43,12 @@ export class AppComponent {
 		private appRef: ApplicationRef,
 		private responsiveService: ResponsiveService
 	) {
+
+		
+		this.global.setItemFormStorage();
+		
 		if (this.global.isBrowser) {
 			this.updateClient();
-
 		}
 		// console.log(this.update);
 		// console.log(this.update.isEnabled);

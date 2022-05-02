@@ -31,9 +31,7 @@ export function playerFactory() {
 @NgModule({
   declarations: [
     AppComponent,
-
   ],
-  entryComponents: [],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     IonicModule.forRoot(),
@@ -42,26 +40,23 @@ export function playerFactory() {
     HttpClientModule,
     BrowserTransferStateModule,
     LottieModule.forRoot({ player: playerFactory }),
-    
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
-
     BrowserAnimationsModule,
-
     IonicStorageModule.forRoot({
       name: '_telephonekhoone',
-      driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
+      driverOrder: [ Drivers.LocalStorage],
     }),
     // LottieModule.forRoot({ player: playerFactory }),
     NgxStarRatingModule,
-    PipesModule
   ],
 
   providers: [
     DecimalPipe,
     
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

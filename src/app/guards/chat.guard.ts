@@ -1,3 +1,4 @@
+import { StorageService } from './../services/storage.service';
 import { Injectable } from '@angular/core';
 import {
     CanActivate,
@@ -12,19 +13,17 @@ import { GlobalService } from '../services/global.service';
     providedIn: 'root',
 })
 export class ChatGuard implements CanActivate {
-    constructor(private global: GlobalService) {}
-    canActivate(
-        next: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot
-    ):
-        | Observable<boolean | UrlTree>
-        | Promise<boolean | UrlTree>
-        | boolean
-        | UrlTree {
-        if (this.global.getLogin().value) {
-            return true;
-        } else {
+    constructor(private global: GlobalService,private storageService:StorageService) {}
+    canActivate(route: ActivatedRouteSnapshot,state: RouterStateSnapshot): Promise<boolean>{
+           
+         // this.global.showLogin(state.url);
+
+       return this.storageService.get('isLogin').then((val) => {
+        if (val) {
+                return true
+            }
             this.global.showLogin(state.url);
-        }
+            return false;
+        });
     }
 }

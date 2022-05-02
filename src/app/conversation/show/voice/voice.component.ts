@@ -1,11 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 // import * as RecordRTC from 'recordrtc';
-import * as MicRecorder from 'mic-recorder-to-mp3';
 import { DomSanitizer } from '@angular/platform-browser';
 import { GlobalService } from 'src/app/services/global.service';
 import { map } from 'rxjs/operators';
 import { HttpEventType } from '@angular/common/http';
 import * as _ from "lodash";
+import * as MicRecorder from 'mic-recorder-to-mp3';
 
 @Component({
 	selector: 'app-voice',

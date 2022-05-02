@@ -1,3 +1,4 @@
+import { StorageService } from './../services/storage.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {
     NavController,
@@ -34,7 +35,8 @@ export class DesktopLoginComponent implements OnInit {
         public modalController: ModalController,
         private platform: Platform,
         private fb: FormBuilder,
-        private iab: InAppBrowser
+        private iab: InAppBrowser,
+        private StorageService: StorageService,
     ) {
         this.registerForm = this.fb.group({
             name: ['', Validators.compose([Validators.required])],
@@ -74,7 +76,7 @@ export class DesktopLoginComponent implements OnInit {
     }
 
     ionViewWillLeave() {
-        localStorage.removeItem('loginCart');
+        this.StorageService.remove('loginCart');
     }
 
     dismissModal(data?) {
@@ -136,9 +138,9 @@ export class DesktopLoginComponent implements OnInit {
                                 (userInfo.mobile = this.global.getUserInfo().mobile),
                                     (userInfo.name = this.registerForm.get('name').value),
                                     (userInfo.id = this.global.getUserInfo().id);
-                                localStorage.setItem('userInfo', JSON.stringify(userInfo));
+                                    this.StorageService.set('userInfo', JSON.stringify(userInfo));
                                 this.global.changeLogin(true);
-                                localStorage.setItem('isLogin', 'true');
+                                this.StorageService.set('isLogin', 'true');
                                 this.global.menuBehavior().next(true);
                                 this.navCtrl.navigateForward('/');
                                 setTimeout(() => {

@@ -26,10 +26,11 @@ export class StorageService {
 
     // Create and expose methods that users of this service can
     // call, for example:
-    async set(key: string, value: any) {
+ public async set(key: string, value: any) {
         if (isPlatformBrowser(this.platformId)) {
-            await this.init();
-            await this._storage?.set(key, value);
+             await this.init();
+             this._storage?.set(key, value);
+            // console.log(value,key);
         }
     }
 

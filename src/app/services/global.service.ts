@@ -45,7 +45,7 @@ export class GlobalService {
 	userInfo = new BehaviorSubject<UserInfo>(null /*JSON.parse(localStorage.getItem('userInfo'))*/);
 	userType = new BehaviorSubject<string>( null /*localStorage.getItem('userType')*/ );
 	login = false ; /* JSON.parse(localStorage.getItem('isLogin')) */ 
-	private _login = new BehaviorSubject<boolean>(this.login);
+	private _login = new BehaviorSubject<boolean>(false);
 	private baseUrl = 'https://app.telephonkhoneh.com/api/';
 	private imgUrl = 'https://app.telephonkhoneh.com/';
 	pageLocation = '';
@@ -73,7 +73,7 @@ export class GlobalService {
 		
 	) {
 		this.isBrowser = isPlatformBrowser(this.platformId);
-		this.storageService.set('myname','amin')
+		// this.storageService.set('myname','amin')
 		// console.log("emad is browser",this.isBrowser,this.platformId);
 		this.pltfrm = this.platform.platforms()[0];
 		this.router.events.subscribe((ev) => {
@@ -101,13 +101,17 @@ export class GlobalService {
 		});
 		//login
 		this.storageService.get('isLogin').then((val) => {
-			this.login = val ;
-			// this._login.next(val);
-			console.log(val);
+			if (val) {
+				console.log('login',val);
+				this.login = val ;
+				this.changeLogin(val);
+			}
 		});
 		//token
 		this.storageService.get('token').then((val) => {
-			this.token = val ;
+			if(val){
+				this.token = val ;
+			}
 		});
 	}
 
@@ -372,6 +376,7 @@ export class GlobalService {
 	}
 
 	setUserInfo(user) {
+		// console.log(user,"setuserinfo");
 		const userInfo = {} as UserInfo;
 		userInfo.name = user.fullname;
 		userInfo.gender = user.gender;
@@ -392,8 +397,8 @@ export class GlobalService {
 		userInfo.id = user.id;
 		userInfo.last_certificate = user.last_certificate;
 		userInfo.experience_year = user.experience_year;
+		console.log('userInfo', userInfo);
 		this.storageService.set('userInfo', userInfo);
-
 		this.userInfo.next(userInfo);
 		this.badges.next({
 			chat: user.chats_count,

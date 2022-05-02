@@ -5,7 +5,7 @@
 
     "allowSyntheticDefaultImports": true,
 
-
+   
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -17,9 +17,10 @@
     "target": "es2015",
     "module": "es2020",
     "lib": ["es2018", "dom"],
-     "resolveJsonModule": true
+    "resolveJsonModule": true
   },
   "angularCompilerOptions": {
+    "emitDecoratorMetadata": false,
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,

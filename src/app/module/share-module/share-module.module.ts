@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { AppShellNoRenderDirective } from './../../directives/app-shell-norender.directive';
 import { AppShellRenderDirective } from './../../directives/app-shell-render.directive';
 import { NgModule } from "@angular/core";
@@ -40,7 +41,7 @@ import { PipesModule } from '../pipes-module/pipes/pipes.module';
 		FormsModule,
 		NgPersianDatepickerModule,
 		IonicModule,
-		ShareModulePageRoutingModule,
+		RouterModule,
 		ReactiveFormsModule,
 		ValidatorModule,
 		CKEditorModule,
