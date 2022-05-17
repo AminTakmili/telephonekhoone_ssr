@@ -34,6 +34,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class GlobalService {
 	enamad = new BehaviorSubject<string>('');
 	pltfrm: string;
+	sitename: string='تلفن خونه';
 	isBrowser: boolean;
 	public loading: any;
 	// private loading: Promise<HTMLIonLoadingElement>;
@@ -397,7 +398,7 @@ export class GlobalService {
 		userInfo.id = user.id;
 		userInfo.last_certificate = user.last_certificate;
 		userInfo.experience_year = user.experience_year;
-		console.log('userInfo', userInfo);
+		// console.log('userInfo', userInfo);
 		this.storageService.set('userInfo', userInfo);
 		this.userInfo.next(userInfo);
 		this.badges.next({

@@ -1,0 +1,65 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="close()">
+                <ion-icon name="close" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            دریافت مشاوره از {{consultantName}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="messages">
+        <div class="messageBox mb-15">
+            سلام <span>{{consultantName}}</span> هستم، کارشناس <span>{{categoryName}}</span>
+        </div>
+        <div class="messageBox mb-15">
+            {{ consultantText }}
+        </div>
+    </div>
+</ion-content>
+
+<ion-footer class="ion-no-margin ion-no-border ion-no-shadow">
+    <input #fileInput type="file" class="ion-hide" (change)='openFile($event)'>
+    <div class="footSendMessage">
+        <div class="selectedFiles mb-10" *ngIf="selectedFiles.length !== 0">
+            <div class="file-item" *ngFor="let item of selectedFiles">
+                <div class="progressLoading" [style.width]="item.loadPercent+'%'"></div>
+                <ion-icon *ngIf="!item.loading" class="icon" [name]="item.file.name | fileTypeIcon"></ion-icon>
+                <span class="percent" *ngIf="item.loading && item.loadPercent"> {{ item.loadPercent }}% </span>
+                <ion-spinner name="crescent" *ngIf="item.loading && !item.loadPercent"></ion-spinner>
+                <span class="name">{{ item.file.name }}</span>
+                <div class="removeFile">
+                    <ion-buttons>
+                        <ion-button (click)="removeFile(item)" class="removeBtn">
+                            <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
+                </div>
+            </div>
+        </div>
+
+        <div class="footerItems">
+            <ion-fab-button *ngIf="selectedFiles.length === 0" (click)="formSubmit(messageTextValue)" color="primary" class="ml-10 " [attr.disabled]="loading || messageTextValue === ''">
+                <ion-icon *ngIf="!loading" name="send-outline"></ion-icon>
+                <ion-spinner *ngIf="loading"></ion-spinner>
+            </ion-fab-button>
+
+            <ion-fab-button *ngIf="selectedFiles.length !== 0" (click)="formSubmit()" color="primary" class="ml-10 " [attr.disabled]="loading">
+                <ion-icon *ngIf="!loading" name="send-outline"></ion-icon>
+                <ion-spinner *ngIf="loading"></ion-spinner>
+            </ion-fab-button>
+
+            <ion-fab-button (click)="fileInput.click()" color="medium" [attr.disabled]="loading" class="ion-no-shadow">
+                <ion-icon name="attach-outline"></ion-icon>
+            </ion-fab-button>
+
+            <div class="inputItems">
+                <ion-textarea rows="1" [(ngModel)]="messageTextValue" color="dark"></ion-textarea>
+            </div>
+        </div>
+    </div>
+</ion-footer>

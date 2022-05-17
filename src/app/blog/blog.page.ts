@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {IonContent, NavController} from '@ionic/angular';
 import {Blog, Categories, LatestPosts} from '../classes/Blog';
 import {GlobalService} from '../services/global.service';
+import { SeoService } from '../services/seo.service';
 
 @Component({
     selector: 'app-blog',
@@ -20,12 +21,14 @@ export class BlogPage implements OnInit {
     blogsCount: number;
     breadCrumb = [
         {url: '/', name: 'صفحه نخست'},
-        {url: '/blog', name: 'بلاگ'},
+        {url: '/b', name: 'بلاگ'},
     ];
     p2: 1;
     constructor(
         private global: GlobalService, 
-        private navCtrl: NavController
+        private navCtrl: NavController,
+        public seo: SeoService,
+
         ) {
     }
     ngOnInit() {
@@ -109,6 +112,19 @@ export class BlogPage implements OnInit {
     }
 
     blogDetail(item) {
-        this.navCtrl.navigateForward(`/blog/${item.id}`);
+        this.navCtrl.navigateForward(`/b/${item.id}`);
     }
+    setSeo(data) {
+  
+        this.seo.generateTags({
+            title: data.metaTitle,
+            description: data.metaDescription,
+            canonical: data.canonicalLink,
+            keywords: data.metaKeywords.toString(),
+            image: '/assets/img/icon/icon-384x384.png',
+            isNoIndex: data.isNoIndex,
+        });
+        
+    }
+    
 }

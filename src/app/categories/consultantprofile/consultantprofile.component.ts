@@ -24,6 +24,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Storage } from '@ionic/storage';
 import { DecimalPipe } from '@angular/common';
+import { NewChatComponent } from './new-chat/new-chat.component';
 
 @Component({
   selector: 'app-consultantprofile',
@@ -217,7 +218,7 @@ export class ConsultantprofileComponent implements OnInit {
 				if (this.details?.is_online === 1) {
 					if (this.global.getLogin().value) {
 						
-            //! this.newChatModal(this.details?.call_message, item.type);
+      				 this.newChatModal(this.details?.call_message, item.type);
 
 					} else {
 						const alert = await this.alertController.create({
@@ -228,7 +229,7 @@ export class ConsultantprofileComponent implements OnInit {
 								{
 									text: 'ورود/عضویت',
 									handler: () => {
-										this.global.showLogin(`/categories/consultant/${this.catId}/${this.myId}`);
+										this.global.showLogin(`/c/m/${this.catId}/${this.myId}`);
 									},
 								},
 								{
@@ -274,49 +275,49 @@ export class ConsultantprofileComponent implements OnInit {
 
 	}
 
-	// !async newChatModal(msg, type) {
-	// 	const modal = await this.modalController.create(
-	// 		{
-	// 			component: NewChatComponent,
-	// 			componentProps: {
-	// 				consultantText: msg,
-	// 				consultantName: this.consultant_name,
-	// 				categoryName: this.details
-	// 					?.category?.name,
-	// 				planId: this.plan_id,
-	// 				itemType: type
-	// 			},
-	// 			cssClass: 'walletComponent',
-	// 		}
-	// 	);
-	// 	modal.present();
-	// 	modal.onDidDismiss().then((data) => {
-	// 		const res = data.data;
+	async newChatModal(msg, type) {
+		const modal = await this.modalController.create(
+			{
+				component: NewChatComponent,
+				componentProps: {
+					consultantText: msg,
+					consultantName: this.consultant_name,
+					categoryName: this.details
+						?.category?.name,
+					planId: this.plan_id,
+					itemType: type
+				},
+				cssClass: 'walletComponent',
+			}
+		);
+		modal.present();
+		modal.onDidDismiss().then((data) => {
+			const res = data.data;
 
-	// 		if (res) {
-	// 			if (res.msg) {
-	// 				this.global.showToast(res.msg, 2000, 'top');
-	// 			}
-	// 			if (res.link) {
-	// 				this.iab.create(
-	// 					res.link,
-	// 					'_self'
-	// 				);
-	// 			} else if (res.chat) {
-	// 				this.navCtrl.navigateForward(['/conversation/detail', res.chat.id]);
-	// 			}
+			if (res) {
+				if (res.msg) {
+					this.global.showToast(res.msg, 2000, 'top');
+				}
+				if (res.link) {
+					this.iab.create(
+						res.link,
+						'_self'
+					);
+				} else if (res.chat) {
+					this.navCtrl.navigateForward(['/conversation/detail', res.chat.id]);
+				}
 
-	// 			if (res.balance) {
-	// 				this.balanceService.setUserBalance(res.balance);
-	// 			}
+				if (res.balance) {
+					this.balanceService.setUserBalance(res.balance);
+				}
 
-	// 			if (res.wait_time) {
-	// 				this.countdown(res.wait_time);
-	// 			}
+				if (res.wait_time) {
+					this.countdown(res.wait_time);
+				}
 
-	// 		}
-	// 	});
-	// }
+			}
+		});
+	}
 
 	/** 
 	 * @function finalAlert(description)

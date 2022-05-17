@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {BlogDetail, Categories, LatestPosts} from 'src/app/classes/Blog';
 import {GlobalService} from 'src/app/services/global.service';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
     selector: 'app-show-blog',
@@ -23,16 +24,19 @@ export class ShowBlogComponent implements OnInit {
     latest: LatestPosts[] = [];
     cmForm: FormGroup;
     blogSideData = {};
+    seoObtion:object
     breadCrumb = [
         {url: '/', name: 'صفحه نخست'},
-        {url: '/blog', name: 'بلاگ'},
-        {url: '/blog', name: 'جزئیات مطلب'},
+        {url: '/b', name: 'بلاگ'},
+        {url: '/b', name: 'جزئیات مطلب'},
     ];
 
     constructor(
         public global: GlobalService,
         private activatedRoute: ActivatedRoute,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        public seo: SeoService,
+
     ) {
         this.cmForm = this.fb.group({
             text: ['', Validators.compose([Validators.required])],
@@ -43,6 +47,11 @@ export class ShowBlogComponent implements OnInit {
         this.myId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
         this.getData();
      
+    }
+    ionViewWillEnter() {
+        if (this.seoObtion!== undefined) {
+            this.setSeo(this.seoObtion)
+        }
     }
 
     onClickBack() {
@@ -55,6 +64,8 @@ export class ShowBlogComponent implements OnInit {
         this.loading = true;
         this.global.httpPost('blog/show', {id: this.myId}).subscribe(
             (res) => {
+                // 
+             
                 this.loading = false;
                 this.time = this.calculateReadingTime(res.blog.description);
                 const details = new BlogDetail();
@@ -96,6 +107,17 @@ export class ShowBlogComponent implements OnInit {
                     categories: this.categories,
                     latest: this.latest,
                 };
+
+                this.seoObtion={
+                    metaTitle:res.blog['meta_title']?res.blog['meta_title']:'',
+                    metaDescription:res.blog['meta_description']?res.blog['meta_description']:'',
+                    canonicalLink:res.blog['canonicalLink']?res.blog['canonicalLink']:'',
+                    metaKeywords:res.blog['meta_keywords']?res.blog['meta_keywords']:'',
+                    isNoIndex:res.blog['NoIndex']?res.blog['NoIndex']:'',
+                    img:this.blogDetail.media[0].path?this.blogDetail.media[0].path:'assets/img/no-image.jpg',
+                }
+                this.setSeo(this.seoObtion)
+
             },
             (err) => {
                 this.global.showError(err);
@@ -148,4 +170,17 @@ export class ShowBlogComponent implements OnInit {
                 }
             );
     }
+    setSeo(data) {
+  
+        this.seo.generateTags({
+            title: data.metaTitle,
+            description: data.metaDescription,
+            canonical: data.canonicalLink,
+            keywords: data.metaKeywords.toString(),
+            image: data.img,
+            isNoIndex: data.isNoIndex,
+        });
+        
+    }
+    
 }

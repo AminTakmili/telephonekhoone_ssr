@@ -45,6 +45,7 @@
     "cordova-plugin-inappbrowser": "^5.0.0",
     "express": "^4.15.2",
     "leaflet": "^1.8.0",
+    "luxon": "^2.3.2",
     "mic-recorder-to-mp3": "^2.2.2",
     "moment": "^2.29.3",
     "moment-jalaali": "^0.9.6",

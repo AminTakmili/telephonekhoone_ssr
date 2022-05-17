@@ -20,7 +20,10 @@
           </h2>
           <nav  class="menu-cat" #nav>
               <ion-slides #DesktopMenu class="desktop-menu-item menu-ul" pager="false" [options]="galleryThumbsConfig2">
-                  <ion-slide class="circleShadow" *ngFor="let item of newAllCatObj"  [class.current]="item.id == selectedId||!item.id&&!selectedId"(click)="changeActiveCategory(item.id)">
+
+                  <!--TODO [class.current]="item['seo']['link']== selectedId||!item['seo']['link']&&!selectedId" -->
+
+                  <ion-slide class="circleShadow" *ngFor="let item of newAllCatObj"  (click)="changeActiveCategory(item['seo']['link'])">
                       {{ item.name }}
                   </ion-slide>
               </ion-slides>

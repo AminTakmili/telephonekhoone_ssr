@@ -6,6 +6,7 @@ import { Categories, Consultants } from '../classes/Categories';
 import { GlobalService } from '../services/global.service';
 import * as searchAnimation from '../../assets/animations/13525-empty.json';
 import { NavController } from '@ionic/angular';
+import { SeoService } from '../services/seo.service';
 
 @Component({
   selector: 'app-categories',
@@ -26,6 +27,11 @@ export class CategoriesPage implements OnInit {
 		watchSlidesVisibility: true,
 		watchSlidesProgress: true,
 	};
+	mainSeoObj:object={
+		description: "مشاوره های تلفن خونه",
+		keywords: " همه مشاوران ",
+		title: " همه مشاوران ",
+	};	
 	emptyAnimation: any;
 	searchAnimate: AnimationOptions = {
 		animationData: searchAnimation['default'],
@@ -43,10 +49,12 @@ export class CategoriesPage implements OnInit {
 		private activatedRoute: ActivatedRoute,
 		private navCtrl: NavController,
 		private activateRoute: ActivatedRoute,
-		private router: Router
+		private router: Router,
+		public seo: SeoService,
+
 	) { }
 
-	ngOnInit() {
+  async	ngOnInit() {
 			this.categoryId = undefined;
 		this.categories = [];
 		this.categoryItems = [];
@@ -68,15 +76,16 @@ export class CategoriesPage implements OnInit {
 		// this.route.snapshot.paramMap.get('businessId');
 		// this.setActiveId(this.activatedRoute.snapshot.paramMap.get('catId'))
 
-		this.getData(filterUrl);
-		this.addAllCat()
+	 await	this.getData(filterUrl);
+		await this.addAllCat()
+		// this.chengeSeoData()
 	 }
 
 	handleEmptyAnimation(anim: any) {
 		this.emptyAnimation = anim;
 	}
 
-	ionViewWillEnter() {
+	async ionViewWillEnter() {
 		this.categoryId = undefined;
 		this.categories = [];
 		this.categoryItems = [];
@@ -98,11 +107,12 @@ export class CategoriesPage implements OnInit {
 		// this.route.snapshot.paramMap.get('businessId');
 		// this.setActiveId(this.activatedRoute.snapshot.paramMap.get('catId'))
 
-		this.getData(filterUrl);
-		this.addAllCat()
+		await this.getData(filterUrl);
+	 await    this.addAllCat()
+		// this.chengeSeoData()
 	}
 
-	getData(filter?: string) {
+	async getData(filter?: string) {
 		this.loading = true;
 		if (filter) {
 			const reqBody = {};
@@ -112,7 +122,7 @@ export class CategoriesPage implements OnInit {
 			this.global.httpPost('categories', reqBody).subscribe(
 				(res) => {
 					this.loading = false;
-					console.log(res);
+					// console.log(res);
 					res.map((item, index) => {
 						const cat = new Categories();
 						cat.id = item.id;
@@ -154,11 +164,16 @@ export class CategoriesPage implements OnInit {
 		} else {
 			this.global.httpGet('categories').subscribe(
 				(res) => {
+					// console.log(res);
 					this.loading = false;
 					res.map((item, index) => {
+						// console.log(item);
+						// console.log(item.name);
+						// console.log(item.seo);
 						const cat = new Categories();
 						cat.id = item.id;
 						cat.name = item.name;
+						cat.setSeo = item.seo;
 						cat.children = item.children.map((child:any)=>{
 							child['parent_id'] = item.id;
 							return child;
@@ -173,21 +188,22 @@ export class CategoriesPage implements OnInit {
 					if (this.categoryId) {
 						this.setActiveId(this.categoryId);
 					} else {
-						this.changeActiveCategory(this.newAllCatObj[0].id);
+						this.changeActiveCategory(this.newAllCatObj[0].seo['link']);
 					}
 					if (this.activatedRoute.snapshot.paramMap.get('catId')) {
 			
-						console.log(res);
+						// console.log(res);
 						let thiscat=res.find((item)=>{
-							return item.id==this.activatedRoute.snapshot.paramMap.get('catId')
+							return item.seo['link']==this.activatedRoute.snapshot.paramMap.get('catId')
 						})
-						console.log(thiscat);
+						// console.log(thiscat);
 
 						this.breadCrumb = [
 							{ url: '/', name: 'صفحه نخست' },
 							{ url: '/c/'+this.activatedRoute.snapshot.paramMap.get('catId'), name: `${thiscat.name}` },
 						];
 					}
+					this.chengeSeoData(res)
 				},
 				(err) => {
 					this.loading = false;
@@ -199,7 +215,8 @@ export class CategoriesPage implements OnInit {
 				}
 			);
 		}
-		this.addAllCat()
+		
+		// this.chengeSeoData()
 		// this.setActiveId(this.activatedRoute.snapshot.paramMap.get('catId'))
 
 	}
@@ -229,6 +246,7 @@ export class CategoriesPage implements OnInit {
 	}
 
 	setActiveId(id) {
+
 		this.addAllCat()
 		let selectedCategory
 		if (id=='all') {
@@ -237,9 +255,11 @@ export class CategoriesPage implements OnInit {
 			 
 
 		}else{
-
+// parseInt(id, 10)
+			// console.log(id);
 			this.selectedId = id;
-			 selectedCategory = this.newAllCatObj.find(item => item.id == parseInt(id, 10));
+			 selectedCategory = this.newAllCatObj.find(item => item.seo['link']==id) ;
+			//  console.log(selectedCategory);
 		}
 		// if (id) {
 
@@ -263,7 +283,7 @@ export class CategoriesPage implements OnInit {
 			})
 			.subscribe(
 				(res) => {
-					console.log(res,"sub");
+					// console.log(res,"sub");
 					this.loading = false;
 					res.list.map((item) => {
 						const cat = new Categories();
@@ -290,7 +310,7 @@ export class CategoriesPage implements OnInit {
 	}
 	onRate(ev) {
 	}
-	addAllCat(){
+	async addAllCat(){
 		// console.log(this.categoryItems);
 		// console.log(this.categories);
 		// let newCatobj:{
@@ -318,21 +338,91 @@ export class CategoriesPage implements OnInit {
 		// newCatobj.name="همه"
 		// newCatobj.id="all"
 		newCatobj.name ="همه";
+		newCatobj.setSeo =this.mainSeoObj
+		// link: " همه-مشاوران ",
 		// newCatobj.id =0;
 		// newCatobj.id =;
 		newCatobj.children =newCatobjChilderen
 		if (!this.activatedRoute.snapshot.paramMap.get('catId')) {
 			this.categoryItems = newCatobj.children;
 		}
+		
 		this.newAllCatObj=[newCatobj,...this.categories]
 
+		// console.log(...this.categories);
 		// console.log(newCatobj);
 		// console.log(this.newAllCatObj);
+		// this.chengeSeoData(this.newAllCatObj)
 		// console.log(newCatobj.children);
 		// console.log(this.newAllCatObj[0]);
 
 
 	}
+	
+	// setSeo(data) {
+  
+	// 	this.seo.generateTags({
+	// 		title: data.metaTitle,
+	// 		description: data.metaDescription,
+	// 		keywords: data.metaKeywords,
+	// 		image: 'src/assets/img/seo-logo.png',
+	// 		isNoIndex: data.isNoIndex,
+	// 	});
+		
+	//   }
+	 async  chengeSeoData(data){
+	// await this.addAllCat()
+console.log(data);
+		// if (this.activatedRoute.snapshot.paramMap.get('catId')) {
+			let seoObj
+			// console.log(this.categories);
+			// console.log(this.newAllCatObj[0]);
+			// console.log(this.newAllCatObj[0]['seo']);
+			// console.log(this.newAllCatObj[0]['seo']['link']);
+			// console.log(this.activatedRoute.snapshot.paramMap.get('catId'));
+
+		// ?this.activatedRoute.snapshot.paramMap.get('catId')? seoObj=	this.newAllCatObj.find(item=>item.seo['link']==this.activatedRoute.snapshot.paramMap.get('catId')):seoObj=this.newAllCatObj[0];
+					
+		if (this.activatedRoute.snapshot.paramMap.get('catId')) {
+			// console.log(	this.categories);
+			// seoObj = this.categories.find( ({ name }) => name === 'cherries' );
+			seoObj=	data.find(item=>item.seo['link']==this.activatedRoute.snapshot.paramMap.get('catId')).seo
+			console.log(seoObj);
+		}else{
+			// console.log(this.newAllCatObj[0]);
+			seoObj=this.mainSeoObj
+			console.log(seoObj);
+
+		}
+		// seoObj=	this.newAllCatObj.find((item)=>{
+					// 	return item['seo']['link']==this.activatedRoute.snapshot.paramMap.get('catId')
+					// })
+			// console.log(seoObj.seo);
+			// console.log(seoObj);
+			// console.log({
+			// 	title:seoObj.seo.title,
+			// 	description: seoObj.seo.description,
+			// 	keywords:  seoObj.seo.keywords,
+			// 	image: 'src/assets/img/seo-logo.png',
+			// 	isNoIndex: false,
+			// });
+
+		
+			this.seo.generateTags({
+				title:seoObj.title,
+				description: seoObj.description,
+				keywords:  seoObj.keywords,
+				image: 'src/assets/img/seo-logo.png',
+				isNoIndex: false,
+			});
+			
+
+
+		// }else{
+		// 	this.categoryId ='all'
+		// }
+
+	  }
 	
 
 }

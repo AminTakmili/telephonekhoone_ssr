@@ -5,7 +5,7 @@ import { GlobalService } from 'src/app/services/global.service';
 import { map } from 'rxjs/operators';
 import { HttpEventType } from '@angular/common/http';
 import * as _ from "lodash";
-import * as MicRecorder from 'mic-recorder-to-mp3';
+// !import * as MicRecorder from 'mic-recorder-to-mp3';
 
 @Component({
 	selector: 'app-voice',
@@ -17,7 +17,7 @@ export class VoiceComponent {
 	@Output() recordingEmitter = new EventEmitter<boolean>();
 	@Output() sendVoiceEmitter = new EventEmitter<any>();
 	public record;
-	public recorder: any;
+	//! public recorder: any;
 	public stream: any;
 	public recording = false;
 	public url;
@@ -28,9 +28,9 @@ export class VoiceComponent {
 	totalSeconds = '00';
 	totalMinutes = '00';
 	constructor(private domSanitizer: DomSanitizer, private global: GlobalService) {
-		this.recorder = new MicRecorder({
-			bitRate: 128
-		});
+		// !this.recorder = new MicRecorder({
+		// 	bitRate: 128
+		// });
 	}
 
 	countUp() {
@@ -48,12 +48,14 @@ export class VoiceComponent {
 	initiateRecording() {
 		this.setRecording(true);
 		this.url = null;
-		// mic to mp3
-		this.recorder.start().then(() => {
-			this.countUp();
-		}).catch((e) => {
-			console.error(e);
-		});
+		// mic to mp3 
+
+		// !this.recorder.start().then(() => {
+		// 	this.countUp();
+		// }).catch((e) => {
+		// 	console.error(e);
+		// }); 
+
 
 	}
 
@@ -103,35 +105,35 @@ export class VoiceComponent {
 
 
 	sendVoice() {
-		this.recorder
-			.stop()
-			.getMp3().then(([buffer, blob]) => {
-				const file = new File(buffer, `${new Date().getTime() + _.random(10000, 99999)}.mp3`, {
-					type: blob.type,
-					lastModified: Date.now()
-				});
-				this.uploadVoice({
-					file: file,
-					key: 'voice',
-					uploadPercent: 0,
-					loading: true
-				});
-				this.url = URL.createObjectURL(file)
-				this.setRecording(false);
+		// !this.recorder
+		// 	.stop()
+		// 	.getMp3().then(([buffer, blob]) => {
+		// 		const file = new File(buffer, `${new Date().getTime() + _.random(10000, 99999)}.mp3`, {
+		// 			type: blob.type,
+		// 			lastModified: Date.now()
+		// 		});
+		// 		this.uploadVoice({
+		// 			file: file,
+		// 			key: 'voice',
+		// 			uploadPercent: 0,
+		// 			loading: true
+		// 		});
+		// 		this.url = URL.createObjectURL(file)
+		// 		this.setRecording(false);
 
-			}).catch((e) => {
-				this.global.showAlert('خطا', 'ضبط صدای شما امکان پذیر نیست', [
-					{ text: 'تایید', role: 'cancel' }
-				]).then(alert => alert.present());
-				console.log(e);
-				this.setRecording(false);
-			});
+		// 	}).catch((e) => {
+		// 		this.global.showAlert('خطا', 'ضبط صدای شما امکان پذیر نیست', [
+		// 			{ text: 'تایید', role: 'cancel' }
+		// 		]).then(alert => alert.present());
+		// 		console.log(e);
+		// 		this.setRecording(false);
+		// 	});
 	}
 
 	cancelVoice() {
 		// this.stopRecording();
 		this.setRecording(false);
-		this.recorder.stop();
+		//! this.recorder.stop();
 	}
 
 	setRecording(recording) {

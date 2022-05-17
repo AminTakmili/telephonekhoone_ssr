@@ -1,8 +1,9 @@
+import { VoiceMessageComponent } from './show/voice-message/voice-message.component';
 import { ChatOptionsComponent } from './mobile/show/chat-options/chat-options.component';
 import { MobileShowComponent } from './mobile/show/show.component';
 import { MobileComponent } from './mobile/mobile.component';
 import { VoiceComponent } from './show/voice/voice.component';
-import { ShowComponent } from './../webinar/show/show.component';
+import { ShowComponent } from './show/show.component';
 import { ConversationPage } from './conversation.page';
 
 import { PipesModule } from './../module/pipes-module/pipes/pipes.module';
@@ -24,13 +25,14 @@ import { AutosizeModule } from 'ngx-autosize';
     ShareModulePageModule,
     AutosizeModule,
     ReactiveFormsModule,
+    PipesModule
   ],
   declarations: [
     // ConversationSampleComponent,
     ConversationPage,
     ShowComponent,
-    // VoiceComponent,
-    // VoiceMessageComponent,
+    VoiceComponent,
+    VoiceMessageComponent,
      MobileComponent,
      MobileShowComponent,
     ChatOptionsComponent,

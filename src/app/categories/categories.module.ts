@@ -17,6 +17,7 @@ import { ShareModulePageModule } from '../module/share-module/share-module.modul
 import { TimelineComponent } from '../components/timeline/timeline.component';
 import { SubCategoriListComponent } from './sub-categori-list/sub-categori-list.component';
 import { ConsultantprofileComponent } from './consultantprofile/consultantprofile.component';
+import { NewChatComponent } from './consultantprofile/new-chat/new-chat.component';
 
 // import { SearchComponent } from './search/search.component';
 
@@ -31,7 +32,8 @@ import { ConsultantprofileComponent } from './consultantprofile/consultantprofil
     ReactiveFormsModule,
     LottieModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    
     
     // AnimationLoader,
     // StarRatingModule,
@@ -43,7 +45,8 @@ import { ConsultantprofileComponent } from './consultantprofile/consultantprofil
     // DrProfileComponent,
     TimelineComponent,
     SubCategoriListComponent,
-    ConsultantprofileComponent
+    ConsultantprofileComponent,
+    NewChatComponent
     // NewChatComponent,
   ]
 })

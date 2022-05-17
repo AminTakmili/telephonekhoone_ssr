@@ -1,3 +1,4 @@
+// import { BlogCategoriesComponent } from './../../blog/categories/categories.component';
 import { RouterModule } from '@angular/router';
 import { AppShellNoRenderDirective } from './../../directives/app-shell-norender.directive';
 import { AppShellRenderDirective } from './../../directives/app-shell-render.directive';
@@ -35,6 +36,7 @@ import { ImageGalleryComponent } from 'src/app/components/image-gallery/image-ga
 import { RulesPage } from 'src/app/rules-component/rules.page';
 import { PipesModule } from '../pipes-module/pipes/pipes.module';
 
+// import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
 	imports: [
 		CommonModule,
@@ -45,7 +47,9 @@ import { PipesModule } from '../pipes-module/pipes/pipes.module';
 		ReactiveFormsModule,
 		ValidatorModule,
 		CKEditorModule,
-		PipesModule
+		PipesModule,
+// NgxPaginationModule
+
 	],
 	providers: [InAppBrowser],
 	declarations: [
@@ -71,7 +75,8 @@ import { PipesModule } from '../pipes-module/pipes/pipes.module';
 		ImageGalleryComponent,
 		AppShellRenderDirective,
 		AppShellNoRenderDirective,
-		RulesPage
+		RulesPage,
+		// BlogCategoriesComponent
 
 	],
 	entryComponents: [SpecialtyComponent],
@@ -97,8 +102,10 @@ import { PipesModule } from '../pipes-module/pipes/pipes.module';
 		UploadFileComponent,
 		AppShellRenderDirective,
 		AppShellNoRenderDirective,
-		// PipesModule,
-		RulesPage
+		PipesModule,
+
+		RulesPage,
+		// BlogCategoriesComponent
 	],
 	
 })

@@ -20,6 +20,13 @@ export class Categories  {
   public set name(value: string) {
     this._name = value;
   }
+  public seo: object;
+  public get setSeo(): object {
+    return this.seo;
+  }
+  public set setSeo(value: object) {
+    this.seo = value;
+  }
   private _parent: boolean;
   public get parent(): boolean {
     return this._parent;

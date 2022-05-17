@@ -25,7 +25,7 @@ export class BlogCategoriesComponent implements OnInit {
 	categoryId: number;
 	breadCrumb = [
 		{ url: '/', name: 'صفحه نخست' },
-		{ url: '/blog', name: 'بلاگ' },
+		{ url: '/b', name: 'بلاگ' },
 	];
 	p2: 1;
 
@@ -120,6 +120,6 @@ export class BlogCategoriesComponent implements OnInit {
 	}
 
 	blogDetail(item) {
-		this.navCtrl.navigateForward(`/blog/${item.id}`);
+		this.navCtrl.navigateForward(`/b/${item.id}`);
 	}
 }

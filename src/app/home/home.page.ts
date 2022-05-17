@@ -9,6 +9,7 @@ import { Seminars } from '../models/seminars.model';
 import { IonInput, IonSearchbar } from '@ionic/angular';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SeoService } from '../services/seo.service';
 
 @Component({
   selector: 'app-home',
@@ -165,7 +166,9 @@ export class HomePage {
     public global: GlobalService,
     private balanceService: UserBalanceService,
     private activateRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public seo: SeoService,
+
   ) {}
 
   ngOnInit() {
@@ -183,6 +186,17 @@ export class HomePage {
           this.searchItem(this.searchBar.value);
         });
     }, 100);
+    // this.setSeo(
+    //   {
+    //     metaTitle:'خانه',
+    //     metaDescription:'توضیحات خانه ',
+    //     canonicalLink:'wwww.telephonkhoneh.ir ',
+    //     metaKeywords:'کلمات کلیدی ',
+    //     image:'/src/assets/icon/favicon.png',
+    //     isNoIndex:'false'
+  
+    //   }
+    // )
   }
 
   gotoCategory(item) {
@@ -420,6 +434,18 @@ export class HomePage {
             this.seminarItems = res.seminars.map((seminar: Seminars) =>
               new Seminars().deserialize(seminar)
             );
+            console.log(res['seo_information']);
+            
+            this.setSeo(
+              {
+                metaTitle:res['seo_information'].title,
+                metaDescription:res['seo_information'].description,
+                metaKeywords:res['seo_information'].keywords,
+                isNoIndex:false
+
+              }
+            )
+
             this.statistics = res.statistics;
             this.support = res.support;
             // loader ? loader.dismiss() : '';
@@ -440,6 +466,20 @@ export class HomePage {
       });
     });
   }
+
+  
+  setSeo(data) {
+  
+    this.seo.generateTags({
+        title: data.metaTitle,
+        description: data.metaDescription,
+        keywords: data.metaKeywords,
+        image: 'src/assets/img/seo-logo.png',
+        isNoIndex: data.isNoIndex,
+    });
+    
+  }
+
 }
 
 interface Testimonials {

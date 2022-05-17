@@ -90,7 +90,7 @@
                           </h3>
                           <ul>
                               <li *ngFor="let blog of searchItems.blogs" class="searchItem">
-                                  <a [routerLink]="['/blog' , blog.id]">{{ blog.title }}</a>
+                                  <a [routerLink]="['/b' , blog.id]">{{ blog.title }}</a>
                               </li>
                           </ul>
                       </div>
@@ -402,12 +402,12 @@
               <h2 class="title title-type-one">
                   <span>مجله اینترنتی تلفن خونه</span>
               </h2>
-              <ion-button color="primary" expand="block" fill="clear" [routerLink]="['/blog']">
+              <ion-button color="primary" expand="block" fill="clear" [routerLink]="['/b']">
                   مشاهده همه <i class="fas fa-chevron-left mr-10"></i></ion-button>
           </div>
           <ion-slides class="show-overslide pt-10 pt-md-40" [options]="slideOpts2">
               <ion-slide *ngFor="let item of blogs">
-                  <div class="home-cards home-magzine box-shadow w-100 flex" [routerLink]="['/blog' , '520']">
+                  <div class="home-cards home-magzine box-shadow w-100 flex" [routerLink]="['/b' , '520']">
                       <div class="image">
                           <img *ngIf="item.media" class="img-cover" [src]="item.media" alt="" />
                           <img *ngIf="!item.media" class="img-cover" src="assets/img/no-image.jpg" alt="" />

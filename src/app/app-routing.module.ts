@@ -1,3 +1,4 @@
+import { BlogCategoriesComponent } from './blog/categories/categories.component';
 import { NotLoginGuard } from './guards/notLogin.guard';
 import { ConsultantGuard } from './guards/consultant.guard';
 import { LoginGuard } from './guards/login.guard';
@@ -34,10 +35,14 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'blog',
+    path: 'b',
     loadChildren: () =>
       import('./blog/blog.module').then((m) => m.BlogPageModule),
   },
+  // {
+  //   path: 'bc/:id',
+  //   component: BlogCategoriesComponent,
+  // },
   {
     path: 'help',
     loadChildren: () =>
