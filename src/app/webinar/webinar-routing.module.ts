@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { WebinarPage } from './webinar.page';
 import { ShowComponent } from './show/show.component';
-import { CategoriesComponent } from './categories/categories.component';
+// import { CategoriesComponent } from './categories/categories.component';
 
 const routes: Routes = [
 	{
@@ -14,10 +14,10 @@ const routes: Routes = [
 		path: ':id',
 		component: ShowComponent
 	},
-	{
-		path: 'categories/:id',
-		component: CategoriesComponent
-	},
+	// {
+	// 	path: 'categories/:id',
+	// 	component: CategoriesComponent
+	// },
 
 ];
 

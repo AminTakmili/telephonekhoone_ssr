@@ -11,12 +11,15 @@
     <li class="ml-10">#پزشکی</li>
     <li class="ml-10">#پزشکی</li>
   </ul> -->
-    <h3 *ngIf="data?.latest && data.latest?.length != 0" class="font-size-18 mb-20 mt-30">
+    <h3 *ngIf="data?.latest && data.latest?.length != 0&&isBlog" class="font-size-18 mb-20 mt-30">
         آخرین مطالب
+    </h3>
+    <h3 *ngIf="data?.latest && data.latest?.length != 0&&!isBlog" class="font-size-18 mb-20 mt-30">
+        آخرین وبینار ها
     </h3>
     <ul class="news">
         <ng-template [ngIf]="!_loading && data.latest?.length != 0">
-            <li [routerLink]="['/b/' + items.id]" class="border-box cursor-pointer p-10 mb-10" *ngFor="let items of data.latest">
+            <li [routerLink]="['/b/' + items.seo?.link]" class="border-box cursor-pointer p-10 mb-10" *ngFor="let items of data.latest">
                 <div class="image">
                     <img *ngIf="items.media" class="img-cover" src="{{ items.media }}" alt="{{ items.title }}" />
                     <img *ngIf="!items.media" class="img-cover" src="assets/img/no-image.jpg" alt="no image found" />
@@ -51,7 +54,7 @@
         <h3 class="font-size-18 mb-20 mt-30">دسته بندی مطالب</h3>
         <ion-card color="header" class="ion-no-padding ion-no-margin border-box item-clear ion-rounded-0 py-0">
             <ion-list *ngIf="data.categories&&data.categories.length!=0" class="ion-no-padding font-size-12 categoriesList">
-                <ion-item [routerLink]="isBlog ?['/blog/categories' , items.id] : ['/webinar/categories' , items.id]" routerLinkActive="active" [lines]="data.categories.length - 1 == i ? 'none' : 'full'" *ngFor="let items of data.categories; let i = index;">
+                <ion-item [routerLink]="isBlog ?['/bc' , items['seo']?.link] : ['/wc' ,  items['seo']?.link]" routerLinkActive="active" [lines]="data.categories.length - 1 == i ? 'none' : 'full'" *ngFor="let items of data.categories; let i = index;">
                     <ion-label slot="start">
                         <p>{{ items.name }}</p>
                     </ion-label>

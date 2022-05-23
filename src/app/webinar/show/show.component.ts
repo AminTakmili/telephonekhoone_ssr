@@ -40,7 +40,7 @@ export class ShowComponent implements OnInit {
 			this.loading = true;
 			this.global
 				.httpPost('seminars/show', {
-					id: id,
+					link: id,
 				})
 				.subscribe(
 					(res) => {
@@ -76,7 +76,7 @@ export class ShowComponent implements OnInit {
 		this.global.showLoading().then(() => {
 			this.global
 				.httpPost('seminars/reserve', {
-					id: this.seminarId,
+					link: this.seminarId,
 					back_url: this.global.siteUrl
 				})
 				.subscribe(

@@ -42,7 +42,8 @@ export class SeoService {
         console.log(config);
 
 
-        const fullUrl = this.global.siteUrl + '/' + decodeURI(this.router.routerState.snapshot.url.substr(1).split('?')[0]);
+        // const fullUrl = this.global.siteUrl + '/' + decodeURI(this.router.routerState.snapshot.url.substr(1).split('?')[0]);
+        const fullUrl = this.global.siteUrl  + decodeURI(this.router.routerState.snapshot.url.substr(1).split('?')[0]);
         this.titleService.setTitle(config.title);
         this.metaService.updateTag({ name: 'description', content: config.description });
         this.metaService.updateTag({ name: 'abstract', content: config.description });

@@ -372,7 +372,7 @@ export class CategoriesPage implements OnInit {
 	//   }
 	 async  chengeSeoData(data){
 	// await this.addAllCat()
-console.log(data);
+// console.log(data);
 		// if (this.activatedRoute.snapshot.paramMap.get('catId')) {
 			let seoObj
 			// console.log(this.categories);

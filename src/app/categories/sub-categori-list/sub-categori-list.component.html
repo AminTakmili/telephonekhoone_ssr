@@ -72,7 +72,7 @@
               <ion-row *ngIf="!loading">
                   <ion-col class="p-10" size-lg="6" *ngFor="let item of searchList; let x = index">
 
-                      <a [routerLink]="[ '/c/m' , myId ,item.id]" class="advisor cursor-pointer box-shadow w-100">
+                      <a [routerLink]="[ '/c/m' , myId ,item?.id]" class="advisor cursor-pointer box-shadow w-100">
                           <!-- <div class="w-100"> -->
 
                           <div class="info w-100 flex-row-center-between">

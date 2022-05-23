@@ -33,8 +33,29 @@ export class BlogPage implements OnInit {
     }
     ngOnInit() {
         this.getData();
+        this.setSeo(
+            {
+              metaTitle:'مقالات',
+              metaDescription:'مقلات علمی تلفن خونه',
+              metaKeywords:'مقالات,مقالات تلفن خونه, مقالات مشاوره',
+              isNoIndex:false
+
+            }
+            )
     }
 
+    ionViewDidEnter() {
+       
+        this.setSeo(
+            {
+              metaTitle:'مقالات',
+              metaDescription:'مقلات علمی تلفن خونه',
+              metaKeywords:'مقالات,مقالات تلفن خونه, مقالات مشاوره',
+              isNoIndex:false
+
+            }
+            )
+      }
     pageChange(ev) {
         this.blogItems = [];
         this.latest = [];
@@ -67,7 +88,7 @@ export class BlogPage implements OnInit {
                         const items = new Blog();
                         items.admin = item.admin;
                         items.created_at = item.created_at;
-                        items.id = item.id;
+                        items.id = item.seo.link;
                         items.title = item.title;
                         if (item.media[0]) {
                             items.media = item.media[0].options?.subSizes.large ?? item.media[0].path;
@@ -112,6 +133,7 @@ export class BlogPage implements OnInit {
     }
 
     blogDetail(item) {
+        console.log(item);
         this.navCtrl.navigateForward(`/b/${item.id}`);
     }
     setSeo(data) {

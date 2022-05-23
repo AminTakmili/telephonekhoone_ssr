@@ -23,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxStarRatingModule } from 'ngx-star-rating';
 import { DecimalPipe } from '@angular/common';
 import { PipesModule } from './module/pipes-module/pipes/pipes.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 export function playerFactory() {
 	return import('lottie-web');
@@ -33,6 +34,7 @@ export function playerFactory() {
     AppComponent,
   ],
   imports: [
+    NgxPaginationModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     IonicModule.forRoot(),
     TransferHttpCacheModule,

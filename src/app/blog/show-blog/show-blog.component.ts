@@ -18,7 +18,7 @@ export class ShowBlogComponent implements OnInit {
     blogsCount: number;
     loading = false;
     cmLoading = false;
-    myId: number;
+    myId: number|string;
     blogDetail: BlogDetail;
     categories: Categories[] = [];
     latest: LatestPosts[] = [];
@@ -44,7 +44,7 @@ export class ShowBlogComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.myId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+        this.myId = (this.activatedRoute.snapshot.paramMap.get('id'));
         this.getData();
      
     }
@@ -62,7 +62,7 @@ export class ShowBlogComponent implements OnInit {
 
     getData() {
         this.loading = true;
-        this.global.httpPost('blog/show', {id: this.myId}).subscribe(
+        this.global.httpPost('blog/show', {link: this.myId}).subscribe(
             (res) => {
                 // 
              
@@ -109,11 +109,11 @@ export class ShowBlogComponent implements OnInit {
                 };
 
                 this.seoObtion={
-                    metaTitle:res.blog['meta_title']?res.blog['meta_title']:'',
-                    metaDescription:res.blog['meta_description']?res.blog['meta_description']:'',
-                    canonicalLink:res.blog['canonicalLink']?res.blog['canonicalLink']:'',
-                    metaKeywords:res.blog['meta_keywords']?res.blog['meta_keywords']:'',
-                    isNoIndex:res.blog['NoIndex']?res.blog['NoIndex']:'',
+                    metaTitle:res.blog.seo['title']?res.blog.seo['title']:'',
+                    metaDescription:res.blog.seo['description']?res.blog.seo['description']:'',
+                    canonicalLink:res.blog.seo['canonicalLink']?res.blog.seo['canonicalLink']:'',
+                    metaKeywords:res.blog.seo['keywords']?res.blog.seo['keywords']:'',
+                    isNoIndex:res.blog.seo['NoIndex']?res.blog.seo['NoIndex']:'',
                     img:this.blogDetail.media[0].path?this.blogDetail.media[0].path:'assets/img/no-image.jpg',
                 }
                 this.setSeo(this.seoObtion)

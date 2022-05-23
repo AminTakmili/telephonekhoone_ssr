@@ -145,7 +145,7 @@
                                       <h2 *ngIf="!loading" class="title title-type-two my-25">
                                           <span>درباره {{ details?.consultant_name }}</span>
                                           <p class="w-100 mt-5">
-                                              <strong>{{ details?.category?.name }}</strong> فعال در زمینه <span *ngIf="details?.category?.children.length > 1"> های </span> <span *ngFor="let item of details?.category?.children"> {{ item }} ,
+                                              <strong>{{ details?.category?.name }}</strong> فعال در زمینه <span *ngIf="details?.category?.children.length > 1"> های </span> <span *ngFor="let item of details?.category?.children"> {{ item.name }} ,
                       </span>
                                           </p>
                                       </h2>

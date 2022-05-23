@@ -1,3 +1,4 @@
+import { CategoriesComponent } from './webinar/categories/categories.component';
 import { BlogCategoriesComponent } from './blog/categories/categories.component';
 import { NotLoginGuard } from './guards/notLogin.guard';
 import { ConsultantGuard } from './guards/consultant.guard';
@@ -39,10 +40,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./blog/blog.module').then((m) => m.BlogPageModule),
   },
-  // {
-  //   path: 'bc/:id',
-  //   component: BlogCategoriesComponent,
-  // },
+  {
+    path: 'bc/:id',
+    component: BlogCategoriesComponent,
+  },
   {
     path: 'help',
     loadChildren: () =>
@@ -58,6 +59,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./webinar/webinar.module').then((m) => m.WebinarPageModule),
   },
+  {
+		path: 'wc/:id',
+		component: CategoriesComponent
+	},
   {
     path: 'rules',
     loadChildren: () =>

@@ -14,6 +14,7 @@ import { AnimationOptions } from 'ngx-lottie';
 import * as searchAnimation from '../../../assets/animations/13525-empty.json';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
   selector: 'app-sub-categori-list',
@@ -73,6 +74,8 @@ export class SubCategoriListComponent implements OnInit,OnDestroy {
 		private activatedRoute: ActivatedRoute,
 		private popoverController: PopoverController,
 		private fb: FormBuilder,
+		public seo: SeoService,
+
 	) { 
 
 		// this.rating3 = 0;
@@ -146,7 +149,7 @@ export class SubCategoriListComponent implements OnInit,OnDestroy {
 		this.searchList = [];
 		this.loading = true;
 		let params: params = {
-			id: id,
+			link: id,
 			limit: this.limit,
 			offset: this.offset,
 		};
@@ -166,10 +169,10 @@ export class SubCategoriListComponent implements OnInit,OnDestroy {
 				this.loading = false;
 				res.consultants.map((item) => {
 					const list = new Searchitem();
-					list.id = item.id;
+					list.id = item.seo.link;
 					list.country = item.country;
 					list.fullname = item.fullname;
-					list.id = item.id;
+					// list.id = item.id;
 					list.image = item.image;
 					list.is_online = item.is_online;
 					list.prices = [];
@@ -194,6 +197,16 @@ export class SubCategoriListComponent implements OnInit,OnDestroy {
 						this.emptyAnimation.goToAndPlay(0);
 					}, 500);
 				}
+				console.log(res.category['seo']);
+				this.setSeo(
+					{
+					  metaTitle:res.category['seo'].title,
+					  metaDescription:res.category['seo'].description,
+					  metaKeywords:res.category['seo'].keywords,
+					  isNoIndex:false
+	  
+					}
+				  )
 			},
 			(err) => {
 				this.loading = false;
@@ -222,10 +235,26 @@ export class SubCategoriListComponent implements OnInit,OnDestroy {
 				: 'با جستجو در تلفن خونه نزدیک‌ترین و بهترین مشاور مورد نظر خود را پیدا کنید.'
 	}
 
+	
+  
+	setSeo(data) {
+  
+		this.seo.generateTags({
+			title: data.metaTitle,
+			description: data.metaDescription,
+			keywords: data.metaKeywords,
+			image: 'src/assets/img/seo-logo.png',
+			isNoIndex: data.isNoIndex,
+		});
+		
+	  }
+
+
 }
 
 interface params {
-	id: number;
+	link: string;
+	id?: number;
 	limit: number;
 	offset: number;
 	sort?: string;

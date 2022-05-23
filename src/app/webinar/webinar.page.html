@@ -21,11 +21,12 @@
                                 <ion-col size-lg="4" size="12" class="px-10 pb-15" *ngFor="let item of seminarItems | paginate: { totalItems: seminarsCount,  itemsPerPage: 9, currentPage: p2, id: 'second' } , let x = index">
                                     <ion-card mode="ios" class="blog-cards w-100 ion-no-margin">
                                         <div class="p-10">
-                                            <div class="image cursor-pointer" [routerLink]="['/webinar/' + item.id]">
-                                                <img *ngIf="item.logo?.options?.subSizes?.large" class="img-cover" [src]="item.logo?.options?.subSizes?.large" alt="" />
-                                                <img *ngIf="!item.logo?.options?.subSizes?.large" class="img-cover" src="assets/img/no-image.jpg" alt="{{ item.title }}" />
+                                            <div class="image cursor-pointer" [routerLink]="['/webinar/' +  item['seo']?.link]">
+                                                <img *ngIf="item.logo?.options?.subSizes?.large" class="img-cover" [src]="item.logo?.options?.subSizes?.large" alt="{{ item.title }}"  />
+                                                <img *ngIf="item.logo?.path&&!(item.logo?.options?.subSizes?.large)" class="img-cover" [src]="item.logo?.path" alt="{{ item.title }}"  />
+                                                <img *ngIf="!(item.logo?.options?.subSizes?.large||item.logo?.path)" class="img-cover" src="assets/img/no-image.jpg" alt="{{ item.title }}" />
                                             </div>
-                                            <div class="desc cursor-pointer" [routerLink]="['/webinar/' + item.id]">
+                                            <div class="desc cursor-pointer" [routerLink]="['/webinar/' + item['seo']?.link]">
                                                 <p>{{item.title}}</p>
                                             </div>
                                             <div class="capacity w-100 d-flex ion-justify-content-start ion-align-items-center">
@@ -49,7 +50,7 @@
                                                 </ion-text>
                                             </div>
                                         </div>
-                                        <ion-button [routerLink]="['/webinar/' + item.id]" class="ion-no-margin" expand="full" mode="ios" color="primary">مشاهده جزئیات و ثبت نام
+                                        <ion-button [routerLink]="['/webinar/' +  item['seo']?.link]" class="ion-no-margin" expand="full" mode="ios" color="primary">مشاهده جزئیات و ثبت نام
                                         </ion-button>
                                     </ion-card>
                                 </ion-col>

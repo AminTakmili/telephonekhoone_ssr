@@ -34,7 +34,7 @@
                   <ng-template [ngIf]="!loading">
                       <ion-col size-lg="3" size="12" class="p-10" *ngFor="let item of categoryItems">
                          <!-- item['parent_id'] -->
-                          <a   [routerLink]="['/c/m',item.id]" class="cat-cards box-shadow cursor-pointer w-100">
+                          <a   [routerLink]="['/c/m',item?.seo?.link]" class="cat-cards box-shadow cursor-pointer w-100">
                               <div class="image">
                                   <!-- (ionImgDidLoad)="imageLoad($event)" -->
                                   <ion-img class="img-cover" [src]="item.media.options?.subSizes?.large ? item.media.options?.subSizes?.large : item.media.options?.subSizes?.medium ? item.media.options?.subSizes?.medium : item.media?.path" [alt]="item.name"></ion-img>

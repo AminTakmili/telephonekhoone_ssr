@@ -106,11 +106,11 @@ export class Searchitem {
   public set fullname(value: string) {
     this._fullname = value;
   }
-  private _id: number;
-  public get id(): number {
+  private _id: number|string;
+  public get id(): number|string {
     return this._id;
   }
-  public set id(value: number) {
+  public set id(value: number|string) {
     this._id = value;
   }
   private _image: any;

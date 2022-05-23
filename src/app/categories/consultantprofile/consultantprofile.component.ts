@@ -25,6 +25,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Storage } from '@ionic/storage';
 import { DecimalPipe } from '@angular/common';
 import { NewChatComponent } from './new-chat/new-chat.component';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
   selector: 'app-consultantprofile',
@@ -62,10 +63,13 @@ export class ConsultantprofileComponent implements OnInit {
 		private toastController: ToastController,
 		private navCtrl: NavController,
 		private storage: Storage,
-		private _decimalPipe: DecimalPipe
+		private _decimalPipe: DecimalPipe,
+		public seo: SeoService,
+
 	) { }
 
 	ngOnInit() {
+		console.log(this.navCtrl);
 		this.catId = this.activatedRoute.snapshot.paramMap.get('subCatId');
 		this.myId = this.activatedRoute.snapshot.paramMap.get('consultantId');
 
@@ -84,8 +88,8 @@ export class ConsultantprofileComponent implements OnInit {
 			// this.global.dismisLoading();
 			this.global
 				.httpPost('consultant/show', {
-					id: this.myId,
-					category_item_id: this.catId,
+					link: this.myId,
+					category_item_link: this.catId,
 				})
 				.subscribe(
 					(res) => {
@@ -121,6 +125,16 @@ export class ConsultantprofileComponent implements OnInit {
 						consultant.title = res.title;
 						consultant.plan = res.plan;
 						consultant.timeline = [];
+						this.setSeo(
+							{
+							  metaTitle:res['seo'].title,
+							  metaDescription:res['seo'].description,
+							  metaKeywords:res['seo'].keywords,
+							  img:res['media'].path,
+							  isNoIndex:false,
+			  
+							}
+						  )
 						res.plan.price.map((prices) => {
 							const price = new ConsultantPlanPrice();
 							price.id = prices.id;
@@ -153,9 +167,9 @@ export class ConsultantprofileComponent implements OnInit {
 						this.global.dismisLoading();
             this.breadCrumb = [
               { url: '/', name: 'صفحه نخست' },
-              { url: '/c', name: ` ${res?.category?.name} ` },
-              { url: '/c', name: ` ${res?.category?.children[0]} ` },
-              { url: '/', name: `پروفایل ${this.details?.consultant_name} ` },
+              { url: `/c/${res?.category?.seo.link}`, name: ` ${res?.category?.name} ` },
+              { url:  `/c/m/${res?.category?.children[0].seo.link}`, name: ` ${res?.category?.children[0].name} ` },
+              { url: `/c/m/${res?.category?.children[0].seo.link}/${this.myId}`, name: `پروفایل ${this.details?.consultant_name} ` },
             ];
 					},
 					(err) => {
@@ -373,4 +387,17 @@ export class ConsultantprofileComponent implements OnInit {
 			}
 		}, 1000);
 	}
+	
+  
+	setSeo(data) {
+  
+		this.seo.generateTags({
+			title: data.metaTitle,
+			description: data.metaDescription,
+			keywords: data.metaKeywords,
+			image:data.img,
+			isNoIndex: data.isNoIndex,
+		});
+		
+	  }
 }

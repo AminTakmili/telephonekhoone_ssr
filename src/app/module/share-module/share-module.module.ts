@@ -35,6 +35,7 @@ import { StarRatingComponent } from './star-rating/star-rating.component';
 import { ImageGalleryComponent } from 'src/app/components/image-gallery/image-gallery.component';
 import { RulesPage } from 'src/app/rules-component/rules.page';
 import { PipesModule } from '../pipes-module/pipes/pipes.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
@@ -48,7 +49,7 @@ import { PipesModule } from '../pipes-module/pipes/pipes.module';
 		ValidatorModule,
 		CKEditorModule,
 		PipesModule,
-// NgxPaginationModule
+NgxPaginationModule
 
 	],
 	providers: [InAppBrowser],
