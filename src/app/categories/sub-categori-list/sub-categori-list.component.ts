@@ -197,7 +197,7 @@ export class SubCategoriListComponent implements OnInit,OnDestroy {
 						this.emptyAnimation.goToAndPlay(0);
 					}, 500);
 				}
-				console.log(res.category['seo']);
+				// console.log(res.category['seo']);
 				this.setSeo(
 					{
 					  metaTitle:res.category['seo'].title,

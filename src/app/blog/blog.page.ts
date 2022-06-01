@@ -108,7 +108,7 @@ export class BlogPage implements OnInit {
                     res.latest.map((item) => {
                         const latest = new LatestPosts();
                         latest.created_at = item.created_at;
-                        latest.id = item.id;
+                        latest.id = item.seo.link;
                         latest.title = item.title;
                         if (item.media[0]) {
                             latest.media = item.media[0].options?.subSizes.medium ?? item.media[0].path;
@@ -143,7 +143,7 @@ export class BlogPage implements OnInit {
             description: data.metaDescription,
             canonical: data.canonicalLink,
             keywords: data.metaKeywords.toString(),
-            image: '/assets/img/icon/icon-384x384.png',
+            image: '/assets/img/seo-logo.png',
             isNoIndex: data.isNoIndex,
         });
         

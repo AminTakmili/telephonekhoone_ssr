@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AlertController} from '@ionic/angular';
 import {GlobalService} from 'src/app/services/global.service';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
     selector: 'app-favourites',
@@ -20,13 +21,51 @@ export class FavouritesComponent implements OnInit {
 
     constructor(
         private global: GlobalService,
-        private alertController: AlertController
+        private alertController: AlertController,
+        public seo: SeoService,
+
     ) {
     }
 
     ngOnInit() {
         this.getData();
+          
+        this.setSeo(
+            {
+              metaTitle:'علاقه مندی ها',
+              metaDescription:'علاقه مندی ها در تلفن خونه',
+              metaKeywords:'علاقه مندی ها,علاقه مندی ها تلفن خونه, علاقه مندی ها مشاوره',
+              isNoIndex:false
+
+            }
+            )
     }
+    ionViewWillEnter() {
+		// console.log("object");
+       
+        this.setSeo(
+            {
+              metaTitle:'علاقه مندی ها',
+              metaDescription:'علاقه مندی ها در تلفن خونه',
+              metaKeywords:'علاقه مندی ها,علاقه مندی ها تلفن خونه, علاقه مندی ها مشاوره',
+              isNoIndex:false
+
+            }
+            )
+      }
+      setSeo(data) {
+		// console.log(data);
+	  this.seo.generateTags({
+		  title: data.metaTitle,
+		  description: data.metaDescription,
+		  canonical: data.canonicalLink,
+		  keywords: data.metaKeywords.toString(),
+		  image: '/assets/img/icon/icon-384x384.png',
+		  isNoIndex: data.isNoIndex,
+	  });
+	  
+  }
+
 
     async removeFavourite(item) {
         const alert = await this.alertController.create({

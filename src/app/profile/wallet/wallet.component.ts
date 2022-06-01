@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import {NavController} from '@ionic/angular';
 import {GlobalService} from 'src/app/services/global.service';
+import { SeoService } from 'src/app/services/seo.service';
 import {UserBalanceService} from 'src/app/services/user-balance.service';
 
 @Component({
@@ -31,7 +32,9 @@ export class WalletComponent implements OnInit {
         private fb: FormBuilder,
         private navCtrl: NavController,
         private balanceService: UserBalanceService,
-		private iab: InAppBrowser
+		private iab: InAppBrowser,
+        public seo: SeoService,
+
     ) {
         this.balanceService.getUserBalance().subscribe((value) => {
             this.balance = value;
@@ -50,7 +53,42 @@ export class WalletComponent implements OnInit {
 
     ngOnInit() {
         this.getWalletInfo();
+        this.setSeo(
+            {
+              metaTitle:'افزایش موجودی حساب کاربری',
+              metaDescription:'افزایش موجودی حساب کاربری در تلفن خونه',
+              metaKeywords:'افزایش موجودی حساب کاربری,افزایش موجودی حساب کاربری تلفن خونه, افزایش موجودی حساب کاربری مشاوره',
+              isNoIndex:false
+
+            }
+            )
     }
+    ionViewWillEnter() {
+		// console.log("object");
+       
+        this.setSeo(
+            {
+              metaTitle:'افزایش موجودی حساب کاربری',
+              metaDescription:'افزایش موجودی حساب کاربری در تلفن خونه',
+              metaKeywords:'افزایش موجودی حساب کاربری,افزایش موجودی حساب کاربری تلفن خونه, افزایش موجودی حساب کاربری مشاوره',
+              isNoIndex:false
+
+            }
+            )
+      }
+      setSeo(data) {
+		// console.log(data);
+	  this.seo.generateTags({
+		  title: data.metaTitle,
+		  description: data.metaDescription,
+		  canonical: data.canonicalLink,
+		  keywords: data.metaKeywords.toString(),
+		  image: '/assets/img/icon/icon-384x384.png',
+		  isNoIndex: data.isNoIndex,
+	  });
+	  
+  }
+
 
     setPackage(item) {
         this.walletForm.get('amount').setValue(item.amount);

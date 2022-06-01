@@ -3,6 +3,7 @@ import { IonContent, IonSearchbar, NavController } from '@ionic/angular';
 import { Blog, Categories, LatestPosts } from '../classes/Blog';
 import { Seminars } from '../models/seminars.model';
 import { GlobalService } from '../services/global.service';
+import { SeoService } from '../services/seo.service';
 
 @Component({
 	selector: 'app-webinar',
@@ -25,12 +26,40 @@ export class WebinarPage implements OnInit {
 		{ url: '/webinar', name: 'وبینار' },
 	];
 
-	constructor(private global: GlobalService, private navCtrl: NavController) {
+	constructor(
+		private global: GlobalService, 
+		private navCtrl: NavController,
+		public seo: SeoService,
+
+		
+		) {
 	}
 
 	ngOnInit() {
 		this.getWebinarData();
+		this.setSeo(
+            {
+              metaTitle:'وبینارهای',
+              metaDescription:'وبینار تلفن خونه',
+              metaKeywords:'وبینارهای,وبینارهای تلفن خونه, وبینارهای مشاوره',
+              isNoIndex:false
+
+            }
+            )
 	}
+	ionViewWillEnter() {
+		// console.log("object");
+       
+        this.setSeo(
+            {
+              metaTitle:'وبینارهای',
+              metaDescription:'وبینار تلفن خونه',
+              metaKeywords:'وبینارهای,وبینارهای تلفن خونه, وبینارهای مشاوره',
+              isNoIndex:false
+
+            }
+            )
+      }
 
 	pageChange(ev) {
 		this.latest = [];
@@ -96,5 +125,17 @@ export class WebinarPage implements OnInit {
 				}
 			);
 	}
+	setSeo(data) {
+  		// console.log(data);
+        this.seo.generateTags({
+            title: data.metaTitle,
+            description: data.metaDescription,
+            canonical: data.canonicalLink,
+            keywords: data.metaKeywords.toString(),
+            image: '/assets/img/icon/icon-384x384.png',
+            isNoIndex: data.isNoIndex,
+        });
+        
+    }
 
 }

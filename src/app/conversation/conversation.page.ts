@@ -5,6 +5,7 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { NavController } from '@ionic/angular';
 import { ChatService } from '../services/chat.service';
+import { SeoService } from '../services/seo.service';
 @Component({
 	selector: 'app-conversation',
 	templateUrl: './conversation.page.html',
@@ -31,7 +32,10 @@ export class ConversationPage implements OnInit {
 		private activatedRoute: ActivatedRoute,
 		private navCtrl: NavController,
 		private chatService: ChatService,
-		private mediaMatcher: MediaMatcher) {
+		private mediaMatcher: MediaMatcher,
+		public seo: SeoService,
+
+		) {
 			
 		const mediaQueryList = mediaMatcher.matchMedia('(max-width: 768px)');
 		this.isMobile = mediaQueryList.matches;
@@ -54,7 +58,32 @@ export class ConversationPage implements OnInit {
 			}
 		});
 		this.activeChatId = this.activatedRoute.snapshot?.children[0]?.params['chat-id'];
+		
+			this.setSeo(
+				{
+				  metaTitle:'گفتگوی متنی',
+				  metaDescription:'گفتگوی متنی در تلفن خونه',
+				  metaKeywords:'گفتگوی متنی,گفتگوی متنی تلفن خونه, گفتگوی متنی با مشاوره',
+				  isNoIndex:false
+	
+				}
+				)
+		  
 	}
+
+	setSeo(data) {
+		// console.log(data);
+	  this.seo.generateTags({
+		  title: data.metaTitle,
+		  description: data.metaDescription,
+		  canonical: data.canonicalLink,
+		  keywords: data.metaKeywords.toString(),
+		  image: '/assets/img/icon/icon-384x384.png',
+		  isNoIndex: data.isNoIndex,
+	  });
+	  
+  }
+
 
 	setEmptyPage(value) {
 		if (value) {
@@ -66,6 +95,15 @@ export class ConversationPage implements OnInit {
 
 	ngOnInit() {
 		this.getArchive(false);
+		this.setSeo(
+			{
+			  metaTitle:'گفتگوی متنی',
+			  metaDescription:'گفتگوی متنی در تلفن خونه',
+			  metaKeywords:'گفتگوی متنی,گفتگوی متنی تلفن خونه, گفتگوی متنی با مشاوره',
+			  isNoIndex:false
+
+			}
+			)
 	}
 
 	getArchive(refreshing) {

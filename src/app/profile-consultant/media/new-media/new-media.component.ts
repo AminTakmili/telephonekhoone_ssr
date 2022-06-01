@@ -36,6 +36,7 @@ export class NewMediaComponent implements OnInit {
 	selectedFiles = [];
 	selectedPreview = [];
 	selectedMain = [];
+	dataType:Array<object>
 	constructor(private activatedRoute: ActivatedRoute, private socketService: WebSocketService, private navCtrl: NavController, private fb: FormBuilder, public global: GlobalService) {
 		this.myId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
 		this.mediaForm = this.fb.group({
@@ -57,6 +58,12 @@ export class NewMediaComponent implements OnInit {
 					Validators.required,
 				]),
 			],
+			type: [
+				'',
+				Validators.compose([
+					Validators.required,
+				]),
+			],
 		});
 	}
 
@@ -70,6 +77,7 @@ export class NewMediaComponent implements OnInit {
 			this.pageTitle = 'ثبت رسانه جدید';
 			this.editing = false;
 		}
+		this.getType()
 	}
 
 	getData() {
@@ -252,6 +260,7 @@ export class NewMediaComponent implements OnInit {
 					this.clearInputs();
 				}
 				const params = {
+					category_item_id: this.mediaForm.get('type').value,
 					title: this.mediaForm.get('title').value,
 					description: this.mediaForm.get('description').value,
 					type: this.mediaType.value,
@@ -277,6 +286,17 @@ export class NewMediaComponent implements OnInit {
 		}
 
 
+	}
+	getType(){
+		this.global.httpGet('userMedia').subscribe(
+			async (res:any) => {
+			console.log(res);	
+			this.dataType=res
+			},
+			async (error:any) => {
+				console.log(error);
+			}
+		)
 	}
 
 }

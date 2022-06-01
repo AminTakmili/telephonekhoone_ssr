@@ -1,23 +1,32 @@
+import { environment } from './src/environments/environment';
 import 'zone.js/dist/zone-node';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
+
 import * as express from 'express';
+import * as https from 'https';
+
 import { join } from 'path';
 
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
   const distFolder = join(process.cwd(), 'dist/app/browser');
-  const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
+  const indexHtml = existsSync(join(distFolder, 'index.original.html'))
+    ? 'index.original.html'
+    : 'index';
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
-  server.engine('html', ngExpressEngine({
-    bootstrap: AppServerModule,
-  }));
+  server.engine(
+    'html',
+    ngExpressEngine({
+      bootstrap: AppServerModule,
+    })
+  );
 
   server.set('view engine', 'html');
   server.set('views', distFolder);
@@ -25,26 +34,57 @@ export function app(): express.Express {
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
-  server.get('*.*', express.static(distFolder, {
-    maxAge: '1y'
-  }));
+  server.get(
+    '*.*',
+    express.static(distFolder, {
+      maxAge: '1y',
+    })
+  );
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
-    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+    res.render(indexHtml, {
+      req,
+      providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }],
+    });
   });
 
   return server;
 }
 
 function run(): void {
-  const port = process.env['PORT'] || 4000;
 
-  // Start up the Node server
   const server = app();
-  server.listen(port, () => {
-    console.log(`Node Express server listening on http://localhost:${port}`);
-  });
+
+  //*HTTPS && SERVER
+  // if (process.env.NODE_ENV === 'production') {
+  //   const portHttps = process.env.PORT || environment.SSL_PORT;
+  //   const httpsServer = https.createServer(
+  //     {
+  //       key: readFileSync(environment.SSL_KEY),
+  //       cert: readFileSync(environment.SSL_CERT),
+  //       rejectUnauthorized: false,
+  //       requestCert: false,
+  //     },
+  //     server
+  //   );
+  //   httpsServer.listen(portHttps, () => {
+  //     console.log(
+  //       `Node Express server listening on https://localhost:${portHttps}`
+  //     );
+  //   });
+  // }
+  //*HTTP && local
+  // if (process.env.NODE_ENV === 'development') {
+    const portHttp = process.env.PORT || 4000;
+    server.listen(portHttp, () => {
+      console.log(
+        `Node Express server listening on http://localhost:${portHttp}`
+      );
+    });
+  // }
+
+
 }
 
 // Webpack will replace 'require' with '__webpack_require__'
@@ -52,7 +92,7 @@ function run(): void {
 // The below code is to ensure that the server is run only when not requiring the bundle.
 declare const __non_webpack_require__: NodeRequire;
 const mainModule = __non_webpack_require__.main;
-const moduleFilename = mainModule && mainModule.filename || '';
+const moduleFilename = (mainModule && mainModule.filename) || '';
 if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
   run();
 }

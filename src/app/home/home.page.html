@@ -79,7 +79,12 @@
                       <div class="searchItems" *ngIf="searchItems.blogs?.length + searchItems.consoltants?.length != 0">
                           <ul>
                               <li *ngFor="let consoltant of searchItems.consoltants" class="searchItem">
-                                  <a [routerLink]="['/c' , 'm' ,consoltant.category_item_id ,consoltant.id]">
+<!-- !!11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 -->
+                                <!-- todo -->
+                                <!--? <a [routerLink]="['/c' , 'm' ,consoltant.category_item_id ,consoltant.id]"> -->
+                                  <!--* تگ بعد حذف باید بشه  -->
+                                    <a [routerLink]="['/c']">
+
                   {{ consoltant.fullname }} در دسته بندی
                   <span> {{ consoltant.category }} </span>
                 </a>
@@ -90,7 +95,12 @@
                           </h3>
                           <ul>
                               <li *ngFor="let blog of searchItems.blogs" class="searchItem">
-                                  <a [routerLink]="['/b' , blog.id]">{{ blog.title }}</a>
+<!-- !!11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 -->
+                                    <!-- todo -->
+                                    <!--? <a [routerLink]="['/b' , blog['seo']['link']]">{{ blog.title }}</a> -->
+                                        <!--* تگ بعد حذف باید بشه  -->
+        
+                                <a [routerLink]="['/b']">{{ blog.title }}</a>
                               </li>
                           </ul>
                       </div>
@@ -235,7 +245,12 @@
                           </div>
                           <p><span>{{ item.consultations }}</span> مشاوره</p>
                       </div>
-                      <ion-button [routerLink]="['/c' , 'm' ,item.category_item_id ,item.id]" class="font-size-12 w-100" expand="block" shape="round" fill="outline" color="primary">
+<!-- !!11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 -->
+
+                      <!-- todo -->
+                      <!-- ?<ion-button [routerLink]="['/c' , 'm' ,item.category_item_id ,item.id]" class="font-size-12 w-100" expand="block" shape="round" fill="outline" color="primary"> -->
+                      <!--* تگ بعد حذف باید بشه  -->
+                        <ion-button [routerLink]="['/c' ]" class="font-size-12 w-100" expand="block" shape="round" fill="outline" color="primary">
                           <ion-label> دریافت مشاوره</ion-label>
                       </ion-button>
                       <!-- <div class="btns flex-row-center-between w-100"> -->
@@ -354,7 +369,7 @@
                   <div class="home-cards box-shadow w-100 flex">
                       <div class="image">
                           <ng-template ngFor let-img [ngForOf]="seminar.media">
-                              <a *ngIf="img.name == 'logo'" [routerLink]="['/webinar/' ,seminar.id]">
+                              <a *ngIf="img.name == 'logo'" [routerLink]="['/webinar/' ,seminar.link]">
                                   <img class="img-cover" [src]="img.options.subSizes.large? img.options.subSizes.large : img.options.subSizes.medium " alt="{{ seminar.presenter_name }}" />
                               </a>
                           </ng-template>
@@ -407,7 +422,7 @@
           </div>
           <ion-slides class="show-overslide pt-10 pt-md-40" [options]="slideOpts2">
               <ion-slide *ngFor="let item of blogs">
-                  <div class="home-cards home-magzine box-shadow w-100 flex" [routerLink]="['/b' , '520']">
+                  <div class="home-cards home-magzine box-shadow w-100 flex" [routerLink]="['/b' ,item.link]">
                       <div class="image">
                           <img *ngIf="item.media" class="img-cover" [src]="item.media" alt="" />
                           <img *ngIf="!item.media" class="img-cover" src="assets/img/no-image.jpg" alt="" />

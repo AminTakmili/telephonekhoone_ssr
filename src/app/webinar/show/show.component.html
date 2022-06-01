@@ -32,7 +32,7 @@
                                 <ion-thumbnail slot="start">
                                     <img *ngIf="seminarDetail?.presenter_profile" class="img-cover" [src]="
 									seminarDetail?.presenter_profile?.options.subSizes.medium ? seminarDetail?.presenter_profile?.options.subSizes.medium : seminarDetail?.presenter_profile?.path
-                    " [alt]="seminarDetail?.presenter_name" />
+                                     " [alt]="seminarDetail?.presenter_name" />
                                 </ion-thumbnail>
                                 <ion-label class="w-100 ion-justify-content-between">
                                     <div class="flex-column">
@@ -77,6 +77,8 @@
                         <div class="webinar-desc w-100 p-0">
                             <div class="image">
                                 <img *ngIf="seminarDetail?.logo?.options.subSizes.large" class="img-cover" [src]="seminarDetail?.logo.options.subSizes.large" alt="" />
+                                <img *ngIf="!(seminarDetail?.logo?.options.subSizes.large)&&seminarDetail?.logo?.path" class="img-cover" [src]="seminarDetail?.logo?.path" [alt]="seminarDetail?.title" />
+                                <img *ngIf="!(seminarDetail?.logo?.options.subSizes.large)&&!seminarDetail?.logo?.path" class="img-cover" [src]="'/assets/img/no-image.jpg'" [alt]="seminarDetail?.title" />
                             </div>
                             <h2 class="title title-type-one">
                                 <span>درباره این وبینار</span>

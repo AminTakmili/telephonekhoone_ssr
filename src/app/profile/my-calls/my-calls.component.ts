@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { GlobalService } from 'src/app/services/global.service';
 import { SurveyComponent } from 'src/app/module/share-module/survey/survey.component';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
 	selector: 'app-my-calls',
@@ -25,15 +26,50 @@ export class MyCallsComponent implements OnInit {
 
 	constructor(private global: GlobalService,
 		private iab: InAppBrowser,
-		private modalController: ModalController) {
+		private modalController: ModalController,
+		public seo: SeoService,
+
+		) {
 	}
 
 	ngOnInit() {
+		this.setSeo(
+			{
+			  metaTitle:'مکالمات من',
+			  metaDescription:'مکالمات من در تلفن خونه',
+			  metaKeywords:'مکالمات من,مکالمات من تلفن خونه, مکالمات من ',
+			  isNoIndex:false
+
+			}
+			)
 	}
 
 	ionViewWillEnter() {
-		this.getCallsData(false);
+	
+			this.setSeo(
+				{
+				  metaTitle:'مکالمات من',
+				  metaDescription:'مکالمات من در تلفن خونه',
+				  metaKeywords:'مکالمات من,مکالمات من تلفن خونه, مکالمات من ',
+				  isNoIndex:false
+	
+				}
+				)
+		  
 	}
+	setSeo(data) {
+		// console.log(data);
+	  this.seo.generateTags({
+		  title: data.metaTitle,
+		  description: data.metaDescription,
+		  canonical: data.canonicalLink,
+		  keywords: data.metaKeywords.toString(),
+		  image: '/assets/img/icon/icon-384x384.png',
+		  isNoIndex: data.isNoIndex,
+	  });
+	  
+  }
+
 
 	async showSurvey(item) {
 		const modal = await this.modalController.create({

@@ -8,16 +8,20 @@ export interface MediaConsultant {
 export class UserMedia implements Deserializable {
 	id: number;
 	title: string;
+	link: string;
 	type: string;
 	price: number;
 	created_at: string;
 	consultant: MediaConsultant;
+
 	deserialize(input: any) {
+		console.log(input);
 		Object.assign(this, input);
 		const consultant = {} as MediaConsultant;
 		consultant.fullName = input.fullname;
 		consultant.image = input.image;
 		this.consultant = consultant;
+		input.seo? this.link=input.seo['link']:''
 		return this;
 	}
 }

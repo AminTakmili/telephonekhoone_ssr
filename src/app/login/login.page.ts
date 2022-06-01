@@ -12,6 +12,7 @@ import { UserInfo } from '../classes/UserInfo';
 import { CountriesPopoverComponent } from '../components/countries-popover/countries-popover.component';
 import { RulesPage } from '../rules-component/rules.page';
 import { GlobalService } from '../services/global.service';
+import { SeoService } from '../services/seo.service';
 import { StorageService } from '../services/storage.service';
 import { UserBalanceService } from '../services/user-balance.service';
 import { ValidateMobile } from '../validators/mobile.validator';
@@ -58,6 +59,8 @@ export class LoginPage implements OnInit {
 		private userBalance: UserBalanceService,
 		private storage: Storage,
 		private StorageService: StorageService,
+		public seo: SeoService,
+
 		
 	) {
 		this.StorageService.get('url').then((val) => {
@@ -88,6 +91,21 @@ export class LoginPage implements OnInit {
 			gender: ['', Validators.compose([Validators.required])],
 		});
 	}
+	ionViewWillEnter() {
+		// console.log("object");
+       
+		this.setSeo(
+			{
+			  metaTitle:'ورود',
+			  metaDescription:'ورود به تلفن خونه',
+			  metaKeywords:'ورود,ورود تلفن خونه, ورود مشاوره',
+			  isNoIndex:false
+
+			}
+			)
+	  
+      }
+
 
 	codeChange() {
 		if (this.verifyForm.get('code')?.value?.length === 5) {
@@ -119,6 +137,16 @@ export class LoginPage implements OnInit {
 			{ url: '/', name: 'صفحه نخست' },
 			{ url: '/login', name: this.breadCrumbTitle },
 		];
+		this.setSeo(
+			{
+			  metaTitle:'ورود',
+			  metaDescription:'ورود به تلفن خونه',
+			  metaKeywords:'ورود,ورود تلفن خونه, ورود مشاوره',
+			  isNoIndex:false
+
+			}
+			)
+	  
 	}
 
 	async changeNum() {
@@ -462,6 +490,18 @@ export class LoginPage implements OnInit {
 			this.global.showToast('مطالعه قوانین الزامی است !', 2000, 'top');
 		}
 	}
+	setSeo(data) {
+		// console.log(data);
+	  this.seo.generateTags({
+		  title: data.metaTitle,
+		  description: data.metaDescription,
+		  canonical: data.canonicalLink,
+		  keywords: data.metaKeywords.toString(),
+		  image: '/assets/img/icon/icon-384x384.png',
+		  isNoIndex: data.isNoIndex,
+	  });
+	  
+  }
 }
 
 export interface Country {

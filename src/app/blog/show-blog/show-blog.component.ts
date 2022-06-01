@@ -46,6 +46,9 @@ export class ShowBlogComponent implements OnInit {
     ngOnInit() {
         this.myId = (this.activatedRoute.snapshot.paramMap.get('id'));
         this.getData();
+        if (this.seoObtion!== undefined) {
+            this.setSeo(this.seoObtion)
+        }
      
     }
     ionViewWillEnter() {

@@ -44,7 +44,7 @@ export class DetailComponent implements OnInit {
 			this.loading = true;
 			this.global
 				.httpPost('media/show', {
-					id: id,
+					link: id,
 				})
 				.subscribe(
 					(res) => {

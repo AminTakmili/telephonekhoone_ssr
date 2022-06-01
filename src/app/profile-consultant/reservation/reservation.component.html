@@ -81,7 +81,8 @@
                             <p class="gray-600 ion-text-center py-30">
                                 برنامه ای برای شما یافت نشد لطفا برای دریافت برنامه کاری با پشتیبانی در تماس باشید
                             </p>
-                            <ion-button onclick="window.Raychat.open();" expand="block" color="red-medium" class="btn shadow-clear">تماس با پشتیبانی</ion-button>
+                          <!-- [ngIf]="global.isBrowser"   -->
+                            <!-- <ion-button onclick=" window.Raychat.open();" expand="block" color="red-medium" class="btn shadow-clear"  *appShellNoRender>تماس با پشتیبانی</ion-button> -->
                         </div>
                         <h3 class="items-title" *ngIf="plans.length != 0"> پکیج های مشاوره تعریف شده برای شما </h3>
                         <div class="box-shadow w-100 ion-align-items-start" *ngIf="plans.length != 0">

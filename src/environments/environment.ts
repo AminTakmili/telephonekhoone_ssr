@@ -5,7 +5,10 @@
 export const environment = {
   production: false,
   siteUrl : "http://localhost/",
-  defaultToken:'9x8869x31134x7906x6x54474x21x18xxx90857x'
+  defaultToken:'9x8869x31134x7906x6x54474x21x18xxx90857x',
+  SSL_CERT : '/usr/local/directadmin/data/users/ssr/domains/ssr.telephonekhooneh.com.cert.combined',
+  SSL_KEY  : '/usr/local/directadmin/data/users/ssr/domains/ssr.telephonekhooneh.com.key',
+  SSL_PORT : 6002
 };
 
 /*

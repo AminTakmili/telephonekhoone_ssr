@@ -6,6 +6,7 @@ import { PlanDetailComponent } from 'src/app/components/plan-detail/plan-detail.
 import { Reserve } from 'src/app/models/reserve.model';
 import { GlobalService } from 'src/app/services/global.service';
 import * as pickerAnimation from 'src/app/animations/picker';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
 	selector: 'app-reservation',
@@ -25,8 +26,10 @@ export class ReservationComponent implements OnInit {
 
 	constructor(
 		private popoverController: PopoverController,
-		private global: GlobalService,
-		private modalController: ModalController
+		public global: GlobalService,
+		private modalController: ModalController,
+		public seo: SeoService,
+
 	) { }
 
 	async showDatePicker(item?: Reserve) {
@@ -61,7 +64,30 @@ export class ReservationComponent implements OnInit {
 
 	ngOnInit() {
 		this.getPlanData();
+		this.setSeo(
+            {
+              metaTitle:'تلفون خونه',
+              metaDescription:' تلفن خونه',
+              metaKeywords:', تلفن خونه,  مشاوره',
+              isNoIndex:false
+
+            }
+            )
 	}
+	ionViewWillEnter() {
+		// console.log("object");
+       
+        this.setSeo(
+            {
+              metaTitle:'تلفون خونه',
+              metaDescription:' تلفن خونه',
+              metaKeywords:', تلفن خونه,  مشاوره',
+              isNoIndex:false
+
+            }
+            )
+      }
+
 
 	getPlanData() {
 		this.loading = true;
@@ -183,6 +209,18 @@ export class ReservationComponent implements OnInit {
 				alert.present();
 			});
 	}
+	setSeo(data) {
+		console.log(data);
+	  this.seo.generateTags({
+		  title: data.metaTitle,
+		  description: data.metaDescription,
+		  canonical: data.canonicalLink,
+		  keywords: data.metaKeywords.toString(),
+		  image: '/assets/img/icon/icon-384x384.png',
+		  isNoIndex: data.isNoIndex,
+	  });
+	  
+  }
 }
 
 interface Plans {

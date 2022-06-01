@@ -38,20 +38,26 @@ export class ConsultantGuard implements CanActivate {
     private StorageService: StorageService,
     private navCtrl: NavController
   ) {}
+  
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Promise<boolean> {
     return this.StorageService.get('isLogin').then((val) => {
+
       if (val) {
         return this.StorageService.get('userType').then((val2) => {
-          if (val2 == 'user') {
+          if (val2 === 'user') {
+            this.navCtrl.navigateRoot('/profile/editinfo');
+          }else if(val2==="consultant"){
             return true;
+          }else{
+            this.navCtrl.navigateRoot('/login');
           }
           // this.navCtrl.navigateRoot('/profile-consultant/editinfo');
-          this.navCtrl.navigateRoot('/profile/editinfo');
         });
       }
+
       this.navCtrl.navigateRoot('/login');
     });
   }

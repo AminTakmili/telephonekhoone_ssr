@@ -19,7 +19,7 @@
     </h3>
     <ul class="news">
         <ng-template [ngIf]="!_loading && data.latest?.length != 0">
-            <li [routerLink]="['/b/' + items.seo?.link]" class="border-box cursor-pointer p-10 mb-10" *ngFor="let items of data.latest">
+            <li [routerLink]="['/b/' + items.id]" class="border-box cursor-pointer p-10 mb-10" *ngFor="let items of data.latest">
                 <div class="image">
                     <img *ngIf="items.media" class="img-cover" src="{{ items.media }}" alt="{{ items.title }}" />
                     <img *ngIf="!items.media" class="img-cover" src="assets/img/no-image.jpg" alt="no image found" />

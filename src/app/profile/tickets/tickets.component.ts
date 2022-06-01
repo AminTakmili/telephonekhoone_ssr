@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
 import {GlobalService} from 'src/app/services/global.service';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
     selector: 'app-tickets',
@@ -19,7 +20,9 @@ export class TicketsComponent implements OnInit {
     constructor(
         private navCtrl: NavController,
         private global: GlobalService,
-        private storage: Storage
+        private storage: Storage,
+        public seo: SeoService,
+
     ) {
     }
 
@@ -30,11 +33,42 @@ export class TicketsComponent implements OnInit {
     offset = 0;
 
     ngOnInit() {
+        this.setSeo(
+            {
+              metaTitle:'پشتیبانی',
+              metaDescription:'پشتیبانی به تلفن خونه',
+              metaKeywords:'پشتیبانی,پشتیبانی تلفن خونه, پشتیبانی مشاوره',
+              isNoIndex:false
+
+            }
+            )
     }
 
     ionViewWillEnter() {
         this.getTickets(false);
+        this.setSeo(
+            {
+              metaTitle:'پشتیبانی',
+              metaDescription:'پشتیبانی به تلفن خونه',
+              metaKeywords:'پشتیبانی,پشتیبانی تلفن خونه, پشتیبانی مشاوره',
+              isNoIndex:false
+
+            }
+            )
+      
     }
+    setSeo(data) {
+        console.log(data);
+      this.seo.generateTags({
+          title: data.metaTitle,
+          description: data.metaDescription,
+          canonical: data.canonicalLink,
+          keywords: data.metaKeywords.toString(),
+          image: '/assets/img/icon/icon-384x384.png',
+          isNoIndex: data.isNoIndex,
+      });
+      
+  }
 
     newTicket() {
         this.navCtrl.navigateRoot('/pages/more/tickets/new');

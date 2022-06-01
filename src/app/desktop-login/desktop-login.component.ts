@@ -14,6 +14,7 @@ import {ValidateMobile} from '../validators/mobile.validator';
 import {VerifyComponent} from './verify/verify.component';
 import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 import {UserInfo} from '../classes/UserInfo';
+import { SeoService } from '../services/seo.service';
 
 @Component({
     selector: 'app-desktop-login',
@@ -37,6 +38,8 @@ export class DesktopLoginComponent implements OnInit {
         private fb: FormBuilder,
         private iab: InAppBrowser,
         private StorageService: StorageService,
+        public seo: SeoService,
+
     ) {
         this.registerForm = this.fb.group({
             name: ['', Validators.compose([Validators.required])],
@@ -59,6 +62,15 @@ export class DesktopLoginComponent implements OnInit {
         this.platform.ready().then(() => {
             this.client = this.platform.platforms()[1];
         });
+        this.setSeo(
+            {
+              metaTitle:'ورود',
+              metaDescription:'ورود به تلفن خونه',
+              metaKeywords:'ورود,ورود تلفن خونه, ورود مشاوره',
+              isNoIndex:false
+
+            }
+            )
     }
 
     ionViewWillEnter() {
@@ -66,7 +78,19 @@ export class DesktopLoginComponent implements OnInit {
         //     this.navCtrl.navigateRoot('/tabs/dailyprice');
         // }
         this.global.removeToken();
-        this.loginForm.reset();
+        this.loginForm.reset();	
+           
+            this.setSeo(
+                {
+                  metaTitle:'ورود',
+                  metaDescription:'ورود به تلفن خونه',
+                  metaKeywords:'ورود,ورود تلفن خونه, ورود مشاوره',
+                  isNoIndex:false
+    
+                }
+                )
+          
+    
     }
 
     ionViewDidEnter() {
@@ -163,4 +187,16 @@ export class DesktopLoginComponent implements OnInit {
         let link = 'http://localhost:8100/law';
         const browser = this.iab.create(link);
     }
+    setSeo(data) {
+        // console.log(data);
+      this.seo.generateTags({
+          title: data.metaTitle,
+          description: data.metaDescription,
+          canonical: data.canonicalLink,
+          keywords: data.metaKeywords.toString(),
+          image: '/assets/img/icon/icon-384x384.png',
+          isNoIndex: data.isNoIndex,
+      });
+      
+  }
 }

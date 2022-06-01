@@ -12,6 +12,9 @@
             <app-header type="relative"></app-header>
             <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
 
+            <ion-grid>
+                <ion-row>
+                    <ion-col size-lg="9" size="12">
             <div class="container px-0">
                 <div class="filters">
                     <p>
@@ -56,11 +59,11 @@
                         <ion-col size-lg="3" size="12" class="px-10 pb-15" *ngFor="let item of mediaItems | paginate: { totalItems: mediaCount,  itemsPerPage: 9, currentPage: p2, id: 'second' } , let x = index">
                             <ion-card mode="ios" class="blog-cards w-100 ion-no-margin">
                                 <div class="p-10">
-                                    <div class="mediaItem" [routerLink]="['/media/' + item.id]">
+                                    <div class="mediaItem" [routerLink]="['/media/' +  item['_link']]">
                                         <ion-icon *ngIf="item.type === 'voice'" name="mic-outline"></ion-icon>
                                         <ion-icon *ngIf="item.type === 'video'" name="videocam-outline"></ion-icon>
                                     </div>
-                                    <div class="desc cursor-pointer" [routerLink]="['/media/' + item.id]">
+                                    <div class="desc cursor-pointer" [routerLink]="['/media/' + item['_link']]">
                                         <p>
                                             <ion-chip color="primary">
                                                 <ion-text> {{ item.type === 'voice' ? 'پادکست' : 'ویدئو' }} </ion-text>
@@ -78,7 +81,7 @@
                                         </ion-text>
                                     </div>
                                 </div>
-                                <ion-button [routerLink]="['/media/' + item.id]" class="ion-no-margin" expand="full" mode="ios" color="primary">مشاهده جزئیات
+                                <ion-button [routerLink]="['/media/' +  item['_link']]" class="ion-no-margin" expand="full" mode="ios" color="primary">مشاهده جزئیات
                                 </ion-button>
                             </ion-card>
                         </ion-col>
@@ -112,7 +115,69 @@
                 <app-not-found icon="videocam-outline" description="موردی یافت نشد" *ngIf="mediaCount === 0 && !loading">
                 </app-not-found>
             </div>
+                    </ion-col>
+                    <ion-col size-lg="3" size="12">
+                        <div class="media-side">
+                     
+                            <h3 class="font-size-18 mb-20 mt-30">
+                                آخرین مطالب
+                            </h3>
+                        
+                            <ul class="news">
+                    
+                                <ng-template [ngIf]="!loading && data['latest']?.length != 0">
+                                    <li [routerLink]="['/media/' + items['id']]" class="border-box cursor-pointer p-10 mb-10" *ngFor="let items of data['latest']">
+                                        <div class="image">
+                                            <img *ngIf="items.media" class="img-cover" src="{{ items.media }}" alt="{{ items.title }}" />
+                                            <img *ngIf="!items.media" class="img-cover" src="assets/img/no-image.jpg" alt="no image found" />
+                                        </div>
+                                        <div class="info">
+                                            <p class="desc">
+                                                {{ items.title }}
+                                            </p>
+                                            <span class="date font-size-10 gray-light">{{
+                                                items.created_at
+                                                }}</span>
+                                        </div>
+                                    </li>
+                                </ng-template>
+                                <ng-template [ngIf]="loading"  *appShellNoRender>
+                                    <li class="border-box cursor-pointer p-10 mb-10" *ngFor="let dummy of ' '.repeat(4).split(''); let i = index">
+                                        <div class="image">
+                                            <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+                                        </div>
+                                        <div class="info">
+                                            <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+                                            <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+                                            <!-- <p class="desc">
+                                
+                                            </p> -->
+                                            <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+                                        </div>
+                                    </li>
+                                </ng-template>
+                            </ul>
+                            <ng-template [ngIf]="!loading">
+                                <h3 class="font-size-18 mb-20 mt-30">دسته بندی مطالب</h3>
+                                <ion-card color="header" class="ion-no-padding ion-no-margin border-box item-clear ion-rounded-0 py-0">
+                                    <ion-list *ngIf="data['categories']&&data['categories'].length!=0" class="ion-no-padding font-size-12 categoriesList">
+                                        <ion-item [routerLink]="['/mc' ,  items['_link']]" routerLinkActive="active" [lines]="data['categories'].length - 1 == i ? 'none' : 'full'" *ngFor="let items of data['categories']; let i = index;">
+                                            <ion-label slot="start">
+                                                <p>{{ items.name }}</p>
+                                            </ion-label>
+                                            <ion-label class="ion-text-end">
+                                                <span>{{ items.entity_count }}</span>
+                                            </ion-label>
+                                        </ion-item>
+                                    </ion-list>
+                                </ion-card>
+                            </ng-template>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
         </section>
         <app-footer></app-footer>
     </div>
+  
 </ion-content>

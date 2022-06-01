@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserInfo } from 'src/app/classes/UserInfo';
 import { GlobalService } from 'src/app/services/global.service';
+import { SeoService } from 'src/app/services/seo.service';
 import { UserBalanceService } from 'src/app/services/user-balance.service';
 
 @Component({
@@ -22,7 +23,9 @@ export class EditInfoComponent implements OnInit {
 	constructor(
 		private balanceService: UserBalanceService,
 		private global: GlobalService,
-		private fb: FormBuilder
+		private fb: FormBuilder,
+		public seo: SeoService,
+
 	) {
 		this.editInfoForm = this.fb.group({
 			fullName: [this.global.getUserInfo().name, Validators.compose([Validators.required])],
@@ -34,7 +37,31 @@ export class EditInfoComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		  
+        this.setSeo(
+            {
+              metaTitle:'اطلاعات فردی',
+              metaDescription:'اطلاعات فردی کاربر تلفن خونه',
+              metaKeywords:'اطلاعات فردی,اطلاعات فردی تلفن خونه, اطلاعات فردی مشاوره',
+              isNoIndex:false
+
+            }
+            )
 	}
+	ionViewWillEnter() {
+		// console.log("object");
+       
+        this.setSeo(
+            {
+              metaTitle:'اطلاعات فردی',
+              metaDescription:'اطلاعات فردی کاربر تلفن خونه',
+              metaKeywords:'اطلاعات فردی,اطلاعات فردی تلفن خونه, اطلاعات فردی مشاوره',
+              isNoIndex:false
+
+            }
+            )
+      }
+
 
 	editInfo() {
 		const fullName = this.editInfoForm.get('fullName').value;
@@ -63,4 +90,16 @@ export class EditInfoComponent implements OnInit {
 				}
 			);
 	}
+	setSeo(data) {
+		console.log(data);
+	  this.seo.generateTags({
+		  title: data.metaTitle,
+		  description: data.metaDescription,
+		  canonical: data.canonicalLink,
+		  keywords: data.metaKeywords.toString(),
+		  image: '/assets/img/icon/icon-384x384.png',
+		  isNoIndex: data.isNoIndex,
+	  });
+	  
+  }
 }

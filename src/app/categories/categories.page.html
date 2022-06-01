@@ -23,7 +23,7 @@
 
                   <!--TODO [class.current]="item['seo']['link']== selectedId||!item['seo']['link']&&!selectedId" -->
 
-                  <ion-slide class="circleShadow" *ngFor="let item of newAllCatObj"  (click)="changeActiveCategory(item['seo']['link'])">
+                  <ion-slide class="circleShadow" *ngFor="let item of newAllCatObj" [class.current]="item['seo']&&(item['seo']['link']== selectedId||!item['seo']['link']&&!selectedId)"  (click)="changeActiveCategory(item['seo']['link'])">
                       {{ item.name }}
                   </ion-slide>
               </ion-slides>

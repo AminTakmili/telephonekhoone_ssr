@@ -27,6 +27,13 @@ export class Blog {
   public set id(value: number|string) {
     this._id = value;
   }
+  private _link: number|string;
+  public get link(): number|string {
+    return this._link;
+  }
+  public set link(value: number|string) {
+    this._link = value;
+  }
   private _title: string;
   public get title(): string {
     return this._title;
@@ -82,6 +89,13 @@ export class Categories {
   }
   public set id(value: number) {
     this._id = value;
+  }
+  private _link: number;
+  public get link(): number {
+    return this._link;
+  }
+  public set link(value: number) {
+    this._link = value;
   }
 
   private _name: string;

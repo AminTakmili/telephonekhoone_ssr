@@ -54,6 +54,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./media/media.module').then((m) => m.MediaPageModule),
   },
+  // {
+  //   path: 'mc/:id',
+  //   component: BlogCategoriesComponent,
+  // },
   {
     path: 'webinar',
     loadChildren: () =>

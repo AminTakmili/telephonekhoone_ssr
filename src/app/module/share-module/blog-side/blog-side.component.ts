@@ -39,7 +39,8 @@ export class BlogSideComponent implements OnInit {
 	}
 
 	ngOnChanges(changes) {
-		console.log(this.data);
+		console.log(this.data.categories?.id);	
+		console.log(changes.data);
 		console.log(changes);
 		this._loading = changes.loading.currentValue;
 	}

@@ -200,12 +200,13 @@ export class HomePage {
   }
 
   gotoCategory(item) {
-    this.router.navigate(['/c'], {
-      relativeTo: this.activateRoute,
-      queryParams: { id: item.id },
-      queryParamsHandling: 'merge',
-    });
-    // this.router.navigate(['/categories' , item.id])
+    console.log(item);
+    // this.router.navigate(['/c'], {
+    //   relativeTo: this.activateRoute,
+    //   queryParams: { id: item.id },
+    //   queryParamsHandling: 'merge',
+    // });
+    this.router.navigate(['/c' , item['_link']])
   }
 
   searchItem(val: any) {
@@ -222,6 +223,7 @@ export class HomePage {
         })
         .subscribe(
           (res) => {
+            // console.log(res);
             if (res.blogs) {
               res.blogs.map((blog) => {
                 const b = {} as Blogs;
@@ -354,6 +356,7 @@ export class HomePage {
         //  this.global.showLoading().then()
         this.global.httpGet('home').subscribe(
           (res) => {
+            console.log(res);
             if (res.enamad) {
               this.global.setEnamad(res.enamad);
             }
@@ -368,6 +371,7 @@ export class HomePage {
               const bl = new Blog();
               bl.created_at = blog.created_at;
               bl.id = blog.id;
+              bl.link = blog.seo.link;
               bl.title = blog.title;
               if (blog.media[0]) {
                 bl.media =
@@ -380,6 +384,7 @@ export class HomePage {
               const category = new Categories();
               category.name = cat.name;
               category.id = cat.id;
+              category.link = cat.seo?.link;
               category.entity_count = cat.entity_count;
               // console.log(cat.media.options.subSizes);
 
@@ -389,6 +394,7 @@ export class HomePage {
               this.categories.push(category);
             });
             res.consultants.map((item) => {
+              console.log(item);
               const list = new Searchitem();
               list.id = item.id;
               list.country = item.country;
@@ -434,7 +440,8 @@ export class HomePage {
             this.seminarItems = res.seminars.map((seminar: Seminars) =>
               new Seminars().deserialize(seminar)
             );
-            console.log(res['seo_information']);
+
+            // console.log(res.seminars);
             
             this.setSeo(
               {

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GlobalService} from '../services/global.service';
+import { SeoService } from '../services/seo.service';
 
 @Component({
     selector: 'app-help',
@@ -7,7 +8,10 @@ import {GlobalService} from '../services/global.service';
     styleUrls: ['./help.page.scss'],
 })
 export class HelpPage implements OnInit {
-    constructor(private global: GlobalService) {
+    constructor(
+        private global: GlobalService,		
+        public seo: SeoService,
+        ) {
     }
 
     content = '';
@@ -18,7 +22,30 @@ export class HelpPage implements OnInit {
 
     ngOnInit() {
         this.getHelpData();
+        this.setSeo(
+            {
+              metaTitle:'راهنما',
+              metaDescription:'راهنما تلفن خونه',
+              metaKeywords:'راهنما,راهنما تلفن خونه, راهنما مشاوره',
+              isNoIndex:false
+
+            }
+            )
     }
+    ionViewWillEnter() {
+		// console.log("object");
+       
+        this.setSeo(
+            {
+              metaTitle:'راهنما',
+              metaDescription:'راهنما تلفن خونه',
+              metaKeywords:'راهنما,راهنما تلفن خونه, راهنما مشاوره',
+              isNoIndex:false
+
+            }
+            )
+      }
+
 
     getHelpData() {
         this.global.showLoading().then(() => {
@@ -36,4 +63,16 @@ export class HelpPage implements OnInit {
             );
         });
     }
+    setSeo(data) {
+        // console.log(data);
+      this.seo.generateTags({
+          title: data.metaTitle,
+          description: data.metaDescription,
+          canonical: data.canonicalLink,
+          keywords: data.metaKeywords.toString(),
+          image: '/assets/img/icon/icon-384x384.png',
+          isNoIndex: data.isNoIndex,
+      });
+      
+  }
 }
