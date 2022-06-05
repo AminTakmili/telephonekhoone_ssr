@@ -84,6 +84,13 @@ export class Searchitem {
   public set category_item_id(value: number) {
     this._category_item_id = value;
   }
+  private _category_item_link: string;
+  public get category_item_link(): string {
+    return this._category_item_link;
+  }
+  public set category_item_link(value: string) {
+    this._category_item_link = value;
+  }
   private _consultations: number;
   public get consultations(): number {
     return this._consultations;
@@ -112,6 +119,13 @@ export class Searchitem {
   }
   public set id(value: number|string) {
     this._id = value;
+  }
+  private _link: string;
+  public get link(): string {
+    return this._link;
+  }
+  public set link(value: string) {
+    this._link = value;
   }
   private _image: any;
   public get image(): any {

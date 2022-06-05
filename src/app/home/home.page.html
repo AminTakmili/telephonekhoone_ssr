@@ -81,9 +81,9 @@
                               <li *ngFor="let consoltant of searchItems.consoltants" class="searchItem">
 <!-- !!11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 -->
                                 <!-- todo -->
-                                <!--? <a [routerLink]="['/c' , 'm' ,consoltant.category_item_id ,consoltant.id]"> -->
+                               <a [routerLink]="['/c' , 'm' ,consoltant.category_item_link ,consoltant.link]">
                                   <!--* تگ بعد حذف باید بشه  -->
-                                    <a [routerLink]="['/c']">
+                                    <!-- <a [routerLink]="['/c']"> -->
 
                   {{ consoltant.fullname }} در دسته بندی
                   <span> {{ consoltant.category }} </span>
@@ -97,10 +97,10 @@
                               <li *ngFor="let blog of searchItems.blogs" class="searchItem">
 <!-- !!11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 -->
                                     <!-- todo -->
-                                    <!--? <a [routerLink]="['/b' , blog['seo']['link']]">{{ blog.title }}</a> -->
+                                     <a [routerLink]="['/b' , blog['link']]">{{ blog.title }}</a>
                                         <!--* تگ بعد حذف باید بشه  -->
         
-                                <a [routerLink]="['/b']">{{ blog.title }}</a>
+                                <!-- <a [routerLink]="['/b']">{{ blog.title }}</a> -->
                               </li>
                           </ul>
                       </div>
@@ -248,9 +248,9 @@
 <!-- !!11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 -->
 
                       <!-- todo -->
-                      <!-- ?<ion-button [routerLink]="['/c' , 'm' ,item.category_item_id ,item.id]" class="font-size-12 w-100" expand="block" shape="round" fill="outline" color="primary"> -->
+                      <ion-button [routerLink]="['/c' , 'm' ,item.category_item_link ,item.link]" class="font-size-12 w-100" expand="block" shape="round" fill="outline" color="primary">
                       <!--* تگ بعد حذف باید بشه  -->
-                        <ion-button [routerLink]="['/c' ]" class="font-size-12 w-100" expand="block" shape="round" fill="outline" color="primary">
+                        <!-- <ion-button [routerLink]="['/c' ]" class="font-size-12 w-100" expand="block" shape="round" fill="outline" color="primary"> -->
                           <ion-label> دریافت مشاوره</ion-label>
                       </ion-button>
                       <!-- <div class="btns flex-row-center-between w-100"> -->

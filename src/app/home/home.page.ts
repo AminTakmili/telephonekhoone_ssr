@@ -230,6 +230,7 @@ export class HomePage {
                 b.category = blog.category;
                 b.id = blog.id;
                 b.title = blog.title;
+                b.link = blog.seo.link;
                 this.searchItems.blogs.push(b);
               });
             }
@@ -238,9 +239,11 @@ export class HomePage {
               res.consultants.map((consultant) => {
                 const c = {} as Consoltants;
                 c.category = consultant.category;
-                c.category_item_id = consultant.category_item_id;
                 c.fullname = consultant.fullname;
+                c.category_item_id = consultant.category_item_id;
+                c.category_item_link = consultant.category_item_link;
                 c.id = consultant.id;
+                c.link = consultant.seo.link;
                 this.searchItems.consoltants.push(c);
               });
             }
@@ -397,6 +400,7 @@ export class HomePage {
               console.log(item);
               const list = new Searchitem();
               list.id = item.id;
+              list.link = item.seo.link;
               list.country = item.country;
               list.fullname = item.fullname;
               list.id = item.id;
@@ -404,6 +408,7 @@ export class HomePage {
               list.is_online = item.is_online;
               list.consultations = item.consultations;
               list.category_item_id = item.category_item_id;
+              list.category_item_link = item.category_item_link;
               // list.prices = [];
               // item.prices.map((val) => {
               //   const price = new Prices();
@@ -498,15 +503,18 @@ interface Testimonials {
 
 interface Blogs {
   category: string;
-  id: number;
+  id?: number;
+  link: number;
   title: string;
 }
 
 interface Consoltants {
   category: string;
-  category_item_id: number;
+  category_item_id?: number;
+  category_item_link: string;
   fullname: string;
-  id: number;
+  id?: number;
+  link: string;
 }
 
 interface searchItems {
