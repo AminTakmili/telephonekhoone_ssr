@@ -1,13 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import {
 	AlertController,
 	ModalController,
 	NavController,
 	ToastController,
 } from '@ionic/angular';
-// import { time, timeline } from "console";
-
+import { Component, OnInit } from '@angular/core';
 import {
 	Consultant,
 	ConsultantPlanPrice,
@@ -15,17 +12,22 @@ import {
 	Price,
 	Timeline,
 } from 'src/app/classes/Consultant';
-import { GlobalService } from 'src/app/services/global.service';
-import { UserBalanceService } from 'src/app/services/user-balance.service';
-import { TimelineComponent } from 'src/app/components/timeline/timeline.component';
-import { WalletComponent } from 'src/app/components/wallet/wallet.component';
 //! import { NewChatComponent } from 'src/app/categories/dr-profile/new-chat/new-chat.component';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { Storage } from '@ionic/storage';
+
+import { ActivatedRoute } from '@angular/router';
 import { DecimalPipe } from '@angular/common';
+import { GlobalService } from 'src/app/services/global.service';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NewChatComponent } from './new-chat/new-chat.component';
 import { SeoService } from 'src/app/services/seo.service';
+import { Storage } from '@ionic/storage';
+import { TimelineComponent } from 'src/app/components/timeline/timeline.component';
+import { UserBalanceService } from 'src/app/services/user-balance.service';
+import { WalletComponent } from 'src/app/components/wallet/wallet.component';
+
+// import { time, timeline } from "console";
+
 
 @Component({
   selector: 'app-consultantprofile',
@@ -114,7 +116,7 @@ export class ConsultantprofileComponent implements OnInit {
 						consultant.is_online = res.is_online;
 						consultant.is_voice_call = res.is_voice_call;
 						consultant.is_chat = res.is_chat;
-						consultant.media = res.media.options?.subSizes;
+						consultant.media = res.media;
 						consultant.meta_description = res.meta_description;
 						consultant.meta_keywords = res.meta_keywords;
 						consultant.meta_title = res.meta_title;
@@ -157,6 +159,8 @@ export class ConsultantprofileComponent implements OnInit {
 						consultant.chat_message = res.chat_message;
 						consultant.call_message = res.call_message;
 						this.details = consultant;
+						console.log(this.details);
+						console.log(this.details.media);
 						this.consultant_name = consultant.consultant_name;
 						this.comments_count = res.plan.comment_count;
 						this.comments = res.plan.comments;

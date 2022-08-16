@@ -1,100 +1,103 @@
 <ion-header class="ion-hide-lg-up">
   <ion-toolbar color="light">
-      <ion-buttons slot="start">
-          <ion-icon slot="start" name="arrow-back-outline" class="mr-10" (click)="onClickBack()"></ion-icon>
-      </ion-buttons>
-      <ion-title> {{ details?.consultant_name }} </ion-title>
+    <ion-buttons slot="start">
+      <ion-icon slot="start" name="arrow-back-outline" class="mr-10" (click)="onClickBack()"></ion-icon>
+    </ion-buttons>
+    <ion-title> {{ details?.consultant_name }} </ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <div class="dr-profile-content">
-      <div class="top">
-          <app-header type="relative"></app-header>
-          <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
-          <section id="dr-profile">
-              <div class="container px-0">
-                  <ion-grid>
-                      <ion-row>
-                          <ion-col size-lg="4" size="12">
-                              <div class="box-shadow no-scroll side-profile w-100 flex-column">
-                                  <div class="avater-section">
-                                      <div class="image">
-                                          <img class="img-cover" *ngIf="!loading" [src]="
-              details?.media.medium
-                ? details?.media.medium
-                : details?.media.thumbnail
+    <div class="top">
+      <app-header type="relative"></app-header>
+      <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
+      <section id="dr-profile">
+        <div class="container px-0">
+          <ion-grid>
+            <ion-row>
+              <ion-col size-lg="4" size="12">
+                <div class="box-shadow no-scroll side-profile w-100 flex-column">
+                  <div class="avater-section">
+                    <div class="image">
+                    
+                      <img class="img-cover" *ngIf="!loading" [src]="
+              details?.media?.options.medium
+                ? details?.media.options.medium
+                : details?.media.path
               " [alt]="details?.consultant_name" />
-                                          <ion-chip *ngIf="details?.is_online == 1" color="success" outline>آنلاین
-                                          </ion-chip>
-                                          <ion-chip *ngIf="details?.is_online == 0" color="danger" outline>آفلاین
-                                          </ion-chip>
-                                          <ion-chip *ngIf="details?.is_online == 2" color="primary" outline>در حال مشاوره
-                                          </ion-chip>
-                                      </div>
-                                  </div>
-                                  <div class="info w-100 flex-column w-100 ion-justify-content-center p-20">
-                                      <div class="name d-flex ion-justify-content-center w-100">
-                                          <div *ngIf="loading" class="placeHolder" style="width: 50%;"></div>
-                                          <p>{{ details?.consultant_name }}</p>
-                                          <div *ngIf="!loading" class="badge flex-row-center-center">
-                                              <span>{{ details?.rate }}</span>
-                                          </div>
-                                      </div>
-                                      <div class="w-100 d-flex ion-justify-content-center">
-                                          <div *ngIf="loading" class="placeHolder mb-10" style="width: 70%;"></div>
-                                      </div>
-                                      <p class="status-text online-text  ion-text-center w-100 mb-15" *ngIf="details?.is_online == 1">
-                                          کارشناس آنلاین و آماده پاسخگویی میباشد
-                                      </p>
-                                      <p class="status-text offline-text  ion-text-center w-100 mb-15" *ngIf="details?.is_online == 0">
-                                          در حال حاضر کارشناس آفلاین میباشد
-                                      </p>
-                                      <p class="status-text incall-text  ion-text-center w-100 mb-15" *ngIf="details?.is_online == 2">
-                                          کارشناس در حال مشاوره میباشد
-                                      </p>
-                                      <div class="desc d-flex w-100 ion-justify-content-between" *ngIf="!loading">
-                                          <div class="option gray-600 font-size-12">
-                                              <i class="fas fa-medal ml-5"></i>{{ details?.category?.name }}
-                                          </div>
-                                          <div class="location gray-600 font-size-12">
-                                              <i class="fas fa-hashtag ml-5"></i>کد پرسنلی : {{ details?.personal_code }}
-                                          </div>
-                                      </div>
-                                      <div class="location gray-600 font-size-12 mt-15" *ngIf="!loading">
-                                          <i class="fas fa-map-marker-alt ml-5"></i>{{ details?.country.name }}
-                                      </div>
-                                      <hr class="my-15" />
-                                      <div class="font-size-14 mb-15 planItems" *ngFor="let priceItem of details?.consultantPlan_price" (click)="connectPlan(priceItem , consultantSelf || waitTime || !details?.plan.can_chat || (priceItem.type == 'chat' && details?.is_chat === 0) || (priceItem.type != 'chat' && details?.is_voice_call === 0))"
-                                          [class.disabled]="consultantSelf || waitTime || !details?.plan.can_chat || (priceItem.type == 'chat' && details?.is_chat === 0) || (priceItem.type != 'chat' && details?.is_voice_call === 0)">
-                                          <div class="planOverlay">
-                                              <span>پرداخت {{ priceItem.price | number }} تومان و شروع {{
+                      <ion-chip *ngIf="details?.is_online == 1" color="success" outline>آنلاین
+                      </ion-chip>
+                      <ion-chip *ngIf="details?.is_online == 0" color="danger" outline>آفلاین
+                      </ion-chip>
+                      <ion-chip *ngIf="details?.is_online == 2" color="primary" outline>در حال مشاوره
+                      </ion-chip>
+                    </div>
+                  </div>
+                  <div class="info w-100 flex-column w-100 ion-justify-content-center p-20">
+                    <div class="name d-flex ion-justify-content-center w-100">
+                      <div *ngIf="loading" class="placeHolder" style="width: 50%;"></div>
+                      <p>{{ details?.consultant_name }}</p>
+                      <div *ngIf="!loading" class="badge flex-row-center-center">
+                        <span>{{ details?.rate }}</span>
+                      </div>
+                    </div>
+                    <div class="w-100 d-flex ion-justify-content-center">
+                      <div *ngIf="loading" class="placeHolder mb-10" style="width: 70%;"></div>
+                    </div>
+                    <p class="status-text online-text  ion-text-center w-100 mb-15" *ngIf="details?.is_online == 1">
+                      کارشناس آنلاین و آماده پاسخگویی میباشد
+                    </p>
+                    <p class="status-text offline-text  ion-text-center w-100 mb-15" *ngIf="details?.is_online == 0">
+                      در حال حاضر کارشناس آفلاین میباشد
+                    </p>
+                    <p class="status-text incall-text  ion-text-center w-100 mb-15" *ngIf="details?.is_online == 2">
+                      کارشناس در حال مشاوره میباشد
+                    </p>
+                    <div class="desc d-flex w-100 ion-justify-content-between" *ngIf="!loading">
+                      <div class="option gray-600 font-size-12">
+                        <i class="fas fa-medal ml-5"></i>{{ details?.category?.name }}
+                      </div>
+                      <div class="location gray-600 font-size-12">
+                        <i class="fas fa-hashtag ml-5"></i>کد پرسنلی : {{ details?.personal_code }}
+                      </div>
+                    </div>
+                    <div class="location gray-600 font-size-12 mt-15" *ngIf="!loading">
+                      <i class="fas fa-map-marker-alt ml-5"></i>{{ details?.country.name }}
+                    </div>
+                    <hr class="my-15" />
+                    <div class="font-size-14 mb-15 planItems" *ngFor="let priceItem of details?.consultantPlan_price"
+                      (click)="connectPlan(priceItem , consultantSelf || waitTime || !details?.plan.can_chat || (priceItem.type == 'chat' && details?.is_chat === 0) || (priceItem.type != 'chat' && details?.is_voice_call === 0))"
+                      [class.disabled]="consultantSelf || waitTime || !details?.plan.can_chat || (priceItem.type == 'chat' && details?.is_chat === 0) || (priceItem.type != 'chat' && details?.is_voice_call === 0)">
+                      <div class="planOverlay">
+                        <span>پرداخت {{ priceItem.price | number }} تومان و شروع {{
                         priceItem.name
                         }}</span>
-                                              <ion-icon name="arrow-forward-outline"></ion-icon>
-                                          </div>
-                                          <div class="startDescription">
-                                              <div class="icon">
-                                                  <ion-icon slot="start" class="ml-5 " [name]="priceItem.type == 'chat' ? 'chatbubble-outline' : 'call-outline'">
-                                                  </ion-icon>
-                                              </div>
-                                              <div>
-                                                  {{ priceItem.name }} <span *ngIf="priceItem.type !== 'chat'">به ازای
-                          هر{{
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                      </div>
+                      <div class="startDescription">
+                        <div class="icon">
+                          <ion-icon slot="start" class="ml-5 "
+                            [name]="priceItem.type == 'chat' ? 'chatbubble-outline' : 'call-outline'">
+                          </ion-icon>
+                        </div>
+                        <div>
+                          {{ priceItem.name }} <span *ngIf="priceItem.type !== 'chat'">به ازای
+                            هر{{
                           priceItem.time }}
-                          دقیقه</span> <br>
-                                                  <span class="chatDesc" *ngIf="priceItem.type == 'chat'">پایان گفتگو
-                          توافقی
-                          می
-                          باشد</span>
-                                              </div>
-                                          </div>
-                                          <span class="priceTag">{{ priceItem.price | number }} تومان </span>
-                                          <div class="chatLoading" *ngIf="chatLoading && priceItem.type == 'chat'">
-                                              <ion-spinner name="dots"></ion-spinner>
-                                              <span> در حال بارگزاری </span>
-                                          </div>
-                                      </div>
-                                      <!-- <div class="btns">
+                            دقیقه</span> <br>
+                          <span class="chatDesc" *ngIf="priceItem.type == 'chat'">پایان گفتگو
+                            توافقی
+                            می
+                            باشد</span>
+                        </div>
+                      </div>
+                      <span class="priceTag">{{ priceItem.price | number }} تومان </span>
+                      <div class="chatLoading" *ngIf="chatLoading && priceItem.type == 'chat'">
+                        <ion-spinner name="dots"></ion-spinner>
+                        <span> در حال بارگزاری </span>
+                      </div>
+                    </div>
+                    <!-- <div class="btns">
                     <ion-row>
                       <ng-template ngFor let-i="index" let-item [ngForOf]="details?.consultantPlan_price">
                         <ion-col [size]="12" class="ion-no-padding">
@@ -118,69 +121,71 @@
                       </ion-col>
                     </ion-row>
                   </div> -->
-                                  </div>
-                              </div>
-                          </ion-col>
-                          <ion-col size-lg="8" size="12" class="pr-0 pr-md-20">
-                              <div class="callAlert" *ngIf="waitTime ">
-                                  <ng-template [ngIf]="!timeEx">
-                                      شما درخواست تماس برای این مشاور ثبت کرده اید . حد اکثر زمان انتظار:
-                                      <div class="countDown">
-                                          <span [@valueAnimation]="waitTime.h" *ngIf="waitTime.h !== 0">{{ waitTime.h
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col size-lg="8" size="12" class="pr-0 pr-md-20">
+                <div class="callAlert" *ngIf="waitTime ">
+                  <ng-template [ngIf]="!timeEx">
+                    شما درخواست تماس برای این مشاور ثبت کرده اید . حد اکثر زمان انتظار:
+                    <div class="countDown">
+                      <span [@valueAnimation]="waitTime.h" *ngIf="waitTime.h !== 0">{{ waitTime.h
                       < 10 ? '0' + waitTime.h : waitTime.h}} : </span>
 
-                                          <span [@valueAnimation]="waitTime.m"> {{ waitTime.m < 10 ? '0' +
+                      <span [@valueAnimation]="waitTime.m"> {{ waitTime.m < 10 ? '0' +
                             waitTime.m : waitTime.m}} </span> :
-                                          <span [@valueAnimation]="waitTime.s"> {{waitTime.s < 10
+                      <span [@valueAnimation]="waitTime.s"> {{waitTime.s < 10
                                 ? '0' + waitTime.s : waitTime.s}}</span>
-                                      </div>
-                                  </ng-template>
-                                  <ng-template [ngIf]="timeEx">
-                                      {{ waitTime }}
-                                  </ng-template>
+                    </div>
+                  </ng-template>
+                  <ng-template [ngIf]="timeEx">
+                    {{ waitTime }}
+                  </ng-template>
 
-                              </div>
-                              <div class="box-shadow no-scroll profile-info w-100 ion-justify-content-start flex-column">
-                                  <div class="about w-100">
-                                      <h2 *ngIf="!loading" class="title title-type-two my-25">
-                                          <span>درباره {{ details?.consultant_name }}</span>
-                                          <p class="w-100 mt-5">
-                                              <strong>{{ details?.category?.name }}</strong> فعال در زمینه <span *ngIf="details?.category?.children.length > 1"> های </span> <span *ngFor="let item of details?.category?.children"> {{ item.name }} ,
-                      </span>
-                                          </p>
-                                      </h2>
+                </div>
+                <div class="box-shadow no-scroll profile-info w-100 ion-justify-content-start flex-column">
+                  <div class="about w-100">
+                    <h2 *ngIf="!loading" class="title title-type-two my-25">
+                      <span>درباره {{ details?.consultant_name }}</span>
+                      <p class="w-100 mt-5">
+                        <strong>{{ details?.category?.name }}</strong> فعال در زمینه <span
+                          *ngIf="details?.category?.children.length > 1"> های </span> <span
+                          *ngFor="let item of details?.category?.children"> {{ item.name }} ,
+                        </span>
+                      </p>
+                    </h2>
 
-                                      <p class="w-100" [innerHTML]="details?.description"></p>
-                                  </div>
-                                  <div class="comments" *ngIf="comments.length != 0">
-                                      <h2 class="title title-type-two my-25">
-                                          <span>نظرات کاربران</span>
-                                      </h2>
-                                      <div class="border-box p-15 mb-20" *ngFor="let item of comments">
-                                          <div class="comment-info d-flex">
-                                              <ion-item class="user-details mb-5" lines="none">
-                                                  <ion-label>
-                                                      <h3>{{ item.created_at }}</h3>
-                                                  </ion-label>
-                                              </ion-item>
-                                              <div class="rate">
-                                                  {{ item.rate }}
-                                                  <ion-icon color="warning" name="star-outline"></ion-icon>
-                                              </div>
-                                          </div>
-                                          <p class="w-100 gray-600">
-                                              {{ item.description }}
-                                          </p>
-                                      </div>
-                                  </div>
-                              </div>
-                          </ion-col>
-                      </ion-row>
-                  </ion-grid>
-              </div>
-          </section>
-      </div>
-      <app-footer></app-footer>
+                    <p class="w-100" [innerHTML]="details?.description"></p>
+                  </div>
+                  <div class="comments" *ngIf="comments.length != 0">
+                    <h2 class="title title-type-two my-25">
+                      <span>نظرات کاربران</span>
+                    </h2>
+                    <div class="border-box p-15 mb-20" *ngFor="let item of comments">
+                      <div class="comment-info d-flex">
+                        <ion-item class="user-details mb-5" lines="none">
+                          <ion-label>
+                            <h3>{{ item.created_at }}</h3>
+                          </ion-label>
+                        </ion-item>
+                        <div class="rate">
+                          {{ item.rate }}
+                          <ion-icon color="warning" name="star-outline"></ion-icon>
+                        </div>
+                      </div>
+                      <p class="w-100 gray-600">
+                        {{ item.description }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </section>
+    </div>
+    <app-footer></app-footer>
   </div>
 
 </ion-content>

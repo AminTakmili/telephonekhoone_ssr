@@ -47,8 +47,8 @@
                                       <ng-template ngFor let-consultant [ngForOf]="item.consultants" let-i="index">
                                           <div class="img" *ngIf="consultant.media.length != 0">
                                               <ng-template ngFor let-img [ngForOf]="consultant.media">
-                                                  <img *ngIf="img.name == 'profile' && img?.options?.subSizes?.thumbnail" class="img-cover" [src]="img?.options?.subSizes?.thumbnail" alt="{{ consultant.fullname }}" />
-                                                  <img *ngIf="img.name == 'profile' && !img?.options?.subSizes?.thumbnail" class="img-cover" src="assets/img/no-image.jpg" alt="{{ consultant.fullname }}" />
+                                                  <img *ngIf="img.name == 'profile' && (img?.options?.subSizes?.thumbnail||img.path)" class="img-cover" [src]="img?.options?.subSizes?.thumbnail?img?.options?.subSizes?.thumbnail:img.path" alt="{{ consultant.fullname }}" />
+                                                  <img *ngIf="img.name == 'profile' && !(img?.options?.subSizes?.thumbnail||img.path)" class="img-cover" src="assets/img/no-image.jpg" alt="{{ consultant.fullname }}" />
                                               </ng-template>
                                               <span class="online-badge"></span>
                                           </div>
