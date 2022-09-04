@@ -32,9 +32,11 @@ import { isPlatformBrowser } from '@angular/common';
 	providedIn: 'root',
 })
 export class GlobalService {
+
 	enamad = new BehaviorSubject<string>('');
+	logo = new BehaviorSubject<string>('');
 	pltfrm: string;
-	sitename: string='تلفن خونه';
+	sitename = 'تلفن خونه';
 	isBrowser: boolean;
 	public loading: any;
 	// private loading: Promise<HTMLIonLoadingElement>;
