@@ -7,10 +7,8 @@ import { GlobalService } from 'src/app/services/global.service';
 	styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
-
-	enamad = '';
-	logo = '';
-
+	public enamad = '';
+	public logo = '';
 	constructor(public global: GlobalService) { }
 
 	ngOnInit() {
@@ -21,6 +19,7 @@ export class FooterComponent implements OnInit {
 		});
 		this.global.logo.subscribe(res => {
 			if (res) {
+				console.log(res);
 				this.logo = res;
 			}
 		});
