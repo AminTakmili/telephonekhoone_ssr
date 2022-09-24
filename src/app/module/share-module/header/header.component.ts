@@ -18,6 +18,8 @@ export class HeaderComponent implements OnInit {
     callBadge: number;
     @Input() type: string;
     userType: string;
+    public logo = '';
+
     constructor(
         public global: GlobalService,
         private _eref: ElementRef,
@@ -41,6 +43,12 @@ export class HeaderComponent implements OnInit {
             this.cahtBadge = val.chat;
             this.callBadge = val.call;
         });
+        this.global.logo.subscribe(res => {
+			if (res) {
+				
+				this.logo = res;
+			}
+		});
     }
     onProfileClick() {
         this.showProfileBox = !this.showProfileBox;

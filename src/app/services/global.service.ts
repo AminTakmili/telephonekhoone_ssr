@@ -33,6 +33,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class GlobalService {
 	enamad = new BehaviorSubject<string>('');
+	logo = new BehaviorSubject<string>('');
 	pltfrm: string;
 	sitename: string='تلفن خونه';
 	isBrowser: boolean;

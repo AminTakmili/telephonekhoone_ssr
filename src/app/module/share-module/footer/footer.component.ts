@@ -8,12 +8,19 @@ import { GlobalService } from 'src/app/services/global.service';
 })
 export class FooterComponent implements OnInit {
 	public enamad = '';
+	public logo = '';
 	constructor(public global: GlobalService) { }
 
 	ngOnInit() {
 		this.global.enamad.subscribe(res => {
 			if (res) {
 				this.enamad = res;
+			}
+		});
+		this.global.logo.subscribe(res => {
+			if (res) {
+				console.log(res);
+				this.logo = res;
 			}
 		});
 	}
