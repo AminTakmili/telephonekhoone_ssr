@@ -133,6 +133,13 @@ export class AppComponent {
 
 	}
 
+	fetchApi() {
+		this.global.httpGet('more/setting').subscribe(res => {
+			this.global.enamad.next(res.enamad);
+			this.global.logo.next(res.logo);
+		})
+	}
+
 	checkUpdate() {
 		this.appRef.isStable.subscribe((isStable) => {
 			if (isStable) {

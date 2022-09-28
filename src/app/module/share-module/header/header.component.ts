@@ -4,12 +4,12 @@ import { GlobalService } from 'src/app/services/global.service';
 import { UserBalanceService } from 'src/app/services/user-balance.service';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    host: {
-        '(document:click)': 'anyWhereClick($event)',
-    },
+	selector: 'app-header',
+	templateUrl: './header.component.html',
+	styleUrls: ['./header.component.scss'],
+	host: {
+		'(document:click)': 'anyWhereClick($event)',
+	},
 })
 export class HeaderComponent implements OnInit {
     showProfileBox = true;
