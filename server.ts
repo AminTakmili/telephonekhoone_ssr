@@ -52,7 +52,12 @@ export function app(): express.Express {
   server.get('/robots.txt', async (req, res) => {
     res.header('Content-Type', 'text/plain');
     res.write(
-      `User-agent: GooglebotDisallow:User-agent: googlebot-imageDisallow:User-agent: googlebot-mobileDisallow:User-agent: MSNBotDisallow:User-agent: psbotDisallow:User-agent: SlurpDisallow:User-agent: yahoo-mmcrawlerDisallow:User-agent: yahoo-blogs/v3.9Disallow:User-agent: teomaDisallow:User-agent: ScrubbyDisallow:User-agent: ia_archiverDisallow:User-agent: *Disallow: /login/Disallow: /profile-consultant/Disallow: /profile/`
+      `User-agent:
+       GooglebotDisallow:User-agent:
+       googlebot-imageDisallow:User-agent: 
+      googlebot-mobileDisallow:User-agent:
+       MSNBotDisallow:User-agent: 
+      psbotDisallow:User-agent: SlurpDisallow:User-agent: yahoo-mmcrawlerDisallow:User-agent: yahoo-blogs/v3.9Disallow:User-agent: teomaDisallow:User-agent: ScrubbyDisallow:User-agent: ia_archiverDisallow:User-agent: *Disallow: /login/Disallow: /profile-consultant/Disallow: /profile/`
     );
     res.write(`Sitemap: ${getUrl(req)}sitemap.xml`);
     res.end();
@@ -82,30 +87,30 @@ function run(): void {
 
   //*HTTPS && SERVER
   // if (process.env.NODE_ENV === 'production') {
-    const portHttps = process.env.PORT || environment.SSL_PORT;
-    const httpsServer = https.createServer(
-      {
-        key: readFileSync(environment.SSL_KEY),
-        cert: readFileSync(environment.SSL_CERT),
-        rejectUnauthorized: false,
-        requestCert: false,
-      },
-      server
-    );
-    httpsServer.listen(portHttps, () => {
-      console.log(
-        `Node Express server listening on https://localhost:${portHttps}`
-      );
-    });
+    // const portHttps = process.env.PORT || environment.SSL_PORT;
+    // const httpsServer = https.createServer(
+    //   {
+    //     key: readFileSync(environment.SSL_KEY),
+    //     cert: readFileSync(environment.SSL_CERT),
+    //     rejectUnauthorized: false,
+    //     requestCert: false,
+    //   },
+    //   server
+    // );
+    // httpsServer.listen(portHttps, () => {
+    //   console.log(
+    //     `Node Express server listening on https://localhost:${portHttps}`
+    //   );
+    // });
   // }
   //*HTTP && local
   // if (process.env.NODE_ENV === 'development') {
-  // const portHttp = process.env.PORT || 4000;
-  // server.listen(portHttp, () => {
-  //   console.log(
-  //     `Node Express server listening on http://localhost:${portHttp}`
-  //   );
-  // });
+  const portHttp = process.env.PORT || 4000;
+  server.listen(portHttp, () => {
+    console.log(
+      `Node Express server listening on http://localhost:${portHttp}`
+    );
+  });
   // }
 }
 
