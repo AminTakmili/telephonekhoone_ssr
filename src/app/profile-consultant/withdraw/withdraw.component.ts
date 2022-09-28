@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { GlobalService } from 'src/app/services/global.service';
+import { SeoService } from 'src/app/services/seo.service';
 import { UserBalanceService } from 'src/app/services/user-balance.service';
 
 @Component({
@@ -22,7 +23,8 @@ export class WithdrawComponent implements OnInit {
 		private fb: FormBuilder,
 		private balanceService: UserBalanceService,
 		private alertController: AlertController,
-		private _decimalPipe: DecimalPipe
+		private _decimalPipe: DecimalPipe,
+		private seo: SeoService,
 	) {
 		this.balanceService.getUserBalance().subscribe((value) => {
 			this.balance = value;
@@ -40,11 +42,35 @@ export class WithdrawComponent implements OnInit {
 	}
 
 	ngOnInit() {
-
+		this.setSeo(
+			{
+				metaTitle: 'اطلاعات فردی',
+				isNoIndex: true
+			}
+		)
 	}
 
 	ionViewWillEnter() {
 		this.getHistoryData();
+		this.setSeo(
+			{
+				metaTitle: 'اطلاعات فردی',
+				isNoIndex: true
+			}
+		)
+	}
+
+	setSeo(data) {
+		console.log(data);
+		this.seo.generateTags({
+			title: data.metaTitle,
+			description: data.metaDescription,
+			canonical: data.canonicalLink,
+			keywords: data.metaKeywords.toString(),
+			image: '/assets/img/icon/icon-384x384.png',
+			isNoIndex: data.isNoIndex,
+		});
+
 	}
 
 	async payWallet() {

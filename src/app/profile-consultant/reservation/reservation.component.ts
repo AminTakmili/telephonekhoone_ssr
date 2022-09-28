@@ -14,6 +14,7 @@ import { SeoService } from 'src/app/services/seo.service';
 	styleUrls: ['./reservation.component.scss'],
 })
 export class ReservationComponent implements OnInit {
+
 	loading = false;
 	page = 'plans';
 	limit = 10;
@@ -29,7 +30,6 @@ export class ReservationComponent implements OnInit {
 		public global: GlobalService,
 		private modalController: ModalController,
 		public seo: SeoService,
-
 	) { }
 
 	async showDatePicker(item?: Reserve) {
@@ -65,28 +65,24 @@ export class ReservationComponent implements OnInit {
 	ngOnInit() {
 		this.getPlanData();
 		this.setSeo(
-            {
-              metaTitle:'تلفون خونه',
-              metaDescription:' تلفن خونه',
-              metaKeywords:', تلفن خونه,  مشاوره',
-              isNoIndex:false
-
-            }
-            )
+			{
+				metaTitle: 'تلفن خونه',
+				metaDescription: ' تلفن خونه',
+				metaKeywords: ', تلفن خونه,  مشاوره',
+				isNoIndex: true
+			}
+		)
 	}
 	ionViewWillEnter() {
-		// console.log("object");
-       
-        this.setSeo(
-            {
-              metaTitle:'تلفون خونه',
-              metaDescription:' تلفن خونه',
-              metaKeywords:', تلفن خونه,  مشاوره',
-              isNoIndex:false
-
-            }
-            )
-      }
+		this.setSeo(
+			{
+				metaTitle: 'تلفون خونه',
+				metaDescription: ' تلفن خونه',
+				metaKeywords: ', تلفن خونه,  مشاوره',
+				isNoIndex: true
+			}
+		)
+	}
 
 
 	getPlanData() {
@@ -211,16 +207,16 @@ export class ReservationComponent implements OnInit {
 	}
 	setSeo(data) {
 		console.log(data);
-	  this.seo.generateTags({
-		  title: data.metaTitle,
-		  description: data.metaDescription,
-		  canonical: data.canonicalLink,
-		  keywords: data.metaKeywords.toString(),
-		  image: '/assets/img/icon/icon-384x384.png',
-		  isNoIndex: data.isNoIndex,
-	  });
-	  
-  }
+		this.seo.generateTags({
+			title: data.metaTitle,
+			description: data.metaDescription,
+			canonical: data.canonicalLink,
+			keywords: data.metaKeywords.toString(),
+			image: '/assets/img/icon/icon-384x384.png',
+			isNoIndex: data.isNoIndex,
+		});
+
+	}
 }
 
 interface Plans {

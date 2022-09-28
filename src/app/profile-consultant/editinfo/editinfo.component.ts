@@ -8,6 +8,7 @@ import { HttpEventType } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { map } from 'rxjs/operators';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
 	selector: 'app-editinfo',
@@ -84,7 +85,8 @@ export class EditinfoComponent implements OnInit {
 		public modalController: ModalController,
 		public global: GlobalService,
 		private imageCompress: NgxImageCompressService,
-		public balance: UserBalanceService
+		public balance: UserBalanceService,
+		private seo: SeoService,
 	) {
 		this.userInfo = this.global.getUserInfo();
 		const userInfo = this.global.getUserInfo();
@@ -112,6 +114,32 @@ export class EditinfoComponent implements OnInit {
 
 	ngOnInit() {
 		this.getCategories();
+		this.setSeo(
+			{
+				metaTitle: 'اطلاعات فردی',
+				isNoIndex: true
+			}
+		)
+	}
+
+	ionViewWillEnter() {
+		this.setSeo(
+			{
+				metaTitle: 'اطلاعات فردی',
+				isNoIndex: true
+			}
+		)
+	}
+
+	setSeo(data) {
+		this.seo.generateTags({
+			title: data.metaTitle,
+			description: data.metaDescription,
+			canonical: data.canonicalLink,
+			keywords: data.metaKeywords.toString(),
+			image: '/assets/img/icon/icon-384x384.png',
+			isNoIndex: data.isNoIndex,
+		});
 	}
 
 	async onspecialty(ev: MouseEvent) {
@@ -257,7 +285,7 @@ export class EditinfoComponent implements OnInit {
 				JSON.stringify(this.personalCardImage)
 			);
 			userData.append('document', JSON.stringify(this.documentImage));
-				this.submitLoading = true;
+			this.submitLoading = true;
 			this.global.httpPost('profile/editInfoConsultant', userData).subscribe(
 				(res) => {
 					this.submitLoading = false;

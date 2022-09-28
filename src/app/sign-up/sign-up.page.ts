@@ -9,6 +9,7 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import { HttpEventType } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { RulesPage } from '../rules-component/rules.page';
+import { SeoService } from '../services/seo.service';
 
 @Component({
 	selector: 'app-sign-up',
@@ -93,7 +94,8 @@ export class SignUpPage implements OnInit {
 		public modalController: ModalController,
 		public global: GlobalService,
 		private imageCompress: NgxImageCompressService,
-		private navCtrl: NavController
+		private navCtrl: NavController,
+		private seo: SeoService,
 	) {
 		this.signUpForm = this.fb.group({
 			fullName: ['', Validators.compose([Validators.required])],
@@ -114,6 +116,14 @@ export class SignUpPage implements OnInit {
 
 	ngOnInit() {
 		this.getCategories();
+		this.setSeo(
+			{
+				metaTitle: 'ثبت نام',
+				metaDescription: 'ثبت نام در تلفن خونه',
+				metaKeywords: 'ثبت نام,ثبت نام تلفن خونه, ثبت نام مشاوره',
+				isNoIndex: true
+			}
+		)
 	}
 
 	generateDynamicForm() {
@@ -451,6 +461,18 @@ export class SignUpPage implements OnInit {
 		for (var key in this.itemsValidation) this.itemsValidation[key] = false;
 		items.map(val => {
 			this.itemsValidation[val] = true;
+		});
+	}
+
+	setSeo(data) {
+		// console.log(data);
+		this.seo.generateTags({
+			title: data.metaTitle,
+			description: data.metaDescription,
+			canonical: data.canonicalLink,
+			keywords: data.metaKeywords.toString(),
+			image: '/assets/img/icon/icon-384x384.png',
+			isNoIndex: data.isNoIndex,
 		});
 	}
 }

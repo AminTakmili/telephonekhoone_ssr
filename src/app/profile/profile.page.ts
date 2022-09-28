@@ -21,17 +21,16 @@ export class ProfilePage implements OnInit {
       metaTitle: 'ورود',
       metaDescription: 'ورود به تلفن خونه',
       metaKeywords: 'ورود,ورود تلفن خونه, ورود مشاوره',
-      isNoIndex: false,
+      isNoIndex: true,
     });
   }
   ionViewWillEnter() {
     // console.log('object');
-
     this.setSeo({
       metaTitle: 'ورود',
       metaDescription: 'ورود به تلفن خونه',
       metaKeywords: 'ورود,ورود تلفن خونه, ورود مشاوره',
-      isNoIndex: false,
+      isNoIndex: true,
     });
   }
 

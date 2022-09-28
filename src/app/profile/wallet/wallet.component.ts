@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Validators} from '@angular/forms';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import {NavController} from '@ionic/angular';
-import {GlobalService} from 'src/app/services/global.service';
+import { NavController } from '@ionic/angular';
+import { GlobalService } from 'src/app/services/global.service';
 import { SeoService } from 'src/app/services/seo.service';
-import {UserBalanceService} from 'src/app/services/user-balance.service';
+import { UserBalanceService } from 'src/app/services/user-balance.service';
 
 @Component({
     selector: 'app-wallet',
@@ -14,9 +14,9 @@ import {UserBalanceService} from 'src/app/services/user-balance.service';
 })
 export class WalletComponent implements OnInit {
     breadCrumb = [
-        {url: '/', name: 'صفحه نخست'},
-        {url: '/profile', name: 'پروفایل'},
-        {url: '/profile/wallet', name: 'افزایش موجودی حساب کاربری'},
+        { url: '/', name: 'صفحه نخست' },
+        { url: '/profile', name: 'پروفایل' },
+        { url: '/profile/wallet', name: 'افزایش موجودی حساب کاربری' },
     ];
     limit = 10;
     offset = 0;
@@ -32,7 +32,7 @@ export class WalletComponent implements OnInit {
         private fb: FormBuilder,
         private navCtrl: NavController,
         private balanceService: UserBalanceService,
-		private iab: InAppBrowser,
+        private iab: InAppBrowser,
         public seo: SeoService,
 
     ) {
@@ -55,39 +55,38 @@ export class WalletComponent implements OnInit {
         this.getWalletInfo();
         this.setSeo(
             {
-              metaTitle:'افزایش موجودی حساب کاربری',
-              metaDescription:'افزایش موجودی حساب کاربری در تلفن خونه',
-              metaKeywords:'افزایش موجودی حساب کاربری,افزایش موجودی حساب کاربری تلفن خونه, افزایش موجودی حساب کاربری مشاوره',
-              isNoIndex:false
-
+                metaTitle: 'افزایش موجودی حساب کاربری',
+                metaDescription: 'افزایش موجودی حساب کاربری در تلفن خونه',
+                metaKeywords: 'افزایش موجودی حساب کاربری,افزایش موجودی حساب کاربری تلفن خونه, افزایش موجودی حساب کاربری مشاوره',
+                isNoIndex: true
             }
-            )
+        )
     }
     ionViewWillEnter() {
-		// console.log("object");
-       
+        // console.log("object");
+
         this.setSeo(
             {
-              metaTitle:'افزایش موجودی حساب کاربری',
-              metaDescription:'افزایش موجودی حساب کاربری در تلفن خونه',
-              metaKeywords:'افزایش موجودی حساب کاربری,افزایش موجودی حساب کاربری تلفن خونه, افزایش موجودی حساب کاربری مشاوره',
-              isNoIndex:false
+                metaTitle: 'افزایش موجودی حساب کاربری',
+                metaDescription: 'افزایش موجودی حساب کاربری در تلفن خونه',
+                metaKeywords: 'افزایش موجودی حساب کاربری,افزایش موجودی حساب کاربری تلفن خونه, افزایش موجودی حساب کاربری مشاوره',
+                isNoIndex: true
 
             }
-            )
-      }
-      setSeo(data) {
-		// console.log(data);
-	  this.seo.generateTags({
-		  title: data.metaTitle,
-		  description: data.metaDescription,
-		  canonical: data.canonicalLink,
-		  keywords: data.metaKeywords.toString(),
-		  image: '/assets/img/icon/icon-384x384.png',
-		  isNoIndex: data.isNoIndex,
-	  });
-	  
-  }
+        )
+    }
+    setSeo(data) {
+        // console.log(data);
+        this.seo.generateTags({
+            title: data.metaTitle,
+            description: data.metaDescription,
+            canonical: data.canonicalLink,
+            keywords: data.metaKeywords.toString(),
+            image: '/assets/img/icon/icon-384x384.png',
+            isNoIndex: data.isNoIndex,
+        });
+
+    }
 
 
     setPackage(item) {
@@ -122,29 +121,29 @@ export class WalletComponent implements OnInit {
         this.navCtrl.navigateRoot('profile/transactions');
     }
 
-	payWallet() {
+    payWallet() {
 
-		if (this.walletForm.valid) {
-			this.payLoading = true;
-			this.global
-				.httpPost('profile/walletIncrease', {
-					amount: this.walletForm.get('amount').value,
-					back_url: this.global.backUrl
-				})
-				.subscribe(
-					(res) => {
-						this.payLoading = false;
-						if (res.link) {
-							this.iab.create(res.link, '_self');
-						}
-					},
-					(err) => {
-						this.payLoading = false;
-						this.global.showError(err);
-					}
-				);
-		}
-	}
+        if (this.walletForm.valid) {
+            this.payLoading = true;
+            this.global
+                .httpPost('profile/walletIncrease', {
+                    amount: this.walletForm.get('amount').value,
+                    back_url: this.global.backUrl
+                })
+                .subscribe(
+                    (res) => {
+                        this.payLoading = false;
+                        if (res.link) {
+                            this.iab.create(res.link, '_self');
+                        }
+                    },
+                    (err) => {
+                        this.payLoading = false;
+                        this.global.showError(err);
+                    }
+                );
+        }
+    }
 }
 
 interface Packages {

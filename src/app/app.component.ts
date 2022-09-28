@@ -165,11 +165,11 @@ export class AppComponent {
 		this.menu.enable(true, "custom");
 		this.menu.open("custom");
 	}
-	fetchApi() {
-        this.global.httpGet('more/setting').subscribe(res => {
-			console.log(res);
-            this.global.enamad.next(res.enamad);
-            this.global.logo.next(res.logo);
-        })
-    }
+	// fetchApi() {
+    //     this.global.httpGet('more/setting').subscribe(res => {
+	// 		console.log(res);
+    //         this.global.enamad.next(res.enamad);
+    //         this.global.logo.next(res.logo);
+    //     })
+    // }
 }

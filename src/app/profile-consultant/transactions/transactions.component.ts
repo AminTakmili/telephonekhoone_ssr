@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {GlobalService} from 'src/app/services/global.service';
-import {UserBalanceService} from 'src/app/services/user-balance.service';
+import { Component, OnInit } from '@angular/core';
+import { GlobalService } from 'src/app/services/global.service';
+import { SeoService } from 'src/app/services/seo.service';
+import { UserBalanceService } from 'src/app/services/user-balance.service';
 
 @Component({
     selector: 'app-consultant-transactions',
@@ -13,19 +14,47 @@ export class TransactionsConsultantComponent implements OnInit {
     transactions: Transactions[] = [];
     loading = false;
     breadCrumb = [
-        {url: '/', name: 'صفحه نخست'},
-        {url: '/profile-consultant', name: 'پروفایل'},
-        {url: '/profile-consultant/transactions', name: 'تراکنش ها'},
+        { url: '/', name: 'صفحه نخست' },
+        { url: '/profile-consultant', name: 'پروفایل' },
+        { url: '/profile-consultant/transactions', name: 'تراکنش ها' },
     ];
 
     constructor(
         private global: GlobalService,
-        private balance: UserBalanceService
+        private balance: UserBalanceService,
+        private seo: SeoService,
     ) {
     }
 
     ngOnInit() {
         this.getTransactions();
+        this.setSeo(
+            {
+                metaTitle: 'تراکنش ها',
+                isNoIndex: true
+            }
+        )
+    }
+
+    ionViewWillEnter() {
+        this.setSeo(
+            {
+                metaTitle: 'تراکنش ها',
+                isNoIndex: true
+            }
+        )
+    }
+    setSeo(data) {
+        console.log(data);
+        this.seo.generateTags({
+            title: data.metaTitle,
+            description: data.metaDescription,
+            canonical: data.canonicalLink,
+            keywords: data.metaKeywords.toString(),
+            image: '/assets/img/icon/icon-384x384.png',
+            isNoIndex: data.isNoIndex,
+        });
+
     }
 
     getTransactions() {

@@ -37,31 +37,26 @@ export class EditInfoComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		  
-        this.setSeo(
-            {
-              metaTitle:'اطلاعات فردی',
-              metaDescription:'اطلاعات فردی کاربر تلفن خونه',
-              metaKeywords:'اطلاعات فردی,اطلاعات فردی تلفن خونه, اطلاعات فردی مشاوره',
-              isNoIndex:false
-
-            }
-            )
+		this.setSeo(
+			{
+				metaTitle: 'اطلاعات فردی',
+				metaDescription: 'اطلاعات فردی کاربر تلفن خونه',
+				metaKeywords: 'اطلاعات فردی,اطلاعات فردی تلفن خونه, اطلاعات فردی مشاوره',
+				isNoIndex: true
+			}
+		)
 	}
+
 	ionViewWillEnter() {
-		// console.log("object");
-       
-        this.setSeo(
-            {
-              metaTitle:'اطلاعات فردی',
-              metaDescription:'اطلاعات فردی کاربر تلفن خونه',
-              metaKeywords:'اطلاعات فردی,اطلاعات فردی تلفن خونه, اطلاعات فردی مشاوره',
-              isNoIndex:false
-
-            }
-            )
-      }
-
+		this.setSeo(
+			{
+				metaTitle: 'اطلاعات فردی',
+				metaDescription: 'اطلاعات فردی کاربر تلفن خونه',
+				metaKeywords: 'اطلاعات فردی,اطلاعات فردی تلفن خونه, اطلاعات فردی مشاوره',
+				isNoIndex: true
+			}
+		)
+	}
 
 	editInfo() {
 		const fullName = this.editInfoForm.get('fullName').value;
@@ -92,14 +87,14 @@ export class EditInfoComponent implements OnInit {
 	}
 	setSeo(data) {
 		console.log(data);
-	  this.seo.generateTags({
-		  title: data.metaTitle,
-		  description: data.metaDescription,
-		  canonical: data.canonicalLink,
-		  keywords: data.metaKeywords.toString(),
-		  image: '/assets/img/icon/icon-384x384.png',
-		  isNoIndex: data.isNoIndex,
-	  });
-	  
-  }
+		this.seo.generateTags({
+			title: data.metaTitle,
+			description: data.metaDescription,
+			canonical: data.canonicalLink,
+			keywords: data.metaKeywords.toString(),
+			image: '/assets/img/icon/icon-384x384.png',
+			isNoIndex: data.isNoIndex,
+		});
+
+	}
 }

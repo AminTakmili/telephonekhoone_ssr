@@ -61,7 +61,7 @@ export class LoginPage implements OnInit {
 		private StorageService: StorageService,
 		public seo: SeoService,
 
-		
+
 	) {
 		this.StorageService.get('url').then((val) => {
 			this.nextLink = val;
@@ -93,18 +93,17 @@ export class LoginPage implements OnInit {
 	}
 	ionViewWillEnter() {
 		// console.log("object");
-       
+
 		this.setSeo(
 			{
-			  metaTitle:'ورود',
-			  metaDescription:'ورود به تلفن خونه',
-			  metaKeywords:'ورود,ورود تلفن خونه, ورود مشاوره',
-			  isNoIndex:false
-
+				metaTitle: 'ورود',
+				metaDescription: 'ورود به تلفن خونه',
+				metaKeywords: 'ورود,ورود تلفن خونه, ورود مشاوره',
+				isNoIndex: true
 			}
-			)
-	  
-      }
+		)
+
+	}
 
 
 	codeChange() {
@@ -139,14 +138,12 @@ export class LoginPage implements OnInit {
 		];
 		this.setSeo(
 			{
-			  metaTitle:'ورود',
-			  metaDescription:'ورود به تلفن خونه',
-			  metaKeywords:'ورود,ورود تلفن خونه, ورود مشاوره',
-			  isNoIndex:false
-
+				metaTitle: 'ورود',
+				metaDescription: 'ورود به تلفن خونه',
+				metaKeywords: 'ورود,ورود تلفن خونه, ورود مشاوره',
+				isNoIndex: true
 			}
-			)
-	  
+		)
 	}
 
 	async changeNum() {
@@ -390,14 +387,14 @@ export class LoginPage implements OnInit {
 	onVerify() {
 		if (this.verifyForm.valid) {
 			this.global.showLoading().then((loader) => {
-					this.global
+				this.global
 					.httpPost('checkVerifyCode', {
 						mobile: this.mobile,
 						verify_code: this.verifyForm.get('code')?.value,
 					})
 					.subscribe(
 						(res) => {
-	
+
 							this.global.dismisLoading()
 							this.userBalance.setUserBalance(res.balance);
 							this.global.setUserInfo(res);
@@ -492,16 +489,15 @@ export class LoginPage implements OnInit {
 	}
 	setSeo(data) {
 		// console.log(data);
-	  this.seo.generateTags({
-		  title: data.metaTitle,
-		  description: data.metaDescription,
-		  canonical: data.canonicalLink,
-		  keywords: data.metaKeywords.toString(),
-		  image: '/assets/img/icon/icon-384x384.png',
-		  isNoIndex: data.isNoIndex,
-	  });
-	  
-  }
+		this.seo.generateTags({
+			title: data.metaTitle,
+			description: data.metaDescription,
+			canonical: data.canonicalLink,
+			keywords: data.metaKeywords.toString(),
+			image: '/assets/img/icon/icon-384x384.png',
+			isNoIndex: data.isNoIndex,
+		});
+	}
 }
 
 export interface Country {

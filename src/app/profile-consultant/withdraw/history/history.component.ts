@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { ImageGalleryComponent } from 'src/app/components/image-gallery/image-gallery.component';
 import { GlobalService } from 'src/app/services/global.service';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
 	selector: 'app-history',
@@ -14,13 +15,39 @@ export class HistoryComponent implements OnInit {
 	limit = 10;
 	offset = 0;
 	historyList: WithdrawHistory[] = [];
-	constructor(private global: GlobalService, private modalCtrl: ModalController, private navCtrl: NavController) { }
+	constructor(private global: GlobalService, private modalCtrl: ModalController, private navCtrl: NavController, private seo: SeoService,) { }
 
-	ngOnInit() { }
+	ngOnInit() {
+		this.setSeo(
+			{
+				metaTitle: 'برداشت از حساب',
+				isNoIndex: true
+			}
+		)
+	}
 
 	ionViewWillEnter() {
 		this.getData();
+		this.setSeo(
+			{
+				metaTitle: 'برداشت از حساب',
+				isNoIndex: true
+			}
+		)
 	}
+
+	setSeo(data) {
+		console.log(data);
+		this.seo.generateTags({
+			title: data.metaTitle,
+			description: data.metaDescription,
+			canonical: data.canonicalLink,
+			keywords: data.metaKeywords.toString(),
+			image: '/assets/img/icon/icon-384x384.png',
+			isNoIndex: data.isNoIndex,
+		});
+	}
+
 	getData() {
 		this.loading = true
 		this.global

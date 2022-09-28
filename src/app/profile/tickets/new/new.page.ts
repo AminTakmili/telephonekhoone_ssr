@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NavController} from '@ionic/angular';
 import {GlobalService} from 'src/app/services/global.service';
+import { SeoService } from 'src/app/services/seo.service';
 import {ValidateMobile} from 'src/app/validators/mobile.validator';
 
 @Component({
@@ -10,6 +11,7 @@ import {ValidateMobile} from 'src/app/validators/mobile.validator';
     styleUrls: ['./new.page.scss'],
 })
 export class NewPage implements OnInit {
+
     ticketForm: FormGroup;
     loading = false;
     breadCrumb = [
@@ -21,7 +23,8 @@ export class NewPage implements OnInit {
     constructor(
         private global: GlobalService,
         private fb: FormBuilder,
-        private navCtrl: NavController
+        private navCtrl: NavController,
+        private seo: SeoService,
     ) {
         this.ticketForm = this.fb.group({
             subject: ['', Validators.compose([Validators.required])],
@@ -30,6 +33,26 @@ export class NewPage implements OnInit {
     }
 
     ngOnInit() {
+        this.setSeo(
+            {
+                metaTitle: 'پشتیبانی',
+                metaDescription: 'پشتیبانی به تلفن خونه',
+                metaKeywords: 'پشتیبانی,پشتیبانی تلفن خونه, پشتیبانی مشاوره',
+                isNoIndex: true
+
+            }
+        )
+    }
+
+    setSeo(data) {
+        this.seo.generateTags({
+            title: data.metaTitle,
+            description: data.metaDescription,
+            canonical: data.canonicalLink,
+            keywords: data.metaKeywords.toString(),
+            image: '/assets/img/icon/icon-384x384.png',
+            isNoIndex: data.isNoIndex,
+        });
     }
 
     submitReq() {

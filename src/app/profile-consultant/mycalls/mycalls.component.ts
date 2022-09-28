@@ -2,6 +2,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { GlobalService } from 'src/app/services/global.service';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
 	selector: 'app-mycalls',
@@ -31,8 +32,8 @@ export class MycallsComponent implements OnInit {
 		private alertController: AlertController,
 		mediaMatcher: MediaMatcher,
 		private navCtrl: NavController,
+		private seo: SeoService,
 	) {
-
 		const mediaQueryList = mediaMatcher.matchMedia('(max-width: 768px)');
 		this.isMobile = mediaQueryList.matches;
 		mediaQueryList.addEventListener('change', (ev) => {
@@ -46,6 +47,35 @@ export class MycallsComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.setSeo(
+			{
+				metaTitle: 'مکالمات من',
+				isNoIndex: true
+			}
+		)
+	}
+
+	ionViewWillEnter() {
+		this.getCallsData(false);
+		this.setSeo(
+			{
+				metaTitle: 'مکالمات من',
+				isNoIndex: true
+			}
+		)
+	}
+
+	setSeo(data) {
+		console.log(data);
+		this.seo.generateTags({
+			title: data.metaTitle,
+			description: data.metaDescription,
+			canonical: data.canonicalLink,
+			keywords: data.metaKeywords.toString(),
+			image: '/assets/img/icon/icon-384x384.png',
+			isNoIndex: data.isNoIndex,
+		});
+
 	}
 
 	pressed(event, item) {
@@ -81,10 +111,6 @@ export class MycallsComponent implements OnInit {
 		this.showGuideValue = false;
 	}
 
-	ionViewWillEnter() {
-		this.getCallsData(false);
-	}
-
 	getCallsData(isLoadMore): Promise<any> {
 		return new Promise<any>((resolve, reject) => {
 			if (!isLoadMore) {
@@ -117,7 +143,7 @@ export class MycallsComponent implements OnInit {
 							calls.rejected = false;
 							calls.loading = false;
 							calls.chat = item.chat;
-							
+
 							this.myCalls.push(calls);
 						});
 						if (!isLoadMore) {
@@ -283,9 +309,9 @@ export class MycallsComponent implements OnInit {
 	}
 
 	openChat(item) {
-		
+
 	}
-	
+
 
 
 }

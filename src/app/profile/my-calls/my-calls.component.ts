@@ -29,53 +29,51 @@ export class MyCallsComponent implements OnInit {
 		private modalController: ModalController,
 		public seo: SeoService,
 
-		) {
+	) {
 	}
 
 	ngOnInit() {
 		this.setSeo(
 			{
-			  metaTitle:'مکالمات من',
-			  metaDescription:'مکالمات من در تلفن خونه',
-			  metaKeywords:'مکالمات من,مکالمات من تلفن خونه, مکالمات من ',
-			  isNoIndex:false
-
+				metaTitle: 'مکالمات من',
+				metaDescription: 'مکالمات من در تلفن خونه',
+				metaKeywords: 'مکالمات من,مکالمات من تلفن خونه, مکالمات من ',
+				isNoIndex: true
 			}
-			)
+		)
 	}
 
 	ionViewWillEnter() {
-	
-			this.setSeo(
-				{
-				  metaTitle:'مکالمات من',
-				  metaDescription:'مکالمات من در تلفن خونه',
-				  metaKeywords:'مکالمات من,مکالمات من تلفن خونه, مکالمات من ',
-				  isNoIndex:false
-	
-				}
-				)
-		  
+
+		this.setSeo(
+			{
+				metaTitle: 'مکالمات من',
+				metaDescription: 'مکالمات من در تلفن خونه',
+				metaKeywords: 'مکالمات من,مکالمات من تلفن خونه, مکالمات من ',
+				isNoIndex: true
+			}
+		)
+
 	}
 	setSeo(data) {
 		// console.log(data);
-	  this.seo.generateTags({
-		  title: data.metaTitle,
-		  description: data.metaDescription,
-		  canonical: data.canonicalLink,
-		  keywords: data.metaKeywords.toString(),
-		  image: '/assets/img/icon/icon-384x384.png',
-		  isNoIndex: data.isNoIndex,
-	  });
-	  
-  }
+		this.seo.generateTags({
+			title: data.metaTitle,
+			description: data.metaDescription,
+			canonical: data.canonicalLink,
+			keywords: data.metaKeywords.toString(),
+			image: '/assets/img/icon/icon-384x384.png',
+			isNoIndex: data.isNoIndex,
+		});
+
+	}
 
 
 	async showSurvey(item) {
 		const modal = await this.modalController.create({
 			component: SurveyComponent,
 			cssClass: 'survey-modal',
-			componentProps: { id: item.id , type: 1 }
+			componentProps: { id: item.id, type: 1 }
 		});
 		await modal.present();
 		modal.onDidDismiss().then(data => {
@@ -148,7 +146,7 @@ export class MyCallsComponent implements OnInit {
 	}
 	goPay(item) {
 		this.payLoading = true;
-		this.global.httpPost('payCall' ,  {
+		this.global.httpPost('payCall', {
 			id: item.id,
 			back_url: this.global.backUrl
 		}).subscribe(res => {

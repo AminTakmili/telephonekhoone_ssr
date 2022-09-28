@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {GlobalService} from 'src/app/services/global.service';
+import { Component, OnInit } from '@angular/core';
+import { GlobalService } from 'src/app/services/global.service';
 import { SeoService } from 'src/app/services/seo.service';
-import {UserBalanceService} from 'src/app/services/user-balance.service';
+import { UserBalanceService } from 'src/app/services/user-balance.service';
 
 @Component({
     selector: 'app-transactions',
@@ -14,9 +14,9 @@ export class TransactionsComponent implements OnInit {
     transactions: Transactions[] = [];
     loading = false;
     breadCrumb = [
-        {url: '/', name: 'صفحه نخست'},
-        {url: '/profile', name: 'پروفایل'},
-        {url: '/profile/transactions', name: 'تراکنش ها'},
+        { url: '/', name: 'صفحه نخست' },
+        { url: '/profile', name: 'پروفایل' },
+        { url: '/profile/transactions', name: 'تراکنش ها' },
     ];
 
     constructor(
@@ -31,39 +31,37 @@ export class TransactionsComponent implements OnInit {
         this.getTransactions();
         this.setSeo(
             {
-              metaTitle:'تراکنش ها',
-              metaDescription:'تراکنش ها در تلفن خونه',
-              metaKeywords:'تراکنش ها,تراکنش ها تلفن خونه, تراکنش ها مشاوره',
-              isNoIndex:false
-
+                metaTitle: 'تراکنش ها',
+                metaDescription: 'تراکنش ها در تلفن خونه',
+                metaKeywords: 'تراکنش ها,تراکنش ها تلفن خونه, تراکنش ها مشاوره',
+                isNoIndex: true
             }
-            )
+        )
     }
     ionViewWillEnter() {
-		// console.log("object");
-       
+        // console.log("object");
+
         this.setSeo(
             {
-              metaTitle:'تراکنش ها',
-              metaDescription:'تراکنش ها در تلفن خونه',
-              metaKeywords:'تراکنش ها,تراکنش ها تلفن خونه, تراکنش ها مشاوره',
-              isNoIndex:false
-
+                metaTitle: 'تراکنش ها',
+                metaDescription: 'تراکنش ها در تلفن خونه',
+                metaKeywords: 'تراکنش ها,تراکنش ها تلفن خونه, تراکنش ها مشاوره',
+                isNoIndex: true
             }
-            )
-      }
-      setSeo(data) {
-		// console.log(data);
-	  this.seo.generateTags({
-		  title: data.metaTitle,
-		  description: data.metaDescription,
-		  canonical: data.canonicalLink,
-		  keywords: data.metaKeywords.toString(),
-		  image: '/assets/img/icon/icon-384x384.png',
-		  isNoIndex: data.isNoIndex,
-	  });
-	  
-  }
+        )
+    }
+    setSeo(data) {
+        // console.log(data);
+        this.seo.generateTags({
+            title: data.metaTitle,
+            description: data.metaDescription,
+            canonical: data.canonicalLink,
+            keywords: data.metaKeywords.toString(),
+            image: '/assets/img/icon/icon-384x384.png',
+            isNoIndex: data.isNoIndex,
+        });
+
+    }
 
 
     getTransactions() {

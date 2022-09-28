@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {NavController} from '@ionic/angular';
-import {Storage} from '@ionic/storage';
-import {GlobalService} from 'src/app/services/global.service';
+import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { GlobalService } from 'src/app/services/global.service';
 import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
@@ -11,10 +11,10 @@ import { SeoService } from 'src/app/services/seo.service';
 })
 export class TicketsComponent implements OnInit {
     breadCrumb = [
-        {url: '/', name: 'صفحه نخست'},
-        {url: '/profile', name: 'پروفایل'},
-        {url: '/profile/tickets', name: 'پشتیبانی'},
-        {url: '/profile/tickets/new', name: 'درخواست جدید'},
+        { url: '/', name: 'صفحه نخست' },
+        { url: '/profile', name: 'پروفایل' },
+        { url: '/profile/tickets', name: 'پشتیبانی' },
+        { url: '/profile/tickets/new', name: 'درخواست جدید' },
     ];
 
     constructor(
@@ -35,40 +35,38 @@ export class TicketsComponent implements OnInit {
     ngOnInit() {
         this.setSeo(
             {
-              metaTitle:'پشتیبانی',
-              metaDescription:'پشتیبانی به تلفن خونه',
-              metaKeywords:'پشتیبانی,پشتیبانی تلفن خونه, پشتیبانی مشاوره',
-              isNoIndex:false
+                metaTitle: 'پشتیبانی',
+                metaDescription: 'پشتیبانی به تلفن خونه',
+                metaKeywords: 'پشتیبانی,پشتیبانی تلفن خونه, پشتیبانی مشاوره',
+                isNoIndex: true
 
             }
-            )
+        )
     }
 
     ionViewWillEnter() {
         this.getTickets(false);
         this.setSeo(
             {
-              metaTitle:'پشتیبانی',
-              metaDescription:'پشتیبانی به تلفن خونه',
-              metaKeywords:'پشتیبانی,پشتیبانی تلفن خونه, پشتیبانی مشاوره',
-              isNoIndex:false
-
+                metaTitle: 'پشتیبانی',
+                metaDescription: 'پشتیبانی به تلفن خونه',
+                metaKeywords: 'پشتیبانی,پشتیبانی تلفن خونه, پشتیبانی مشاوره',
+                isNoIndex: true
             }
-            )
-      
+        )
+
     }
     setSeo(data) {
         console.log(data);
-      this.seo.generateTags({
-          title: data.metaTitle,
-          description: data.metaDescription,
-          canonical: data.canonicalLink,
-          keywords: data.metaKeywords.toString(),
-          image: '/assets/img/icon/icon-384x384.png',
-          isNoIndex: data.isNoIndex,
-      });
-      
-  }
+        this.seo.generateTags({
+            title: data.metaTitle,
+            description: data.metaDescription,
+            canonical: data.canonicalLink,
+            keywords: data.metaKeywords.toString(),
+            image: '/assets/img/icon/icon-384x384.png',
+            isNoIndex: data.isNoIndex,
+        });
+    }
 
     newTicket() {
         this.navCtrl.navigateRoot('/pages/more/tickets/new');

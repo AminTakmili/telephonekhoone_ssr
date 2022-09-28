@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {AlertController} from '@ionic/angular';
-import {GlobalService} from 'src/app/services/global.service';
+import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { GlobalService } from 'src/app/services/global.service';
 import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
@@ -14,57 +14,54 @@ export class FavouritesComponent implements OnInit {
     limit = 10;
     offset = 0;
     breadCrumb = [
-        {url: '/', name: 'صفحه نخست'},
-        {url: '/profile', name: 'پروفایل'},
-        {url: '/profile/favourites', name: 'علاقه مندی ها'},
+        { url: '/', name: 'صفحه نخست' },
+        { url: '/profile', name: 'پروفایل' },
+        { url: '/profile/favourites', name: 'علاقه مندی ها' },
     ];
 
     constructor(
         private global: GlobalService,
         private alertController: AlertController,
-        public seo: SeoService,
-
+        public seo: SeoService
     ) {
     }
 
     ngOnInit() {
         this.getData();
-          
+
         this.setSeo(
             {
-              metaTitle:'علاقه مندی ها',
-              metaDescription:'علاقه مندی ها در تلفن خونه',
-              metaKeywords:'علاقه مندی ها,علاقه مندی ها تلفن خونه, علاقه مندی ها مشاوره',
-              isNoIndex:false
-
+                metaTitle: 'علاقه مندی ها',
+                metaDescription: 'علاقه مندی ها در تلفن خونه',
+                metaKeywords: 'علاقه مندی ها,علاقه مندی ها تلفن خونه, علاقه مندی ها مشاوره',
+                isNoIndex: true
             }
-            )
+        )
     }
     ionViewWillEnter() {
-		// console.log("object");
-       
+        // console.log("object");
+
         this.setSeo(
             {
-              metaTitle:'علاقه مندی ها',
-              metaDescription:'علاقه مندی ها در تلفن خونه',
-              metaKeywords:'علاقه مندی ها,علاقه مندی ها تلفن خونه, علاقه مندی ها مشاوره',
-              isNoIndex:false
-
+                metaTitle: 'علاقه مندی ها',
+                metaDescription: 'علاقه مندی ها در تلفن خونه',
+                metaKeywords: 'علاقه مندی ها,علاقه مندی ها تلفن خونه, علاقه مندی ها مشاوره',
+                isNoIndex: true
             }
-            )
-      }
-      setSeo(data) {
-		// console.log(data);
-	  this.seo.generateTags({
-		  title: data.metaTitle,
-		  description: data.metaDescription,
-		  canonical: data.canonicalLink,
-		  keywords: data.metaKeywords.toString(),
-		  image: '/assets/img/icon/icon-384x384.png',
-		  isNoIndex: data.isNoIndex,
-	  });
-	  
-  }
+        )
+    }
+    setSeo(data) {
+        // console.log(data);
+        this.seo.generateTags({
+            title: data.metaTitle,
+            description: data.metaDescription,
+            canonical: data.canonicalLink,
+            keywords: data.metaKeywords.toString(),
+            image: '/assets/img/icon/icon-384x384.png',
+            isNoIndex: data.isNoIndex,
+        });
+
+    }
 
 
     async removeFavourite(item) {

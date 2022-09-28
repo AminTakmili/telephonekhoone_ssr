@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {IonContent} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
 import {GlobalService} from 'src/app/services/global.service';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
     selector: 'app-show',
@@ -37,7 +38,8 @@ export class ShowPage implements OnInit {
         private activatedRoute: ActivatedRoute,
         public global: GlobalService,
         private fb: FormBuilder,
-        private storage: Storage
+        private storage: Storage,
+        private seo: SeoService,
     ) {
         this.replayForm = this.fb.group({
             message: ['', Validators.compose([Validators.required])],
@@ -45,6 +47,14 @@ export class ShowPage implements OnInit {
     }
 
     ngOnInit() {
+        this.setSeo(
+            {
+                metaTitle: 'پشتیبانی',
+                metaDescription: 'پشتیبانی به تلفن خونه',
+                metaKeywords: 'پشتیبانی,پشتیبانی تلفن خونه, پشتیبانی مشاوره',
+                isNoIndex: true
+            }
+        )
     }
 
     ionViewWillEnter() {
@@ -52,6 +62,18 @@ export class ShowPage implements OnInit {
         this.getData(this.myId);
         this.storage.get('ticketTitle').then((val) => {
             this.title = val;
+        });
+    }
+
+    setSeo(data) {
+        console.log(data);
+        this.seo.generateTags({
+            title: data.metaTitle,
+            description: data.metaDescription,
+            canonical: data.canonicalLink,
+            keywords: data.metaKeywords.toString(),
+            image: '/assets/img/icon/icon-384x384.png',
+            isNoIndex: data.isNoIndex,
         });
     }
 

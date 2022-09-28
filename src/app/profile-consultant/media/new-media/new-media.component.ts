@@ -7,6 +7,7 @@ import { GlobalService } from 'src/app/services/global.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 import * as _ from "lodash";
 import { ActivatedRoute } from '@angular/router';
+import { SeoService } from 'src/app/services/seo.service';
 
 export interface MyFile {
 	loading: boolean,
@@ -36,8 +37,8 @@ export class NewMediaComponent implements OnInit {
 	selectedFiles = [];
 	selectedPreview = [];
 	selectedMain = [];
-	dataType:Array<object>
-	constructor(private activatedRoute: ActivatedRoute, private socketService: WebSocketService, private navCtrl: NavController, private fb: FormBuilder, public global: GlobalService) {
+	dataType: Array<object>
+	constructor(private activatedRoute: ActivatedRoute, private socketService: WebSocketService, private navCtrl: NavController, private fb: FormBuilder, public global: GlobalService, private seo: SeoService) {
 		this.myId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
 		this.mediaForm = this.fb.group({
 			title: [
@@ -78,10 +79,37 @@ export class NewMediaComponent implements OnInit {
 			this.editing = false;
 		}
 		this.getType()
+		this.setSeo(
+			{
+				metaTitle: 'ثبت رسانه جدید',
+				isNoIndex: true
+			}
+		)
+	}
+
+	ionViewWillEnter() {
+		this.setSeo(
+			{
+				metaTitle: 'ثبت رسانه جدید',
+				isNoIndex: true
+			}
+		)
+	}
+
+	setSeo(data) {
+		console.log(data);
+		this.seo.generateTags({
+			title: data.metaTitle,
+			description: data.metaDescription,
+			canonical: data.canonicalLink,
+			keywords: data.metaKeywords.toString(),
+			image: '/assets/img/icon/icon-384x384.png',
+			isNoIndex: data.isNoIndex,
+		});
 	}
 
 	getData() {
-		this.global.showLoading().then(()=> {
+		this.global.showLoading().then(() => {
 
 			this.global.httpPost('userMedia/edit', {
 				id: this.myId
@@ -287,13 +315,13 @@ export class NewMediaComponent implements OnInit {
 
 
 	}
-	getType(){
+	getType() {
 		this.global.httpGet('userMedia').subscribe(
-			async (res:any) => {
-			console.log(res);	
-			this.dataType=res
+			async (res: any) => {
+				console.log(res);
+				this.dataType = res
 			},
-			async (error:any) => {
+			async (error: any) => {
 				console.log(error);
 			}
 		)
