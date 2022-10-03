@@ -435,9 +435,36 @@ ion-icon {
 }
 
 .leaflet-control-attribution.leaflet-control {
-
     a,span{
         display: none;
     }
+}
 
+.show-more {
+    background-color: transparent;
+    display: inline-block;
+    padding: 20px 10px 0;
+    font-weight: 500;
+    color: var(--ion-color-danger);
+    width: 100%;
+    text-align: start;
+    i {
+        margin: 0 5px;
+        vertical-align: middle;
+    }
+    &.close-state {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        text-align: start;
+        background: linear-gradient(0deg, #ffffffe3 0%, transparent 70%);
+        span {
+            position: absolute;
+            bottom: 18px;
+            right: 28px;
+            // color: ;
+        }
+    }
 }

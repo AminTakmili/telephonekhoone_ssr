@@ -151,7 +151,7 @@
                   </ion-col>
               </ion-row>
               <ng-template [ngIf]="loading"  *appShellNoRender>
-              <ion-row >
+              <ion-row>
                   <ion-col class="p-10" size-lg="6" size="12" *ngFor="let item of [1, 2, 3, 4, 5, 6]; let x = index">
                       <div class="advisor shimmer cursor-pointer box-shadow w-100">
                           <!-- <div class="w-100"> -->
@@ -183,7 +183,18 @@
                       </div>
                   </ion-col>
               </ion-row>
-              </ng-template>
+            </ng-template>
+            <ion-card [@myfirstanimation]="state" [class.when-close]="state === 'close'" class="advisor shimmer box-shadow mt-40 w-100">
+                <div [innerHTML]="meta_description | safeHtml"></div>
+                <button (click)='animateMe()' class="show-more" [class.close-state]="state === 'close'">
+                    <span *ngIf="state === 'close'"> نمایش بیشتر
+                        <i class="far fa-angle-down"></i>
+                    </span>
+                    <span *ngIf="state === 'open'"> بستن
+                        <i class="far fa-angle-up"></i>
+                    </span>
+                </button>
+            </ion-card>
           </ion-grid>
       </div>
   </section>

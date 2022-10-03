@@ -242,3 +242,15 @@
 		color: rgb(138 138 138);
 	}
 }
+
+.advisor {
+	transition: all 500ms ease-in;
+	&.when-close {
+        overflow: hidden;
+    }
+}
+
+.box-shadow:not(.no-scroll) {
+	max-height: initial;
+	display: block;
+}
