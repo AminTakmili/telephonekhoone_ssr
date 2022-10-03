@@ -20,20 +20,21 @@ import { SpecialtyComponent } from "../../components/specialty/specialty.compone
 import { VerifyComponent } from "src/app/desktop-login/verify/verify.component";
 import { ShareModulePage } from "./share-module.page";
 import { DesktopLoginComponent } from "src/app/desktop-login/desktop-login.component";
- import { InAppBrowser } from "@ionic-native/in-app-browser/ngx";
+import { InAppBrowser } from "@ionic-native/in-app-browser/ngx";
 import { ValidatorModule } from "src/app/components/validator/validator.module";
 import { CountriesPopoverComponent } from "src/app/components/countries-popover/countries-popover.component";
- import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
+import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
 import { NgPersianDatepickerModule } from "ng-persian-datepicker";
 import { DatePickerComponent } from "src/app/components/date-picker/date-picker.component";
 import { WalletComponent } from "src/app/components/wallet/wallet.component";
 import { NotFoundComponent } from 'src/app/components/not-found/not-found.component';
- import { SelectedFilesComponent } from 'src/app/profile-consultant/media/new-media/selected-files/selected-files.component';
+import { SelectedFilesComponent } from 'src/app/profile-consultant/media/new-media/selected-files/selected-files.component';
 import { UploadFileComponent } from 'src/app/components/upload-file/upload-file.component';
 import { SurveyComponent } from './survey/survey.component';
 import { StarRatingComponent } from './star-rating/star-rating.component';
 import { ImageGalleryComponent } from 'src/app/components/image-gallery/image-gallery.component';
 import { RulesPage } from 'src/app/rules-component/rules.page';
+import { PipeModule } from '../../pipes/pipe.module';
 import { PipesModule } from '../pipes-module/pipes/pipes.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -48,8 +49,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 		ReactiveFormsModule,
 		ValidatorModule,
 		CKEditorModule,
+		PipeModule,
 		PipesModule,
-NgxPaginationModule
+		NgxPaginationModule
 
 	],
 	providers: [InAppBrowser],
@@ -95,7 +97,7 @@ NgxPaginationModule
 		ValidatorModule,
 		CountriesPopoverComponent,
 		CKEditorModule,
- 		NgPersianDatepickerModule,
+		NgPersianDatepickerModule,
 		DatePickerComponent,
 		WalletComponent,
 		NotFoundComponent,
@@ -103,11 +105,11 @@ NgxPaginationModule
 		UploadFileComponent,
 		AppShellRenderDirective,
 		AppShellNoRenderDirective,
+		PipeModule,
 		PipesModule,
-
 		RulesPage,
 		// BlogCategoriesComponent
 	],
-	
+
 })
 export class ShareModulePageModule { }

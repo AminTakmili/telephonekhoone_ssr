@@ -15,15 +15,37 @@ import * as searchAnimation from '../../../assets/animations/13525-empty.json';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { SeoService } from 'src/app/services/seo.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
-  selector: 'app-sub-categori-list',
-  templateUrl: './sub-categori-list.component.html',
-  styleUrls: ['./sub-categori-list.component.scss'],
+	selector: 'app-sub-categori-list',
+	templateUrl: './sub-categori-list.component.html',
+	styleUrls: ['./sub-categori-list.component.scss'],
+	animations: [
+		trigger('myfirstanimation', [
+			state(
+				'close',
+				style({
+					height: '320px',
+					position: 'relative'
+				})
+			),
+			state(
+				'open',
+				style({
+					height: '*',
+				})
+			),
+			transition('close <=> open', animate('600ms ease-in')),
+		]),
+	]
 })
-export class SubCategoriListComponent implements OnInit,OnDestroy {
+
+export class SubCategoriListComponent implements OnInit, OnDestroy {
+
 	@ViewChild('DesktopMenu', { static: false }) DesktopMenu: IonSlides;
 	@ViewChild('searchBar', { static: false }) searchBar: IonSearchbar;
+	state = 'close';
 	listCount = 0;
 	emptyAnimation: any;
 	searchAnimate: AnimationOptions = {
@@ -31,7 +53,6 @@ export class SubCategoriListComponent implements OnInit,OnDestroy {
 		loop: false,
 		autoplay: false,
 	};
-
 	loading = false;
 	filterRequest: any;
 	myId = null;
@@ -61,13 +82,13 @@ export class SubCategoriListComponent implements OnInit,OnDestroy {
 		watchSlidesVisibility: true,
 		watchSlidesProgress: true,
 	};
-
+	meta_description: string;
 	filterSubject = new Subject<any>();
 
-	
+
 	// rating3: number;
 	// public starform: FormGroup;
-  
+
 
 	constructor(
 		private global: GlobalService,
@@ -76,7 +97,7 @@ export class SubCategoriListComponent implements OnInit,OnDestroy {
 		private fb: FormBuilder,
 		public seo: SeoService,
 
-	) { 
+	) {
 
 		// this.rating3 = 0;
 		// this.starform = this.fb.group({
@@ -161,6 +182,7 @@ export class SubCategoriListComponent implements OnInit,OnDestroy {
 		params.name = text ?? '';
 		this.filterRequest = this.global.httpPost('consultants', params).subscribe(
 			(res) => {
+				this.meta_description = res.category?.meta_description;
 				this.countries = [];
 				res.countries.map((country) => {
 					this.countries.push(country);
@@ -200,19 +222,23 @@ export class SubCategoriListComponent implements OnInit,OnDestroy {
 				// console.log(res.category['seo']);
 				this.setSeo(
 					{
-					  metaTitle:res.category['seo'].title,
-					  metaDescription:res.category['seo'].description,
-					  metaKeywords:res.category['seo'].keywords,
-					  isNoIndex:false
-	  
+						metaTitle: res.category['seo'].title,
+						metaDescription: res.category['seo'].description,
+						metaKeywords: res.category['seo'].keywords,
+						isNoIndex: false
+
 					}
-				  )
+				)
 			},
 			(err) => {
 				this.loading = false;
 				this.global.showError(err);
 			}
 		);
+	}
+
+	animateMe() {
+		this.state = this.state === 'close' ? 'open' : 'close';
 	}
 
 	changeSort(item) {
@@ -223,7 +249,7 @@ export class SubCategoriListComponent implements OnInit,OnDestroy {
 	onClickBack() {
 		if (this.global.isBrowser) {
 			window.history.back();
-			
+
 		}
 	}
 
@@ -235,10 +261,10 @@ export class SubCategoriListComponent implements OnInit,OnDestroy {
 				: 'با جستجو در تلفن خونه نزدیک‌ترین و بهترین مشاور مورد نظر خود را پیدا کنید.'
 	}
 
-	
-  
+
+
 	setSeo(data) {
-  
+
 		this.seo.generateTags({
 			title: data.metaTitle,
 			description: data.metaDescription,
@@ -246,8 +272,8 @@ export class SubCategoriListComponent implements OnInit,OnDestroy {
 			image: 'src/assets/img/seo-logo.png',
 			isNoIndex: data.isNoIndex,
 		});
-		
-	  }
+
+	}
 
 
 }
