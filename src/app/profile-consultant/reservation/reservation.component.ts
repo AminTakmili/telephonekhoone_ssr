@@ -23,7 +23,11 @@ export class ReservationComponent implements OnInit {
 	plans: Plans[] = [];
 	reserveItems: Reserve[] = [];
 	reserves: Timeline[] = [];
-	breadCrumb = [{ url: '/', name: 'صفحه نخست' }];
+	breadCrumb = [
+		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/profile-consultant', name: 'پروفایل مشاور' },
+		{ url: '/profile-consultant/reservation', name: 'پکیج های مشاوره' },
+	];
 
 	constructor(
 		private popoverController: PopoverController,
@@ -211,7 +215,7 @@ export class ReservationComponent implements OnInit {
 			title: data.metaTitle,
 			description: data.metaDescription,
 			canonical: data.canonicalLink,
-			keywords: data.metaKeywords.toString(),
+			// keywords: data.metaKeywords.toString(),
 			image: '/assets/img/icon/icon-384x384.png',
 			isNoIndex: data.isNoIndex,
 		});

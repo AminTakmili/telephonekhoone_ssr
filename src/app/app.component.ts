@@ -69,7 +69,9 @@ export class AppComponent {
 							this.balanceService.setUserBalance(res.balance);
 						},
 						(err) => {
-							this.global.showError(err);
+							//this.global.showError(err);
+							this.global.changeLogin(false);
+							return;
 						}
 					);
 					if (!this.global.getUserInfo().name) {

@@ -113,6 +113,14 @@ const routes: Routes = [
       ),
     canActivate: [ChatGuard],
   },
+  {
+		path: 'not-found',
+		loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundPageModule)
+	},
+	{
+		path: '**',
+		redirectTo: 'not-found'
+	},
 
   // {
   // 	path: 'profile-consultant',

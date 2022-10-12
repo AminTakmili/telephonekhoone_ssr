@@ -98,7 +98,6 @@ export class Searchitem {
   public set consultations(value: number) {
     this._consultations = value;
   }
-
   private _country: string;
   public get country(): string {
     return this._country;
@@ -161,6 +160,13 @@ export class Searchitem {
   }
   public set title(value: string) {
     this._title = value;
+  }
+  private _h1: string;
+  public get h1(): string {
+    return this._h1;
+  }
+  public set h1(value: string) {
+    this._h1 = value;
   }
 }
 

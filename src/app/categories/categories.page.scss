@@ -58,6 +58,9 @@
             overflow: hidden;
             width: 100%;
             height: 141px;
+            @include breakpoint(lg-down) {
+                height: auto;
+            }
         }
         .desc {
             margin: 15px 0 2px;

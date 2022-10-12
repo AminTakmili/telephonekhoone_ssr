@@ -17,7 +17,12 @@ export class WithdrawComponent implements OnInit {
 	balance = 0;
 	walletForm: FormGroup;
 	lastPayRequest: any;
-	breadCrumb = [{ url: '/', name: 'صفحه نخست' }];
+	breadCrumb = [
+		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/profile-consultant', name: 'پروفایل مشاور' },
+		{ url: '/profile-consultant/withdraw', name: 'برداشت از حساب' },
+	];
+
 	constructor(
 		public global: GlobalService,
 		private fb: FormBuilder,
@@ -66,7 +71,7 @@ export class WithdrawComponent implements OnInit {
 			title: data.metaTitle,
 			description: data.metaDescription,
 			canonical: data.canonicalLink,
-			keywords: data.metaKeywords.toString(),
+			// keywords: data.metaKeywords.toString(),
 			image: '/assets/img/icon/icon-384x384.png',
 			isNoIndex: data.isNoIndex,
 		});
