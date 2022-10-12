@@ -15,7 +15,7 @@ export class TransactionsConsultantComponent implements OnInit {
     loading = false;
     breadCrumb = [
         { url: '/', name: 'صفحه نخست' },
-        { url: '/profile-consultant', name: 'پروفایل' },
+        { url: '/profile-consultant', name: 'پروفایل مشاور' },
         { url: '/profile-consultant/transactions', name: 'تراکنش ها' },
     ];
 
@@ -50,7 +50,7 @@ export class TransactionsConsultantComponent implements OnInit {
             title: data.metaTitle,
             description: data.metaDescription,
             canonical: data.canonicalLink,
-            keywords: data.metaKeywords.toString(),
+            // keywords: data.metaKeywords.toString(),
             image: '/assets/img/icon/icon-384x384.png',
             isNoIndex: data.isNoIndex,
         });

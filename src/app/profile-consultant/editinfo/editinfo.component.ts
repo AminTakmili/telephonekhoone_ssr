@@ -16,6 +16,7 @@ import { SeoService } from 'src/app/services/seo.service';
 	styleUrls: ['./editinfo.component.scss'],
 })
 export class EditinfoComponent implements OnInit {
+	
 	breadCrumb = [
 		{ url: '/', name: 'صفحه نخست' },
 		{ url: '/profile-consultant', name: 'پروفایل مشاور' },
@@ -136,7 +137,7 @@ export class EditinfoComponent implements OnInit {
 			title: data.metaTitle,
 			description: data.metaDescription,
 			canonical: data.canonicalLink,
-			keywords: data.metaKeywords.toString(),
+			// keywords: data.metaKeywords.toString(),
 			image: '/assets/img/icon/icon-384x384.png',
 			isNoIndex: data.isNoIndex,
 		});

@@ -13,7 +13,11 @@ export class ActivitiesStatusComponent implements OnInit {
     video_call = this.global.getUserInfo().is_video_call === 1;
     voice_call = this.global.getUserInfo().is_voice_call === 1;
     chat = this.global.getUserInfo().is_chat === 1;
-    breadCrumb = [{ url: '/', name: 'صفحه نخست' }];
+    breadCrumb = [
+		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/profile-consultant', name: 'پروفایل مشاور' },
+		{ url: '/profile-consultant/status', name: 'وضعیت فعال' },
+	];
 
     constructor(private global: GlobalService, private seo: SeoService,) {
     }
@@ -45,7 +49,7 @@ export class ActivitiesStatusComponent implements OnInit {
             title: data.metaTitle,
             description: data.metaDescription,
             canonical: data.canonicalLink,
-            keywords: data.metaKeywords.toString(),
+            // keywords: data.metaKeywords.toString(),
             image: '/assets/img/icon/icon-384x384.png',
             isNoIndex: data.isNoIndex,
         });

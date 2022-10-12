@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
+	IonCard,
 	IonContent,
 	IonSearchbar,
 	IonSlides,
@@ -26,7 +27,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 			state(
 				'close',
 				style({
-					height: '320px',
+					height: 'auto',
+					maxHeight: '320px',
 					position: 'relative'
 				})
 			),
@@ -34,6 +36,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 				'open',
 				style({
 					height: '*',
+					maxHeight: '*',
 				})
 			),
 			transition('close <=> open', animate('600ms ease-in')),
@@ -41,11 +44,13 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 	]
 })
 
-export class SubCategoriListComponent implements OnInit, OnDestroy {
+export class SubCategoriListComponent implements OnInit, OnDestroy, AfterViewChecked {
 
-	@ViewChild('DesktopMenu', { static: false }) DesktopMenu: IonSlides;
-	@ViewChild('searchBar', { static: false }) searchBar: IonSearchbar;
+	@ViewChild('DesktopMenu') DesktopMenu: IonSlides;
+	@ViewChild('searchBar') searchBar: IonSearchbar;
+	@ViewChild('ionCardContainer') ionCardContainer: ElementRef;
 	state = 'close';
+	isState = true;
 	listCount = 0;
 	emptyAnimation: any;
 	searchAnimate: AnimationOptions = {
@@ -84,11 +89,8 @@ export class SubCategoriListComponent implements OnInit, OnDestroy {
 	};
 	meta_description: string;
 	filterSubject = new Subject<any>();
-
-
-	// rating3: number;
-	// public starform: FormGroup;
-
+	h1: string;
+	categoryName: string;
 
 	constructor(
 		private global: GlobalService,
@@ -98,16 +100,22 @@ export class SubCategoriListComponent implements OnInit, OnDestroy {
 		public seo: SeoService,
 
 	) {
+	}
 
-		// this.rating3 = 0;
-		// this.starform = this.fb.group({
-		// 	// rating: []
-		// });
-
+	ngAfterViewChecked(): void {
+		if(this.ionCardContainer.nativeElement.offsetHeight >= 49) {
+			if(this.ionCardContainer.nativeElement.offsetHeight >= 320) {
+				this.isState = false;
+			}
+		}
 	}
 
 	ngOnDestroy() {
 		this.filterSubject.unsubscribe();
+	}
+
+	ionViewDidEnter() {
+		console.log(this.ionCardContainer.nativeElement.offsetHeight);
 	}
 
 	ngOnInit() {
@@ -182,6 +190,7 @@ export class SubCategoriListComponent implements OnInit, OnDestroy {
 		params.name = text ?? '';
 		this.filterRequest = this.global.httpPost('consultants', params).subscribe(
 			(res) => {
+				this.categoryName = res.category?.name;
 				this.meta_description = res.category?.meta_description;
 				this.countries = [];
 				res.countries.map((country) => {
@@ -190,8 +199,11 @@ export class SubCategoriListComponent implements OnInit, OnDestroy {
 				this.countries.unshift({ id: 0, name: 'مشاهده همه' });
 				this.loading = false;
 				res.consultants.map((item) => {
+					
 					const list = new Searchitem();
 					list.id = item.seo.link;
+					list.h1 = item.seo.h1;
+					this.h1 = item.seo.h1;
 					list.country = item.country;
 					list.fullname = item.fullname;
 					// list.id = item.id;

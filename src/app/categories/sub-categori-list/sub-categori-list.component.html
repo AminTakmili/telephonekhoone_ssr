@@ -13,9 +13,9 @@
       <div class="cat-search-box">
           <div class="content">
               <div class="container">
-                  <h1 class="title mt-0">
+                  <h2 class="title mt-0">
                       {{ filter == 'chat' ? 'دریافت مشاوره آنلاین' : filter == 'call' ? 'دریافت مشاوره تلفنی' : 'جستجوی مشاور'}}
-                  </h1>
+                  </h2>
                   <p class="dsec">
                       {{ getFilterText(filter) }}
                   </p>
@@ -69,6 +69,9 @@
               </ion-grid>
           </div>
           <ion-grid class="m-0 my-md-20">
+            <h1>
+                {{ h1 ? h1 : categoryName }}
+            </h1>
               <ion-row *ngIf="!loading">
                   <ion-col class="p-10" size-lg="6" *ngFor="let item of searchList; let x = index">
 
@@ -184,17 +187,19 @@
                   </ion-col>
               </ion-row>
             </ng-template>
-            <ion-card [@myfirstanimation]="state" [class.when-close]="state === 'close'" class="advisor shimmer box-shadow mt-40 w-100">
-                <div [innerHTML]="meta_description | safeHtml"></div>
-                <button (click)='animateMe()' class="show-more" [class.close-state]="state === 'close'">
-                    <span *ngIf="state === 'close'"> نمایش بیشتر
-                        <i class="far fa-angle-down"></i>
-                    </span>
-                    <span *ngIf="state === 'open'"> بستن
-                        <i class="far fa-angle-up"></i>
-                    </span>
-                </button>
-            </ion-card>
+            <div #ionCardContainer>
+                <ion-card [@myfirstanimation]="state" [class.when-close]="state === 'close'" class="advisor shimmer box-shadow mt-40 w-100">
+                    <div [innerHTML]="meta_description | safeHtml"></div>
+                    <button *ngIf="!isState" (click)='animateMe()' class="show-more" [class.close-state]="state === 'close'">
+                        <span *ngIf="state === 'close'"> نمایش بیشتر
+                            <i class="far fa-angle-down"></i>
+                        </span>
+                        <span *ngIf="state === 'open'"> بستن
+                            <i class="far fa-angle-up"></i>
+                        </span>
+                    </button>
+                </ion-card>
+            </div>
           </ion-grid>
       </div>
   </section>

@@ -138,7 +138,7 @@
 				}
 			}
 		}
-		padding: 10px;
+		padding: 15px 27px;
 		border-radius: 15px;
 		.image {
 			width: 146px;
@@ -253,4 +253,13 @@
 .box-shadow:not(.no-scroll) {
 	max-height: initial;
 	display: block;
+}
+
+h2 {
+	margin-bottom: 15px;
+}
+
+ul {
+	list-style-type: disc;
+	padding: initial;
 }

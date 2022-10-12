@@ -146,7 +146,9 @@ export function app(): express.Express {
           url: 'https://app.telephonkhoneh.com/api/allCategories'
         });
 
-        console.log(siteMap.data);
+        console.log(siteMap);
+        
+        // console.log(siteMap.data);
         // console.log(siteMap.data.length);
         // console.log(siteMap.data instanceof Array);
         
@@ -156,22 +158,24 @@ export function app(): express.Express {
           for (const entry of siteMap.data) {
 
             let imageObject = [];
-            
-            for (const img of entry.images) {
-              // console.log(img);
-              
-              imageObject['url'] = img;
-              imageObject['caption'] = img.caption;
-              imageObject['caption'] = entry.name;
-              imageObject.push(imageObject)
+            if(entry.loc){
+              for (const img of entry.images) {
+                // console.log(img);
+                
+                imageObject['url'] = img;
+                imageObject['caption'] = img.caption;
+                imageObject['caption'] = entry.name;
+                imageObject.push(imageObject)
+              }
+              sitemapStream.write({
+                url: entry.level === 1 ? "c/"+entry.loc : "c/m/"+entry.loc,
+                changefreq: "monthly",
+                lastmod: entry.lastModified,
+                priority: .9,
+                img: imageObject,
+              } as SitemapItem);
             }
-            sitemapStream.write({
-              url: entry.loc,
-              changefreq: "monthly",
-              lastmod: entry.lastModified,
-              priority: .9,
-              img: imageObject,
-            } as SitemapItem);
+            
           }
           // Stream write the response
           sitemapStream.end();
@@ -223,7 +227,7 @@ export function app(): express.Express {
           url: 'https://app.telephonkhoneh.com/api/allConsultants'
         });
 
-        console.log(siteMap.data);
+        // console.log(siteMap.data);
         // console.log(siteMap.data.length);
         // console.log(siteMap.data instanceof Array);
         
@@ -242,7 +246,7 @@ export function app(): express.Express {
               imageObject.push(imageObject)
             }
             sitemapStream.write({
-              url: entry.loc,
+              url: "c/m/"+entry.loc,
               changefreq: "monthly",
               lastmod: entry.lastModified,
               priority: .9,

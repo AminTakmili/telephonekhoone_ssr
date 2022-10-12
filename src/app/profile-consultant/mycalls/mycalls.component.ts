@@ -23,8 +23,8 @@ export class MycallsComponent implements OnInit {
 	offset = 0;
 	breadCrumb = [
 		{ url: '/', name: 'صفحه نخست' },
-		{ url: '/profile', name: 'پروفایل' },
-		{ url: '/profile/mycalls', name: 'مکالمات من' },
+		{ url: '/profile-consultant', name: 'پروفایل مشاور' },
+		{ url: '/profile-consultant/mycalls', name: 'مکالمات من' },
 	];
 
 	constructor(
@@ -71,7 +71,7 @@ export class MycallsComponent implements OnInit {
 			title: data.metaTitle,
 			description: data.metaDescription,
 			canonical: data.canonicalLink,
-			keywords: data.metaKeywords.toString(),
+			// keywords: data.metaKeywords.toString(),
 			image: '/assets/img/icon/icon-384x384.png',
 			isNoIndex: data.isNoIndex,
 		});

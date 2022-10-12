@@ -102,7 +102,7 @@ export class NewMediaComponent implements OnInit {
 			title: data.metaTitle,
 			description: data.metaDescription,
 			canonical: data.canonicalLink,
-			keywords: data.metaKeywords.toString(),
+			// keywords: data.metaKeywords.toString(),
 			image: '/assets/img/icon/icon-384x384.png',
 			isNoIndex: data.isNoIndex,
 		});

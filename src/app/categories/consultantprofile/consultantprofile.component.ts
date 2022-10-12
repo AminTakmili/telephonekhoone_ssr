@@ -177,13 +177,16 @@ export class ConsultantprofileComponent implements OnInit {
             ];
 					},
 					(err) => {
+						if(err.status === 400 || err.status === 404 || err.status === 301) {
+							this.navCtrl.navigateForward('/not-found');
+						}
 						this.loading = false;
 						this.global.dismisLoading();
-						this.global.showError(err).then((data) => {
-							if (data === 'req') {
-								this.getData();
-							}
-						});
+						// this.global.showError(err).then((data) => {
+						// 	if (data === 'req') {
+						// 		this.getData();
+						// 	}
+						// });
 					}
 				);
 		});
