@@ -88,7 +88,7 @@ export class BlogPage implements OnInit {
                         const items = new Blog();
                         items.admin = item.admin;
                         items.created_at = item.created_at;
-                        items.id = item.seo.link;
+                        items.id = item.seo?.link;
                         items.title = item.title;
                         if (item.media[0]) {
                             items.media = item.media[0].options?.subSizes.large ?? item.media[0].path;
@@ -108,7 +108,7 @@ export class BlogPage implements OnInit {
                     res.latest.map((item) => {
                         const latest = new LatestPosts();
                         latest.created_at = item.created_at;
-                        latest.id = item.seo.link;
+                        latest.id = item.seo?.link;
                         latest.title = item.title;
                         if (item.media[0]) {
                             latest.media = item.media[0].options?.subSizes.medium ?? item.media[0].path;

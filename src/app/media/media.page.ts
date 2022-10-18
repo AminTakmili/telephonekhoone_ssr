@@ -71,7 +71,7 @@ export class MediaPage implements OnInit {
 			const cat = new Categories();
 			cat.entity_count = item.entity_count;
 			cat.id = item.id;
-			cat.link = item.seo.link;
+			cat.link = item.seo?.link;
 			cat.name = item.name;
 			this.categories.push(cat);
 		});

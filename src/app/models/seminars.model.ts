@@ -24,7 +24,7 @@ export class Seminars implements Deserializable {
     Object.assign(this, input);
     this.category = new Category().deserialize(input.category);
     this.logo = input.media.find((x) => x.name == "logo");
-    this.link=input.seo.link
+    this.link=input.seo?.link
     console.log(this.logo);
     this.presenter_profile = input.media.find((x) => x.name == "presenter_profile");
     console.log(this);
