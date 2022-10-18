@@ -201,9 +201,9 @@ export class SubCategoriListComponent implements OnInit, OnDestroy, AfterViewChe
 				res.consultants.map((item) => {
 					
 					const list = new Searchitem();
-					list.id = item.seo.link;
-					list.h1 = item.seo.h1;
-					this.h1 = item.seo.h1;
+					list.id = item.seo?.link;
+					list.h1 = item.seo?.h1;
+					this.h1 = item.seo?.h1;
 					list.country = item.country;
 					list.fullname = item.fullname;
 					// list.id = item.id;

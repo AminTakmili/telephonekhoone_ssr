@@ -230,7 +230,7 @@ export class HomePage {
                 b.category = blog.category;
                 b.id = blog.id;
                 b.title = blog.title;
-                b.link = blog.seo.link;
+                b.link = blog.seo?.link;
                 this.searchItems.blogs.push(b);
               });
             }
@@ -243,7 +243,7 @@ export class HomePage {
                 c.category_item_id = consultant.category_item_id;
                 c.category_item_link = consultant.category_item_link;
                 c.id = consultant.id;
-                c.link = consultant.seo.link;
+                c.link = consultant.seo?.link;
                 this.searchItems.consoltants.push(c);
               });
             }
@@ -374,7 +374,7 @@ export class HomePage {
               const bl = new Blog();
               bl.created_at = blog.created_at;
               bl.id = blog.id;
-              bl.link = blog.seo.link;
+              bl.link = blog.seo?.link;
               bl.title = blog.title;
               if (blog.media[0]) {
                 bl.media =
@@ -400,7 +400,7 @@ export class HomePage {
               console.log(item);
               const list = new Searchitem();
               list.id = item.id;
-              list.link = item.seo.link;
+              list.link = item.seo?.link;
               list.country = item.country;
               list.fullname = item.fullname;
               list.id = item.id;
