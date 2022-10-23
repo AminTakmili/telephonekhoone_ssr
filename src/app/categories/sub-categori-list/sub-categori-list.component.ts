@@ -244,7 +244,12 @@ export class SubCategoriListComponent implements OnInit, OnDestroy, AfterViewChe
 			},
 			(err) => {
 				this.loading = false;
-				this.global.showError(err);
+				if (err.status === 400 && err.error.data['redirectUrl']) {
+					this.seo.redirect(err.error.data['redirectUrl']);
+					return;
+				} else {
+					this.global.showError(err);
+				}
 			}
 		);
 	}

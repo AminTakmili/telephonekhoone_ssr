@@ -30,9 +30,9 @@ import { WalletComponent } from 'src/app/components/wallet/wallet.component';
 
 
 @Component({
-  selector: 'app-consultantprofile',
-  templateUrl: './consultantprofile.component.html',
-  styleUrls: ['./consultantprofile.component.scss'],
+	selector: 'app-consultantprofile',
+	templateUrl: './consultantprofile.component.html',
+	styleUrls: ['./consultantprofile.component.scss'],
 })
 export class ConsultantprofileComponent implements OnInit {
 	myId;
@@ -129,14 +129,14 @@ export class ConsultantprofileComponent implements OnInit {
 						consultant.timeline = [];
 						this.setSeo(
 							{
-							  metaTitle:res['seo'].title,
-							  metaDescription:res['seo'].description,
-							  metaKeywords:res['seo'].keywords,
-							  img:res['media'].path,
-							  isNoIndex:false,
-			  
+								metaTitle: res['seo'].title,
+								metaDescription: res['seo'].description,
+								metaKeywords: res['seo'].keywords,
+								img: res['media'].path,
+								isNoIndex: false,
+
 							}
-						  )
+						)
 						res.plan.price.map((prices) => {
 							const price = new ConsultantPlanPrice();
 							price.id = prices.id;
@@ -169,34 +169,33 @@ export class ConsultantprofileComponent implements OnInit {
 							this.countdown(res.plan.call.wait_time);
 						}
 						this.global.dismisLoading();
-            this.breadCrumb = [
-              { url: '/', name: 'صفحه نخست' },
-              { url: `/c/${res?.category?.seo.link}`, name: ` ${res?.category?.name} ` },
-              { url:  `/c/m/${res?.category?.children[0].seo.link}`, name: ` ${res?.category?.children[0].name} ` },
-              { url: `/c/m/${res?.category?.children[0].seo.link}/${this.myId}`, name: `پروفایل ${this.details?.consultant_name} ` },
-            ];
+						this.breadCrumb = [
+							{ url: '/', name: 'صفحه نخست' },
+							{ url: `/c/${res?.category?.seo.link}`, name: ` ${res?.category?.name} ` },
+							{ url: `/c/m/${res?.category?.children[0].seo.link}`, name: ` ${res?.category?.children[0].name} ` },
+							{ url: `/c/m/${res?.category?.children[0].seo.link}/${this.myId}`, name: `پروفایل ${this.details?.consultant_name} ` },
+						];
 					},
 					(err) => {
-						if(err.status === 400 || err.status === 404 || err.status === 301) {
-							this.navCtrl.navigateForward('/not-found');
-						}
 						this.loading = false;
-						this.global.dismisLoading();
-						// this.global.showError(err).then((data) => {
-						// 	if (data === 'req') {
-						// 		this.getData();
-						// 	}
-						// });
+						if (err.status === 404 || err.status === 301) {
+							this.navCtrl.navigateForward('/not-found');
+						} else if (err.status === 400 && err.error.data['redirectUrl']) {
+							this.seo.redirect(err.error.data['redirectUrl']);
+							return;
+						} else {
+							this.global.dismisLoading();
+						}
 					}
 				);
 		});
 	}
 
 	onClickBack() {
-    if (this.global.isBrowser) {
-      window.history.back();
-      
-    }
+		if (this.global.isBrowser) {
+			window.history.back();
+
+		}
 	}
 
 	addToFavourite(id) {
@@ -238,8 +237,8 @@ export class ConsultantprofileComponent implements OnInit {
 			if (!this.waitTime && !this.consultantSelf) {
 				if (this.details?.is_online === 1) {
 					if (this.global.getLogin().value) {
-						
-      				 this.newChatModal(this.details?.call_message, item.type);
+
+						this.newChatModal(this.details?.call_message, item.type);
 
 					} else {
 						const alert = await this.alertController.create({
@@ -394,17 +393,17 @@ export class ConsultantprofileComponent implements OnInit {
 			}
 		}, 1000);
 	}
-	
-  
+
+
 	setSeo(data) {
-  
+
 		this.seo.generateTags({
 			title: data.metaTitle,
 			description: data.metaDescription,
 			keywords: data.metaKeywords,
-			image:data.img,
+			image: data.img,
 			isNoIndex: data.isNoIndex,
 		});
-		
-	  }
+
+	}
 }

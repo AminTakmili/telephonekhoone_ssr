@@ -207,11 +207,16 @@ export class CategoriesPage implements OnInit {
 				},
 				(err) => {
 					this.loading = false;
-					this.global.showError(err).then((x) => {
-						if (x == 'req') {
-							this.getData();
-						}
-					});
+					if (err.status === 400 && err.error.data['redirectUrl']) {
+						this.seo.redirect(err.error.data['redirectUrl']);
+						return;
+					} else {
+						this.global.showError(err).then((x) => {
+							if (x == 'req') {
+								this.getData();
+							}
+						});;
+					}
 				}
 			);
 		}
