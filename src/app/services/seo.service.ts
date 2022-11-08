@@ -63,6 +63,7 @@ export class SeoService {
         this.metaService.updateTag({ property: 'og:title', content: config.title });
         this.metaService.updateTag({ property: 'og:description', content: config.description });
         this.metaService.updateTag({ property: 'og:image', content: config.image });
+        this.metaService.updateTag({ property: 'author', content:'emad faghihi ' });
         const key = makeStateKey<any>('canonical');
 
         if (this.transferState.hasKey(key)) {

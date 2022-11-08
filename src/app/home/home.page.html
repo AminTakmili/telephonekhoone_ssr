@@ -5,7 +5,7 @@
       </ion-buttons>
       <ion-img class="smallLogo" src="assets/img/header-logo-small.png"></ion-img>
       <ion-button routerLink="/login" class="smallBtn" fill="outline" mode="ios" slot="end" *ngIf="!this.global.getLogin().value">
-          ورود / ثبتنام
+          ورود / ثبت نام
       </ion-button>
       <ion-buttons slot="end">
           <ion-button *ngIf="global.getLogin().value" routerLink="/conversation/mobile">
@@ -90,19 +90,17 @@
                 </a>
                               </li>
                           </ul>
-                          <h3 class="searchTitle" *ngIf="searchItems.blogs?.length != 0">
+                          <!-- ! comment dont show blog  -->
+                          <!-- <h3 class="searchTitle" *ngIf="searchItems.blogs?.length != 0">
                               نتایج وبلاگ
                           </h3>
                           <ul>
                               <li *ngFor="let blog of searchItems.blogs" class="searchItem">
-<!-- !!11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 -->
-                                    <!-- todo -->
+                                   
                                      <a [routerLink]="['/b' , blog['link']]">{{ blog.title }}</a>
-                                        <!--* تگ بعد حذف باید بشه  -->
-        
-                                <!-- <a [routerLink]="['/b']">{{ blog.title }}</a> -->
+                                      
                               </li>
-                          </ul>
+                          </ul> -->
                       </div>
                       <div class="searchNotFound" *ngIf="searchItems.blogs?.length + searchItems.consoltants?.length === 0 && !searchLoading && search.value && showNotFound">
                           موردی یافت نشد
