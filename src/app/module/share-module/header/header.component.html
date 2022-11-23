@@ -38,7 +38,7 @@
                 <div class="left" *ngIf="this.global.getUrl().sections[1] != 'sign-up'">
                     <div class="nologin-btn" *ngIf="
             			!this.global.getLogin().value &&
-            			this.global.getUrl().sections[1] != 'login'
+            			this.global.getUrl().sections[1] != 'registerlogin'
             		">
                         <ion-button (click)="global.showLogin()" color="primary" size="sm" shape="round">
                             <ion-ripple-effect></ion-ripple-effect>

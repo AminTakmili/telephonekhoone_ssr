@@ -1,5 +1,5 @@
 import { HttpEventType } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { GlobalService } from 'src/app/services/global.service';
 import * as _ from "lodash";
 import { map } from 'rxjs/operators';
@@ -9,7 +9,8 @@ import { map } from 'rxjs/operators';
 	templateUrl: './upload-file.component.html',
 	styleUrls: ['./upload-file.component.scss'],
 })
-export class UploadFileComponent implements OnInit {
+export class UploadFileComponent implements OnInit, AfterViewInit {
+
 	@Input() key;
 	@Input() type;
 	@Input() title;
@@ -20,7 +21,12 @@ export class UploadFileComponent implements OnInit {
 	@Output() exportDataEmitter = new EventEmitter<any>();
 	selectedFiles = [];
 	fileUploading = false;
+
 	constructor(private global: GlobalService) { }
+
+	ngAfterViewInit(): void {
+		// this.setDefaultFiles();
+	}
 
 	ngOnInit() {
 		this.setDefaultFiles();
@@ -29,6 +35,8 @@ export class UploadFileComponent implements OnInit {
 	setDefaultFiles() {
 		if (this.defaultFiles) {
 			this.defaultFiles.map(files => {
+				console.log(files);
+				
 				const myFiles = {
 					loading: false,
 					file: {

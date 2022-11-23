@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
 	breadCrumb = [];
 	countries: Country[] = [];
 	breadCrumbTitle = 'ورود به حساب کاربری';
-	componentType = 'login';
+	componentType = 'registerlogin';
 	timer = '02:00';
 	interval: any;
 	verifyForm: FormGroup;
@@ -99,7 +99,7 @@ export class LoginPage implements OnInit {
 				metaTitle: 'ورود',
 				metaDescription: 'ورود به تلفن خونه',
 				metaKeywords: 'ورود,ورود تلفن خونه, ورود مشاوره',
-				isNoIndex: true
+				isNoIndex: false
 			}
 		)
 
@@ -134,14 +134,14 @@ export class LoginPage implements OnInit {
 		}
 		this.breadCrumb = [
 			{ url: '/', name: 'صفحه نخست' },
-			{ url: '/login', name: this.breadCrumbTitle },
+			{ url: '/registerlogin', name: this.breadCrumbTitle },
 		];
 		this.setSeo(
 			{
 				metaTitle: 'ورود',
 				metaDescription: 'ورود به تلفن خونه',
 				metaKeywords: 'ورود,ورود تلفن خونه, ورود مشاوره',
-				isNoIndex: true
+				isNoIndex: false
 			}
 		)
 	}
@@ -155,7 +155,7 @@ export class LoginPage implements OnInit {
 				{
 					text: 'بله',
 					handler: () => {
-						this.changeComponent('login');
+						this.changeComponent('registerlogin');
 					},
 				},
 				{
@@ -369,7 +369,7 @@ export class LoginPage implements OnInit {
 	}
 
 	changeComponent(page) {
-		if (page === 'login') {
+		if (page === 'registerlogin') {
 			this.global.logOut(true).then(() => {
 				this.componentType = page;
 			});
@@ -495,7 +495,7 @@ export class LoginPage implements OnInit {
 			canonical: data.canonicalLink,
 			keywords: data.metaKeywords.toString(),
 			image: '/assets/img/icon/icon-384x384.png',
-			isNoIndex: data.isNoIndex,
+			isNoIndex: true,
 		});
 	}
 }

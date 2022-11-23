@@ -80,7 +80,7 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'login',
+    path: 'registerlogin',
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginPageModule),
     canActivate: [LoginGuard],
@@ -112,6 +112,10 @@ const routes: Routes = [
         (m) => m.ConversationPageModule
       ),
     canActivate: [ChatGuard],
+  },
+  {
+    path: 'login',
+    redirectTo: ''
   },
   {
 		path: 'not-found',

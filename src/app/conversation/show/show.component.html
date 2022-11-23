@@ -122,7 +122,6 @@
             </ng-template>
         </ng-template>
 
-
     </div>
     <div class="chat-input d-flex" *ngIf="!notPaid && !loading && chatData?.status !== 'ended' && chatData?.status !== 'canceled'">
         <input #fileInput type="file" class="ion-hide" multiple (change)='openFile($event)'>

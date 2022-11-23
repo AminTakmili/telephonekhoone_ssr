@@ -81,23 +81,25 @@ export class AppComponent {
 				}
 			}
 		});
-		// const isMobile = this.responsiveService.isMobile.value;
-		// if (isMobile) {
-		// 	this.global.getUserType().subscribe((val) => {
-		// 		if (val != null) {
-		// 			this.userType = val;
-		// 			if (val == 'consultant') {
-		// 				this.callsLink = '/profile-consultant/mycalls';
-		// 			} else {
-		// 				this.callsLink = '/profile/mycalls';
-		// 			}
-		// 		}
-		// 	});
-		// 	this.global.getBadges().subscribe((val) => {
-		// 		this.cahtBadge = val.chat;
-		// 		this.callBadge = val.call;
-		// 	});
-		// }
+		// این قسمت کامنت بوده
+		const isMobile = this.responsiveService.isMobile.value;
+		if (isMobile) {
+			this.global.getUserType().subscribe((val) => {
+				if (val != null) {
+					this.userType = val;
+					if (val == 'consultant') {
+						this.callsLink = '/profile-consultant/mycalls';
+					} else {
+						this.callsLink = '/profile/mycalls';
+					}
+				}
+			});
+			this.global.getBadges().subscribe((val) => {
+				this.cahtBadge = val.chat;
+				this.callBadge = val.call;
+			});
+		}
+		// 
 		this.fetchApi()
 	}
 

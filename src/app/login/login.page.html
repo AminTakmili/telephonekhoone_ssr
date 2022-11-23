@@ -4,7 +4,7 @@
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title [ngSwitch]="componentType">
-            <ng-template [ngSwitchCase]="'login'">
+            <ng-template [ngSwitchCase]="'registerlogin'">
                 ثبت نام
             </ng-template>
             <ng-template [ngSwitchCase]="'verify'">
@@ -25,7 +25,7 @@
     <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
     <section id="cart-login" class="py-lg-30 py-10 px-0 px-lg-12">
         <div class="container px-10 px-md-0" [ngSwitch]="componentType">
-            <ng-template [ngSwitchCase]="'login'">
+            <ng-template [ngSwitchCase]="'registerlogin'">
                 <form [formGroup]="loginForm" (ngSubmit)="login()">
                     <ion-grid>
                         <ion-row class="ion-justify-content-center ion-align-items-stretch">
@@ -147,7 +147,7 @@
                                         <ion-grid>
                                             <ion-row class="flex-column-center-center ion-justify-content-center">
                                                 <div class="register-back">
-                                                    <ion-button mode="ios" fill="outline" (click)="changeComponent('login')" size="small">
+                                                    <ion-button mode="ios" fill="outline" (click)="changeComponent('registerlogin')" size="small">
                                                         <ion-icon slot="start" name="chevron-back-outline"></ion-icon>
                                                         <ion-label>
                                                             بازگشت
@@ -208,7 +208,7 @@
                         <ion-col size-lg="5" size="12" class="p-0">
                             <ion-card class="box-shadow no-scroll pb-md-30 px-md-40 pb-10 pt-15 px-10 m-0 w-100">
                                 <div class="register-title">
-                                    <ion-button class="back-btn" mode="ios" fill="outline" (click)="changeComponent('login')" size="small">
+                                    <ion-button class="back-btn" mode="ios" fill="outline" (click)="changeComponent('registerlogin')" size="small">
                                         <ion-icon slot="start" name="chevron-back-outline"></ion-icon>
                                         <ion-label>
                                             بازگشت
@@ -258,7 +258,7 @@
 
 <ion-footer class="ion-hide-md-up">
     <div class="footer-btn" [ngSwitch]="componentType">
-        <ion-button *ngSwitchCase="'login'" [attr.disabled]="!loginForm.valid || loading" (click)="login()" color="primary" expand="block" class="btn-style-1 mt-20">
+        <ion-button *ngSwitchCase="'registerlogin'" [attr.disabled]="!loginForm.valid || loading" (click)="login()" color="primary" expand="block" class="btn-style-1 mt-20">
             <ion-label *ngIf="!loading">ورود/ثبت نام</ion-label>
             <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
         </ion-button>

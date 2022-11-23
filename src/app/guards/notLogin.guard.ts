@@ -23,7 +23,7 @@ export class NotLoginGuard implements CanActivate {
 			return true;
 		} else {
 			this.global.logOut(true);
-			this.navCtrl.navigateRoot('/login');
+			this.navCtrl.navigateRoot('/registerlogin');
 		}
 	}
 }
