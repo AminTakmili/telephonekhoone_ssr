@@ -52,13 +52,13 @@ export class ConsultantGuard implements CanActivate {
           }else if(val2==="consultant"){
             return true;
           }else{
-            this.navCtrl.navigateRoot('/login');
+            this.navCtrl.navigateRoot('/registerlogin');
           }
           // this.navCtrl.navigateRoot('/profile-consultant/editinfo');
         });
       }
 
-      this.navCtrl.navigateRoot('/login');
+      this.navCtrl.navigateRoot('/registerlogin');
     });
   }
 }

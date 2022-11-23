@@ -324,7 +324,7 @@ Disallow:
 
 User-agent: *
 Disallow: /sign-up/
-Disallow: /login/
+Disallow: /registerlogin/
 Disallow: /profile/
 Disallow: /profile-consultant/
 Sitemap: https://www.telephonekhooneh.com/sitemap.xml

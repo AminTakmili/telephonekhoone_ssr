@@ -49,7 +49,7 @@ export class SeoService {
         this.metaService.updateTag({ name: 'abstract', content: config.description });
 
         this.metaService.updateTag({ name: 'keywords', content: config.keywords });
-        this.metaService.updateTag({ name: 'robots', content: (!config.noIndex ? 'index,follow' : 'noindex,nofollow') });
+        this.metaService.updateTag({ name: 'robots', content: (!config.isNoIndex ? 'index,follow' : 'noindex,nofollow') });
         // Twitter
         this.metaService.updateTag({ property: 'twitter:card', content: 'summary' });
         this.metaService.updateTag({ property: 'twitter:site', content: this.global.sitename });
@@ -63,7 +63,7 @@ export class SeoService {
         this.metaService.updateTag({ property: 'og:title', content: config.title });
         this.metaService.updateTag({ property: 'og:description', content: config.description });
         this.metaService.updateTag({ property: 'og:image', content: config.image });
-        this.metaService.updateTag({ property: 'author', content:'emad faghihi ' });
+        this.metaService.updateTag({ property: 'author', content:'Telephonekhoone.com' });
         const key = makeStateKey<any>('canonical');
 
         if (this.transferState.hasKey(key)) {

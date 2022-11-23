@@ -200,7 +200,9 @@ export class EditinfoComponent implements OnInit {
 	}
 
 	getCategories() {
+		console.log(this.global.getUserInfo());
 		this.global.getUserInfo().media.map(mediaItem => {
+			console.log(mediaItem.name);
 			switch (mediaItem.name) {
 				case 'profile':
 					this.profileImage = {
@@ -227,6 +229,7 @@ export class EditinfoComponent implements OnInit {
 					}
 					break;
 			}
+			console.log(this.selectedResumeFile);
 		});
 		const countryReq = this.global.httpGet('getCountries');
 		this.global.showLoading().then(() => {
@@ -244,6 +247,8 @@ export class EditinfoComponent implements OnInit {
 				}
 			);
 		});
+		console.log(this.selectedResumeFile);
+		
 	}
 
 	submitForm() {

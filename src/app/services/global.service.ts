@@ -570,7 +570,7 @@ export class GlobalService {
 	showLogin(nextUrl?): Promise<any> {
 		return new Promise(async (resolve) => {
 			this.storageService.set('url', nextUrl ?? this.getUrl().name);
-			this.navCtrl.navigateForward('login');
+			this.navCtrl.navigateForward('registerlogin');
 			resolve('');
 		});
 	}

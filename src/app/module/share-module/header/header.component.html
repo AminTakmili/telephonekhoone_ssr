@@ -21,10 +21,10 @@
                         <!-- <li><a>مشاوره آنلاین</a></li> -->
                         <!-- <li><a>لیست مشاورین</a></li> -->
                         <li routerLinkActive="active">
-                            <a target="_blank" href="https://www.telephonekhooneh.com/blog">وبلاگ</a>
+                            <a target="_blank" href="https://www.telephonekhooneh.com/other/blog">وبلاگ</a>
                         </li>
                         <li routerLinkActive="active">
-                            <a target="_blank" href="https://www.telephonekhooneh.com/blog/c/media">رسانه ها</a>
+                            <a target="_blank" href="https://www.telephonekhooneh.com/other/media">رسانه ها</a>
                         </li>
 
                         <li routerLinkActive="active">
@@ -38,7 +38,7 @@
                 <div class="left" *ngIf="this.global.getUrl().sections[1] != 'sign-up'">
                     <div class="nologin-btn" *ngIf="
             			!this.global.getLogin().value &&
-            			this.global.getUrl().sections[1] != 'login'
+            			this.global.getUrl().sections[1] != 'registerlogin'
             		">
                         <ion-button (click)="global.showLogin()" color="primary" size="sm" shape="round">
                             <ion-ripple-effect></ion-ripple-effect>

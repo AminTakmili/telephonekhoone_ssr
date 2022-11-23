@@ -33,7 +33,7 @@ export class ProfileGuard implements CanActivate {
           this.navCtrl.navigateRoot('/profile-consultant/editinfo');
         });
       }
-      this.navCtrl.navigateRoot('/login');
+      this.navCtrl.navigateRoot('/registerlogin');
     });
 
   }

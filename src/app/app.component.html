@@ -15,7 +15,7 @@
         <ion-list class="ion-no-padding mobile-menu">
           <ion-menu-toggle>
             <ion-item [routerLink]="['/']" lines="full">خانه</ion-item>
-            <ion-item *ngIf="!global.getLogin().value" [routerLink]="['/login']" lines="full">ورود / ثبت نام
+            <ion-item *ngIf="!global.getLogin().value" [routerLink]="['/registerlogin']" lines="full">ورود / ثبت نام
             </ion-item>
             <ion-item *ngIf="
             global.getLogin().value &&
@@ -29,12 +29,12 @@
             <ion-item [routerLink]="['/c']" lines="full">
               دسته بندی مشاوران
             </ion-item>
-            <ion-item  target="_blank" href="https://www.telephonekhooneh.com/blog" lines="full">وبلاگ</ion-item>
+            <ion-item  target="_blank" href="https://www.telephonekhooneh.com/other/blog" lines="full">وبلاگ</ion-item>
  <!-- [routerLink]="['/b']" -->
             <!-- <ion-item [routerLink]="['/webinar']" lines="full">
               وبینارها
             </ion-item> -->
-            <ion-item  target="_blank" href="https://www.telephonekhooneh.com/blog/c/media" lines="full">
+            <ion-item  target="_blank" href="https://www.telephonekhooneh.com/other/media" lines="full">
               رسانه ها
             </ion-item>
              <!-- [routerLink]="['/media']" -->
