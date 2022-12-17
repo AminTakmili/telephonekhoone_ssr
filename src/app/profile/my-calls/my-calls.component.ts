@@ -44,7 +44,7 @@ export class MyCallsComponent implements OnInit {
 	}
 
 	ionViewWillEnter() {
-
+		this.getCallsData(false);
 		this.setSeo(
 			{
 				metaTitle: 'مکالمات من',

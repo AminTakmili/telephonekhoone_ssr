@@ -44,6 +44,7 @@
     "@schematics/angular": "^13.3.3",
     "axios": "^0.27.2",
     "cordova-plugin-inappbrowser": "^5.0.0",
+    "core-js": "^3.26.1",
     "express": "^4.15.2",
     "leaflet": "^1.8.0",
     "luxon": "^2.3.2",
