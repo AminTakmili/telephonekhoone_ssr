@@ -15,10 +15,9 @@
   <header-type-two [breadCrumb]="breadCrumb"></header-type-two>
   <section id="Categories">
       <div class="container px-0">
-          <h2 class="title page-title-two ion-text-center gray-title font-size-20 ion-hide-lg-down">
-              دسته بندی مشاوران
-          </h2>
-          <nav  class="menu-cat" #nav>
+          <h2 *ngIf="this.currentCategory?.name" class="title page-title-two ion-text-center gray-title font-size-20 ion-hide-lg-down">دسته بندی {{ this.currentCategory?.name }}</h2>
+          <h2 *ngIf="!this.currentCategory?.name" class="title page-title-two ion-text-center gray-title font-size-20 ion-hide-lg-down">همه دسته بندی ها</h2>
+          <nav  class="menu-cat d-none" #nav>
               <ion-slides #DesktopMenu class="desktop-menu-item menu-ul" pager="false" [options]="galleryThumbsConfig2">
 
                   <!--TODO [class.current]="item['seo']['link']== selectedId||!item['seo']['link']&&!selectedId" -->
@@ -30,18 +29,16 @@
           </nav>
           <ion-grid>
               <ion-row>
-                 
+
                   <ng-template [ngIf]="!loading">
                       <ion-col size-lg="3" size="12" class="p-10" *ngFor="let item of categoryItems">
                          <!-- item['parent_id'] -->
-                          <a   [routerLink]="['/c/m',item?.seo?.link]" class="cat-cards box-shadow cursor-pointer w-100">
+                          <a [routerLink]="['/consultation/adviser',item?.seo?.link]" class="cat-cards box-shadow cursor-pointer w-100">
                               <div class="image">
                                   <!-- (ionImgDidLoad)="imageLoad($event)" -->
                                   <ion-img class="img-cover" [src]="item.media.options?.subSizes?.large ? item.media.options?.subSizes?.large : item.media.options?.subSizes?.medium ? item.media.options?.subSizes?.medium : item.media?.path" [alt]="item.name"></ion-img>
                               </div>
-                              <div class="desc w-100">
-                                  <p>{{ item.name }}</p>
-                              </div>
+                              <div class="desc w-100">{{ item.name }}</div>
                               <div class="show-more w-100">
                                   <div class="imgages" *ngIf="item.consultants">
                                       <ng-template ngFor let-consultant [ngForOf]="item.consultants" let-i="index">

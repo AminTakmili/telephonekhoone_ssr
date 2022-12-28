@@ -47,15 +47,15 @@ export class GlobalService {
 	private menu = new BehaviorSubject<boolean>(null);
 	userInfo = new BehaviorSubject<UserInfo>(null /*JSON.parse(localStorage.getItem('userInfo'))*/);
 	userType = new BehaviorSubject<string>( null /*localStorage.getItem('userType')*/ );
-	login = false ; /* JSON.parse(localStorage.getItem('isLogin')) */ 
+	login = false ; /* JSON.parse(localStorage.getItem('isLogin')) */
 	private _login = new BehaviorSubject<boolean>(false);
 	private baseUrl = 'https://app.telephonkhoneh.com/api/';
 	private imgUrl = 'https://app.telephonkhoneh.com/';
 	pageLocation = '';
 	urlSection = [];
 	private token =environment.defaultToken
-		// localStorage.getItem('token') === 
-		
+		// localStorage.getItem('token') ===
+
 		// 	: localStorage.getItem('token');
 	globalToast: HTMLIonToastElement;
 	constructor(
@@ -73,7 +73,7 @@ export class GlobalService {
 
 		@Inject(PLATFORM_ID) private platformId,
 
-		
+
 	) {
 		this.isBrowser = isPlatformBrowser(this.platformId);
 		// this.storageService.set('myname','amin')
@@ -119,23 +119,23 @@ export class GlobalService {
 	}
 
 	SSRsetTimeout(callback: (...args: any[]) => void, ms: number,...args: any[]){
-		if (this.isBrowser) {	
+		if (this.isBrowser) {
 			setTimeout(callback, ms,...args);
 		}
 	};
 	SSRclearTimeout(timeoutId: any): void{
-		if (this.isBrowser) {	
+		if (this.isBrowser) {
 		clearTimeout(timeoutId)
 		}
 	};
 
 	SSRsetInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]){
-		if (this.isBrowser) {	
+		if (this.isBrowser) {
 			setInterval(callback, ms,...args);
 		}
 	};
 	SSRclearInterval(intervalId: any): void{
-		if (this.isBrowser) {	
+		if (this.isBrowser) {
 		clearInterval(intervalId)
 		}
 	};
@@ -208,7 +208,7 @@ export class GlobalService {
 			return;
 		} else {
 			if (this.isBrowser) {
-				
+
 				const alert = await this.alertController.create({
 					header: 'خروج از حساب کاربری',
 					message: 'میخواهید از حساب کاربری خود خارج شوید ؟ ',
@@ -229,7 +229,7 @@ export class GlobalService {
 							text: 'لغو',
 							role: 'cancle',
 						},
-	
+
 					],
 				});
 				await alert.present();
@@ -279,11 +279,11 @@ export class GlobalService {
 	// 			message: text,
 	// 		});
 	// 		return this.loading;
-			
+
 	// 	}
 	// 	return null
 	// }
-	
+
 	async showLoading(text: string = 'لطفا منتظر بمانید...') {
 		if (this.isBrowser) {
 			this.loading = await this.loadingController.create({
@@ -536,6 +536,18 @@ export class GlobalService {
 		};
 		return this.http.get<any>(this.getAppUrl(url), httpOptions);
 	}
+	httpGetF(url: string, token?: string): Observable<any> {
+		if (token === undefined) {
+			token = this.token;
+		}
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Content-Type': 'application/x-www-form-urlencoded',
+				Authorization: `Bearer ${token}`,
+			}),
+		};
+		return this.http.get<any>(url, httpOptions);
+	}
 
 	httpGetWithData(
 		url: string,
@@ -584,7 +596,7 @@ export class GlobalService {
 
 	async showError(err: HttpErrorResponse): Promise<any> {
 		if (this.isBrowser) {
-			
+
 			return new Promise(async (resolve) => {
 				if (err.status === 403 || err.status === 401) {
 					localStorage.clear();
@@ -604,7 +616,7 @@ export class GlobalService {
 								text: 'لغو',
 								role: 'cancel',
 							},
-	
+
 						],
 					});
 					alert.present();
@@ -622,7 +634,7 @@ export class GlobalService {
 						});
 						await alert.present();
 					}
-	
+
 					resolve('');
 				} else if (err.status === 500) {
 					const alert = await this.alertController.create({

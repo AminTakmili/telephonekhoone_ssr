@@ -171,9 +171,9 @@ export class ConsultantprofileComponent implements OnInit {
 						this.global.dismisLoading();
 						this.breadCrumb = [
 							{ url: '/', name: 'صفحه نخست' },
-							{ url: `/c/${res?.category?.seo.link}`, name: ` ${res?.category?.name} ` },
-							{ url: `/c/m/${res?.category?.children[0].seo.link}`, name: ` ${res?.category?.children[0].name} ` },
-							{ url: `/c/m/${res?.category?.children[0].seo.link}/${this.myId}`, name: `پروفایل ${this.details?.consultant_name} ` },
+							{ url: `/consultation/${res?.category?.seo.link}`, name: ` ${res?.category?.name} ` },
+							{ url: `/consultation/adviser/${res?.category?.children[0].seo.link}`, name: ` ${res?.category?.children[0].name} ` },
+							{ url: `/consultation/adviser/${res?.category?.children[0].seo.link}/${this.myId}`, name: `پروفایل ${this.details?.consultant_name} ` },
 						];
 					},
 					(err) => {
@@ -249,7 +249,7 @@ export class ConsultantprofileComponent implements OnInit {
 								{
 									text: 'ورود/عضویت',
 									handler: () => {
-										this.global.showLogin(`/c/m/${this.catId}/${this.myId}`);
+										this.global.showLogin(`/consultation/adviser/${this.catId}/${this.myId}`);
 									},
 								},
 								{
@@ -339,7 +339,7 @@ export class ConsultantprofileComponent implements OnInit {
 		});
 	}
 
-	/** 
+	/**
 	 * @function finalAlert(description)
 	 * @param description = string
 	 * @todo present ionic alert by alertController

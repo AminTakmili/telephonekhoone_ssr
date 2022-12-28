@@ -76,7 +76,7 @@ export class SubCategoriListComponent implements OnInit, OnDestroy, AfterViewChe
 	searchList: Searchitem[] = [];
 	breadCrumb = [
 		{ url: '/', name: 'صفحه نخست' },
-		{ url: '/c', name: 'دسته بندی' },
+		{ url: '/consultation', name: 'دسته بندی' },
 	];
 	galleryThumbsConfig2 = {
 		spaceBetween: 0,
@@ -91,6 +91,7 @@ export class SubCategoriListComponent implements OnInit, OnDestroy, AfterViewChe
 	filterSubject = new Subject<any>();
 	h1: string;
 	categoryName: string;
+	categoryLink: string;
 
 	constructor(
 		private global: GlobalService,
@@ -103,8 +104,8 @@ export class SubCategoriListComponent implements OnInit, OnDestroy, AfterViewChe
 	}
 
 	ngAfterViewChecked(): void {
-		if(this.ionCardContainer.nativeElement.offsetHeight >= 49) {
-			if(this.ionCardContainer.nativeElement.offsetHeight >= 320) {
+		if (this.ionCardContainer.nativeElement.offsetHeight >= 49) {
+			if (this.ionCardContainer.nativeElement.offsetHeight >= 320) {
 				this.isState = false;
 			}
 		}
@@ -191,6 +192,12 @@ export class SubCategoriListComponent implements OnInit, OnDestroy, AfterViewChe
 		this.filterRequest = this.global.httpPost('consultants', params).subscribe(
 			(res) => {
 				this.categoryName = res.category?.name;
+				this.categoryLink = res.category?.seo?.link;
+
+				this.breadCrumb.push({
+					url: '/consultation/'+this.categoryLink, name: res.category?.name
+				})
+
 				this.meta_description = res.category?.meta_description;
 				this.countries = [];
 				res.countries.map((country) => {
@@ -199,7 +206,7 @@ export class SubCategoriListComponent implements OnInit, OnDestroy, AfterViewChe
 				this.countries.unshift({ id: 0, name: 'مشاهده همه' });
 				this.loading = false;
 				res.consultants.map((item) => {
-					
+
 					const list = new Searchitem();
 					list.id = item.seo?.link;
 					list.h1 = item.seo?.h1;

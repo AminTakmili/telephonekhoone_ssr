@@ -9,15 +9,17 @@ import { NavController } from '@ionic/angular';
 import { SeoService } from '../services/seo.service';
 
 @Component({
-  selector: 'app-categories',
-  templateUrl: './categories.page.html',
-  styleUrls: ['./categories.page.scss'],
+	selector: 'app-categories',
+	templateUrl: './categories.page.html',
+	styleUrls: ['./categories.page.scss'],
 })
 export class CategoriesPage implements OnInit {
 	breadCrumb = [
 		{ url: '/', name: 'صفحه نخست' },
-		{ url: '/c', name: 'دسته بندی' },
+		{ url: '/consultation', name: 'دسته بندی' },
 	];
+
+	currentCategory : any;
 	loading = false;
 	galleryThumbsConfig2 = {
 		spaceBetween: 20,
@@ -27,23 +29,23 @@ export class CategoriesPage implements OnInit {
 		watchSlidesVisibility: true,
 		watchSlidesProgress: true,
 	};
-	mainSeoObj:object={
+	mainSeoObj: object = {
 		description: "مشاوره های تلفن خونه",
 		keywords: " همه مشاوران ",
 		title: " همه مشاوران ",
-	};	
+	};
 	emptyAnimation: any;
 	searchAnimate: AnimationOptions = {
 		animationData: searchAnimation['default'],
 		loop: false,
 		autoplay: false,
 	};
-	categoryId: number|string|undefined;
+	categoryId: number | string | undefined;
 	selectedId: number;
 	categoryItems = [];
 	categories: Categories[] = [];
 	subCategories: Categories[] = [];
-	newAllCatObj:Categories[]
+	newAllCatObj: Categories[]
 	constructor(
 		private global: GlobalService,
 		private activatedRoute: ActivatedRoute,
@@ -54,8 +56,8 @@ export class CategoriesPage implements OnInit {
 
 	) { }
 
-  async	ngOnInit() {
-			this.categoryId = undefined;
+	async ngOnInit() {
+		this.categoryId = undefined;
 		this.categories = [];
 		this.categoryItems = [];
 		this.newAllCatObj = [];
@@ -66,20 +68,20 @@ export class CategoriesPage implements OnInit {
 		// 	}
 		// });
 		if (this.activatedRoute.snapshot.paramMap.get('catId')) {
-			
-			this.categoryId =this.activatedRoute.snapshot.paramMap.get('catId')
-		}else{
-			this.categoryId ='all'
+
+			this.categoryId = this.activatedRoute.snapshot.paramMap.get('catId')
+		} else {
+			this.categoryId = 'all'
 		}
 		const filterUrl = this.activatedRoute.snapshot.paramMap.get('filter');
 		// console.log(this.activatedRoute.snapshot.paramMap.get('catId'));
 		// this.route.snapshot.paramMap.get('businessId');
 		// this.setActiveId(this.activatedRoute.snapshot.paramMap.get('catId'))
 
-	 await	this.getData(filterUrl);
+		await this.getData(filterUrl);
 		await this.addAllCat()
 		// this.chengeSeoData()
-	 }
+	}
 
 	handleEmptyAnimation(anim: any) {
 		this.emptyAnimation = anim;
@@ -97,10 +99,10 @@ export class CategoriesPage implements OnInit {
 		// 	}
 		// });
 		if (this.activatedRoute.snapshot.paramMap.get('catId')) {
-			
-			this.categoryId =this.activatedRoute.snapshot.paramMap.get('catId')
-		}else{
-			this.categoryId ='all'
+
+			this.categoryId = this.activatedRoute.snapshot.paramMap.get('catId')
+		} else {
+			this.categoryId = 'all'
 		}
 		const filterUrl = this.activatedRoute.snapshot.paramMap.get('filter');
 		// console.log(this.activatedRoute.snapshot.paramMap.get('catId'));
@@ -108,7 +110,7 @@ export class CategoriesPage implements OnInit {
 		// this.setActiveId(this.activatedRoute.snapshot.paramMap.get('catId'))
 
 		await this.getData(filterUrl);
-	 await    this.addAllCat()
+		await this.addAllCat()
 		// this.chengeSeoData()
 	}
 
@@ -127,25 +129,25 @@ export class CategoriesPage implements OnInit {
 						const cat = new Categories();
 						cat.id = item.id;
 						cat.name = item.name;
-						cat.children = item.children.map((child:any)=>{
+						cat.children = item.children.map((child: any) => {
 							child['parent_id'] = item.id;
 							return child;
 						});
 						if (index == 0) {
 							cat.active = true;
-							this.categoryItems = item.children.map((child:any)=>{
+							this.categoryItems = item.children.map((child: any) => {
 								child['parent_id'] = item.id;
 								return child;
 							});
 						}
-						if (this.categories.findIndex(item => item.id ==cat.id)==-1) {
-							
+						if (this.categories.findIndex(item => item.id == cat.id) == -1) {
+
 							this.categories.push(cat)
 						}
-						
-						
+
+
 					});
-					
+
 					if (this.categoryItems.length == 0) {
 						this.global.SSRsetTimeout(() => {
 							this.emptyAnimation.goToAndPlay(0);
@@ -174,15 +176,15 @@ export class CategoriesPage implements OnInit {
 						cat.id = item.id;
 						cat.name = item.name;
 						cat.setSeo = item.seo;
-						cat.children = item.children.map((child:any)=>{
+						cat.children = item.children.map((child: any) => {
 							child['parent_id'] = item.id;
 							return child;
 						});
-						if (this.categories.findIndex(item => item.id ==cat.id)==-1) {
-							
+						if (this.categories.findIndex(item => item.id == cat.id) == -1) {
+
 							this.categories.push(cat)
 						}
-						
+
 					});
 					// console.log(this.categories);
 					if (this.categoryId) {
@@ -191,16 +193,16 @@ export class CategoriesPage implements OnInit {
 						this.changeActiveCategory(this.newAllCatObj[0].seo['link']);
 					}
 					if (this.activatedRoute.snapshot.paramMap.get('catId')) {
-			
+
 						// console.log(res);
-						let thiscat=res.find((item)=>{
-							return item.seo['link']==this.activatedRoute.snapshot.paramMap.get('catId')
+						this.currentCategory = res.find((item) => {
+							return item.seo['link'] == this.activatedRoute.snapshot.paramMap.get('catId')
 						})
-						// console.log(thiscat);
+						 console.log(this.currentCategory);
 
 						this.breadCrumb = [
 							{ url: '/', name: 'صفحه نخست' },
-							{ url: '/c/'+this.activatedRoute.snapshot.paramMap.get('catId'), name: `${thiscat.name}` },
+							{ url: '/consultation/' + this.activatedRoute.snapshot.paramMap.get('catId'), name: `${this.currentCategory['name']}` },
 						];
 					}
 					this.chengeSeoData(res)
@@ -220,7 +222,7 @@ export class CategoriesPage implements OnInit {
 				}
 			);
 		}
-		
+
 		// this.chengeSeoData()
 		// this.setActiveId(this.activatedRoute.snapshot.paramMap.get('catId'))
 
@@ -232,7 +234,7 @@ export class CategoriesPage implements OnInit {
 	changeActiveCategory(id) {
 		// console.log(id);
 		if (id) {
-			this.router.navigate(['c/'+id]);
+			this.router.navigate(['c/' + id]);
 			// this.router.navigate([decodeURI(id)]);
 			// this.router.navigateByUrl(id, { skipLocationChange: true });
 			// this.router.navigate(
@@ -243,7 +245,7 @@ export class CategoriesPage implements OnInit {
 			// 	// 	queryParamsHandling: 'merge'
 			// 	// }
 			// 	);
-		}else{
+		} else {
 			this.router.navigate(['c'])
 
 		}
@@ -254,16 +256,16 @@ export class CategoriesPage implements OnInit {
 
 		this.addAllCat()
 		let selectedCategory
-		if (id=='all') {
-			
-			 selectedCategory = this.newAllCatObj.find(item => item.name =='همه');
-			 
+		if (id == 'all') {
 
-		}else{
-// parseInt(id, 10)
+			selectedCategory = this.newAllCatObj.find(item => item.name == 'همه');
+
+
+		} else {
+			// parseInt(id, 10)
 			// console.log(id);
 			this.selectedId = id;
-			 selectedCategory = this.newAllCatObj.find(item => item.seo['link']==id) ;
+			selectedCategory = this.newAllCatObj.find(item => item.seo['link'] == id);
 			//  console.log(selectedCategory);
 		}
 		// if (id) {
@@ -315,25 +317,25 @@ export class CategoriesPage implements OnInit {
 	}
 	onRate(ev) {
 	}
-	async addAllCat(){
+	async addAllCat() {
 		// console.log(this.categoryItems);
 		// console.log(this.categories);
 		// let newCatobj:{
 		// 	children:Array<object>,
 		// 	name:string,
-		// 	id:string|number		
+		// 	id:string|number
 		// }={
 		// 	children:[],
 		// 	name:'',
 		// 	id:''
 		// }
-		this.newAllCatObj=[]
+		this.newAllCatObj = []
 		let newCatobj = new Categories();
-		let newCatobjChilderen =[];
-					
-					
+		let newCatobjChilderen = [];
+
+
 		this.categories.map(
-			(item)=>{
+			(item) => {
 				// console.log(item['_children']);
 				// console.log(item.children);
 				newCatobjChilderen.push(...item.children)
@@ -342,17 +344,17 @@ export class CategoriesPage implements OnInit {
 		)
 		// newCatobj.name="همه"
 		// newCatobj.id="all"
-		newCatobj.name ="همه";
-		newCatobj.setSeo =this.mainSeoObj
+		newCatobj.name = "همه";
+		newCatobj.setSeo = this.mainSeoObj
 		// link: " همه-مشاوران ",
 		// newCatobj.id =0;
 		// newCatobj.id =;
-		newCatobj.children =newCatobjChilderen
+		newCatobj.children = newCatobjChilderen
 		if (!this.activatedRoute.snapshot.paramMap.get('catId')) {
 			this.categoryItems = newCatobj.children;
 		}
-		
-		this.newAllCatObj=[newCatobj,...this.categories]
+
+		this.newAllCatObj = [newCatobj, ...this.categories]
 
 		// console.log(...this.categories);
 		// console.log(newCatobj);
@@ -363,9 +365,9 @@ export class CategoriesPage implements OnInit {
 
 
 	}
-	
+
 	// setSeo(data) {
-  
+
 	// 	this.seo.generateTags({
 	// 		title: data.metaTitle,
 	// 		description: data.metaDescription,
@@ -373,61 +375,61 @@ export class CategoriesPage implements OnInit {
 	// 		image: 'src/assets/img/seo-logo.png',
 	// 		isNoIndex: data.isNoIndex,
 	// 	});
-		
+
 	//   }
-	 async  chengeSeoData(data){
-	// await this.addAllCat()
-// console.log(data);
+	async chengeSeoData(data) {
+		// await this.addAllCat()
+		// console.log(data);
 		// if (this.activatedRoute.snapshot.paramMap.get('catId')) {
-			let seoObj
-			// console.log(this.categories);
-			// console.log(this.newAllCatObj[0]);
-			// console.log(this.newAllCatObj[0]['seo']);
-			// console.log(this.newAllCatObj[0]['seo']['link']);
-			// console.log(this.activatedRoute.snapshot.paramMap.get('catId'));
+		let seoObj
+		// console.log(this.categories);
+		// console.log(this.newAllCatObj[0]);
+		// console.log(this.newAllCatObj[0]['seo']);
+		// console.log(this.newAllCatObj[0]['seo']['link']);
+		// console.log(this.activatedRoute.snapshot.paramMap.get('catId'));
 
 		// ?this.activatedRoute.snapshot.paramMap.get('catId')? seoObj=	this.newAllCatObj.find(item=>item.seo['link']==this.activatedRoute.snapshot.paramMap.get('catId')):seoObj=this.newAllCatObj[0];
-					
+
 		if (this.activatedRoute.snapshot.paramMap.get('catId')) {
 			// console.log(	this.categories);
 			// seoObj = this.categories.find( ({ name }) => name === 'cherries' );
-			seoObj=	data.find(item=>item.seo['link']==this.activatedRoute.snapshot.paramMap.get('catId')).seo
+			seoObj = data.find(item => item.seo['link'] == this.activatedRoute.snapshot.paramMap.get('catId')).seo
 			console.log(seoObj);
-		}else{
+		} else {
 			// console.log(this.newAllCatObj[0]);
-			seoObj=this.mainSeoObj
+			seoObj = this.mainSeoObj
 			console.log(seoObj);
 
 		}
 		// seoObj=	this.newAllCatObj.find((item)=>{
-					// 	return item['seo']['link']==this.activatedRoute.snapshot.paramMap.get('catId')
-					// })
-			// console.log(seoObj.seo);
-			// console.log(seoObj);
-			// console.log({
-			// 	title:seoObj.seo.title,
-			// 	description: seoObj.seo.description,
-			// 	keywords:  seoObj.seo.keywords,
-			// 	image: 'src/assets/img/seo-logo.png',
-			// 	isNoIndex: false,
-			// });
+		// 	return item['seo']['link']==this.activatedRoute.snapshot.paramMap.get('catId')
+		// })
+		// console.log(seoObj.seo);
+		// console.log(seoObj);
+		// console.log({
+		// 	title:seoObj.seo.title,
+		// 	description: seoObj.seo.description,
+		// 	keywords:  seoObj.seo.keywords,
+		// 	image: 'src/assets/img/seo-logo.png',
+		// 	isNoIndex: false,
+		// });
 
-		
-			this.seo.generateTags({
-				title:seoObj.title,
-				description: seoObj.description,
-				keywords:  seoObj.keywords,
-				image: 'src/assets/img/seo-logo.png',
-				isNoIndex: false,
-			});
-			
+
+		this.seo.generateTags({
+			title: seoObj.title,
+			description: seoObj.description,
+			keywords: seoObj.keywords,
+			image: 'src/assets/img/seo-logo.png',
+			isNoIndex: false,
+		});
+
 
 
 		// }else{
 		// 	this.categoryId ='all'
 		// }
 
-	  }
-	
+	}
+
 
 }

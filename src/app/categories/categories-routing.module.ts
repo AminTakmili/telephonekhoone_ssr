@@ -15,11 +15,11 @@ const routes: Routes = [
     component: CategoriesPage
   },
   {
-    path: 'm/:subCatId',
+    path: 'adviser/:subCatId',
     component: SubCategoriListComponent
   },
   {
-    path: 'm/:subCatId/:consultantId',
+    path: 'adviser/:subCatId/:consultantId',
     component: ConsultantprofileComponent
   },
   	//   {
@@ -27,7 +27,7 @@ const routes: Routes = [
 	// 	component: RulesPage
 	//   },
 	//   {
-	// 	path: '/c/:category_id',//زیر دسته یک دسته بندی 
+	// 	path: '/c/:category_id',//زیر دسته یک دسته بندی
 	// 	component: RulesPage
 	//   },
 	//   {
@@ -35,7 +35,7 @@ const routes: Routes = [
 	// 	component: RulesPage
 	//   },
 	//   {
-	// 	path: '/c/m/:category_id/:advisor_id', // جزییات یک  مشاور 
+	// 	path: '/c/m/:category_id/:advisor_id', // جزییات یک  مشاور
 	// 	component: RulesPage
 	//   },
 ];

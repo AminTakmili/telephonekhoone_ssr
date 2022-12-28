@@ -96,9 +96,9 @@
                           </h3>
                           <ul>
                               <li *ngFor="let blog of searchItems.blogs" class="searchItem">
-                                   
+
                                      <a [routerLink]="['/b' , blog['link']]">{{ blog.title }}</a>
-                                      
+
                               </li>
                           </ul> -->
                       </div>
@@ -420,7 +420,7 @@
           </div>
           <ion-slides class="show-overslide pt-10 pt-md-40" [options]="slideOpts2">
               <ion-slide *ngFor="let item of blogs">
-                  <div class="home-cards home-magzine box-shadow w-100 flex" [routerLink]="['/b' ,item.link]">
+                  <a class="home-cards home-magzine box-shadow w-100 flex" target="_blank" [href]="item?.link">
                       <div class="image">
                           <img *ngIf="item.media" class="img-cover" [src]="item.media" alt="" />
                           <img *ngIf="!item.media" class="img-cover" src="assets/img/no-image.jpg" alt="" />
@@ -432,11 +432,12 @@
                           <div class="detail flex-row-center-between">
                               <span class="date">{{ item.created_at }}</span>
                               <ion-text color="primary">
-                                  <span class="label gray-600">{{ item.category.name }}</span>
+                                  <span class="label gray-600">مقالات</span>
+                                  <!-- <span class="label gray-600">{{ item.category.name }}</span> -->
                               </ion-text>
                           </div>
                       </div>
-                  </div>
+                  </a>
               </ion-slide>
           </ion-slides>
       </div>

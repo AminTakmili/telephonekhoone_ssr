@@ -4,67 +4,87 @@
 
 <!---->
 <ion-app>
-  <!-- <ion-split-pane content-id="main" > -->
-    <ion-menu side="start" menuId="first" content-id="main" type="overlay" auto-hide="true" >
-      <ion-header>
-        <ion-toolbar color="light">
-          <ion-title>تلفن خونه</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content>
-        <ion-list class="ion-no-padding mobile-menu">
-          <ion-menu-toggle>
-            <ion-item [routerLink]="['/']" lines="full">خانه</ion-item>
-            <ion-item *ngIf="!global.getLogin().value" [routerLink]="['/registerlogin']" lines="full">ورود / ثبت نام
-            </ion-item>
-            <ion-item *ngIf="
-            global.getLogin().value &&
-            global.getUserInfo().type == 'consultant'
-          " [routerLink]="['/profile-consultant']" lines="full">
-              پنل کاربری</ion-item>
-            <ion-item *ngIf="
-            global.getLogin().value && global.getUserInfo().type == 'user'
-          " [routerLink]="['/profile']" lines="full">
-              پنل کاربری</ion-item>
-            <ion-item [routerLink]="['/c']" lines="full">
-              دسته بندی مشاوران
-            </ion-item>
-            <ion-item  target="_blank" href="https://www.telephonekhooneh.com/other/mag" lines="full">وبلاگ</ion-item>
- <!-- [routerLink]="['/b']" -->
-            <!-- <ion-item [routerLink]="['/webinar']" lines="full">
+	<!-- <ion-split-pane content-id="main" > -->
+	<ion-menu side="start" menuId="first" content-id="main" type="overlay" auto-hide="true">
+		<ion-header>
+			<ion-toolbar color="light">
+				<ion-title>تلفن خونه</ion-title>
+			</ion-toolbar>
+		</ion-header>
+		<ion-content>
+			<ion-list class="ion-no-padding mobile-menu">
+				<ion-menu-toggle>
+					<ion-item [routerLink]="['/']" lines="full">خانه</ion-item>
+					<ion-item *ngIf="!global.getLogin().value" [routerLink]="['/registerlogin']" lines="full">ورود / ثبت
+						نام</ion-item>
+					<ion-item *ngIf=" global.getLogin().value && global.getUserInfo().type == 'consultant' "
+						[routerLink]="['/profile-consultant']" lines="full">پنل کاربری</ion-item>
+					<ion-item *ngIf="global.getLogin().value && global.getUserInfo().type == 'user' "
+						[routerLink]="['/profile']" lines="full">پنل کاربری</ion-item>
+				</ion-menu-toggle>
+				<ion-accordion-group class="ion-border-bottom" >
+					<ion-accordion value="first">
+						<ion-item slot="header" lines="full">دسته بندی مشاوران</ion-item>
+						<div slot="content">
+							<ion-menu-toggle>
+								<ion-list color="light">
+									<ion-item color="light" [routerLink]="['/consultation','مشاوره-پزشکی']">مشاوره پزشکی</ion-item>
+									<ion-item color="light" [routerLink]="['/consultation','مشاوره-حقوقی']">مشاوره حقوقی</ion-item>
+									<ion-item color="light" [routerLink]="['/consultation','مشاوره-روانشناسی']">مشاوره
+										روانشناسی</ion-item>
+								</ion-list>
+							</ion-menu-toggle>
+						</div>
+					</ion-accordion>
+				</ion-accordion-group>
+				<ion-menu-toggle>
+					<ion-item target="_blank" href="https://www.telephonekhooneh.com/other/mag"
+						lines="full">وبلاگ</ion-item>
+				</ion-menu-toggle>
+				<!-- [routerLink]="['/b']" -->
+				<!-- <ion-item [routerLink]="['/webinar']" lines="full">
               وبینارها
             </ion-item> -->
-            <ion-item  target="_blank" href="https://www.telephonekhooneh.com/other/media" lines="full">
-              رسانه ها
-            </ion-item>
-             <!-- [routerLink]="['/media']" -->
-            <ion-item [routerLink]="['/about']" lines="full">
-              درباره ما
-            </ion-item>
-            <ion-item [routerLink]="['/contact-us']" lines="full">
-              تماس با ما
-            </ion-item>
-            <ion-item  href="https://en.telephonekhooneh.com/home"lines="full">
-         En
+				<ion-menu-toggle>
+					<ion-item target="_blank" href="https://www.telephonekhooneh.com/other/media" lines="full">
+						رسانه ها
+					</ion-item>
+				</ion-menu-toggle>
+				<!-- [routerLink]="['/media']" -->
+				<ion-menu-toggle>
+					<ion-item [routerLink]="['/about']" lines="full">
+						درباره ما
+					</ion-item>
+				</ion-menu-toggle>
+				<ion-menu-toggle>
+					<ion-item [routerLink]="['/contact-us']" lines="full">
+						تماس با ما
+					</ion-item>
+				</ion-menu-toggle>
+				<ion-menu-toggle>
+					<ion-item href="https://en.telephonekhooneh.com/home" lines="full">
+						En
+					</ion-item>
+				</ion-menu-toggle>
+				<ion-menu-toggle>
+					<ion-item *ngIf="global.getLogin().value" lines="full" [routerLink]="['/conversation/mobile']">
+						<ion-icon slot="start" name="chatbox-outline"></ion-icon>
+						<ion-label> گفتگوی متنی </ion-label>
+						<ion-badge *ngIf="cahtBadge" color="danger">{{ cahtBadge }}
+						</ion-badge>
+					</ion-item>
+				</ion-menu-toggle>
+				<!-- <ion-item *ngIf="global.getLogin().value" lines="full" [routerLink]="[callsLink]">
+						<ion-icon slot="start" name="call-outline"></ion-icon>
+						<ion-label> تماس های من </ion-label>
+						<ion-badge *ngIf="callBadge" color="danger">{{ callBadge }}
+						</ion-badge>
+					</ion-item> -->
 
-            </ion-item>
-            <ion-item *ngIf="global.getLogin().value" lines="full" [routerLink]="['/conversation/mobile']">
-              <ion-icon slot="start" name="chatbox-outline"></ion-icon>
-              <ion-label> گفتگوی متنی </ion-label>
-              <ion-badge *ngIf="cahtBadge" color="danger">{{ cahtBadge }}
-              </ion-badge>
-            </ion-item>
-            <ion-item *ngIf="global.getLogin().value" lines="full" [routerLink]="[callsLink]">
-              <ion-icon slot="start" name="call-outline"></ion-icon>
-              <ion-label> تماس های من </ion-label>
-              <ion-badge *ngIf="callBadge" color="danger">{{ callBadge }}
-              </ion-badge>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
+			</ion-list>
+		</ion-content>
+	</ion-menu>
 
-    <ion-router-outlet id="main"></ion-router-outlet>
-  <!-- </ion-split-pane> -->
+	<ion-router-outlet id="main"></ion-router-outlet>
+	<!-- </ion-split-pane> -->
 </ion-app>
