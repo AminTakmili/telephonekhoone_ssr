@@ -36,19 +36,20 @@ export class UploadFileComponent implements OnInit, AfterViewInit {
 		if (this.defaultFiles) {
 			this.defaultFiles.map(files => {
 				console.log(files);
-				
-				const myFiles = {
-					loading: false,
-					file: {
-						name: this.getFileName(files.path)
-					},
-					loadPercent: 0,
-					fileType: 'file',
-					id: new Date().getTime() + _.random(10000, 99999),
-					apiResponse: files,
-					fileKey: files.key
-				} as MyFile;
-				this.selectedFiles.push(myFiles);
+				if(files) {
+					const myFiles = {
+						loading: false,
+						file: {
+							name: this.getFileName(files.path)
+						},
+						loadPercent: 0,
+						fileType: 'file',
+						id: new Date().getTime() + _.random(10000, 99999),
+						apiResponse: files,
+						fileKey: files.key
+					} as MyFile;
+					this.selectedFiles.push(myFiles);
+				}
 			});
 		}
 	}

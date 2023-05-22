@@ -143,7 +143,7 @@ export function app(): express.Express {
       try {
         siteMap = await axios({
           method: 'get',
-          url: 'https://app.telephonkhoneh.com/api/allCategories'
+          url: 'https://app.telephonekhooneh.com/api/allCategories'
         });
 
         console.log(siteMap);
@@ -224,7 +224,7 @@ export function app(): express.Express {
       try {
         siteMap = await axios({
           method: 'get',
-          url: 'https://app.telephonkhoneh.com/api/allConsultants'
+          url: 'https://app.telephonekhooneh.com/api/allConsultants'
         });
 
         // console.log(siteMap.data);
