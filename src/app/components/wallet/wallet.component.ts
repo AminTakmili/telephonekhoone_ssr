@@ -14,7 +14,7 @@ import { UserBalanceService } from 'src/app/services/user-balance.service';
 export class WalletComponent implements OnInit {
 	@Input() remainPay;
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/profile', name: 'پروفایل' },
 		{ url: '/profile/wallet', name: 'افزایش موجودی حساب کاربری' },
 	];
@@ -37,7 +37,7 @@ export class WalletComponent implements OnInit {
 		private iab: InAppBrowser,
 		public seo: SeoService,
 
-		
+
 	) {
 		this.balanceService.getUserBalance().subscribe((value) => {
 			this.balance = value;
@@ -73,7 +73,7 @@ export class WalletComponent implements OnInit {
 	}
 	ionViewWillEnter() {
 		// console.log("object");
-       
+
         this.setSeo(
             {
               metaTitle:'افزایش موجودی حساب کاربری',
@@ -94,7 +94,7 @@ export class WalletComponent implements OnInit {
 		  image: '/assets/img/icon/icon-384x384.png',
 		  isNoIndex: data.isNoIndex,
 	  });
-	  
+
   }
 
 

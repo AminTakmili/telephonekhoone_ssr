@@ -14,7 +14,7 @@ export class MediaPage implements OnInit {
   @ViewChild('consultantSearchInput', { static: false })
   consultantSearchInput: IonSearchbar;
   breadCrumb = [
-    { url: '/', name: 'صفحه نخست' },
+    { url: '/', name: 'تلفن خونه' },
     { url: '/media', name: 'رسانه ها' },
   ];
   mediaItems = [];
@@ -43,7 +43,7 @@ export class MediaPage implements OnInit {
   constructor(
 	  private global: GlobalService,
 	  public seo: SeoService,
- 
+
 	  ) {}
   getMediaData(title?: string, userId?: number, date?: string) {
     const params = {
@@ -100,7 +100,7 @@ export class MediaPage implements OnInit {
   }
   ngOnInit() {
     this.getMediaData();
-           
+
 	this.setSeo(
 		{
 		  metaTitle:'رسانه ها',
@@ -112,7 +112,7 @@ export class MediaPage implements OnInit {
 		)
   }
   ionViewDidEnter() {
-       
+
 	this.setSeo(
 		{
 		  metaTitle:'رسانه ها',
@@ -186,7 +186,7 @@ export class MediaPage implements OnInit {
 		image: '/assets/img/seo-logo.png',
 		isNoIndex: data.isNoIndex,
 	});
-	
+
 }
 }
 

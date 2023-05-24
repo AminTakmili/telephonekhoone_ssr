@@ -14,7 +14,7 @@ export class ActivitiesStatusComponent implements OnInit {
     voice_call = this.global.getUserInfo().is_voice_call === 1;
     chat = this.global.getUserInfo().is_chat === 1;
     breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/profile-consultant', name: 'پروفایل مشاور' },
 		{ url: '/profile-consultant/status', name: 'وضعیت فعال' },
 	];

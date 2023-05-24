@@ -33,7 +33,7 @@ export class MobileShowComponent implements OnInit {
 	@ViewChild('mainContent') mainContent: IonContent;
 	@ViewChild('fileInput', { static: false }) fileInput: IonInput;
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/categories', name: 'دسته بندی' },
 	];
 	created_at = '';
@@ -116,7 +116,7 @@ export class MobileShowComponent implements OnInit {
 			}, 100);
 		}
 	}
-	
+
 	showImage(img) {
 		return img.options?.subSizes?.medium ?? img.path;
 	}
@@ -485,7 +485,7 @@ export class MobileShowComponent implements OnInit {
 		  translucent: true
 		});
 		await popover.present();
-	
+
 		const { data } = await popover.onDidDismiss();
 		if (data === 'end') {
 			this.endChat();

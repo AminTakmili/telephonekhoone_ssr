@@ -1,0 +1,64 @@
+@import "~src/theme/extends";
+.payment-status-success {
+    @extend .flex-column-center-center;
+    .icon {
+        width: 120px;
+        height: 120px;
+        background-color: rgba(81, 184, 29, 0.2);
+        border-radius: 50%;
+        @extend .flex-column-center-center;
+        ion-icon {
+            color: var(--ion-theme-3);
+            font-size: 70px;
+        }
+    }
+    .title {
+        margin-top: 30px;
+        font-size: 30px;
+        color: var(--ion-theme-3);
+    }
+    .text {
+        font-size: 14px;
+        opacity: .7;
+        color: var(--ion-theme-3);
+    }
+    .btns {
+        margin-top: 30px;
+        @extend .flex-row-center-center;
+        &>* {
+            margin: 10px 20px;
+        }
+    }
+}
+
+.payment-status-unsuccess {
+    @extend .flex-column-center-center;
+    .icon {
+        width: 120px;
+        height: 120px;
+        background-color: rgba(184, 29, 29, 0.2);
+        border-radius: 50%;
+        @extend .flex-column-center-center;
+        ion-icon {
+            color: var(--ion-color-primary);
+            font-size: 70px;
+        }
+    }
+    .title {
+        margin-top: 30px;
+        font-size: 30px;
+        color: var(--ion-color-primary);
+    }
+    .text {
+        font-size: 14px;
+        opacity: .7;
+        color: var(--ion-color-primary);
+    }
+    .btns {
+        margin-top: 30px;
+        @extend .flex-row-center-center;
+        &>* {
+            margin: 10px 20px;
+        }
+    }
+}

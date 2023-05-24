@@ -14,7 +14,7 @@ export class TransactionsConsultantComponent implements OnInit {
     transactions: Transactions[] = [];
     loading = false;
     breadCrumb = [
-        { url: '/', name: 'صفحه نخست' },
+        { url: '/', name: 'تلفن خونه' },
         { url: '/profile-consultant', name: 'پروفایل مشاور' },
         { url: '/profile-consultant/transactions', name: 'تراکنش ها' },
     ];

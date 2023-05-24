@@ -1,0 +1,45 @@
+<ion-header class="ion-hide-md-up">
+    <ion-toolbar color="light">
+        <ion-title> بررسی پرداخت </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <!-- <app-header></app-header>
+	  <header-type-two [breadCrumb]="breadCrumb"></header-type-two> -->
+    <section class="py-50">
+        <p class="ion-text-center"> در حال بررسی پرداخت </p>
+    </section>
+    <section>
+        <div class="continer py-50" *ngIf="paymentStatus === 1">
+            <div class="payment-status-success">
+                <div class="icon">
+                    <ion-icon name="checkmark-circle-outline"></ion-icon>
+                </div>
+                <div class="title">پرداخت موفق</div>
+                <div class="text">پرداخت شما با موفقیت انجام شد</div>
+                <div class="btns">
+                    <ion-button shape="round" fill="outline" color="success" [routerLink]="[backLink.url]">
+                        {{ backLink.title }}
+                    </ion-button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="continer py-50" *ngIf="paymentStatus === 0 && !loading">
+            <div class="payment-status-unsuccess">
+                <div class="icon">
+                    <ion-icon name="close-circle-outline"></ion-icon>
+                </div>
+                <div class="title">پرداخت ناموفق</div>
+                <div class="text">پرداخت شما با مشکل مواجه شد لطفا مجدد تلاش کنید</div>
+                <div class="btns">
+                    <ion-button shape="round" fill="outline" color="danger" [routerLink]="[backBtnLink]">بازگشت به اپلیکیشن
+                    </ion-button>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- <app-footer></app-footer>
+</ion-content>

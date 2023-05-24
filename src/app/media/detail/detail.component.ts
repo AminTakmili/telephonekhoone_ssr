@@ -18,7 +18,7 @@ export class DetailComponent implements OnInit {
 	mediaId: string;
 	mediaDetail: UserMediaDetail;
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/media', name: 'رسانه' },
 	];
 
@@ -40,7 +40,7 @@ export class DetailComponent implements OnInit {
 
 	getData(id) {
 		this.global.showLoading().then(() => {
-			
+
 			this.loading = true;
 			this.global
 				.httpPost('media/show', {
@@ -118,11 +118,11 @@ export class DetailComponent implements OnInit {
 							text: 'لغو',
 							role: 'cancel',
 						},
-	
+
 					],
 				});
 				await alert.present();
-				
+
 			}
 		}
 	}

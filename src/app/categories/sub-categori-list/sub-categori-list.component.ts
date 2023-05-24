@@ -75,7 +75,7 @@ export class SubCategoriListComponent implements OnInit, OnDestroy, AfterViewChe
 	countries = [{ id: 0, name: 'مشاهده همه' }];
 	searchList: Searchitem[] = [];
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/consultation', name: 'دسته بندی' },
 	];
 	galleryThumbsConfig2 = {

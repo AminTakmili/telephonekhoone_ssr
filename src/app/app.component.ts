@@ -21,6 +21,8 @@ import { SwUpdate } from '@angular/service-worker';
 import { interval } from 'rxjs/internal/observable/interval';
 import { UserBalanceService } from "./services/user-balance.service";
 import { ResponsiveService } from './services/responsive.service';
+import { Categories, Consultants } from './classes/Categories';
+
 @Component({
 	selector: "app-root",
 	templateUrl: "app.component.html",
@@ -31,6 +33,10 @@ export class AppComponent {
 	callsLink = '';
 	callBadge: number;
 	userType: string;
+	categories: Categories[] = [];
+		subCategories: Categories[] = [];
+
+
 	constructor(
 		private platform: Platform,
 		// private splashScreen: SplashScreen,
@@ -44,9 +50,9 @@ export class AppComponent {
 		private responsiveService: ResponsiveService
 	) {
 
-		
+
 		this.global.setItemFormStorage();
-		
+		this.getCatgeory();
 		if (this.global.isBrowser) {
 			this.updateClient();
 		}
@@ -56,13 +62,14 @@ export class AppComponent {
 		// 	console.log(event);
 		// });
 
-		
+
+
 		this.initializeApp();
 		this.checkUpdate();
 		this.router.events.subscribe((ev) => {
 			if (ev instanceof NavigationEnd) {
 				if (this.global.getLogin().value) {
-					
+
 					this.global.httpGet("userInfo").subscribe(
 						(res) => {
 							this.global.setUserInfo(res);
@@ -99,7 +106,7 @@ export class AppComponent {
 				this.callBadge = val.call;
 			});
 		}
-		// 
+		//
 		this.fetchApi()
 	}
 
@@ -170,10 +177,37 @@ export class AppComponent {
 		this.menu.open("custom");
 	}
 	// fetchApi() {
-    //     this.global.httpGet('more/setting').subscribe(res => {
+	//     this.global.httpGet('more/setting').subscribe(res => {
 	// 		console.log(res);
-    //         this.global.enamad.next(res.enamad);
-    //         this.global.logo.next(res.logo);
-    //     })
-    // }
+	//         this.global.enamad.next(res.enamad);
+	//         this.global.logo.next(res.logo);
+	//     })
+	// }
+
+	getCatgeory() {
+		this.global.httpGet('categories').subscribe(
+			(res) => {
+				// console.log(res);
+				res.map((item, index) => {
+					const cat = new Categories();
+					cat.id = item.id;
+					cat.name = item.name;
+					cat.setSeo = item.seo;
+					cat.children = item.children.map((child: any) => {
+						child['parent_id'] = item.id;
+						return child;
+					});
+					if (this.categories.findIndex(item => item.id == cat.id) == -1) {
+						this.categories.push(cat)
+					}
+
+				});
+				console.log(this.categories);
+
+			},
+			(err) => {
+
+			}
+		);
+	}
 }

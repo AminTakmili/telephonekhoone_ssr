@@ -281,9 +281,11 @@
 
 #my-services {
     .my-service {
+		--inner-padding-end: 0;
         ion-img {
             width: 63px;
             height: auto;
+			margin: 0 15px;
         }
         .title-service {
             margin-bottom: 10px;
@@ -294,6 +296,7 @@
             height: 76px;
             margin: 30px 0;
             overflow: hidden;
+			padding-inline-end: 15px;
         }
         .desc {
             opacity: 0.9;

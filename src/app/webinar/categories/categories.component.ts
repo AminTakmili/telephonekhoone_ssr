@@ -26,7 +26,7 @@ export class CategoriesComponent implements OnInit {
 	p2: 1;
 	categoryId: number;
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/webinar', name: 'وبینار' },
 	];
 

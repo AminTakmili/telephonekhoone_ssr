@@ -14,7 +14,7 @@ import { UserBalanceService } from 'src/app/services/user-balance.service';
 })
 export class WalletComponent implements OnInit {
     breadCrumb = [
-        { url: '/', name: 'صفحه نخست' },
+        { url: '/', name: 'تلفن خونه' },
         { url: '/profile', name: 'پروفایل' },
         { url: '/profile/wallet', name: 'افزایش موجودی حساب کاربری' },
     ];

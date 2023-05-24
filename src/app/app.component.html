@@ -23,23 +23,19 @@
 						[routerLink]="['/profile']" lines="full">پنل کاربری</ion-item>
 				</ion-menu-toggle>
 				<ion-accordion-group class="ion-border-bottom" >
-					<ion-accordion value="first">
-						<ion-item slot="header" lines="full">دسته بندی مشاوران</ion-item>
+					<ion-accordion *ngFor="let item of categories"  [value]="item?.name">
+						<ion-item slot="header" lines="full">{{ item?.name }}</ion-item>
 						<div slot="content">
 							<ion-menu-toggle>
 								<ion-list color="light">
-									<ion-item color="light" [routerLink]="['/consultation','مشاوره-پزشکی']">مشاوره پزشکی</ion-item>
-									<ion-item color="light" [routerLink]="['/consultation','مشاوره-حقوقی']">مشاوره حقوقی</ion-item>
-									<ion-item color="light" [routerLink]="['/consultation','مشاوره-روانشناسی']">مشاوره
-										روانشناسی</ion-item>
+									<ion-item color="light" *ngFor="let child of item?.children" [routerLink]="['/consultation/adviser',child?.seo['link']]">{{ child?.name }}</ion-item>
 								</ion-list>
 							</ion-menu-toggle>
 						</div>
 					</ion-accordion>
 				</ion-accordion-group>
 				<ion-menu-toggle>
-					<ion-item target="_blank" href="https://www.telephonekhooneh.com/other/mag"
-						lines="full">وبلاگ</ion-item>
+					<ion-item target="_blank" href="https://www.telephonekhooneh.com/other/blog" lines="full">وبلاگ</ion-item>
 				</ion-menu-toggle>
 				<!-- [routerLink]="['/b']" -->
 				<!-- <ion-item [routerLink]="['/webinar']" lines="full">
@@ -53,7 +49,7 @@
 				<!-- [routerLink]="['/media']" -->
 				<ion-menu-toggle>
 					<ion-item [routerLink]="['/about']" lines="full">
-						درباره ما
+						درباره تلفن خونه
 					</ion-item>
 				</ion-menu-toggle>
 				<ion-menu-toggle>

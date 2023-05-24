@@ -16,7 +16,7 @@ import { NewMediaComponent } from './new-media/new-media.component';
 export class MediaComponent implements OnInit {
 
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/profile-consultant', name: 'پروفایل مشاور' },
 		{ url: '/profile-consultant/media/archive', name: 'رسانه' },
 	];

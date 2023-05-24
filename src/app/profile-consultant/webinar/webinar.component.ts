@@ -8,7 +8,7 @@ import { SeoService } from 'src/app/services/seo.service';
     styleUrls: ['./webinar.component.scss'],
 })
 export class WebinarComponent implements OnInit {
-    breadCrumb = [{ url: '/', name: 'صفحه نخست' }];
+    breadCrumb = [{ url: '/', name: 'تلفن خونه' }];
     constructor(public global: GlobalService,private seo: SeoService,) { }
 
     ngOnInit() {
@@ -28,7 +28,7 @@ export class WebinarComponent implements OnInit {
             }
         )
     }
-    
+
     setSeo(data) {
         console.log(data);
         this.seo.generateTags({

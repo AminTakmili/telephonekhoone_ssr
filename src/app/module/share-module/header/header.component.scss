@@ -13,22 +13,34 @@ header {
 		top: 0;
 		right: 0;
 		left: 0;
+		max-width: 100%;
 		width: 100%;
 		background-color: transparent;
 		z-index: 4;
 
 		.menu-item {
 			&>li {
-				padding: 10px 0;
+
+				&>a{
+					padding: 15px 0;
+				}
 				&:hover {
 					&>a {
-						color: var(--color-white);
+						color:var(--ion-color-primary);
 					}
 				}
 
 
 				&>ul {
 
+					max-height: 400px;
+					height: auto;
+					width: 100%;
+					right: 0;
+					left: 0;
+
+					margin-right: auto;
+					margin-left: auto;
 					transition: .13s ease-in-out all;
 					position: absolute;
 					background-color: #fff;
@@ -37,35 +49,29 @@ header {
 					opacity: 0;
 					z-index: 0;
 					visibility: hidden;
-					transform:  translateY(20px) translateX(21px);
-					padding: 5px 0;
+					transform:  translateY(30px) translateX(0);
+					padding: 15px;
+					display: flex;
+					flex-direction: row;
+					align-items: flex-start;
+					justify-content: flex-start;
+					flex-wrap: wrap;
 
-					&:before {
-						content: "";
-						width: 16px;
-						height: 16px;
-						transform: rotate(45deg);
-						background-color: #ffffff;
-						border-radius: 2px;
-						position: absolute;
-						z-index: 10;
-						right: 0;
-						left: 0;
-						margin: 0 auto;
-						top: -8px;
-					}
 
 					&>li {
+						min-width: calc(100% / 3);
+						max-width: 100%;
+						flex: 0 0 auto;
 						margin-left: 0;
-						border-bottom: 1px solid rgb(212, 212, 212);
+						// border-bottom: 1px solid rgb(212, 212, 212);
 
 						&>a {
 							display: block;
 							width: 100%;
 							color: #222;
-							width: 170px;
 							padding: 8px 15px;
 							&:hover{
+								background-color: #e7e7e7;
 								color:var(--ion-color-primary);
 							}
 
@@ -81,7 +87,7 @@ header {
 						opacity: 1;
 						z-index: 10 ;
 						visibility: visible;
-						transform:  translateY(10px) translateX(21px);
+						transform:  translateY(15px) translateX(0);
 					}
 
 				}
@@ -92,8 +98,10 @@ header {
 	&.type-relative {
 		.menu-item {
 			& > li {
-				padding: 10px 0;
+
+
 				&.active {
+					color:var(--ion-color-primary);
 					& > a {
 						&:after {
 							opacity: 1;
@@ -102,15 +110,27 @@ header {
 				}
 
 				& > a {
+					padding: 15px 0;
 					color: var(--color-dark);
 					cursor: pointer;
 				}
 
 				&:hover {
+					&>a{
+						color:var(--ion-color-primary);
+					}
 					// opacity: 0.8 !important;
 				}
 				&>ul {
 
+					max-height: 400px;
+					height: auto;
+					width: 100%;
+					right: 0;
+					left: 0;
+
+					margin-right: auto;
+					margin-left: auto;
 					transition: .13s ease-in-out all;
 					position: absolute;
 					background-color: #fff;
@@ -119,8 +139,13 @@ header {
 					opacity: 0;
 					z-index: 0;
 					visibility: hidden;
-					transform:  translateY(20px) translateX(21px);
-					padding: 5px 0;
+					transform:  translateY(30px) translateX(0);
+					padding: 15px;
+					display: flex;
+					flex-direction: row;
+					align-items: flex-start;
+					justify-content: flex-start;
+					flex-wrap: wrap;
 
 
 					&:before {
@@ -139,16 +164,19 @@ header {
 					}
 
 					&>li {
+						min-width: calc(100% / 3);
+						max-width: 100%;
+						flex: 0 0 auto;
 						margin-left: 0;
-						border-bottom: 1px solid rgb(212, 212, 212);
+						// border-bottom: 1px solid rgb(212, 212, 212);
 
 						&>a {
 							display: block;
 							width: 100%;
 							color: #222;
-							width: 170px;
 							padding: 8px 15px;
 							&:hover{
+								background-color: #e7e7e7;
 								color:var(--ion-color-primary);
 							}
 
@@ -164,7 +192,7 @@ header {
 						z-index: 100;
 						opacity: 1;
 						visibility: visible;
-						transform:  translateY(10px) translateX(21px);
+						transform:  translateY(15px) translateX(0);
 					}
 
 				}
@@ -344,4 +372,8 @@ header {
 
 ion-img {
 	width: 157px;
+}
+
+.postition-relative{
+	position: relative;
 }

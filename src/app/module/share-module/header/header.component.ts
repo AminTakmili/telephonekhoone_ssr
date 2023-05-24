@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Categories, Consultants } from '../../../classes/Categories';
 import { GlobalService } from 'src/app/services/global.service';
 import { UserBalanceService } from 'src/app/services/user-balance.service';
 
@@ -19,6 +20,8 @@ export class HeaderComponent implements OnInit {
     @Input() type: string;
     userType: string;
     public logo = '';
+	categories: Categories[] = [];
+	subCategories: Categories[] = [];
 
     constructor(
         public global: GlobalService,
@@ -45,11 +48,40 @@ export class HeaderComponent implements OnInit {
         });
         this.global.logo.subscribe(res => {
 			if (res) {
-				
+
 				this.logo = res;
 			}
 		});
+
+		this.getCatgeory();
     }
+
+	getCatgeory(){
+		this.global.httpGet('categories').subscribe(
+			(res) => {
+				// console.log(res);
+				res.map((item, index) => {
+					const cat = new Categories();
+					cat.id = item.id;
+					cat.name = item.name;
+					cat.setSeo = item.seo;
+					cat.children = item.children.map((child: any) => {
+						child['parent_id'] = item.id;
+						return child;
+					});
+					if (this.categories.findIndex(item => item.id == cat.id) == -1) {
+						this.categories.push(cat)
+					}
+
+				});
+				 console.log(this.categories);
+
+			},
+			(err) => {
+
+			}
+		);
+	}
     onProfileClick() {
         this.showProfileBox = !this.showProfileBox;
     }

@@ -1,6 +1,6 @@
 <header [class.type-absolute]="type === 'absolute'" [class.type-relative]="type === 'relative'" class="ion-hide-lg-down">
     <nav>
-        <div class="container">
+        <div class="container postition-relative">
             <div class="home-navigation">
                 <div class="right">
                     <a class="logo" [routerLink]="['/']">
@@ -11,22 +11,30 @@
                             <a [routerLink]="['/']" routerDirection="root">خانه</a>
                         </li>
 
+
+                        <li *ngFor="let item of categories" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            <a [routerLink]="['/consultation',item?.seo['link']]" routerDirection="root">{{ item?.name }}</a>
+							<ul>
+								<li *ngFor="let child of item?.children"><a [routerLink]="['/consultation/adviser',child?.seo['link']]" >{{ child?.name }}</a></li>
+							</ul>
+                        </li>
+
                         <!-- <li><a>دانلود اپلیکیشن</a></li> -->
-                        <li routerLinkActive="active">
+                        <!-- <li routerLinkActive="active">
                             <a [routerLink]="['/consultation']" routerDirection="root">دسته بندی مشاوره ها</a>
 							<ul>
 								<li><a [routerLink]="['/consultation','مشاوره-پزشکی']">مشاوره پزشکی</a></li>
 								<li><a [routerLink]="['/consultation','مشاوره-حقوقی']">مشاوره حقوقی</a></li>
 								<li><a [routerLink]="['/consultation','مشاوره-روانشناسی']">مشاوره روانشناسی</a></li>
 							</ul>
-                        </li>
+                        </li> -->
                         <!-- <li routerLinkActive="active">
                             <a [routerLink]="['/webinar']" routerDirection="root">وبینار </a>
                         </li> -->
                         <!-- <li><a>مشاوره آنلاین</a></li> -->
                         <!-- <li><a>لیست مشاورین</a></li> -->
                         <li routerLinkActive="active">
-                            <a target="_blank" href="https://www.telephonekhooneh.com/other/mag">وبلاگ</a>
+                            <a target="_blank" href="https://www.telephonekhooneh.com/other/blog">وبلاگ</a>
                         </li>
                         <li routerLinkActive="active">
                             <a target="_blank" href="https://www.telephonekhooneh.com/other/media">رسانه ها</a>

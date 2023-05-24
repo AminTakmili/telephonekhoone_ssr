@@ -118,6 +118,13 @@ const routes: Routes = [
 		redirectTo: ''
 	},
 	{
+		path: 'payment/:type/:id',
+		loadChildren: () =>
+			import('./check-order/check-order.module').then(
+				(m) => m.CheckOrderPageModule
+			),
+	},
+	{
 		path: 'not-found',
 		loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundPageModule)
 	},

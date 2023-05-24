@@ -13,7 +13,7 @@ import { SeoService } from '../services/seo.service';
 })
 export class ConversationPage implements OnInit {
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/conversation', name: 'گفتگوی متنی' },
 	];
 	chats: Chat[] = [];
@@ -36,7 +36,7 @@ export class ConversationPage implements OnInit {
 		public seo: SeoService,
 
 		) {
-			
+
 		const mediaQueryList = mediaMatcher.matchMedia('(max-width: 768px)');
 		this.isMobile = mediaQueryList.matches;
 		mediaQueryList.addEventListener('change', (ev) => {
@@ -58,17 +58,17 @@ export class ConversationPage implements OnInit {
 			}
 		});
 		this.activeChatId = this.activatedRoute.snapshot?.children[0]?.params['chat-id'];
-		
+
 			this.setSeo(
 				{
 				  metaTitle:'گفتگوی متنی',
 				  metaDescription:'گفتگوی متنی در تلفن خونه',
 				  metaKeywords:'گفتگوی متنی,گفتگوی متنی تلفن خونه, گفتگوی متنی با مشاوره',
 				  isNoIndex:false
-	
+
 				}
 				)
-		  
+
 	}
 
 	setSeo(data) {
@@ -81,7 +81,7 @@ export class ConversationPage implements OnInit {
 		  image: '/assets/img/icon/icon-384x384.png',
 		  isNoIndex: data.isNoIndex,
 	  });
-	  
+
   }
 
 

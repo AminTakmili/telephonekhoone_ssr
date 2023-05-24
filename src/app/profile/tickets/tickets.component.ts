@@ -11,7 +11,7 @@ import { SeoService } from 'src/app/services/seo.service';
 })
 export class TicketsComponent implements OnInit {
     breadCrumb = [
-        { url: '/', name: 'صفحه نخست' },
+        { url: '/', name: 'تلفن خونه' },
         { url: '/profile', name: 'پروفایل' },
         { url: '/profile/tickets', name: 'پشتیبانی' },
         { url: '/profile/tickets/new', name: 'درخواست جدید' },

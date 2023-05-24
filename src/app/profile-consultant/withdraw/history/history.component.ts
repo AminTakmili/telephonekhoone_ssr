@@ -10,7 +10,7 @@ import { SeoService } from 'src/app/services/seo.service';
 	styleUrls: ['./history.component.scss'],
 })
 export class HistoryComponent implements OnInit {
-	breadCrumb = [{ url: '/', name: 'صفحه نخست' }, { url: '/profile-consultant/withdraw', name: 'برداشت از حساب' }];
+	breadCrumb = [{ url: '/', name: 'تلفن خونه' }, { url: '/profile-consultant/withdraw', name: 'برداشت از حساب' }];
 	loading = false;
 	limit = 10;
 	offset = 0;

@@ -24,7 +24,7 @@ export class ReservationComponent implements OnInit {
 	reserveItems: Reserve[] = [];
 	reserves: Timeline[] = [];
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/profile-consultant', name: 'پروفایل مشاور' },
 		{ url: '/profile-consultant/reservation', name: 'پکیج های مشاوره' },
 	];

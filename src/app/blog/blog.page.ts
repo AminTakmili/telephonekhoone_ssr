@@ -20,12 +20,12 @@ export class BlogPage implements OnInit {
     offset = 0;
     blogsCount: number;
     breadCrumb = [
-        {url: '/', name: 'صفحه نخست'},
+        {url: '/', name: 'تلفن خونه'},
         {url: '/b', name: 'بلاگ'},
     ];
     p2: 1;
     constructor(
-        private global: GlobalService, 
+        private global: GlobalService,
         private navCtrl: NavController,
         public seo: SeoService,
 
@@ -45,7 +45,7 @@ export class BlogPage implements OnInit {
     }
 
     ionViewDidEnter() {
-       
+
         this.setSeo(
             {
               metaTitle:'مقالات',
@@ -137,7 +137,7 @@ export class BlogPage implements OnInit {
         this.navCtrl.navigateForward(`/b/${item.id}`);
     }
     setSeo(data) {
-  
+
         this.seo.generateTags({
             title: data.metaTitle,
             description: data.metaDescription,
@@ -146,7 +146,7 @@ export class BlogPage implements OnInit {
             image: '/assets/img/seo-logo.png',
             isNoIndex: data.isNoIndex,
         });
-        
+
     }
-    
+
 }

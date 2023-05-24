@@ -21,7 +21,7 @@ export class ShowPage implements OnInit {
     }
 
     breadCrumb = [
-        {url: '/', name: 'صفحه نخست'},
+        {url: '/', name: 'تلفن خونه'},
         {url: '/profile', name: 'پروفایل'},
         {url: '/profile/tickets', name: 'مکالمات من'},
         {url: '/profile/tickets/show', name: 'مشاهده درخواست'},

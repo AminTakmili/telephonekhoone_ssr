@@ -83,7 +83,7 @@ export class SignUpPage implements OnInit {
 
 
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/sign-up', name: 'ثبت نام مشاور' },
 	];
 	categories: any;
@@ -174,7 +174,7 @@ export class SignUpPage implements OnInit {
 		if (files.length > 0) {
 			this.selectedResumeFile = files[0];
 			this.itemsValidation.resumeFileValidation = false;
-			
+
 		} else {
 			this.selectedResumeFile = null;
 		}

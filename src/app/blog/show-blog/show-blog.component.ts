@@ -26,7 +26,7 @@ export class ShowBlogComponent implements OnInit {
     blogSideData = {};
     seoObtion:object
     breadCrumb = [
-        {url: '/', name: 'صفحه نخست'},
+        {url: '/', name: 'تلفن خونه'},
         {url: '/b', name: 'بلاگ'},
         {url: '/b', name: 'جزئیات مطلب'},
     ];
@@ -49,7 +49,7 @@ export class ShowBlogComponent implements OnInit {
         if (this.seoObtion!== undefined) {
             this.setSeo(this.seoObtion)
         }
-     
+
     }
     ionViewWillEnter() {
         if (this.seoObtion!== undefined) {
@@ -67,8 +67,8 @@ export class ShowBlogComponent implements OnInit {
         this.loading = true;
         this.global.httpPost('blog/show', {link: this.myId}).subscribe(
             (res) => {
-                // 
-             
+                //
+
                 this.loading = false;
                 this.time = this.calculateReadingTime(res.blog.description);
                 const details = new BlogDetail();
@@ -174,7 +174,7 @@ export class ShowBlogComponent implements OnInit {
             );
     }
     setSeo(data) {
-  
+
         this.seo.generateTags({
             title: data.metaTitle,
             description: data.metaDescription,
@@ -183,7 +183,7 @@ export class ShowBlogComponent implements OnInit {
             image: data.img,
             isNoIndex: data.isNoIndex,
         });
-        
+
     }
-    
+
 }

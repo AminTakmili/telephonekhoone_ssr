@@ -14,7 +14,7 @@ export class FavouritesComponent implements OnInit {
     limit = 10;
     offset = 0;
     breadCrumb = [
-        { url: '/', name: 'صفحه نخست' },
+        { url: '/', name: 'تلفن خونه' },
         { url: '/profile', name: 'پروفایل' },
         { url: '/profile/favourites', name: 'علاقه مندی ها' },
     ];

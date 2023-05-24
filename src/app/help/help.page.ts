@@ -9,14 +9,14 @@ import { SeoService } from '../services/seo.service';
 })
 export class HelpPage implements OnInit {
     constructor(
-        private global: GlobalService,		
+        private global: GlobalService,
         public seo: SeoService,
         ) {
     }
 
     content = '';
     breadCrumb = [
-        {url: '/', name: 'صفحه نخست'},
+        {url: '/', name: 'تلفن خونه'},
         {url: '/help', name: 'راهنما'},
     ];
 
@@ -34,7 +34,7 @@ export class HelpPage implements OnInit {
     }
     ionViewWillEnter() {
 		// console.log("object");
-       
+
         this.setSeo(
             {
               metaTitle:'راهنما',
@@ -73,6 +73,6 @@ export class HelpPage implements OnInit {
           image: '/assets/img/icon/icon-384x384.png',
           isNoIndex: data.isNoIndex,
       });
-      
+
   }
 }

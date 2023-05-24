@@ -58,7 +58,7 @@ export class ContactUsPage implements OnInit {
   //     }),
   // });
   breadCrumb = [
-    { url: '/', name: 'صفحه نخست' },
+    { url: '/', name: 'تلفن خونه' },
     { url: '/contact-us', name: 'تماس با ما' },
   ];
 

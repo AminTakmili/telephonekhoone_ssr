@@ -15,7 +15,7 @@ export class EditInfoComponent implements OnInit {
 	editInfoForm: FormGroup;
 	loading = false;
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/profile', name: 'پروفایل' },
 		{ url: '/profile/editinfo', name: 'اطلاعات فردی' },
 	];

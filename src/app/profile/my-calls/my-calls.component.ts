@@ -19,7 +19,7 @@ export class MyCallsComponent implements OnInit {
 	offset = 0;
 	loadMoreLoading = false;
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/profile', name: 'پروفایل' },
 		{ url: '/profile/mycalls', name: 'مکالمات من' },
 	];

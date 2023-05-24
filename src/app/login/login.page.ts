@@ -133,7 +133,7 @@ export class LoginPage implements OnInit {
 			this.global.logOut(true);
 		}
 		this.breadCrumb = [
-			{ url: '/', name: 'صفحه نخست' },
+			{ url: '/', name: 'تلفن خونه' },
 			{ url: '/registerlogin', name: this.breadCrumbTitle },
 		];
 		this.setSeo(

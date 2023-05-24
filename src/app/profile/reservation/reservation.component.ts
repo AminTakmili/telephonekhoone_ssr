@@ -12,7 +12,7 @@ export class ReservationComponent implements OnInit {
     limit = 10;
     offset = 0;
     breadCrumb = [
-        { url: '/', name: 'صفحه نخست' },
+        { url: '/', name: 'تلفن خونه' },
         { url: '/profile', name: 'پروفایل' },
         { url: '/profile/editinfo', name: 'پکیج های مشاوره' },
     ];

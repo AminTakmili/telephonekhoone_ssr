@@ -16,9 +16,9 @@ import { SeoService } from 'src/app/services/seo.service';
 	styleUrls: ['./editinfo.component.scss'],
 })
 export class EditinfoComponent implements OnInit {
-	
+
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/profile-consultant', name: 'پروفایل مشاور' },
 		{ url: '/profile-consultant/editinfo', name: 'اطلاعات فردی' },
 	];
@@ -248,7 +248,7 @@ export class EditinfoComponent implements OnInit {
 			);
 		});
 		console.log(this.selectedResumeFile);
-		
+
 	}
 
 	submitForm() {

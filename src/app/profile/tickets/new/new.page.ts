@@ -15,7 +15,7 @@ export class NewPage implements OnInit {
     ticketForm: FormGroup;
     loading = false;
     breadCrumb = [
-        {url: '/', name: 'صفحه نخست'},
+        {url: '/', name: 'تلفن خونه'},
         {url: '/profile', name: 'پروفایل'},
         {url: '/profile/tickets', name: 'مکالمات من'},
     ];

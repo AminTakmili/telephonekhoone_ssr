@@ -10,8 +10,8 @@ import { SeoService } from '../services/seo.service';
 export class AboutPage implements OnInit {
   aboutText = '';
   breadCrumb = [
-    { url: '/', name: 'صفحه نخست' },
-    { url: '/about', name: 'درباره ما' },
+    { url: '/', name: 'تلفن خونه' },
+    { url: '/about', name: 'درباره تلفن خونه' },
   ];
 
   constructor(

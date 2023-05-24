@@ -22,16 +22,16 @@ export class WebinarPage implements OnInit {
 	seminarsCount: number;
 	p2: 1;
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/webinar', name: 'وبینار' },
 	];
 
 	constructor(
-		private global: GlobalService, 
+		private global: GlobalService,
 		private navCtrl: NavController,
 		public seo: SeoService,
 
-		
+
 		) {
 	}
 
@@ -49,7 +49,7 @@ export class WebinarPage implements OnInit {
 	}
 	ionViewWillEnter() {
 		// console.log("object");
-       
+
         this.setSeo(
             {
               metaTitle:'وبینارهای',
@@ -135,7 +135,7 @@ export class WebinarPage implements OnInit {
             image: '/assets/img/icon/icon-384x384.png',
             isNoIndex: data.isNoIndex,
         });
-        
+
     }
 
 }

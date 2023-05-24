@@ -17,7 +17,10 @@
                     <ion-col size-lg="3" size="12">
                         <h6>خدمات تلفن خونه</h6>
                         <ul class="footer-list">
-                            <li routerLink="/c">مشاوره تلفنی و متنی</li>
+                            <li routerLink="/consultation/مشاوره-پزشکی">مشاوره پزشکی</li>
+                            <li routerLink="/consultation/مشاوره-حقوقی">مشاوره حقوقی</li>
+                            <li routerLink="/consultation/مشاوره-روانشناسی">مشاوره روانشناسی</li>
+							<hr>
                             <li routerLink="/webinar">وبینار ها</li>
                             <li > <a  target="_blank" href="https://www.telephonekhooneh.com/other/media" >رسانه</a> </li>
                         </ul>
@@ -27,9 +30,9 @@
                         <h6>صفحات تلفن خونه</h6>
                         <ul class="footer-list">
                             <li [routerLink]="['/sign-up']" *ngIf="!global.getLogin().value && global.getUrl().sections[1] != 'registerlogin'">ثبت نام مشاور</li>
-                            <li [routerLink]="['/about']">درباره ما</li>
+                            <li [routerLink]="['/about']">درباره تلفن خونه</li>
                             <li [routerLink]="['/contact-us']">تماس با ما</li>
-                            <li > <a  target="_blank" href="https://www.telephonekhooneh.com/other/mag">وبلاگ</a> </li>
+                            <li > <a  target="_blank" href="https://www.telephonekhooneh.com/other/blog">وبلاگ</a> </li>
                             <li routerLink="/rules">قوانین و مقررات</li>
                         </ul>
                     </ion-col>

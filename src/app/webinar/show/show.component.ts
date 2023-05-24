@@ -17,7 +17,7 @@ export class ShowComponent implements OnInit {
 	isReserved = false;
 	seminarDetail: Seminars;
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/webinar', name: 'وبینار' },
 	];
 
@@ -61,18 +61,18 @@ export class ShowComponent implements OnInit {
 						// this.title.setTitle(this.seminarDetail.title + ' | ' + 'تلفن خونه');
 						this.isReserved = res.seminar.is_reserved;
 						this.loading = false;
-					
+
 						this.setSeo(
 							{
 							  metaTitle:res.seminar.seo.title,
 							  metaDescription:res.seminar.seo.description,
 							  metaKeywords:res.seminar.seo.keywords,
 							  isNoIndex:false
-				
+
 							}
 							)
 							this.breadCrumb = [
-								{ url: '/', name: 'صفحه نخست' },
+								{ url: '/', name: 'تلفن خونه' },
 								{ url: '/webinar', name: 'وبینار' },
 								{ url: `/webinar/${res.seminar.seo.link}`,name:  'وبینار '+res.seminar.title },
 							];
@@ -91,7 +91,7 @@ export class ShowComponent implements OnInit {
 	}
 
 	setSeo(data) {
-  
+
         this.seo.generateTags({
             title: data.metaTitle,
             description: data.metaDescription,
@@ -100,7 +100,7 @@ export class ShowComponent implements OnInit {
             image: data.img,
             isNoIndex: data.isNoIndex,
         });
-        
+
     }
 	reserveSeminar() {
 		this.global.showLoading().then(() => {
@@ -123,11 +123,11 @@ export class ShowComponent implements OnInit {
 							  metaDescription:res.seo.description,
 							  metaKeywords:res.seo.keywords,
 							  isNoIndex:false
-				
+
 							}
 							)
 							this.breadCrumb = [
-								{ url: '/', name: 'صفحه نخست' },
+								{ url: '/', name: 'تلفن خونه' },
 								{ url: '/webinar', name: 'وبینار' },
 								{ url: `/webinar/${res.seo.link}`, name: res.seo.title },
 							];

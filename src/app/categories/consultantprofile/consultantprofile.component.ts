@@ -51,7 +51,7 @@ export class ConsultantprofileComponent implements OnInit {
 	chatLoading = false;
 	loading = false;
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/', name: `درباره مشاور` },
 	];
 
@@ -170,7 +170,7 @@ export class ConsultantprofileComponent implements OnInit {
 						}
 						this.global.dismisLoading();
 						this.breadCrumb = [
-							{ url: '/', name: 'صفحه نخست' },
+							{ url: '/', name: 'تلفن خونه' },
 							{ url: `/consultation/${res?.category?.seo.link}`, name: ` ${res?.category?.name} ` },
 							{ url: `/consultation/adviser/${res?.category?.children[0].seo.link}`, name: ` ${res?.category?.children[0].name} ` },
 							{ url: `/consultation/adviser/${res?.category?.children[0].seo.link}/${this.myId}`, name: `پروفایل ${this.details?.consultant_name} ` },

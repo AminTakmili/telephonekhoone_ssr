@@ -22,7 +22,7 @@ export class MycallsComponent implements OnInit {
 	limit = 10;
 	offset = 0;
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/profile-consultant', name: 'پروفایل مشاور' },
 		{ url: '/profile-consultant/mycalls', name: 'مکالمات من' },
 	];

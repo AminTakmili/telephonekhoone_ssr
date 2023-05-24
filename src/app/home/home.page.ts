@@ -48,7 +48,7 @@ export class HomePage {
 			desc: 'تماس با مشاورین متخصص تلفن خونه و دریافت مشاوره',
 			type: 1,
 			color: 'blue-light',
-			link: '/c',
+			link: '/consultation',
 		},
 		{
 			name: ' وبینارها',
@@ -201,7 +201,7 @@ export class HomePage {
 	}
 
 	gotoCategory(item) {
-		console.log(item);
+		//console.log(item);
 		// this.router.navigate(['/c'], {
 		//   relativeTo: this.activateRoute,
 		//   queryParams: { id: item.id },
@@ -360,7 +360,7 @@ export class HomePage {
 				//  this.global.showLoading().then()
 				this.global.httpGet('home').subscribe(
 					(res) => {
-						console.log(res);
+						//console.log(res);
 						if (res.enamad) {
 							this.global.setEnamad(res.enamad);
 						}
@@ -398,7 +398,7 @@ export class HomePage {
 							this.categories.push(category);
 						});
 						res.consultants.map((item) => {
-							console.log(item);
+							//console.log(item);
 							const list = new Searchitem();
 							list.id = item.id;
 							list.link = item.seo?.link;
@@ -476,7 +476,7 @@ export class HomePage {
 				);
 				this.global.httpGetF('https://telephonekhooneh.com/other/wp-json/wp/v2/mag').subscribe(
 					(res) => {
-						console.log(res);
+						//console.log(res);
 						res.map((blog) => {
 							const bl = new Blog();
 							// bl.created_at = blog.created_at;

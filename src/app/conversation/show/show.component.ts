@@ -32,7 +32,7 @@ export class ShowComponent implements OnInit {
 	@ViewChild('messageInput', { static: false }) messageInput;
 	@ViewChild('fileInput', { static: false }) fileInput;
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/categories', name: 'دسته بندی' },
 	];
 	created_at = '';

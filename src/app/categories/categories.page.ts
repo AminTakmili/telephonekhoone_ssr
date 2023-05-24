@@ -15,7 +15,7 @@ import { SeoService } from '../services/seo.service';
 })
 export class CategoriesPage implements OnInit {
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/consultation', name: 'دسته بندی' },
 	];
 
@@ -201,7 +201,7 @@ export class CategoriesPage implements OnInit {
 						 console.log(this.currentCategory);
 
 						this.breadCrumb = [
-							{ url: '/', name: 'صفحه نخست' },
+							{ url: '/', name: 'تلفن خونه' },
 							{ url: '/consultation/' + this.activatedRoute.snapshot.paramMap.get('catId'), name: `${this.currentCategory['name']}` },
 						];
 					}

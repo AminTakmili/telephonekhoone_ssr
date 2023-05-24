@@ -3,7 +3,7 @@
       <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-img class="smallLogo" src="assets/img/header-logo-small.png"></ion-img>
+      <ion-img alt="تلفن خونه" class="smallLogo" src="assets/img/header-logo-small.png"></ion-img>
       <ion-button routerLink="/registerlogin" class="smallBtn" fill="outline" mode="ios" slot="end" *ngIf="!this.global.getLogin().value">
           ورود / ثبت نام
       </ion-button>
@@ -31,10 +31,10 @@
       <div class="home-search-box">
           <ion-slides pager="false" [options]="swiperOption">
               <ion-slide>
-                  <ion-img src="/assets/img/home-bg.jpg"></ion-img>
+                  <ion-img src="/assets/img/home-bg.jpg" alt="تلفن خونه"></ion-img>
               </ion-slide>
               <ion-slide>
-                  <ion-img src="/assets/img/home-bg-3.jpg"></ion-img>
+                  <ion-img src="/assets/img/home-bg-3.jpg" alt="تلفن خونه" ></ion-img>
               </ion-slide>
           </ion-slides>
           <div class="content">
@@ -81,7 +81,7 @@
                               <li *ngFor="let consoltant of searchItems.consoltants" class="searchItem">
 <!-- !!11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 -->
                                 <!-- todo -->
-                               <a [routerLink]="['/c' , 'm' ,consoltant.category_item_link ,consoltant.link]">
+                               <a [routerLink]="['/consultation' , 'adviser' ,consoltant.category_item_link ,consoltant.link]">
                                   <!--* تگ بعد حذف باید بشه  -->
                                     <!-- <a [routerLink]="['/c']"> -->
 
@@ -140,8 +140,8 @@
           <ion-grid class="mt-10 mt-md-30">
               <ion-row class="ion-hide-md-down desktopServices">
                   <ion-col size="4" class="pr-0 pl-md-30 " *ngFor="let item of services">
-                      <ion-item [routerLink]="[item.link]" class="my-service box-shadow w-100 no-scroll" [color]="item.color" detail button="true" lines="none">
-                          <ion-img class="ml-15" slot="start" [src]="item.image" [alt]="item.name">
+                      <ion-item [routerLink]="[item.link]" class="my-service box-shadow w-100 no-scroll ion-no-margin ion-no-padding" [color]="item.color" detail button="true" lines="none">
+                          <ion-img alt="تلفن خونه"  slot="start" [src]="item.image" [alt]="item.name">
                           </ion-img>
                           <ion-label>
                               <h3 class="title-service">{{ item.name }}</h3>
@@ -155,7 +155,7 @@
 
               <div class="ion-hide-md-up mobileService">
                   <div [routerLink]="[item.link]" routerLinkActive="router-link-active" class="item {{ 'type' + item.type }}" *ngFor="let item of services ;let i = index">
-                      <ion-img slot="start" [src]="item.image" [alt]=" item.name ">
+                      <ion-img slot="start" [src]="item.image" [alt]=" item.name " alt="تلفن خونه">
                       </ion-img>
                       <ion-label>
                           <h3 class="title-service">{{ item.name }}</h3>
@@ -217,7 +217,7 @@
           <!-- مشاوران -->
           <div class="more-title flex-row-center-between width-100">
               <h2 class="title title-type-one"><span>مشاوران آنلاین</span></h2>
-              <ion-button color="primary" expand="block" fill="clear" [routerLink]="['/c']">
+              <ion-button color="primary" expand="block" fill="clear" [routerLink]="['/consultation']">
                   مشاهده همه <i class="fas fa-chevron-left mr-10"></i></ion-button>
           </div>
 
@@ -246,7 +246,7 @@
 <!-- !!11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 -->
 
                       <!-- todo -->
-                      <ion-button [routerLink]="['/c' , 'm' ,item.category_item_link ,item.link]" class="font-size-12 w-100" expand="block" shape="round" fill="outline" color="primary">
+                      <ion-button [routerLink]="['/consultation' , 'adviser' ,item.category_item_link ,item.link]" class="font-size-12 w-100" expand="block" shape="round" fill="outline" color="primary">
                       <!--* تگ بعد حذف باید بشه  -->
                         <!-- <ion-button [routerLink]="['/c' ]" class="font-size-12 w-100" expand="block" shape="round" fill="outline" color="primary"> -->
                           <ion-label> دریافت مشاوره</ion-label>
@@ -270,7 +270,7 @@
           <!--            </h2>-->
           <div class="more-title flex-row-center-between width-100">
               <h2 class="title title-type-one"><span>دسته بندی ها</span></h2>
-              <ion-button color="primary" expand="block" fill="clear" [routerLink]="['/c']">
+              <ion-button color="primary" expand="block" fill="clear" [routerLink]="['/consultation']">
                   مشاهده همه <i class="fas fa-chevron-left mr-10"></i></ion-button>
           </div>
           <ion-slides class="mt-10 mt-md-50 pt-0 pt-md-40 show-overslide" [options]="categoryOpts">
@@ -309,19 +309,19 @@
                               <div data-relative-input="true" #parallaxScene>
                                   <div data-depth="0.2" class="about-images box-shadow image1">
                                       <div class="image">
-                                          <img class="img-contain" src="./assets/img/sale.png" alt="درباره ما" />
+                                          <img class="img-contain" src="./assets/img/sale.png" alt="درباره تلفن خونه" />
                                       </div>
                                       <span class="label">هزینه مناسب</span>
                                   </div>
                                   <div data-depth="0.3" class="about-images box-shadow image2">
                                       <div class="image">
-                                          <img class="img-contain" src="./assets/img/lawyer-2.png" alt="درباره ما" />
+                                          <img class="img-contain" src="./assets/img/lawyer-2.png" alt="درباره تلفن خونه" />
                                       </div>
                                       <span class="label">هزینه مناسب</span>
                                   </div>
                                   <div data-depth="0.6" class="about-images box-shadow image3">
                                       <div class="image">
-                                          <img class="img-contain" src="./assets/img/private-message.png" alt="درباره ما" />
+                                          <img class="img-contain" src="./assets/img/private-message.png" alt="درباره تلفن خونه" />
                                       </div>
                                       <span class="label">هزینه مناسب</span>
                                   </div>
@@ -390,7 +390,7 @@
           <!-- others opinion -->
           <ng-template [ngIf]="testimonials.length != 0">
               <h2 class="title title-type-one mt-10 mb-0 mt-md-80 mb-md-30">
-                  <span>دیگران درباره ما چه میگویند ؟</span>
+                  <span>دیگران درباره تلفن خونه چه میگویند ؟</span>
               </h2>
               <ion-slides class="others-opinion show-overslide" [options]="commentsOpts">
                   <ion-slide *ngFor="let commnet of testimonials ">
@@ -400,7 +400,7 @@
                           </div>
                           <ion-item class="w-100 ion-no-padding" lines="none">
                               <ion-thumbnail slot="start">
-                                  <img class="img-cover" src="{{ commnet.media }}" alt="" />
+                                  <img class="img-cover" src="{{ commnet.media }}" [alt]="commnet.name" />
                               </ion-thumbnail>
                               <ion-label>
                                   <span class="name">{{ commnet.name }}</span>
@@ -415,14 +415,14 @@
               <h2 class="title title-type-one">
                   <span>مجله اینترنتی تلفن خونه</span>
               </h2>
-              <ion-button color="primary" expand="block" fill="clear" [routerLink]="['/b']">
+              <ion-button color="primary" expand="block" fill="clear" href="/other/blog">
                   مشاهده همه <i class="fas fa-chevron-left mr-10"></i></ion-button>
           </div>
           <ion-slides class="show-overslide pt-10 pt-md-40" [options]="slideOpts2">
               <ion-slide *ngFor="let item of blogs">
                   <a class="home-cards home-magzine box-shadow w-100 flex" target="_blank" [href]="item?.link">
                       <div class="image">
-                          <img *ngIf="item.media" class="img-cover" [src]="item.media" alt="" />
+                          <img *ngIf="item.media" class="img-cover" [src]="item.media" [alt]="item.title" />
                           <img *ngIf="!item.media" class="img-cover" src="assets/img/no-image.jpg" alt="" />
                       </div>
                       <div class="inner w-100">

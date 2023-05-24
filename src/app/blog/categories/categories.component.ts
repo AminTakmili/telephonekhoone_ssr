@@ -24,7 +24,7 @@ export class BlogCategoriesComponent implements OnInit {
 	searchText = '';
 	categoryId: number;
 	breadCrumb = [
-		{ url: '/', name: 'صفحه نخست' },
+		{ url: '/', name: 'تلفن خونه' },
 		{ url: '/b', name: 'بلاگ' },
 	];
 	p2: 1;
