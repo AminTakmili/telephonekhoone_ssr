@@ -49,8 +49,8 @@ export class GlobalService {
 	userType = new BehaviorSubject<string>( null /*localStorage.getItem('userType')*/ );
 	login = false ; /* JSON.parse(localStorage.getItem('isLogin')) */
 	private _login = new BehaviorSubject<boolean>(false);
-	private baseUrl = 'https://app.telephonkhoneh.com/api/';
-	private imgUrl = 'https://app.telephonkhoneh.com/';
+	private baseUrl = 'https://app.telephonekhooneh.com/api/';
+	private imgUrl = 'https://app.telephonekhooneh.com/';
 	pageLocation = '';
 	urlSection = [];
 	private token =environment.defaultToken
